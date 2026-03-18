@@ -10860,6 +10860,7 @@ function startExamen(jaar){
 exJaar = jaar;
 exVraagNr = 0;
 const ex = EXAMENS[jaar];
+if(!ex){alert('Examen nog niet beschikbaar');return;}
 exAntwoorden = new Array(ex.vragen.length).fill(null);
 document.getElementById('exw-title').textContent = ex.titel;
 document.getElementById('exw-sub').textContent = `Economie · vmbo ${NV} · ${ex.vragen.length} vragen`;
@@ -17497,3 +17498,100 @@ document.addEventListener('DOMContentLoaded', function() {
 setTimeout(voegSchrijftrainerKnopToe, 200);
 });
 })();
+// ══════════════════════════════════════════════════════
+// VMBO-KB ECONOMIE 2023 tijdvak 1 — JavaScript
+// ══════════════════════════════════════════════════════
+const kb23Scores = {};
+const KB23_MAX = 49;
+
+function kb23UpdateBalk() {
+  const totaal = Object.values(kb23Scores).reduce((a,b)=>a+b,0);
+  const pct = Math.round(totaal/KB23_MAX*100);
+  const el = document.getElementById('kb23-score-balk');
+  const badge = document.getElementById('kb23-score-badge');
+  const tekst = document.getElementById('kb23-score-tekst');
+  const eind = document.getElementById('kb23-eindstand');
+  const cijfer = document.getElementById('kb23-eindcijfer');
+  if(el) el.style.width = pct+'%';
+  if(badge) badge.textContent = 'Score: '+totaal+' / '+KB23_MAX+' pt';
+  if(tekst) tekst.textContent = totaal+' van '+KB23_MAX+' punten';
+  if(eind) eind.textContent = totaal+' / '+KB23_MAX+' punten';
+  if(cijfer) {
+    const c = Math.round((totaal/KB23_MAX)*9+1);
+    cijfer.textContent = 'Indicatief cijfer: ' + Math.min(10,Math.max(1,c));
+  }
+}
+
+function kb23MC(vraagNr, gekozen, goed) {
+  const wrap = document.getElementById('kb23-mc'+vraagNr);
+  const fb   = document.getElementById('kb23-fb'+vraagNr);
+  if(!wrap || wrap.dataset.gedaan) return;
+  wrap.dataset.gedaan = '1';
+  Array.from(wrap.querySelectorAll('.ex25-mc-btn')).forEach(btn => {
+    btn.disabled = true;
+    const letter = btn.textContent.trim().charAt(0);
+    if(letter === goed)                        btn.classList.add('correct');
+    if(letter === gekozen && gekozen !== goed) btn.classList.add('fout');
+  });
+  const juist = gekozen === goed;
+  kb23Scores['v'+vraagNr] = juist ? 1 : 0;
+  if(fb) {
+    fb.style.display = 'block';
+    if(juist) {
+      fb.className = 'ex25-mc-feedback goed';
+      fb.textContent = '✅ Goed! Het juiste antwoord is ' + goed + '.';
+    } else {
+      fb.className = 'ex25-mc-feedback fout';
+      fb.textContent = '❌ Helaas — het juiste antwoord is ' + goed + '.';
+    }
+  }
+  kb23UpdateBalk();
+}
+
+function kb23ToonAntwoord(nr) {
+  const ab = document.getElementById('kb23-ab'+nr);
+  if(ab) ab.style.display = 'block';
+}
+
+function kb23Punt(nr, punten, max) {
+  kb23Scores['v'+nr] = punten;
+  const zbEl = document.getElementById('kb23-zb'+nr);
+  if(zbEl) {
+    Array.from(zbEl.querySelectorAll('.ex25-zb-btn')).forEach(b => {
+      b.style.background = '';
+      b.style.color = '';
+    });
+    zbEl.querySelectorAll('.ex25-zb-btn').forEach(b => {
+      if(parseInt(b.textContent) === punten) {
+        b.style.background = '#1a5a8a';
+        b.style.color = '#fff';
+      }
+    });
+  }
+  kb23UpdateBalk();
+}
+
+function kb23Reset() {
+  Object.keys(kb23Scores).forEach(k => delete kb23Scores[k]);
+  document.querySelectorAll('[id^="kb23-mc"]').forEach(wrap => {
+    delete wrap.dataset.gedaan;
+    Array.from(wrap.querySelectorAll('.ex25-mc-btn')).forEach(btn => {
+      btn.disabled = false;
+      btn.style.background = '';
+      btn.classList.remove('correct', 'fout');
+    });
+  });
+  document.querySelectorAll('[id^="kb23-fb"]').forEach(el => el.style.display='none');
+  document.querySelectorAll('[id^="kb23-ab"]').forEach(el => el.style.display='none');
+  document.querySelectorAll('[id^="kb23-ta"]').forEach(el => el.value='');
+  document.querySelectorAll('[id^="kb23-zb"] .ex25-zb-btn').forEach(b => {
+    b.style.background=''; b.style.color='';
+  });
+  kb23UpdateBalk();
+  window.scrollTo(0,0);
+}
+
+function startExamenKB2023() {
+  kb23Reset();
+  show('s-examen-kb-2023');
+}
