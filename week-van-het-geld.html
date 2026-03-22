@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<!-- vlaconomie.nl — Week van het Geld v1.0 -->
+<html lang="nl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Week van het Geld — Jij vs. Je Portemonnee | vlaconomie.nl</title>
+<meta name="description" content="Speciale les Week van het Geld voor 2/3 vmbo/havo/vwo. Leer over Klarna, dark patterns, influencers en bereken de echte prijs van een gadget in werkuren."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://vlaconomie.nl/week-van-het-geld.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://vlaconomie.nl/week-van-het-geld.html"/>
+<meta property="og:title" content="Week van het Geld — vlaconomie.nl"/>
+<meta property="og:description" content="Jij vs. Je Portemonnee: een interactieve les over geld, verleidingstrucs en slimme keuzes."/>
+<meta property="og:image" content="https://vlaconomie.nl/icons/icon-192.png"/>
+<meta name="theme-color" content="#0f4d2e"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="apple-touch-icon" href="/icon-192.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Variabelen (zelfde als vlaconomie.nl) ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#1a7a4a;--gl:#2ecc71;--gd:#0f4d2e;
+  --cream:#f9f6f0;--text:#1a1a1a;--muted:#555;--white:#fff;
+  --sh:0 4px 24px rgba(0,0,0,.08);--r:16px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;min-height:100vh}
+
+/* ── Header (zelfde stijl als vlaconomie.nl) ── */
+header{background:linear-gradient(135deg,#0f4d2e,#1a7a4a);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.header-logo{font-family:'Lexend',sans-serif;font-weight:800;font-size:1.1rem;cursor:pointer;text-decoration:none;color:#fff}
+.header-logo span{color:#f0c040}
+.header-back{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:20px;cursor:pointer;font-family:'Lexend',sans-serif;font-weight:700;font-size:.82rem;text-decoration:none;transition:background .2s}
+.header-back:hover{background:rgba(255,255,255,.25)}
+
+/* ── Hero ── */
+.hero{background:linear-gradient(135deg,#0f4d2e 0%,#1a7a4a 50%,#0f4d2e 100%);color:#fff;padding:3rem 1.5rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:rgba(255,255,255,.05);border-radius:50%}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;background:rgba(255,255,255,.04);border-radius:50%}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:.3rem .9rem;font-size:.78rem;font-family:'Lexend',sans-serif;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:'Lexend',sans-serif;font-weight:800;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.15;margin-bottom:.8rem}
+.hero h1 span{color:#f0c040}
+.hero-sub{font-size:1rem;opacity:.85;max-width:560px;margin:0 auto 1.5rem;line-height:1.6}
+.hero-meta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;font-size:.8rem;opacity:.7}
+.hero-meta span{background:rgba(255,255,255,.1);padding:.3rem .7rem;border-radius:10px}
+
+/* ── Wrapper ── */
+.wrap{max-width:760px;margin:0 auto;padding:1.5rem 1rem 4rem}
+
+/* ── Sectie labels ── */
+.sec-label{font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--g);margin-bottom:.4rem}
+.sec-title{font-family:'Lexend',sans-serif;font-weight:800;font-size:1.4rem;color:var(--text);margin-bottom:.5rem}
+.sec-intro{color:var(--muted);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem}
+
+/* ── Intro box ── */
+.intro-box{background:linear-gradient(135deg,#1a2e4a,#2d4a6e);border-radius:20px;padding:1.8rem;color:#fff;margin-bottom:2rem;position:relative;overflow:hidden}
+.intro-box::before{content:'💸';position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);font-size:5rem;opacity:.1}
+.intro-box p{font-size:1.05rem;line-height:1.7;font-style:italic}
+.intro-box p strong{color:#f0c040;font-style:normal}
+
+/* ── Dilemma kaarten ── */
+.dilemma-card{background:var(--white);border-radius:20px;box-shadow:var(--sh);margin-bottom:1.2rem;overflow:hidden;border:2px solid transparent;transition:border-color .2s,transform .2s}
+.dilemma-card:hover{border-color:var(--g);transform:translateY(-2px)}
+.dilemma-header{padding:1.2rem 1.4rem .8rem;display:flex;align-items:flex-start;gap:1rem}
+.dilemma-nr{background:var(--g);color:#fff;font-family:'Lexend',sans-serif;font-weight:800;font-size:.75rem;padding:.3rem .7rem;border-radius:20px;white-space:nowrap;margin-top:.15rem}
+.dilemma-titel{font-family:'Lexend',sans-serif;font-weight:800;font-size:1.1rem}
+.dilemma-situatie{background:#f4f8f4;border-left:4px solid var(--g);padding:1rem 1.2rem;margin:0 1.4rem;border-radius:0 10px 10px 0;font-size:.9rem;line-height:1.7;color:#2a2a2a}
+.dilemma-vragen{padding:1rem 1.4rem}
+.dilemma-vragen h4{font-family:'Lexend',sans-serif;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.6rem}
+.dilemma-vragen ol{padding-left:1.2rem;display:flex;flex-direction:column;gap:.5rem;font-size:.9rem;color:var(--text)}
+.dilemma-vragen ol li{line-height:1.6}
+
+/* Interactieve mening slider */
+.mening-wrap{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border-radius:12px;padding:1rem 1.2rem;margin:1rem 1.4rem 1.4rem;border:1px solid #bbf7d0}
+.mening-wrap label{font-family:'Lexend',sans-serif;font-weight:700;font-size:.85rem;color:var(--gd);display:block;margin-bottom:.6rem}
+.mening-slider{width:100%;accent-color:var(--g);cursor:pointer}
+.mening-labels{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-top:.3rem}
+.mening-output{text-align:center;font-family:'Lexend',sans-serif;font-weight:700;font-size:.88rem;color:var(--g);margin-top:.5rem;min-height:1.2em;transition:all .3s}
+
+/* ── Uur Calculator ── */
+.calc-card{background:var(--white);border-radius:20px;box-shadow:var(--sh);padding:1.5rem;margin-bottom:2rem}
+.calc-loon-info{background:linear-gradient(135deg,#1a2e4a,#2d4a6e);color:#fff;border-radius:12px;padding:.8rem 1.1rem;font-size:.85rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+.calc-loon-info strong{color:#f0c040}
+.calc-input-row{display:flex;gap:.7rem;align-items:flex-end;flex-wrap:wrap;margin-bottom:1rem}
+.calc-input-row label{font-family:'Lexend',sans-serif;font-weight:700;font-size:.82rem;color:var(--muted);display:block;margin-bottom:.3rem}
+.calc-input{border:2px solid #e0e0e0;border-radius:10px;padding:.55rem .8rem;font-family:'Lexend',sans-serif;font-size:.95rem;width:100%;transition:border .2s;background:var(--white);color:var(--text)}
+.calc-input:focus{border-color:var(--g);outline:none}
+.calc-input-wrap{flex:1;min-width:140px}
+.calc-btn{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:10px;padding:.6rem 1.2rem;font-family:'Lexend',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;white-space:nowrap;transition:transform .15s,box-shadow .15s}
+.calc-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,122,74,.3)}
+.calc-result{background:linear-gradient(135deg,#0f4d2e,#1a7a4a);color:#fff;border-radius:14px;padding:1.2rem;text-align:center;display:none}
+.calc-result.zichtbaar{display:block;animation:fadeIn .4s ease}
+.calc-result .uren{font-family:'Lexend',sans-serif;font-weight:800;font-size:2.2rem;color:#f0c040}
+.calc-result .zaterdagen{font-size:.88rem;opacity:.8;margin-top:.3rem}
+.calc-voorbeelden{margin-top:1.2rem}
+.calc-voorbeelden h4{font-family:'Lexend',sans-serif;font-weight:700;font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.7rem}
+.calc-tabel{width:100%;border-collapse:collapse;font-size:.87rem}
+.calc-tabel th{background:#f4f8f4;color:var(--g);font-family:'Lexend',sans-serif;font-weight:700;padding:.5rem .7rem;text-align:left;border-bottom:2px solid #e0ede6}
+.calc-tabel td{padding:.5rem .7rem;border-bottom:1px solid #f0f0f0;color:var(--text)}
+.calc-tabel tr:last-child td{border-bottom:none}
+.uren-badge{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;font-family:'Lexend',sans-serif;font-weight:800;font-size:.78rem;padding:.2rem .6rem;border-radius:20px}
+
+/* ── Dark Patterns ── */
+.dark-grid{display:flex;flex-direction:column;gap:.9rem;margin-bottom:2rem}
+.dp-card{background:var(--white);border-radius:16px;box-shadow:var(--sh);padding:1.1rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;border-left:4px solid #b30000;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.dp-card:hover{transform:translateX(4px);box-shadow:0 6px 20px rgba(179,0,0,.12)}
+.dp-icon{font-size:1.8rem;flex-shrink:0;line-height:1}
+.dp-content{}
+.dp-naam{font-family:'Lexend',sans-serif;font-weight:800;font-size:.98rem;margin-bottom:.2rem}
+.dp-voorbeeld{font-size:.82rem;color:var(--muted);font-style:italic;margin-bottom:.3rem}
+.dp-uitleg{font-size:.85rem;color:var(--text);line-height:1.6}
+.dp-checkbox{display:flex;align-items:center;gap:.4rem;margin-top:.6rem;font-size:.8rem;color:var(--g);font-weight:700;cursor:pointer}
+.dp-checkbox input[type="checkbox"]{accent-color:var(--g);width:16px;height:16px;cursor:pointer}
+.dp-score{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:14px;padding:1rem;text-align:center;font-family:'Lexend',sans-serif;font-weight:800;font-size:1rem;margin-bottom:2rem}
+.dp-score-getal{font-size:2rem;color:#f0c040;display:block}
+
+/* ── Reflectievragen ── */
+.reflectie-grid{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
+.ref-card{background:var(--white);border-radius:16px;box-shadow:var(--sh);padding:1.3rem}
+.ref-nr{display:inline-block;background:var(--g);color:#fff;font-family:'Lexend',sans-serif;font-weight:800;font-size:.72rem;padding:.2rem .6rem;border-radius:20px;margin-bottom:.6rem}
+.ref-vraag{font-family:'Lexend',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:.8rem;line-height:1.5}
+.ref-textarea{width:100%;border:2px solid #e0e0e0;border-radius:10px;padding:.7rem .9rem;font-family:'DM Sans',sans-serif;font-size:.88rem;resize:vertical;min-height:80px;transition:border .2s;background:var(--white);color:var(--text)}
+.ref-textarea:focus{border-color:var(--g);outline:none}
+
+/* ── Terug knop onderaan ── */
+.terug-wrap{text-align:center;margin-top:2rem}
+.terug-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;padding:.7rem 1.6rem;border-radius:20px;font-family:'Lexend',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(15,77,46,.3)}
+.terug-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(15,77,46,.4)}
+
+/* ── Sectie divider ── */
+.sectie{margin-bottom:2.5rem}
+
+/* ── Animaties ── */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sectie{animation:fadeIn .5s ease both}
+
+/* ── Responsive ── */
+@media(max-width:600px){
+  .hero{padding:2rem 1rem 1.8rem}
+  .dilemma-situatie,.dilemma-vragen,.mening-wrap{margin-left:.8rem;margin-right:.8rem}
+  .calc-input-row{flex-direction:column}
+  .calc-btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <a href="index.html" class="header-logo">Economie<span>Oefenen</span></a>
+  <a href="index.html" class="header-back">← Terug naar home</a>
+</header>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-badge">💸 Week van het Geld</div>
+  <h1>Jij vs.<br><span>Je Portemonnee</span></h1>
+  <p class="hero-sub">Wie controleert jouw geld écht? Algoritmes, designers en marketeers werken 24/7 om jou meer te laten uitgeven. Deze les ga jij ze ontmaskeren.</p>
+  <div class="hero-meta">
+    <span>2/3 vmbo · havo · vwo</span>
+    <span>⏱ 50 minuten</span>
+    <span>🎯 Interactief</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ══ INTRO ══ -->
+  <div class="sectie">
+    <div class="intro-box">
+      <p>Je ziet een hoodie van <strong>€89,-</strong> op Instagram. Je klikt. Klarna zegt: <strong>betaal later</strong>. Je bestelt. Drie weken later komt de rekening.<br><br>
+      Hoe is dit precies gebeurd — en had jij het door?</p>
+    </div>
+  </div>
+
+  <!-- ══ DILEMMA'S ══ -->
+  <div class="sectie">
+    <div class="sec-label">⚡ Stap 1</div>
+    <div class="sec-title">Drie dilemma's</div>
+    <p class="sec-intro">Lees elke situatie en beantwoord de vragen. Er is geen goed of fout — het gaat om jouw redenering.</p>
+
+    <!-- Dilemma 1: Klarna -->
+    <div class="dilemma-card">
+      <div class="dilemma-header">
+        <span class="dilemma-nr">Dilemma 1</span>
+        <div>
+          <div class="dilemma-titel">🛍️ De Klarna Trap</div>
+        </div>
+      </div>
+      <div class="dilemma-situatie">
+        <strong>Situatie:</strong> Selin (15) koopt via Klarna een jas van €120,-. Ze betaalt in 3 termijnen van €40,-. Tegelijk bestelt ze schoenen (€80,-) en een rugzak (€60,-) — ook via Klarna. Ze denkt: <em>"Ik betaal maar €60,- per maand, dat is toch prima?"</em>
+      </div>
+      <div class="dilemma-vragen">
+        <h4>Vragen</h4>
+        <ol>
+          <li>Hoeveel is Selin in totaal verschuldigd? Maak de berekening.</li>
+          <li>Wat gebeurt er als ze een termijn mist? Zoek de Klarna-voorwaarden op.</li>
+          <li>Voor wie is "Koop nu, betaal later" slim — voor Selin of voor Klarna? Leg uit.</li>
+        </ol>
+      </div>
+      <div class="mening-wrap">
+        <label for="s1">💬 Jouw mening: Zou jij Klarna gebruiken?</label>
+        <input type="range" id="s1" class="mening-slider" min="1" max="5" value="3" oninput="updateMening('s1','m1',['Nooit!','Waarschijnlijk niet','Misschien','Waarschijnlijk wel','Zeker wel!'])">
+        <div class="mening-labels"><span>Nooit</span><span>Zeker wel</span></div>
+        <div class="mening-output" id="m1">Misschien</div>
+      </div>
+    </div>
+
+    <!-- Dilemma 2: Influencer -->
+    <div class="dilemma-card">
+      <div class="dilemma-header">
+        <span class="dilemma-nr">Dilemma 2</span>
+        <div>
+          <div class="dilemma-titel">📱 De Influencer Deal</div>
+        </div>
+      </div>
+      <div class="dilemma-situatie">
+        <strong>Situatie:</strong> TikTokker @Jayden_Lifestyle (1,2M volgers, 17 jaar) post: <em>"Dit is het BESTE energydrankje ooit 🔥 — gebruik mijn code JAYDEN10 voor 10% korting!"</em> Hij verdient €0,50 per verkoop. De video heeft 800.000 views.
+      </div>
+      <div class="dilemma-vragen">
+        <h4>Vragen</h4>
+        <ol>
+          <li>Bereken: als 2% van de kijkers iets koopt, hoeveel verdient Jayden dan?</li>
+          <li>Wat is het verschil tussen een eerlijk advies en betaalde reclame?</li>
+          <li>Moet Jayden verplicht "#reclame" vermelden? Zoek de ACM-regels op.</li>
+          <li>Ben jij al eens iets gekocht door een influencer? Was het het waard?</li>
+        </ol>
+      </div>
+      <div class="mening-wrap">
+        <label for="s2">💬 Jouw mening: Vertrouw jij aanbevelingen van influencers?</label>
+        <input type="range" id="s2" class="mening-slider" min="1" max="5" value="3" oninput="updateMening('s2','m2',['Nooit!','Zelden','Soms','Vaak','Altijd'])">
+        <div class="mening-labels"><span>Nooit</span><span>Altijd</span></div>
+        <div class="mening-output" id="m2">Soms</div>
+      </div>
+    </div>
+
+    <!-- Dilemma 3: In-game -->
+    <div class="dilemma-card">
+      <div class="dilemma-header">
+        <span class="dilemma-nr">Dilemma 3</span>
+        <div>
+          <div class="dilemma-titel">🎮 In-Game Aankopen: Pay to Win?</div>
+        </div>
+      </div>
+      <div class="dilemma-situatie">
+        <strong>Situatie:</strong> Fortnite lanceert een nieuw skin-pakket voor €19,99. Het is tijdelijk: <em>"Nog 23:47:12..."</em> Daan (14) heeft zijn V-Bucks al op maar wil de skin écht hebben. Hij vraagt zijn ouders om een cadeaukaart.
+      </div>
+      <div class="dilemma-vragen">
+        <h4>Vragen</h4>
+        <ol>
+          <li>Wat koop je eigenlijk bij een skin? Is het écht van jou?</li>
+          <li>Welke psychologische truc zit er in de countdown-timer?</li>
+          <li>Als Daan dit elke maand doet, hoeveel geeft hij per jaar uit?</li>
+          <li>Stelling: <em>"In-game aankopen moeten verboden worden voor minderjarigen."</em> — Eens of oneens? Onderbouw je antwoord.</li>
+        </ol>
+      </div>
+      <div class="mening-wrap">
+        <label for="s3">💬 Jouw mening: In-game aankopen voor minderjarigen verbieden?</label>
+        <input type="range" id="s3" class="mening-slider" min="1" max="5" value="3" oninput="updateMening('s3','m3',['Absoluut verbieden','Liever verbieden','Twijfel','Liever toestaan','Gewoon toestaan'])">
+        <div class="mening-labels"><span>Verbieden</span><span>Toestaan</span></div>
+        <div class="mening-output" id="m3">Twijfel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ UUR CALCULATOR ══ -->
+  <div class="sectie">
+    <div class="sec-label">⏱ Stap 2</div>
+    <div class="sec-title">De Uur-Calculator</div>
+    <p class="sec-intro">Een gadget kopen is makkelijk. Maar hoeveel uur werk jij er eigenlijk voor? Reken het zelf uit.</p>
+
+    <div class="calc-card">
+      <div class="calc-loon-info">
+        💼 Minimumjeugdloon 15-jarige (1 jan 2026): <strong>€4,41 bruto per uur</strong>
+      </div>
+
+      <div class="calc-input-row">
+        <div class="calc-input-wrap">
+          <label>Wat wil je kopen?</label>
+          <input type="text" class="calc-input" id="calc-naam" placeholder="Bijv. AirPods Pro" />
+        </div>
+        <div class="calc-input-wrap" style="max-width:140px">
+          <label>Prijs (€)</label>
+          <input type="number" class="calc-input" id="calc-prijs" placeholder="Bijv. 249" min="0" step="0.01" />
+        </div>
+        <button class="calc-btn" onclick="berekenUren()">Bereken →</button>
+      </div>
+
+      <div class="calc-result" id="calc-result">
+        <div style="font-size:.85rem;opacity:.75;margin-bottom:.3rem" id="calc-naam-result">AirPods Pro</div>
+        <div class="uren" id="calc-uren-getal">55</div>
+        <div style="font-size:.9rem;font-family:'Lexend',sans-serif;font-weight:600;margin-top:.2rem">werkuren in de supermarkt</div>
+        <div class="zaterdagen" id="calc-zaterdagen">= ruim 13 zaterdagen van 4 uur</div>
+      </div>
+
+      <div class="calc-voorbeelden">
+        <h4>Voorbeelden</h4>
+        <table class="calc-tabel">
+          <thead><tr><th>Aankoop</th><th>Prijs</th><th>Werkuren</th></tr></thead>
+          <tbody>
+            <tr><td>AirPods Pro</td><td>€249,-</td><td><span class="uren-badge">56 uur</span></td></tr>
+            <tr><td>Nike Air Max</td><td>€169,-</td><td><span class="uren-badge">38 uur</span></td></tr>
+            <tr><td>Fortnite skin</td><td>€19,99</td><td><span class="uren-badge">4,5 uur</span></td></tr>
+            <tr><td>Klarna jas</td><td>€120,-</td><td><span class="uren-badge">27 uur</span></td></tr>
+            <tr><td>Spotify Premium (jaar)</td><td>€71,88</td><td><span class="uren-badge">16 uur</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DARK PATTERNS ══ -->
+  <div class="sectie">
+    <div class="sec-label">🕸️ Stap 3</div>
+    <div class="sec-title">Dark Patterns Checklist</div>
+    <p class="sec-intro">Dark patterns zijn ontwerptrucs die webshops gebruiken om jou te laten doen wat <em>zij</em> willen. Vink aan welke je al eens bent tegengekomen.</p>
+
+    <div class="dark-grid">
+
+      <div class="dp-card" onclick="toggleDP(this)">
+        <div class="dp-icon">🔴</div>
+        <div class="dp-content">
+          <div class="dp-naam">#1 — De Nepdrukte</div>
+          <div class="dp-voorbeeld">"Nog maar 2 op voorraad!" · "23 mensen bekijken dit nu"</div>
+          <div class="dp-uitleg">Valse schaarste om jou sneller te laten beslissen. De voorraad hoeft helemaal niet laag te zijn.</div>
+          <label class="dp-checkbox"><input type="checkbox" onclick="event.stopPropagation();updateDPScore()"> Ik heb dit al eens gezien</label>
+        </div>
+      </div>
+
+      <div class="dp-card" onclick="toggleDP(this)">
+        <div class="dp-icon">⏳</div>
+        <div class="dp-content">
+          <div class="dp-naam">#2 — De Countdown</div>
+          <div class="dp-voorbeeld">"Aanbieding verloopt over 02:14:33"</div>
+          <div class="dp-uitleg">Tijdsdruk die soms gewoon opnieuw start zodra de tijd op is. De aanbieding is nooit echt weg.</div>
+          <label class="dp-checkbox"><input type="checkbox" onclick="event.stopPropagation();updateDPScore()"> Ik heb dit al eens gezien</label>
+        </div>
+      </div>
+
+      <div class="dp-card" onclick="toggleDP(this)">
+        <div class="dp-icon">💸</div>
+        <div class="dp-content">
+          <div class="dp-naam">#3 — De Verborgen Kosten</div>
+          <div class="dp-voorbeeld">Prijs lijkt €29,- maar aan het einde: + €6,50 verzending + €2,- servicekosten</div>
+          <div class="dp-uitleg">De echte prijs wordt pas op het allerlaatste moment onthuld — als je al bijna klaar bent met bestellen.</div>
+          <label class="dp-checkbox"><input type="checkbox" onclick="event.stopPropagation();updateDPScore()"> Ik heb dit al eens gezien</label>
+        </div>
+      </div>
+
+      <div class="dp-card" onclick="toggleDP(this)">
+        <div class="dp-icon">🪤</div>
+        <div class="dp-content">
+          <div class="dp-naam">#4 — Het Roach Motel</div>
+          <div class="dp-voorbeeld">Inschrijven = 1 klik. Uitschrijven = bellen, mailen, wachten...</div>
+          <div class="dp-uitleg">Makkelijk in, heel moeilijk uit. Denk aan gym-abonnementen en streamingdiensten.</div>
+          <label class="dp-checkbox"><input type="checkbox" onclick="event.stopPropagation();updateDPScore()"> Ik heb dit al eens gezien</label>
+        </div>
+      </div>
+
+      <div class="dp-card" onclick="toggleDP(this)">
+        <div class="dp-icon">👆</div>
+        <div class="dp-content">
+          <div class="dp-naam">#5 — De Misleidende Knop</div>
+          <div class="dp-voorbeeld">Grote groene knop: "Ja! Schrijf me in!" · Kleine grijze link: "Nee bedankt"</div>
+          <div class="dp-uitleg">Door design worden keuzes voor jou gemaakt. De knop die jij wilt, is bewust moeilijk te vinden.</div>
+          <label class="dp-checkbox"><input type="checkbox" onclick="event.stopPropagation();updateDPScore()"> Ik heb dit al eens gezien</label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="dp-score" id="dp-score">
+      Vink aan welke dark patterns jij al eens bent tegengekomen
+    </div>
+  </div>
+
+  <!-- ══ REFLECTIEVRAGEN ══ -->
+  <div class="sectie">
+    <div class="sec-label">🧠 Stap 4</div>
+    <div class="sec-title">Reflectievragen</div>
+    <p class="sec-intro">Sluit de les af met een scherpe blik op jezelf en de wereld. Schrijf je antwoorden hieronder.</p>
+
+    <div class="reflectie-grid">
+
+      <div class="ref-card">
+        <span class="ref-nr">Vraag 1 — Persoonlijk</span>
+        <div class="ref-vraag">Denk aan de laatste keer dat je iets kocht wat je eigenlijk niet nodig had. Welke truc heeft jou over de streep getrokken?</div>
+        <textarea class="ref-textarea" placeholder="Schrijf hier je antwoord..."></textarea>
+      </div>
+
+      <div class="ref-card">
+        <span class="ref-nr">Vraag 2 — Maatschappelijk</span>
+        <div class="ref-vraag">Is het eerlijk dat bedrijven psychologische trucjes mogen gebruiken op tieners? Waar ligt de grens tussen slimme marketing en manipulatie?</div>
+        <textarea class="ref-textarea" placeholder="Schrijf hier je antwoord..."></textarea>
+      </div>
+
+      <div class="ref-card">
+        <span class="ref-nr">Vraag 3 — Toekomstgericht</span>
+        <div class="ref-vraag">Als jij vanaf nu €50,- per maand spaart in plaats van uitgeeft — wat zou dat over 5 jaar voor jou betekenen? Bereken het (tip: zoek "compound interest calculator" op).</div>
+        <textarea class="ref-textarea" placeholder="Schrijf hier je berekening en conclusie..."></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ DOCENTEN DOWNLOAD ══ -->
+  <div class="sectie">
+    <div style="background:linear-gradient(135deg,#1a2e4a,#2d4a6e);border-radius:20px;padding:1.5rem 1.8rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap">
+      <div style="font-size:2.2rem;flex-shrink:0">👩‍🏫</div>
+      <div style="flex:1;min-width:200px">
+        <div style="font-family:'Lexend',sans-serif;font-weight:800;font-size:1rem;color:#fff;margin-bottom:.2rem">Ben je docent?</div>
+        <div style="font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.5">Download de PowerPoint presentatie (10 slides) om deze les te introduceren in de klas.</div>
+      </div>
+      <a href="WeekVanHetGeld_Docentenpresentatie.pptx" download
+         style="display:inline-flex;align-items:center;gap:.5rem;background:#f0c040;color:#0f4d2e;padding:.7rem 1.4rem;border-radius:12px;font-family:'Lexend',sans-serif;font-weight:800;font-size:.88rem;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(0,0,0,.2)"
+         onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.3)'"
+         onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px rgba(0,0,0,.2)'">
+        📥 Presentatie downloaden
+        <span style="font-weight:400;font-size:.75rem;opacity:.75">PowerPoint · 10 slides</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ TERUG KNOP ══ -->
+  <div class="terug-wrap">
+    <a href="index.html" class="terug-btn">← Terug naar vlaconomie.nl</a>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+// ── Mening slider ──
+function updateMening(sliderId, outputId, labels) {
+  const val = parseInt(document.getElementById(sliderId).value);
+  document.getElementById(outputId).textContent = labels[val - 1];
+}
+
+// ── Uur Calculator ──
+function berekenUren() {
+  const naam  = document.getElementById('calc-naam').value.trim() || 'Dit product';
+  const prijs = parseFloat(document.getElementById('calc-prijs').value);
+  if (isNaN(prijs) || prijs <= 0) {
+    document.getElementById('calc-prijs').style.borderColor = '#e53e3e';
+    return;
+  }
+  document.getElementById('calc-prijs').style.borderColor = '#e0e0e0';
+  const loon   = 4.41;
+  const uren   = prijs / loon;
+  const zatSes = 4; // uur per zaterdag
+  const zats   = uren / zatSes;
+
+  document.getElementById('calc-naam-result').textContent = naam;
+  document.getElementById('calc-uren-getal').textContent  = uren.toFixed(1).replace('.', ',');
+
+  let zatTekst = '';
+  if (zats < 1)      zatTekst = `= minder dan 1 zaterdag van 4 uur`;
+  else if (zats < 2) zatTekst = `= bijna 1 zaterdag van 4 uur`;
+  else               zatTekst = `= ruim ${Math.floor(zats)} zaterdagen van 4 uur`;
+
+  document.getElementById('calc-zaterdagen').textContent = zatTekst;
+  const res = document.getElementById('calc-result');
+  res.classList.add('zichtbaar');
+  res.style.display = 'block';
+}
+
+// ── Dark Patterns ──
+function toggleDP(card) {
+  // visuele highlight, checkbox zelf regelt de state
+}
+
+function updateDPScore() {
+  const checkboxes = document.querySelectorAll('.dp-checkbox input[type="checkbox"]');
+  const aangevinkt = Array.from(checkboxes).filter(c => c.checked).length;
+  const el = document.getElementById('dp-score');
+  const berichten = [
+    'Vink aan welke dark patterns jij al eens bent tegengekomen',
+    '🙂 1 gevonden — je begint ze te herkennen!',
+    '👀 2 gevonden — je ziet ze al aankomen.',
+    '🧠 3 gevonden — je bent goed bewust!',
+    '🔍 4 gevonden — bijna niet meer voor de gek te houden.',
+    '🏆 Alle 5 gevonden — jij laat je niet meer beetnemen!'
+  ];
+  el.innerHTML = `<span class="dp-score-getal">${aangevinkt} / 5</span>${berichten[aangevinkt]}`;
+}
+</script>
+</body>
+</html>
