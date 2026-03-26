@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vlaconomie — H1 Wat is economie?</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--gd:#1a7a4a;--gl:#2ecc71;--glicht:#e8faf0;--gzl:#f0fdf4;
+  --goud:#f0c040;--goudd:#d4a012;
+  --rood:#b30000;--roodl:#e53e3e;
+  --blauw:#1a2e4a;--blauwl:#2d4a6e;
+  --donker:#1a1a2e;--donkerp:#2d1b4e;
+  --grijs:#6b7280;--lichtgrijs:#f7f9fc;--rand:#e0e8f4;
+  --sh:0 2px 10px rgba(0,0,0,.1);
+  --sh2:0 4px 20px rgba(0,0,0,.12);
+  --bg:#f4f7f4
+}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--bg);color:#1a1a2e;font-size:15px}
+header{background:linear-gradient(135deg,var(--groen),var(--gd));position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(15,77,46,.4)}
+.hdr-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.logo{font-family:'Lexend',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.5px;color:#fff}
+.logo em{color:var(--goud);font-style:normal}
+.logo-sub{font-size:.7rem;color:rgba(255,255,255,.7);font-family:'DM Sans',sans-serif}
+nav{display:flex;overflow-x:auto;background:rgba(0,0,0,.2);padding:0 14px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{padding:9px 12px;border:none;background:none;color:rgba(255,255,255,.75);font-family:'Lexend',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+nav button:hover,nav button.act{color:#fff;border-bottom-color:var(--goud);background:rgba(255,255,255,.1)}
+main{max-width:900px;margin:0 auto;padding:20px 14px 60px}
+.sec{display:none;animation:fu .3s ease}.sec.act{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.phdr{background:linear-gradient(135deg,var(--groen),var(--gd));color:#fff;padding:22px 26px;border-radius:12px 12px 0 0}
+.phdr .pn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--goud);color:var(--groen);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;font-weight:700}
+.phdr h2{font-family:'Lexend',sans-serif;font-size:1.4rem;margin-bottom:4px;font-weight:800}
+.phdr p{color:rgba(255,255,255,.8);font-size:.87rem}
+.nk{padding:18px 22px;margin-bottom:2px;border-left:6px solid var(--gd)}
+.nk-groen{background:linear-gradient(135deg,#e8faf0,#c8efd8);border-color:var(--gd)}
+.nk-rood{background:linear-gradient(135deg,#fdecea,#f9d0cd);border-color:var(--roodl)}
+.nk-goud{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-color:var(--goudd)}
+.nk-blauw{background:linear-gradient(135deg,#e8f0fb,#d0e2f7);border-color:var(--blauwl)}
+.nk-tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grijs);margin-bottom:5px}
+.nk-kop{font-family:'Lexend',sans-serif;font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:3px;line-height:1.35}
+.nk-meta{font-size:.73rem;color:var(--grijs);margin-bottom:10px}
+.nk-body{font-size:.87rem;line-height:1.55;color:#333;margin-bottom:12px}
+.nk-stats{display:flex;margin-bottom:12px;background:rgba(255,255,255,.55);border-radius:8px;overflow:hidden}
+.nk-stat{flex:1;padding:9px 12px;text-align:center;border-right:1px solid rgba(255,255,255,.6)}
+.nk-stat:last-child{border-right:none}
+.nk-sv{font-family:'Lexend',sans-serif;font-size:1.1rem;font-weight:700;color:#1a1a2e;margin-bottom:2px}
+.nk-sl{font-size:.68rem;color:var(--grijs);line-height:1.3}
+.nk-link{font-size:.77rem;font-weight:600;color:var(--gd);text-decoration:none}
+.nk-link:hover{text-decoration:underline}
+.blok{background:#fff;padding:22px;box-shadow:var(--sh);margin-bottom:2px}
+.blok:last-child{border-radius:0 0 12px 12px;margin-bottom:18px}
+.bttl{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gd);margin-bottom:14px;display:flex;align-items:center;gap:8px;font-family:'Lexend',sans-serif}
+.bttl::before{content:'';display:inline-block;width:3px;height:15px;background:var(--gd);border-radius:2px}
+.dhdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--glicht)}
+.dav{font-size:1.5rem;background:var(--glicht);width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.dbody{font-size:.91rem;line-height:1.85;color:#222}
+.dbody p{margin-bottom:14px}.dbody p:last-child{margin-bottom:0}
+.dbody strong{color:var(--groen);font-weight:700}
+.dsep{border:none;border-top:2px dashed rgba(26,122,74,.2);margin:18px 0}
+.dex{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:11px 15px;margin:12px 0 4px;font-size:.86rem;color:#333;line-height:1.55}
+.dex::before{content:'Voorbeeld: ';font-weight:700;color:var(--gd)}
+.fml{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:10px 15px;margin:10px 0;font-size:.88rem;font-family:'Courier New',monospace;color:var(--groen);font-weight:700}
+.dialoog{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border:2px solid rgba(26,122,74,.2);border-radius:10px;padding:16px;margin-bottom:14px}
+.dialoog-rij{margin-bottom:8px;font-size:.87rem;line-height:1.55}
+.dialoog-rij:last-child{margin-bottom:0}
+.dialoog-naam{font-weight:700;color:var(--gd)}
+.dialoog-naam2{font-weight:700;color:var(--groen)}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.tbl th{background:var(--gd);color:#fff;padding:9px 12px;text-align:left;font-family:'Lexend',sans-serif;font-weight:600;font-size:.78rem}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--rand)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even){background:#f9fdf9}
+.wjd{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-left:4px solid var(--goud);border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#4a3b00}
+.wjd::before{content:'Wist je dat? ';font-weight:700;color:var(--goudd)}
+.bgrp-blok{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border-radius:8px;padding:14px;margin:10px 0}
+.bgrp-blok h4{font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--gd);margin-bottom:10px;letter-spacing:.4px}
+.qbox{background:#fffbe6;border:2px solid rgba(240,192,64,.5);border-radius:10px;padding:16px;margin-bottom:12px}
+.ql{font-size:.7rem;color:var(--goudd);font-weight:700;text-transform:uppercase;margin-bottom:8px;font-family:'Lexend',sans-serif}
+.qt{font-weight:600;margin-bottom:10px;font-size:.9rem;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:9px 12px;border:2px solid #ddd;border-radius:7px;cursor:pointer;font-size:.87rem;background:#fff;text-align:left;transition:all .2s;font-family:'DM Sans',sans-serif}
+.opt:hover:not([disabled]){border-color:var(--gd);background:var(--glicht)}
+.opt.ok{border-color:var(--gd)!important;background:var(--glicht);color:var(--groen);font-weight:600}
+.opt.fout{border-color:var(--roodl)!important;background:#fdecea;color:var(--roodl)}
+.qfb{margin-top:8px;font-size:.87rem;font-weight:600;display:none;padding:8px 12px;border-radius:6px}
+.qfb.ok{display:block;color:var(--groen);background:var(--glicht)}
+.qfb.fout{display:block;color:var(--roodl);background:#fdecea}
+.bleg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;font-size:.72rem}
+.bleg span{padding:3px 9px;border-radius:10px;color:#fff;font-weight:700;font-family:'Lexend',sans-serif}
+.b1{background:#0f4d2e}.b2{background:#1a7a4a}.b3{background:#d4a012}
+.b4{background:#b85c00}.b5{background:#b30000}.b6{background:#2d1b4e}
+.bi{border-left:3px solid var(--rand);padding:13px 0 13px 15px;margin-bottom:10px}
+.brow{display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
+.bbadge{font-family:'Lexend',sans-serif;font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:9px;color:#fff;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:3px}
+.bq{font-size:.89rem;line-height:1.65;color:#222;margin-bottom:6px}
+.bq em{font-style:italic;font-weight:700;color:var(--groen)}
+.antw-input{width:100%;margin-top:8px;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.88rem;font-family:'DM Sans',inherit;resize:vertical;min-height:65px;outline:none;transition:border-color .2s;line-height:1.55}
+.antw-input:focus{border-color:var(--gd)}
+.antw-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.abtn{background:none;border:2px solid var(--gd);color:var(--gd);padding:7px 13px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Lexend',sans-serif}
+.abtn:hover{background:var(--gd);color:#fff}
+.abox{display:none;background:var(--glicht);border-left:4px solid var(--gd);padding:11px 14px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.86rem;line-height:1.65}
+.abox.show{display:block}
+.bl-tabs{display:flex;margin-bottom:18px;border-bottom:2px solid var(--rand)}
+.bl-tab{padding:9px 18px;border:none;background:none;font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--grijs);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s}
+.bl-tab.act{color:var(--gd);border-bottom-color:var(--gd)}
+.bl-pane{display:none}.bl-pane.act{display:block}
+.bsrch{width:100%;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.9rem;margin-bottom:16px;outline:none;font-family:'DM Sans',sans-serif}
+.bsrch:focus{border-color:var(--gd)}
+.bgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.bcard{background:#fff;border-radius:8px;padding:12px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-top:3px solid var(--gd);transition:transform .15s}
+.bcard:hover{transform:translateY(-2px)}
+.bcard.p2{border-top-color:var(--roodl)}.bcard.p3{border-top-color:var(--goudd)}.bcard.p4{border-top-color:var(--blauwl)}
+.bcard .bt{font-family:'Lexend',sans-serif;font-weight:700;color:var(--gd);font-size:.88rem}
+.bcard.p2 .bt{color:var(--roodl)}.bcard.p3 .bt{color:var(--goudd)}.bcard.p4 .bt{color:var(--blauwl)}
+.bcard .bd{font-size:.8rem;color:#555;margin-top:4px;line-height:1.35}
+.card{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh)}
+.card h3{font-family:'Lexend',sans-serif;font-size:1rem;margin-bottom:10px}
+.ldi{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #eee}
+.ldi:last-child{border-bottom:none}
+.ldi input{width:17px;height:17px;accent-color:var(--gd);flex-shrink:0;margin-top:3px;cursor:pointer}
+.ldi label{font-size:.89rem;cursor:pointer;line-height:1.45}
+.ldi.chk label{color:var(--gd);text-decoration:line-through}
+.sblok{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.sblok.p2{border-left-color:var(--roodl)}.sblok.p3{border-left-color:var(--goudd)}.sblok.p4{border-left-color:var(--blauwl)}
+.sblok h3{font-family:'Lexend',sans-serif;font-size:.97rem;margin-bottom:8px}
+.sblok p{font-size:.89rem;line-height:1.65;color:#333}
+.hrbox{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:5px solid var(--gd)}
+.hrbox.p2{border-left-color:var(--roodl)}.hrbox.p3{border-left-color:var(--goudd)}.hrbox.p4{border-left-color:var(--blauwl)}
+.hrn{font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--gd);margin-bottom:8px}
+.hrbox.p2 .hrn{color:var(--roodl)}.hrbox.p3 .hrn{color:var(--goudd)}.hrbox.p4 .hrn{color:var(--blauwl)}
+.hrq{font-size:.9rem;line-height:1.6;font-weight:600;margin-bottom:8px}
+.rsom{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.rsom .rn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--gd);color:#fff;padding:2px 9px;border-radius:12px;display:inline-block;margin-bottom:7px;font-weight:700}
+.rsom p{font-size:.89rem;line-height:1.65;margin-bottom:4px}
+.rsom .rsub{font-size:.83rem;color:#555;margin-top:4px}
+.rode-draad{background:linear-gradient(135deg,var(--groen),var(--gd));border-radius:10px;padding:18px 22px;color:#fff;margin:14px 0}
+.rode-draad h4{font-family:'Lexend',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--goud)}
+.rode-draad p{font-size:.87rem;line-height:1.8;color:rgba(255,255,255,.9)}
+.hint-btn{background:#fffbe6;color:#856404;border:1px solid var(--goud);border-radius:8px;padding:6px 14px;font-size:.82rem;cursor:pointer;transition:all .2s;font-family:'Lexend',sans-serif;font-weight:600}
+.hint-btn:hover{background:var(--goud);color:var(--groen)}
+.hint-box{display:none;background:#fffbe6;border-left:3px solid var(--goud);padding:10px 14px;margin:8px 0;border-radius:6px;font-size:.85rem;color:#664d03;line-height:1.6}
+.hint-box.show{display:block}
+@media(max-width:600px){.phdr h2{font-size:1.15rem}nav button{font-size:.68rem;padding:8px 9px}.bgrd{grid-template-columns:1fr 1fr}.tbl{font-size:.78rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-top">
+    <a href="index.html" style="text-decoration:none">
+      <div class="logo">vla<em>conomie</em>.nl</div>
+      <div class="logo-sub">Economie · 3 HAVO/VWO · Hoofdstuk 1 — Wat is economie?</div>
+    </a>
+  </div>
+  <nav>
+    <button class="act" onclick="S('s11',this)">§1.1 Behoeften &amp; schaarste</button>
+    <button onclick="S('s12',this)">§1.2 Begroting &amp; budgetlijn</button>
+    <button onclick="S('s13',this)">§1.3 Geld &amp; ruil</button>
+    <button onclick="S('s14',this)">§1.4 Produceren &amp; winst</button>
+    <button onclick="S('sam',this)">📋 Samenvatting</button>
+    <button onclick="S('bl',this)">📖 Begrippen &amp; Leerdoelen</button>
+    <button onclick="S('her',this)">🔁 Herhaling</button>
+    <button onclick="S('rek',this)">🔢 Rekensommen</button>
+  </nav>
+</header>
+<main>
+
+<!-- ===== §1.1 ===== -->
+<div id="s11" class="sec act">
+  <div class="phdr">
+    <div class="pn">§ 1.1</div>
+    <h2>Behoeften, schaarste &amp; keuzes</h2>
+    <p>Behoeften · Schaarste · Primair &amp; secundair · Goederen · Diensten · Consumeren · Alternatief aanwendbaar</p>
+  </div>
+
+  <div class="nk nk-groen">
+    <div class="nk-tag">Schaarste &amp; keuzes</div>
+    <div class="nk-kop">Nederlanders willen steeds meer, maar het geld houdt niet mee</div>
+    <div class="nk-meta">2025 · CBS</div>
+    <div class="nk-body">Nederlanders geven gemiddeld €2.800 per maand uit — maar dat voelt voor veel gezinnen nog steeds niet genoeg. Een nieuwe telefoon, een weekendje weg, nieuwe schoenen én sporten: we willen van alles. Het probleem? Het budget is beperkt. Dit is het kernprobleem van economie: <strong>schaarste</strong>. Niet alleen mensen met weinig geld hebben er last van — iedereen moet keuzes maken, ook als je goed verdient.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">82%</div><div class="nk-sl">geeft meer uit dan 10 jaar geleden</div></div>
+      <div class="nk-stat"><div class="nk-sv">onbeperkt</div><div class="nk-sl">behoeften</div></div>
+      <div class="nk-stat"><div class="nk-sv">beperkt</div><div class="nk-sl">middelen (geld, tijd, ruimte)</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--groen);font-family:'Lexend',sans-serif">§1.1 — Behoeften, schaarste &amp; keuzes</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Behoeften</strong> zijn de dingen die mensen willen of nodig hebben. Behoeften zijn <strong>onbeperkt</strong>: zodra één behoefte is bevredigd, duikt er een nieuwe op. We onderscheiden twee soorten:</p>
+      <table class="tbl">
+        <tr><th>Type</th><th>Omschrijving</th><th>Voorbeelden</th></tr>
+        <tr><td><strong>Primaire behoeften</strong></td><td>Noodzakelijk voor overleving</td><td>Eten, drinken, onderdak, kleding</td></tr>
+        <tr><td><strong>Secundaire behoeften</strong></td><td>Alles daarboven: comfort, luxe, status</td><td>Smartphone, vakantie, entertainment</td></tr>
+      </table>
+      <p><strong>Schaarste</strong> ontstaat doordat behoeften altijd groter zijn dan de beschikbare middelen (geld, tijd, grondstoffen, ruimte). Schaarste is het <em>centrale probleem van economie</em> en dwingt iedereen tot keuzes maken. Zelfs een miljardair heeft maar 24 uur per dag.</p>
+      <hr class="dsep">
+      <p>Om in behoeften te voorzien, kopen we <strong>goederen</strong> (tastbare, materiële producten: brood, laptop, jas) en <strong>diensten</strong> (niet-tastbare activiteiten ter plekke: knipbeurt, busrit, cursus). Het gebruik ervan noemen we <strong>consumeren</strong>.</p>
+      <div class="dex">Sleuteltest: kun je het in een tas stoppen en meenemen? Dan is het een goed. Is het een handeling? Dan is het een dienst.</div>
+      <hr class="dsep">
+      <p>Middelen zijn bijna altijd <strong>alternatief aanwendbaar</strong>: ze kunnen voor meerdere doeleinden worden gebruikt. Geld dat je uitgeeft aan sneakers, kan niet meer naar een concert. Dit is waarom kiezen moeilijk is: elke keuze voor het één is een keuze tégen iets anders.</p>
+      <div class="wjd">Adam Smith schreef al in 1776 dat behoeften onbeperkt zijn terwijl middelen schaars zijn. Zelfs in de rijkste landen ter wereld geldt dit: de VS heeft de grootste economie ter wereld maar ook de hoogste staatsschuld ooit — schaarste voor overheden is net zo reëel als voor individuen.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Tess:</span> <em>"Mam, echt iedereen heeft die nieuwe sneakers! Ze kosten €120 en ik heb nog €50 op mijn rekening."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Moeder:</span> <em>"Je wilde ook mee op hockeykamp en je telefoon is vorige maand nog vervangen. Het geld groeit me niet op de rug."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Tess:</span> <em>"Maar waarom moet ik altijd kiezen? Iedereen heeft toch ook alles?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Moeder:</span> <em>"Dat lijkt maar zo. Iedereen heeft beperkte middelen — dat heet schaarste. Zelfs mensen met veel geld moeten keuzes maken. Dat is economie."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat is schaarste in economische zin?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q11a')">A. Er is te weinig voedsel in de wereld.</button><button class="opt" data-c="1" onclick="cQ(this,'q11a')">B. Behoeften zijn groter dan de beschikbare middelen.</button><button class="opt" data-c="0" onclick="cQ(this,'q11a')">C. Iedereen heeft te weinig geld.</button><button class="opt" data-c="0" onclick="cQ(this,'q11a')">D. Alleen arme mensen moeten keuzes maken.</button></div><div id="q11a" class="qfb">✅ Schaarste = behoeften zijn groter dan beschikbare middelen. Dit geldt voor iedereen, ongeacht inkomen.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Begrijpen</div><div class="qt">Een muzikant geeft een liveconcert. Wat is dit?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q11b')">A. Een goed — het is een tastbaar product.</button><button class="opt" data-c="1" onclick="cQ(this,'q11b')">B. Een dienst — niet-tastbare activiteit, ter plekke geproduceerd én geconsumeerd.</button><button class="opt" data-c="0" onclick="cQ(this,'q11b')">C. Consumeren — de muzikant verbruikt energie.</button><button class="opt" data-c="0" onclick="cQ(this,'q11b')">D. Schaarste — er zijn te weinig kaartjes.</button></div><div id="q11b" class="qfb">✅ Een liveconcert is een dienst: niet-tastbaar, ter plekke geproduceerd en geconsumeerd. Je kunt het niet meenemen.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Toepassen</div><div class="qt">Een timmerman kan kiezen: terras bouwen, keuken plaatsen of schuur repareren. Dit is een voorbeeld van...</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q11c')">A. Consumeren.</button><button class="opt" data-c="0" onclick="cQ(this,'q11c')">B. Een goed produceren.</button><button class="opt" data-c="1" onclick="cQ(this,'q11c')">C. Alternatief aanwendbaar zijn van zijn arbeidstijd.</button><button class="opt" data-c="0" onclick="cQ(this,'q11c')">D. Een dienst afnemen.</button></div><div id="q11c" class="qfb">✅ De timmerman heeft maar één arbeidstijd — die is alternatief aanwendbaar. Keuze voor terras = afzien van keuken en schuur.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Geef de definitie van schaarste en leg uit waarom behoeften altijd onbeperkt zijn. Noem het verschil tussen primaire en secundaire behoeften.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Schaarste = behoeften zijn groter dan beschikbare middelen (geld, tijd, grondstoffen). Behoeften zijn onbeperkt omdat zodra één behoefte bevredigd is, een nieuwe opduikt. Primaire behoeften zijn noodzakelijk voor overleving (eten, drinken, onderdak, kleding). Secundaire behoeften gaan verder dan overleven: entertainment, luxe, status.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit waarom schaarste niet alleen een probleem is voor mensen met weinig geld. Gebruik een voorbeeld van iemand die €5.000 per maand verdient.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Schaarste gaat niet alleen om geld. Ook iemand met €5.000/maand heeft beperkte tijd (24 uur/dag), moet kiezen tussen vakantie, renovatie of pensioensparen, en heeft onbeperkte behoeften (luxe auto, groter huis, studiefonds voor kinderen). Meer inkomen = grotere behoeften. Schaarste verdwijnt nooit.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Classificeer elk van de volgende als goed of dienst: a) taxirit b) paar schoenen c) ziekenhuisoperatie d) pak koffie e) Netflix-abonnement f) leraar geeft les.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) taxirit → dienst. b) schoenen → goed. c) operatie → dienst. d) pak koffie → goed. e) Netflix-abonnement → dienst (digitale service). f) les geven → dienst.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">De gemeente heeft €2 miljoen te besteden: een nieuw zwembad, extra politie of schoolrenovaties. Analyseer dit met de begrippen schaarste, behoeften en alternatief aanwendbaar.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Schaarste: het budget is beperkt — niet alle drie kunnen gelijktijdig. Behoeften: inwoners hebben behoefte aan veiligheid, recreatie én goed onderwijs — alle drie zijn reëel. Alternatief aanwendbaar: de €2 mln kan maar voor één doel ingezet worden. Keuze voor zwembad = afzien van politie en schoolrenovaties. Dit toont dat schaarste ook voor overheden geldt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">"Schaarste bestaat alleen voor mensen die slecht met geld omgaan." Ben je het hiermee eens? Beargumenteer je standpunt met de begrippen behoeften, schaarste en alternatief aanwendbaar.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Nee, dit klopt niet. Schaarste is structureel: behoeften zijn altijd onbeperkt, ook bij goed financieel beheer. Zelfs iemand die perfect budgetteerd heeft beperkte tijd en middelen — elke euro is alternatief aanwendbaar. Goed omgaan met geld vermindert de gevolgen van schaarste, maar heft het niet op.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Ontwerp een 'Schaarste-experiment' voor je klas. Elke leerling krijgt 5 fictieve euro's en er zijn 10 producten beschikbaar (goederen én diensten). Beschrijf het experiment en leg uit wat leerlingen leren over schaarste en alternatief aanwendbaar.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Producten: brood €1 (goed), bus €1 (dienst), sportshirt €2 (goed), concert €3 (dienst), pizza €1 (goed), game €2 (goed), bioscoopkaartje €2 (dienst), scooter €4 (goed), Netflix €1 (dienst), kapper €2 (dienst). Leerlingen kiezen met slechts €5 — kunnen niet alles. Leereffect: schaarste dwingt tot keuzes; elke keuze is alternatief aanwendbaar; goed vs. dienst classificatie; primair vs. secundair onderscheid.</div></div>
+  </div>
+</div>
+
+<!-- ===== §1.2 ===== -->
+<div id="s12" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 1.2</div>
+    <h2>Begroting &amp; budgetlijn</h2>
+    <p>Vaste lasten · Huishoudelijke uitgaven · Incidentele uitgaven · Begroting · Saldo · Budgetlijn</p>
+  </div>
+
+  <div class="nk nk-goud">
+    <div class="nk-tag">Begroting &amp; lasten</div>
+    <div class="nk-kop">1 op de 5 huishoudens kan de rekeningen amper betalen</div>
+    <div class="nk-meta">2025 · Nibud</div>
+    <div class="nk-body">Huur, energie, verzekeringen — de <strong>vaste lasten</strong> van Nederlandse huishoudens zijn de afgelopen vijf jaar met gemiddeld 18% gestegen. Nibud waarschuwt: wie zijn <strong>begroting</strong> niet bijhoudt, loopt het risico meer uit te geven dan er binnenkomt. Een slimme begroting is de basis voor financiële rust. De <strong>budgetlijn</strong> laat zien welke combinaties van aankopen betaalbaar zijn.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">€1.250</div><div class="nk-sl">gem. vaste lasten/mnd</div></div>
+      <div class="nk-stat"><div class="nk-sv">+18%</div><div class="nk-sl">stijging t.o.v. 2020</div></div>
+      <div class="nk-stat"><div class="nk-sv">1 op 5</div><div class="nk-sl">huishoudens met betalingsproblemen</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--goudd);font-family:'Lexend',sans-serif">§1.2 — Begroting &amp; budgetlijn</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p>Elke maand komt er geld binnen en gaat er geld uit. We onderscheiden drie soorten uitgaven:</p>
+      <table class="tbl">
+        <tr><th>Categorie</th><th>Uitleg</th><th>Voorbeelden</th></tr>
+        <tr><td><strong>Vaste lasten</strong></td><td>Terugkerende uitgaven met een vast bedrag — niet zomaar te veranderen</td><td>Huur, energiecontract, ziektekostenverzekering, telefoonabonnement</td></tr>
+        <tr><td><strong>Huishoudelijke uitgaven</strong></td><td>Regelmatig maar variabel bedrag — enige controle mogelijk</td><td>Boodschappen, kleding, benzine, uit eten</td></tr>
+        <tr><td><strong>Incidentele uitgaven</strong></td><td>Eenmalige of onverwachte kosten</td><td>Vakantie, kapotte wasmachine, doktersbezoek</td></tr>
+      </table>
+      <p>Een <strong>begroting</strong> is een overzicht van alle verwachte inkomsten en uitgaven voor een bepaalde periode.</p>
+      <div class="fml">Saldo = inkomsten − (vaste lasten + huishoudelijke uitgaven + incidentele uitgaven)<br>Overschot = positief saldo &nbsp;|&nbsp; Tekort = negatief saldo</div>
+      <hr class="dsep">
+      <p>De <strong>budgetlijn</strong> is een grafische manier om te zien welke combinaties van twee producten je kunt kopen met een vast budget. De lijn loopt van linksboven naar rechtsonder: meer van het ene kopen betekent minder van het andere. Alles op de lijn is precies betaalbaar; eronder goedkoper; erboven te duur.</p>
+      <div class="dex">Budget €60, pizza €6, bioscoop €12. Max pizza: 60÷6 = 10. Max bioscoop: 60÷12 = 5. Combinatie 5 pizza's + 2 kaartjes: €30 + €24 = €54 ≤ €60 → betaalbaar (onder de lijn).</div>
+      <div class="wjd">Nibud adviseert dat vaste lasten maximaal 35–40% van het netto inkomen mogen bedragen. Wie boven de 50% zit, heeft nauwelijks ruimte over voor boodschappen, kleding of onverwachte rekeningen — een veelvoorkomende valkuil bij jongeren met een kamer.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Sofia:</span> <em>"Ik snap niet waarom ik aan het einde van de maand altijd blut ben. Ik verdien toch €900 bij mijn bijbaan?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Lars:</span> <em>"Heb je ooit bijgehouden wat je uitgeeft?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Sofia:</span> <em>"Nee, maar ik koop toch geen rare dingen?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Lars:</span> <em>"Je kamer, je telefoonabonnement, je verzekering — dat zijn vaste lasten. Die gaan er elke maand automatisch af. Tel daar boodschappen, OV en een onverwachte rekening bij op en je begrijpt waarom je tekortkomt. Maak een begroting!"</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Welke van de volgende is een vaste last?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q12a')">A. Boodschappen — dit varieert elke week.</button><button class="opt" data-c="0" onclick="cQ(this,'q12a')">B. Een nieuwe winterjas — eenmalige aankoop.</button><button class="opt" data-c="1" onclick="cQ(this,'q12a')">C. Maandelijkse huurprijs van €850.</button><button class="opt" data-c="0" onclick="cQ(this,'q12a')">D. Restaurantbezoek op je verjaardag.</button></div><div id="q12a" class="qfb">✅ Huur is een vaste last: terugkerend, vast bedrag, niet zomaar te wijzigen.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Toepassen</div><div class="qt">Kaveh heeft inkomen €2.200, vaste lasten €1.100, huishoudelijke uitgaven €600 en incidentele uitgaven €400. Wat is het saldo?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q12b')">A. +€300 overschot</button><button class="opt" data-c="0" onclick="cQ(this,'q12b')">B. −€300 tekort</button><button class="opt" data-c="1" onclick="cQ(this,'q12b')">C. +€100 overschot</button><button class="opt" data-c="0" onclick="cQ(this,'q12b')">D. −€100 tekort</button></div><div id="q12b" class="qfb">✅ Saldo = €2.200 − (€1.100 + €600 + €400) = €2.200 − €2.100 = +€100 overschot.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Analyseren</div><div class="qt">Budget €90. Pizza €4,50, bioscoop €9. Is de combinatie 8 pizza's + 3 bioscoopkaartjes betaalbaar?</div><div class="opts"><button class="opt" data-c="1" onclick="cQ(this,'q12c')">A. Ja — (8×€4,50) + (3×€9) = €63 ≤ €90.</button><button class="opt" data-c="0" onclick="cQ(this,'q12c')">B. Nee — dat kost €99, te duur.</button><button class="opt" data-c="0" onclick="cQ(this,'q12c')">C. Precies op de budgetlijn.</button><button class="opt" data-c="0" onclick="cQ(this,'q12c')">D. Nee — je kunt nooit beide kopen.</button></div><div id="q12c" class="qfb">✅ €36 + €27 = €63 ≤ €90 → betaalbaar, onder de budgetlijn.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit waarom de budgetlijn altijd van linksboven naar rechtsonder daalt. Wat verandert er aan de budgetlijn als je inkomen stijgt?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">De budgetlijn daalt omdat het budget beperkt is: meer van product A kopen betekent automatisch minder van product B. Het is een afruil (alternatief aanwendbaar). Als het inkomen stijgt, verschuift de budgetlijn parallel naar rechts — je kunt meer van beide producten kopen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Begroting student Lieke: inkomen bijbaan €820 + studiefinanciering €400. Vaste lasten: kamer €450, telefoon €35, verzekering €125. Huishoudelijke uitgaven: boodschappen €180, OV €60. Incidenteel: boeken €95. Bereken het saldo.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Inkomsten: €820 + €400 = €1.220. VL: €450 + €35 + €125 = €610. HU: €180 + €60 = €240. Incidenteel: €95. Totale uitgaven: €610 + €240 + €95 = €945. Saldo: €1.220 − €945 = <strong>+€275 overschot</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Maandbegroting: inkomen €1.650. Vaste lasten: huur €600, verzekering €95, telefoon €25. HU: boodschappen €220, kleding €80. Incidenteel: tandarts €150. Bereken het saldo. Is dit een gezonde begroting?</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">VL: €720. HU: €300. Incidenteel: €150. Totaal: €1.170. Saldo: €1.650 − €1.170 = <strong>+€480 overschot</strong>. VL als % inkomen: €720/€1.650 = 43,6% — iets boven Nibud-norm (35–40%), maar er is een positief saldo. Gezonde begroting mits men de tandarts-buffer structureel bijhoudt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">"Een begroting bijhouden is alleen nuttig voor mensen met schulden." Ben je het eens of oneens? Geef twee argumenten vóór en twee tégen, en trek een conclusie.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Vóór: wie geen schulden heeft, kan ook op gevoel leven / met hoog salaris is minder bijhouden nodig. Tégen (sterker): ook zonder schulden helpt begroting bij spaardoelen (vakantie, auto, huis) / vaste lasten stijgen ongemerkt → begroting maakt dit zichtbaar. Conclusie: een begroting is voor iedereen nuttig, niet alleen voor mensen met schulden.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Ontwerp een realistisch maandbudget voor een fictieve 18-jarige student die net op zichzelf woont. Zorg voor een klein overschot. Leg je keuzes uit.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Inkomsten: bijbaan €600 + stufi €400 = €1.000. VL: kamer €350 + telefoon €30 + zorgverzekering €130 + internet €20 = €530. HU: boodschappen €150 + OV €50 = €200. Spaardoel (buffer): €50. Saldo: €1.000 − €530 − €200 − €50 = +€220. Keuze: bewust goedkope kamer en geen dure abonnementen → overschot als buffer voor incidentele kosten.</div></div>
+  </div>
+</div>
+
+<!-- ===== §1.3 ===== -->
+<div id="s13" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 1.3</div>
+    <h2>Geld &amp; ruil</h2>
+    <p>Directe ruil · Indirecte ruil · Functies van geld · Chartaal &amp; giraal · Cryptocurrency · Wet van Gresham · Koopkracht · Inflatie · Indexcijfer</p>
+  </div>
+
+  <div class="nk nk-rood">
+    <div class="nk-tag">Geld &amp; koopkracht</div>
+    <div class="nk-kop">Inflatie daalt naar 2,8% — maar je koopkracht is nog niet hersteld</div>
+    <div class="nk-meta">2025 · DNB / CBS</div>
+    <div class="nk-body">Na jaren van hoge prijsstijgingen daalt de inflatie langzaam. Toch is de <strong>koopkracht</strong> van veel Nederlanders nog niet terug op het niveau van voor 2021. Geld heeft drie functies: <strong>ruilmiddel</strong>, <strong>rekeneenheid</strong> en <strong>oppotmiddel</strong>. Bij hoge inflatie staat met name de oppotfunctie onder druk. Ondertussen wint bitcoin aan populariteit — maar voldoet crypto wel aan de eisen van goed geld?</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">2,8%</div><div class="nk-sl">inflatie NL 2025</div></div>
+      <div class="nk-stat"><div class="nk-sv">−4%</div><div class="nk-sl">koopkrachtverlies 2021–2024</div></div>
+      <div class="nk-stat"><div class="nk-sv">12%</div><div class="nk-sl">Nederlanders bezit crypto</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--roodl);font-family:'Lexend',sans-serif">§1.3 — Geld &amp; ruil</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p>Bij <strong>directe ruil</strong> (ruilhandel / barter) wissel je product voor product, zonder geld. Het grote probleem: de <strong>dubbele samenloop van behoeften</strong> — beide partijen moeten tegelijk precies willen wat de ander biedt. Bij <strong>indirecte ruil</strong> gebruik je geld als tussenstap: je verkoopt voor geld en koopt daarna iets anders.</p>
+      <p>Goed geld voldoet aan <strong>drie functies</strong>:</p>
+      <table class="tbl">
+        <tr><th>Functie</th><th>Uitleg</th><th>Voorbeeld</th></tr>
+        <tr><td><strong>Ruilmiddel</strong></td><td>Iedereen accepteert geld als betaalmiddel — geen ruilpartner nodig</td><td>€3 betalen voor een brood</td></tr>
+        <tr><td><strong>Rekeneenheid</strong></td><td>Gemeenschappelijke maatstaf om de waarde van alles te vergelijken</td><td>Fiets €400, boek €15 — direct vergelijkbaar</td></tr>
+        <tr><td><strong>Oppotmiddel</strong></td><td>Geld bewaren voor later — waarde blijft behouden (bij lage inflatie)</td><td>€1.000 sparen voor een vakantie volgend jaar</td></tr>
+      </table>
+      <hr class="dsep">
+      <p><strong>Chartaal geld</strong>: munten en bankbiljetten (fysiek). <strong>Giraal geld</strong>: tegoed op je bankrekening — verreweg het grootste deel van de geldhoeveelheid. <strong>Cryptocurrency</strong> (zoals bitcoin): digitale valuta op een blockchain, niet beheerd door een centrale bank.</p>
+      <p>De <strong>Wet van Gresham</strong>: slecht geld verdrijft goed geld. Als er twee soorten geld zijn met dezelfde nominale waarde, betaal je altijd met het minderwaardige en bewaar je het betere.</p>
+      <hr class="dsep">
+      <p><strong>Inflatie</strong>: algemene stijging van het prijspeil — geld wordt minder waard. <strong>Koopkracht</strong>: hoeveel je kunt kopen voor een bepaald geldbedrag. Inflatie daalt de koopkracht.</p>
+      <div class="fml">Indexcijfer = (waarde meetjaar ÷ waarde basisjaar) × 100 &nbsp;|&nbsp; Inflatie = indexcijfer − 100 (%)<br>Voorbeeld: mandje 2020 €200 (index 100), 2025 €236 → indexcijfer = 118 → inflatie = 18%</div>
+      <div class="wjd">De eerste munten werden rond 600 v.Chr. geslagen in het huidige Turkije (Lydië). Hiervoor gebruikten mensen schelpen, zout en graan als betaalmiddel. Zout was zo waardevol dat Romeinse soldaten er soms hun loon mee kregen — vandaar het woord 'salaris' (van het Latijnse 'sal' = zout)!</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Yusuf:</span> <em>"Stel dat geld morgen niet meer bestaat. Hoe betaal je dan voor je lunch?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Nina:</span> <em>"Dan moet ik iets meenemen om te ruilen. Maar ik heb niks bij me wat de kantine-mevrouw wil."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Yusuf:</span> <em>"Precies — dat is het probleem van directe ruil. Je moet iemand vinden die heeft wat jij wilt, én die wil hebben wat jij aanbiedt. Op hetzelfde moment."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Nina:</span> <em>"Klinkt als een nachtmerrie. Dus geld is eigenlijk een handige tussenstap?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Yusuf:</span> <em>"Ja. Indirecte ruil. En geld doet meer: het maakt vergelijken mogelijk en je kunt het bewaren."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat zijn de drie functies van geld?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q13a')">A. Ruilmiddel, belastingmiddel, spaarmiddel</button><button class="opt" data-c="1" onclick="cQ(this,'q13a')">B. Ruilmiddel, rekeneenheid, oppotmiddel</button><button class="opt" data-c="0" onclick="cQ(this,'q13a')">C. Chartaal, giraal, crypto</button><button class="opt" data-c="0" onclick="cQ(this,'q13a')">D. Inflatie, koopkracht, indexcijfer</button></div><div id="q13a" class="qfb">✅ Ruilmiddel, rekeneenheid, oppotmiddel — de drie klassieke functies van geld.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Toepassen</div><div class="qt">Boodschappenmandje 2020: €200 (basisjaar). Boodschappenmandje 2025: €228. Wat is het indexcijfer en de inflatie?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q13b')">A. Indexcijfer 114, inflatie 4%</button><button class="opt" data-c="1" onclick="cQ(this,'q13b')">B. Indexcijfer 114, inflatie 14%</button><button class="opt" data-c="0" onclick="cQ(this,'q13b')">C. Indexcijfer 128, inflatie 28%</button><button class="opt" data-c="0" onclick="cQ(this,'q13b')">D. Indexcijfer 100, inflatie 14%</button></div><div id="q13b" class="qfb">✅ Indexcijfer = (228÷200)×100 = 114. Inflatie = 114−100 = 14%.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Analyseren</div><div class="qt">Argentinië had inflatie van meer dan 100% per jaar. Welke functie van geld lijdt het meest?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q13c')">A. Ruilmiddel — niemand accepteert de peso meer.</button><button class="opt" data-c="1" onclick="cQ(this,'q13c')">B. Oppotmiddel — geld bewaren is zinloos als het elke dag minder waard wordt.</button><button class="opt" data-c="0" onclick="cQ(this,'q13c')">C. Rekeneenheid — prijzen staan niet meer op etiketten.</button><button class="opt" data-c="0" onclick="cQ(this,'q13c')">D. Alle functies worden gelijk aangetast.</button></div><div id="q13c" class="qfb">✅ Het oppotmiddel lijdt het meest: geld bewaren heeft geen zin als de waarde dagelijks verdampt. Mensen vluchten naar dollars of goederen.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Iemand verdient €2.400/maand. De inflatie is 5%. Wat is zijn koopkracht na één jaar als zijn salaris niet stijgt? Laat je berekening zien.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Koopkracht = €2.400 × (1 − 0,05) = €2.400 × 0,95 = <strong>€2.280</strong>. Het salaris is nominaal gelijk, maar er kan voor €120 minder worden gekocht — de koopkracht daalde met 5%.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Classificeer bij de juiste functie van geld: a) je betaalt €2,50 voor een koffie b) je vergelijkt de prijs van twee telefoons c) je spaart €50/mnd voor een laptop d) je ontvangt je maandsalaris e) je maakt geld over via iDEAL.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Ruilmiddel. b) Rekeneenheid. c) Oppotmiddel. d) Ruilmiddel (betaling voor arbeid). e) Ruilmiddel (giraal geld).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Voldoet Bitcoin aan alle drie functies van geld? Leg per functie uit waarom wel of niet, en trek een eindconclusie.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Ruilmiddel: beperkt — weinig winkeliers accepteren bitcoin. Rekeneenheid: slecht — grote koersschommelingen maken stabiele prijsuitdrukking onmogelijk. Oppotmiddel: risicovol — technisch mogelijk, maar sterke volatiliteit maakt waardeopslag onzeker. Conclusie: Bitcoin voldoet NIET volledig aan de drie functies en is daarmee geen volwaardig geld.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">In sommige landen accepteren winkels geen contant geld meer, alleen pin of app. Geef twee voor- en twee nadelen van een volledig cashloze samenleving. Gebruik de drie functies van geld in je antwoord.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Voordelen: snellere transacties (ruilmiddel efficiënter) / minder diefstal/fraude met cash. Nadelen: uitsluiting mensen zonder bankrekening of telefoon / kwetsbaarheid bij stroomstoringen en cybercriminaliteit. Functies: ruilmiddel blijft werken via pin; rekeneenheid onveranderd; oppotmiddel kan niet meer als cash thuis bewaard worden.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een kort uitleg-script voor een YouTube-video (minimaal 6 zinnen) gericht op 12-jarigen. Leg uit waarom geld is uitgevonden. Gebruik: directe ruil, dubbele samenloop van behoeften, ruilmiddel, rekeneenheid, oppotmiddel.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">"Hey! Stel je voor: geen geld bestaat. Je wilt een broodje kopen, maar de bakker wil jouw voetbalshirt niet. Dat heet directe ruil — en het probleem is de dubbele samenloop van behoeften: de ander moet precies willen wat jij hebt. Mega frustrerend! Daarom werd geld uitgevonden. Jij verkoopt je diensten voor geld — indirecte ruil! Geld heeft drie superkrachten: het is een ruilmiddel (iedereen accepteert het), een rekeneenheid (alles is in euro's vergelijkbaar), en een oppotmiddel (je bewaart het voor later). Bedankt, geld!"</div></div>
+  </div>
+</div>
+
+<!-- ===== §1.4 ===== -->
+<div id="s14" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 1.4</div>
+    <h2>Produceren &amp; winst</h2>
+    <p>Produceren · Bedrijfskolom · Toegevoegde waarde · Omzet · Inkoopwaarde · Winst · Verlies · MVO</p>
+  </div>
+
+  <div class="nk nk-blauw">
+    <div class="nk-tag">Produceren &amp; MVO</div>
+    <div class="nk-kop">Record aan faillissementen — hoge kosten vreten winst van het MKB op</div>
+    <div class="nk-meta">2025 · KVK</div>
+    <div class="nk-body">In 2025 gingen meer bedrijven failliet dan ooit. Hoge <strong>inkoopwaarden</strong> (energie, grondstoffen) terwijl de <strong>omzet</strong> niet meegroeide. Als kosten hoger zijn dan opbrengsten, draait een bedrijf <strong>verlies</strong>. Tegelijkertijd zien steeds meer bedrijven <strong>MVO</strong> niet als luxe, maar als noodzaak om klanten en medewerkers te behouden.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">+28%</div><div class="nk-sl">meer faillissementen in 2025</div></div>
+      <div class="nk-stat"><div class="nk-sv">67%</div><div class="nk-sl">MKB werkt aan MVO-doelen</div></div>
+      <div class="nk-stat"><div class="nk-sv">200+</div><div class="nk-sl">stappen in smartphone-bedrijfskolom</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--blauwl);font-family:'Lexend',sans-serif">§1.4 — Produceren &amp; winst</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Produceren</strong> is het creëren van goederen en diensten. De <strong>bedrijfskolom</strong> is de aaneenschakeling van bedrijven die elk een bijdrage leveren aan het eindproduct, van grondstof tot consument. Elk bedrijf koopt in van de vorige schakel en verkoopt door aan de volgende.</p>
+      <p><strong>Toegevoegde waarde (TV)</strong>: elk bedrijf voegt iets toe — arbeid, kennis, technologie. TV = verkoopprijs minus inkoopprijs. Tel je alle TV's op in de keten, dan kom je uit op de consumentenprijs.</p>
+      <div class="fml">TV = verkoopprijs − inkoopprijs &nbsp;|&nbsp; Voorbeeld: bakker koopt meel €0,40 → verkoopt brood €2,80 → TV = €2,40</div>
+      <hr class="dsep">
+      <p>De <strong>omzet</strong> is de totale verkoopopbrengst (prijs × hoeveelheid). Omzet is niet winst! Trek er de <strong>inkoopwaarde</strong> en overige kosten van af:</p>
+      <div class="fml">Winst/verlies = omzet − inkoopwaarde − overige kosten</div>
+      <hr class="dsep">
+      <p><strong>MVO (Maatschappelijk Verantwoord Ondernemen)</strong>: een bedrijf houdt rekening met de drie P's:</p>
+      <table class="tbl">
+        <tr><th>P</th><th>Uitleg</th><th>Voorbeeld</th></tr>
+        <tr><td><strong>People</strong></td><td>Mensen: personeel, leveranciers, gemeenschap</td><td>Boven minimumloon betalen, veilige werkomstandigheden</td></tr>
+        <tr><td><strong>Planet</strong></td><td>Milieu: CO₂, biodiversiteit, grondstoffen</td><td>100% hernieuwbare energie, recycled materiaal</td></tr>
+        <tr><td><strong>Profit</strong></td><td>Financieel gezond blijven</td><td>Winstgevend genoeg om te overleven en te investeren</td></tr>
+      </table>
+      <div class="wjd">De bedrijfskolom van een smartphone telt soms meer dan 200 stappen en bedrijven in meer dan 30 landen. Van kobaltmijnwerker in Congo tot assemblagefabriek in China tot winkel in Nederland — elk schakeltje voegt iets toe. De totale toegevoegde waarde van al die schakels samen is de consumentenprijs.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Mia:</span> <em>"Hoe verdient een chocoladebedrijf eigenlijk geld? Ze kopen toch gewoon cacao en maken er reepjes van?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Joren:</span> <em>"Inderdaad, maar er zijn veel meer stappen. Boer verbouwt cacao, fabrikant maakt chocolade, groothandel vervoert het, supermarkt verkoopt het."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Mia:</span> <em>"En elke stap verdient er iets aan?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Joren:</span> <em>"Precies. Elke schakel voegt iets toe — kennis, arbeid, transport — en rekent daar een marge voor. Dat heet toegevoegde waarde. En als de kosten hoger zijn dan de omzet..."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Mia:</span> <em>"Dan draait het bedrijf verlies. En als dat te lang duurt — faillissement."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat is de formule voor toegevoegde waarde?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q14a')">A. TV = omzet × hoeveelheid</button><button class="opt" data-c="0" onclick="cQ(this,'q14a')">B. TV = winst + inkoopwaarde</button><button class="opt" data-c="1" onclick="cQ(this,'q14a')">C. TV = verkoopprijs − inkoopprijs</button><button class="opt" data-c="0" onclick="cQ(this,'q14a')">D. TV = omzet − overige kosten</button></div><div id="q14a" class="qfb">✅ TV = verkoopprijs − inkoopprijs (grondstoffen/halffabrikaten).</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Toepassen</div><div class="qt">Bedrijf heeft omzet €50.000, inkoopwaarde €20.000 en overige kosten €18.000. Wat is het resultaat?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q14b')">A. €50.000 winst</button><button class="opt" data-c="0" onclick="cQ(this,'q14b')">B. €30.000 winst</button><button class="opt" data-c="1" onclick="cQ(this,'q14b')">C. €12.000 winst</button><button class="opt" data-c="0" onclick="cQ(this,'q14b')">D. €12.000 verlies</button></div><div id="q14b" class="qfb">✅ Winst = €50.000 − €20.000 − €18.000 = €12.000 winst.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Analyseren</div><div class="qt">Wat is de beste beschrijving van MVO?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q14c')">A. Een bedrijf dat alleen aan winst denkt.</button><button class="opt" data-c="0" onclick="cQ(this,'q14c')">B. Een overheidsinstelling die bedrijven controleert.</button><button class="opt" data-c="1" onclick="cQ(this,'q14c')">C. Een bedrijf dat bewust rekening houdt met People, Planet én Profit.</button><button class="opt" data-c="0" onclick="cQ(this,'q14c')">D. Een bedrijf dat vrijwilligerswerk doet.</button></div><div id="q14c" class="qfb">✅ MVO = de balans tussen People (mensen), Planet (milieu) en Profit (winst). Alle drie tellen mee.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Bedrijfskolom chocoladereep: cacaoboer verkoopt voor €0,30 → fabriek verkoopt voor €0,80 → groothandel voor €1,00 → supermarkt voor €1,40. Bereken de TV per schakel en controleer of de som gelijk is aan de consumentenprijs.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Schakel 1 (boer): €0,30. Schakel 2 (fabriek): €0,80−€0,30 = €0,50. Schakel 3 (groothandel): €1,00−€0,80 = €0,20. Schakel 4 (supermarkt): €1,40−€1,00 = €0,40. Totale TV: €0,30+€0,50+€0,20+€0,40 = <strong>€1,40 ✓</strong> = consumentenprijs.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Modebedrijf: 2.400 T-shirts à €24,99. Inkoopwaarde €7,50 per stuk. Vaste kosten €18.000. Variabele kosten €3,20 per stuk. Bereken: a) totale omzet b) totale inkoopwaarde c) totale variabele kosten d) winst of verlies.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Omzet: 2.400 × €24,99 = <strong>€59.976</strong>. b) Inkoopwaarde: 2.400 × €7,50 = <strong>€18.000</strong>. c) Variabele kosten: 2.400 × €3,20 = <strong>€7.680</strong>. d) Winst: €59.976 − €18.000 − €7.680 − €18.000 = <strong>€16.296 winst</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Een T-shirt in Bangladesh: omzet €15, inkoopwaarde €2, overige kosten €4. Bereken de winst. Analyseer vervolgens de spanning tussen Profit en People/Planet: is dit MVO?</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Winst: €15 − €2 − €4 = <strong>€9 per T-shirt</strong>. Dat is 60% marge. Profit: hoog. Maar People: inkoopprijs van €2 wijst op extreem lage lonen voor fabriekswerkers. Planet: fast fashion heeft grote ecologische voetafdruk. Conclusie: dit is geen MVO — Profit domineert, People en Planet worden genegeerd.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">"MVO kost alleen maar geld en is slecht voor de concurrentiepositie." Ben je het hiermee eens? Geef twee argumenten vóór en twee tégen. Trek een conclusie.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Vóór: groene energie en eerlijke lonen zijn op korte termijn duurder / concurrent die MVO negeert heeft lagere kosten. Tégen (sterker): consumenten kiezen steeds meer voor duurzame merken → meer omzet / loyale medewerkers en duurzame grondstoffen verlagen kosten op lange termijn. Conclusie: MVO is een investering, geen pure kostenpost. Patagonia, Tony's Chocolonely en Dopper bewijzen dit.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een businessplan (minimaal 6 zinnen) voor een nieuw klein bedrijf naar keuze. Beschrijf: wat je produceert, inkoopwaarde, omzet, overige kosten, hoe je MVO toepast (alle 3 P's). Bereken ook de verwachte maandwinst.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Voorbeeld: FreshBowl saladebar op school. Product: saladebowls (goed + dienst). Inkoop per bowl: €1,50. Verkoopprijs: €5,50. Overige kosten: €200/mnd huur + €50 afschrijving. Omzet: 300 × €5,50 = €1.650. Inkoopwaarde: 300 × €1,50 = €450. Winst: €1.650 − €450 − €250 = €950/mnd. MVO: People — eerlijk loon medewerkers; Planet — lokale bio-groenten, nul plastic; Profit — €950/mnd winstgevend, reinvesteren in groei.</div></div>
+  </div>
+</div>
+
+<!-- ===== SAMENVATTING ===== -->
+<div id="sam" class="sec">
+  <div class="phdr"><div class="pn">Overzicht</div><h2>Samenvatting Hoofdstuk 1 — Wat is economie?</h2><p>De vier paragrafen in het kort.</p></div>
+  <div style="padding:8px 0">
+    <div class="sblok"><h3 style="color:var(--gd)">§1.1 — Behoeften, schaarste &amp; keuzes</h3><p>Economie draait om <strong>behoeften</strong> (onbeperkt) die groter zijn dan beschikbare middelen (beperkt): dit is <strong>schaarste</strong>. We onderscheiden <strong>primaire behoeften</strong> (overleven) en <strong>secundaire behoeften</strong> (meer dan overleven). Schaarste dwingt tot keuzes. We voorzien in behoeften door te <strong>consumeren</strong>: het gebruik van <strong>goederen</strong> (tastbaar) en <strong>diensten</strong> (niet-tastbaar). Middelen zijn <strong>alternatief aanwendbaar</strong> — kiezen voor het één is afzien van het andere.</p></div>
+    <div class="sblok p2"><h3 style="color:var(--roodl)">§1.2 — Begroting &amp; budgetlijn</h3><p><strong>Vaste lasten</strong> (vast, terugkerend), <strong>huishoudelijke uitgaven</strong> (regelmatig, variabel) en <strong>incidentele uitgaven</strong> (eenmalig/onverwacht). <strong>Begroting</strong> = overzicht inkomsten vs. uitgaven. Saldo = inkomsten − alle uitgaven. <strong>Overschot</strong>: positief saldo. <strong>Tekort</strong>: negatief saldo. De <strong>budgetlijn</strong> toont betaalbare combinaties van twee goederen bij een vast budget.</p></div>
+    <div class="sblok p3"><h3 style="color:var(--goudd)">§1.3 — Geld &amp; ruil</h3><p><strong>Directe ruil</strong> = product voor product. <strong>Indirecte ruil</strong> = via geld. Drie functies: <strong>ruilmiddel</strong> (algemeen geaccepteerd), <strong>rekeneenheid</strong> (vergelijken) en <strong>oppotmiddel</strong> (waarde bewaren). Vormen: <strong>chartaal</strong> (munten/biljetten), <strong>giraal</strong> (banktegoed), <strong>crypto</strong>. <strong>Wet van Gresham</strong>: slecht geld verdrijft goed geld. <strong>Inflatie</strong> = algemene prijsstijging → koopkracht daalt. Indexcijfer = (meetjaar ÷ basisjaar) × 100.</p></div>
+    <div class="sblok p4"><h3 style="color:var(--blauwl)">§1.4 — Produceren &amp; winst</h3><p><strong>Produceren</strong> = goederen/diensten creëren. <strong>Bedrijfskolom</strong> = schakelketen van grondstof tot consument. <strong>TV</strong> = verkoopprijs − inkoopprijs. <strong>Omzet</strong> = prijs × hoeveelheid. <strong>Winst</strong> = omzet &gt; kosten. <strong>Verlies</strong> = kosten &gt; omzet. <strong>MVO</strong> = People (mensen), Planet (milieu) én Profit (financieel gezond).</p></div>
+    <div class="rode-draad">
+      <h4>🔴 De rode draad van Hoofdstuk 1</h4>
+      <p>Behoeften (onbeperkt) → Schaarste (middelen beperkt) → Keuzes (alternatief aanwendbaar)<br>→ Begroting (overzicht inkomsten &amp; uitgaven) → Budgetlijn (betaalbare combinaties)<br>→ Directe ruil (problemen) → Indirecte ruil via geld (3 functies)<br>→ Produceren (bedrijfskolom, TV, winst) → MVO (People, Planet, Profit)</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BEGRIPPEN & LEERDOELEN ===== -->
+<div id="bl" class="sec">
+  <div class="phdr"><div class="pn">Overzicht</div><h2>Begrippen &amp; Leerdoelen</h2><p>Zoek begrippen op of vink je leerdoelen af.</p></div>
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bl-tabs">
+      <button class="bl-tab act" onclick="blT('bpane',this)">📖 Begrippen</button>
+      <button class="bl-tab" onclick="blT('ldpane',this)">✅ Leerdoelen</button>
+    </div>
+    <div id="bpane" class="bl-pane act">
+      <input type="text" class="bsrch" placeholder="🔍 Zoek een begrip…" oninput="fB(this.value)">
+      <div id="bgrd" class="bgrd"></div>
+    </div>
+    <div id="ldpane" class="bl-pane">
+      <div class="card"><h3 style="color:var(--gd)">§1.1 Behoeften, schaarste &amp; keuzes</h3>
+        <div class="ldi" id="l1"><input type="checkbox" onchange="ld(this,'l1')"><label>Ik kan behoeften omschrijven en onderscheid maken tussen primaire en secundaire behoeften.</label></div>
+        <div class="ldi" id="l2"><input type="checkbox" onchange="ld(this,'l2')"><label>Ik kan schaarste uitleggen als het kernprobleem van economie.</label></div>
+        <div class="ldi" id="l3"><input type="checkbox" onchange="ld(this,'l3')"><label>Ik kan goederen en diensten onderscheiden en voorbeelden classificeren.</label></div>
+        <div class="ldi" id="l4"><input type="checkbox" onchange="ld(this,'l4')"><label>Ik kan consumeren en alternatief aanwendbaar uitleggen met voorbeelden.</label></div>
+      </div>
+      <div class="card"><h3 style="color:var(--roodl)">§1.2 Begroting &amp; budgetlijn</h3>
+        <div class="ldi" id="l5"><input type="checkbox" onchange="ld(this,'l5')"><label>Ik kan vaste lasten, huishoudelijke uitgaven en incidentele uitgaven onderscheiden.</label></div>
+        <div class="ldi" id="l6"><input type="checkbox" onchange="ld(this,'l6')"><label>Ik kan een begroting opstellen en het saldo berekenen.</label></div>
+        <div class="ldi" id="l7"><input type="checkbox" onchange="ld(this,'l7')"><label>Ik kan uitleggen wat een budgetlijn is en welke combinaties betaalbaar zijn.</label></div>
+      </div>
+      <div class="card"><h3 style="color:var(--goudd)">§1.3 Geld &amp; ruil</h3>
+        <div class="ldi" id="l8"><input type="checkbox" onchange="ld(this,'l8')"><label>Ik kan directe en indirecte ruil onderscheiden.</label></div>
+        <div class="ldi" id="l9"><input type="checkbox" onchange="ld(this,'l9')"><label>Ik kan de drie functies van geld benoemen en toelichten.</label></div>
+        <div class="ldi" id="l10"><input type="checkbox" onchange="ld(this,'l10')"><label>Ik kan chartaal, giraal geld en cryptocurrency onderscheiden.</label></div>
+        <div class="ldi" id="l11"><input type="checkbox" onchange="ld(this,'l11')"><label>Ik kan de Wet van Gresham uitleggen en toepassen.</label></div>
+        <div class="ldi" id="l12"><input type="checkbox" onchange="ld(this,'l12')"><label>Ik kan inflatie, koopkracht en indexcijfer berekenen.</label></div>
+      </div>
+      <div class="card"><h3 style="color:var(--blauwl)">§1.4 Produceren &amp; winst</h3>
+        <div class="ldi" id="l13"><input type="checkbox" onchange="ld(this,'l13')"><label>Ik kan de bedrijfskolom beschrijven en per schakel de toegevoegde waarde berekenen.</label></div>
+        <div class="ldi" id="l14"><input type="checkbox" onchange="ld(this,'l14')"><label>Ik kan omzet, inkoopwaarde, winst en verlies berekenen.</label></div>
+        <div class="ldi" id="l15"><input type="checkbox" onchange="ld(this,'l15')"><label>Ik kan MVO uitleggen aan de hand van de drie P's (People, Planet, Profit).</label></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERHALING ===== -->
+<div id="her" class="sec">
+  <div class="phdr"><div class="pn">Herhaling</div><h2>Herhalingsopdrachten Hoofdstuk 1</h2><p>Schrijf je antwoord, klik dan op het modelantwoord.</p></div>
+  <div style="padding:8px 0">
+    <div class="hrbox"><div class="hrn">§1.1 — Vraag 1</div>
+      <div class="hrq">Noem drie behoeften van een gemiddelde scholier. Geef bij elk aan of het primair of secundair is, en leg uit waarom schaarste ertoe leidt dat keuzes gemaakt moeten worden.</div>
+      <textarea class="antw-input" rows="4" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">Voorbeeld: 1. Eten (primair) — noodzakelijk voor overleven; schaarste: beperkt budget → kies goedkope of dure maaltijd. 2. Nieuwe telefoon (secundair) — luxe/status; schaarste: als je die koopt, kun je niet naar het concert. 3. Vrije tijd/slapen (primair) — lichamelijk noodzakelijk; schaarste: 24 uur/dag → bijbaan of vrije tijd?</div>
+    </div>
+    <div class="hrbox"><div class="hrn">§1.1 — Vraag 2</div>
+      <div class="hrq">Classificeer als goed of dienst: a) koffie bij Starbucks b) streamingabonnement c) laptoproparatie d) fles bronwater e) busrit f) zak chips.</div>
+      <textarea class="antw-input" rows="2" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) Goed (tastbaar product). b) Dienst (digitale service). c) Dienst (activiteit). d) Goed. e) Dienst. f) Goed.</div>
+    </div>
+    <div class="hrbox p2"><div class="hrn">§1.2 — Vraag 3</div>
+      <div class="hrq">Maandbegroting: inkomen €1.650. Vaste lasten: huur €600, verzekering €95, telefoon €25. HU: boodschappen €220, kleding €80. Incidenteel: tandarts €150. Bereken het saldo en geef aan of het overschot of tekort is.</div>
+      <textarea class="antw-input" rows="3" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">VL: €720. HU: €300. Inc.: €150. Totaal: €1.170. Saldo: €1.650 − €1.170 = <strong>+€480 overschot</strong>.</div>
+    </div>
+    <div class="hrbox p2"><div class="hrn">§1.2 — Vraag 4</div>
+      <div class="hrq">Budget €90, pizza €4,50, bioscoop €9. a) Maximaal pizza's? b) Maximaal bioscoopkaartjes? c) Is 8 pizza + 3 bioscoop betaalbaar? d) Is 4 pizza + 6 bioscoop betaalbaar?</div>
+      <textarea class="antw-input" rows="3" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) 90÷4,50 = <strong>20 pizza's</strong>. b) 90÷9 = <strong>10 kaartjes</strong>. c) (8×4,50)+(3×9) = €36+€27 = €63 ≤ €90 → <strong>ja, betaalbaar</strong>. d) (4×4,50)+(6×9) = €18+€54 = €72 ≤ €90 → <strong>ja, betaalbaar</strong>.</div>
+    </div>
+    <div class="hrbox p3"><div class="hrn">§1.3 — Vraag 5</div>
+      <div class="hrq">Noem de drie functies van geld. Leg bij elke functie uit hoe hoge inflatie (bijv. 50% per jaar) deze functie ondermijnt. Geef een concreet voorbeeld per functie.</div>
+      <textarea class="antw-input" rows="4" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">1. Ruilmiddel: mensen weigeren de munt als betaling → directe ruil neemt toe. Voorbeeld: Venezolanen weigerden bolivars. 2. Rekeneenheid: prijzen veranderen dagelijks, vergelijken onmogelijk. Voorbeeld: brood 's ochtends €1, 's avonds €1,50. 3. Oppotmiddel: sparen zinloos want koopkracht daalt elke dag. Voorbeeld: spaargeld van gisteren is morgen minder waard.</div>
+    </div>
+    <div class="hrbox p3"><div class="hrn">§1.3 — Vraag 6</div>
+      <div class="hrq">CPI 2018 = 100, CPI 2025 = 128,7. a) Bereken de inflatie van 2018 naar 2025. b) Salaris 2018 was €2.500 en groeide mee met de inflatie: wat is het salaris in 2025?</div>
+      <textarea class="antw-input" rows="3" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) Inflatie = 128,7 − 100 = <strong>28,7%</strong>. b) €2.500 × 1,287 = <strong>€3.217,50</strong>.</div>
+    </div>
+    <div class="hrbox p4"><div class="hrn">§1.4 — Vraag 7</div>
+      <div class="hrq">Beschrijf de bedrijfskolom van een glas melk (minimaal 4 stappen). Bereken de TV van de supermarkt als de groothandel levert voor €0,55 en de supermarkt verkoopt voor €0,89.</div>
+      <textarea class="antw-input" rows="3" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">Kolom: boer → zuivelfabriek → groothandel → supermarkt → consument. TV supermarkt: €0,89 − €0,55 = <strong>€0,34 per liter</strong>.</div>
+    </div>
+    <div class="hrbox p4"><div class="hrn">§1.4 — Vraag 8</div>
+      <div class="hrq">Leg MVO uit en geef van elke P (People, Planet, Profit) een concreet voorbeeld voor een kledingmerk.</div>
+      <textarea class="antw-input" rows="3" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">MVO = Maatschappelijk Verantwoord Ondernemen: balans tussen People, Planet en Profit. People: eerlijke lonen voor fabrieksarbeiders in Bangladesh. Planet: gebruik van gerecycled katoen en hernieuwbare energie in productie. Profit: winstgevend genoeg om te groeien en duurzaam te blijven investeren.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REKENSOMMEN ===== -->
+<div id="rek" class="sec">
+  <div class="phdr"><div class="pn">Rekenen</div><h2>Rekensommen Hoofdstuk 1</h2><p>Laat altijd je berekening zien. Klik op 💡 voor het antwoord.</p></div>
+  <div style="padding:8px 0">
+
+    <div class="rsom"><div class="rn">Som 1 — Begroting &amp; procenten</div>
+      <p>Huishouden: inkomen <strong>€3.400/mnd</strong>. Vaste lasten: huur €1.050, energie €145, zorgverzekering €185, tv/internet €68. HU: boodschappen €380, kleding €120. Incidenteel: vakantiespaarpot €200.</p>
+      <p class="rsub">a) Totale uitgaven. b) Saldo. c) Welk % van het inkomen gaat naar vaste lasten? d) Huur stijgt 8%: nieuwe vaste lasten en nieuw saldo.</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) VL: €1.448. HU: €500. Inc.: €200. Totaal: <strong>€2.148</strong>. b) Saldo: €3.400−€2.148 = <strong>+€1.252 overschot</strong>. c) €1.448÷€3.400×100 = <strong>42,6%</strong>. d) Huur +8%: €1.050×1,08 = €1.134 (+€84). Nieuwe VL: €1.532. Nieuw saldo: €3.400−€2.232 = <strong>+€1.168</strong>.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 2 — Budgetlijn</div>
+      <p>Seda heeft <strong>€72 per week</strong>. Bioscoopkaartje <strong>€9</strong>. Portie sushi <strong>€18</strong>.</p>
+      <p class="rsub">a) Maximaal bioscoopkaartjes. b) Maximaal porties sushi. c) Betaalbaar: 5 bioscoop + 1 sushi? d) Betaalbaar: 4 bioscoop + 2 sushi? e) Als budget naar €90: nieuwe maxima?</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) 72÷9 = <strong>8 kaartjes</strong>. b) 72÷18 = <strong>4 porties</strong>. c) (5×9)+(1×18) = 45+18 = €63 ≤ €72 → <strong>ja</strong>. d) (4×9)+(2×18) = 36+36 = €72 ≤ €72 → <strong>ja, precies op de lijn</strong>. e) Budget €90: max bioscoop 10, max sushi 5.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 3 — Indexcijfer &amp; koopkracht</div>
+      <p>Boodschappenmandje: 2020 <strong>€450</strong> (basisjaar = 100), 2021 €463, 2022 €498, 2023 €531, 2024 €549, 2025 €562.</p>
+      <p class="rsub">a) Indexcijfer per jaar. b) In welk jaar was de jaarlijkse inflatie het hoogst? c) Inkomen €2.800 groeit +3%/jaar enkelvoudig: inkomen in 2025? Is de koopkracht gestegen of gedaald?</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) 2021: 102,9 | 2022: 110,7 | 2023: 118,0 | 2024: 122,0 | 2025: 124,9. b) Hoogste jaarlijkse inflatie: <strong>2022</strong> (+7,8 punten). c) Inkomen 2025: €2.800×(1+5×0,03) = €2.800×1,15 = <strong>€3.220</strong>. Prijspeil +24,9%, inkomen +15% → <strong>koopkracht gedaald</strong>.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 4 — Toegevoegde waarde &amp; winst (brood)</div>
+      <p>Boer levert tarwe aan molen voor <strong>€0,12/kg</strong>. Molen verkoopt meel aan bakkerij voor <strong>€0,32/kg</strong>. Bakkerij: 1 brood = 0,4 kg meel, verkoopprijs €2,80, overige kosten €0,90/brood. Supermarkt: inkoop €2,80, verkoop €3,40, overige kosten €0,25/brood.</p>
+      <p class="rsub">a) TV molen per kg meel. b) TV bakkerij per brood. c) Winst bakkerij per brood. d) TV supermarkt per brood.</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) TV molen: €0,32−€0,12 = <strong>€0,20/kg</strong>. b) Inkoopwaarde meel per brood: 0,4×€0,32 = €0,128. TV bakkerij: €2,80−€0,128 = <strong>€2,672</strong>. c) Winst bakkerij: €2,80−€0,128−€0,90 = <strong>€1,772</strong>. d) TV supermarkt: €3,40−€2,80 = <strong>€0,60</strong>.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 5 — Omzet &amp; verlies</div>
+      <p>Modebedrijf: <strong>2.400 T-shirts à €24,99</strong>. Inkoopwaarde €7,50/stuk. Vaste kosten €18.000. Variabele kosten €3,20/stuk.</p>
+      <p class="rsub">a) Totale omzet. b) Totale inkoopwaarde. c) Totale variabele kosten. d) Winst of verlies. e) Hoeveel T-shirts minimaal om quitte te spelen (break-even)?</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) 2.400×€24,99 = <strong>€59.976</strong>. b) 2.400×€7,50 = <strong>€18.000</strong>. c) 2.400×€3,20 = <strong>€7.680</strong>. d) €59.976−€18.000−€7.680−€18.000 = <strong>€16.296 winst</strong>. e) Bijdrage per stuk: €24,99−€7,50−€3,20 = €14,29. Break-even: €18.000÷€14,29 ≈ <strong>1.260 T-shirts</strong>.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 6 — Bedrijfskolom fiets</div>
+      <p>Staalfabriek → componenten €45 → fietsfabrikant €180 → groothandel €420 → winkel €520 → klant <strong>€749</strong>.</p>
+      <p class="rsub">a) TV per schakel. b) Som TV = consumentenprijs? c) Welke schakel voegt meeste waarde toe? d) Winkel verkoopt 240 fietsen/jaar: jaaromzet en jaarlijkse TV?</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) Staal: €45 | Componenten: €135 | Fabrikant: €240 | Groothandel: €100 | Winkel: €229. b) Som: €45+€135+€240+€100+€229 = <strong>€749 ✓</strong>. c) Fietsfabrikant (€240). d) Jaaromzet winkel: 240×€749 = <strong>€179.760</strong>. Jaarlijkse TV winkel: 240×€229 = <strong>€54.960</strong>.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 7 — Inflatie &amp; koopkracht (groot getal)</div>
+      <p>Nederland: <strong>8,2 miljoen huishoudens</strong>. Gemiddeld inkomen <strong>€3.200/mnd</strong>. Inflatie 2024: <strong>3,1%</strong>. Inkomensgroei: <strong>1,8%</strong>.</p>
+      <p class="rsub">a) Totale maandelijkse inkomenssom NL (in miljarden). b) Nieuw inkomen na inkomensgroei. c) Koopkrachtverlies per huishouden per maand. d) Totaal koopkrachtverlies NL per maand (in miljoenen).</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) 8,2 mln × €3.200 = <strong>€26,24 miljard/mnd</strong>. b) €3.200 × 1,018 = <strong>€3.257,60</strong>. c) Reëel verlies: 3,1%−1,8% = 1,3%. €3.200 × 0,013 ≈ <strong>€41,60/mnd</strong>. d) 8,2 mln × €41,60 ≈ <strong>€341 miljoen/mnd</strong>.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 8 — Mix alle paragrafen (TacoTruck)</div>
+      <p>TacoTruck: dagomzet <strong>€1.850</strong>, inkoopwaarde €520, overige kosten €680. Prijs per taco <strong>€5,50</strong>. CPI = <strong>109,5</strong> (basisjaar = 100). Eigenaar: privé vaste lasten €1.200/mnd, HU €550/mnd, salaris €2.800/mnd.</p>
+      <p class="rsub">a) Dagelijkse winst. b) Taco's per dag. c) Inflatie. d) Maandwinst bij 22 werkdagen. e) Privésaldo eigenaar.</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) €1.850−€520−€680 = <strong>€650/dag</strong>. b) €1.850÷€5,50 ≈ <strong>336 taco's</strong>. c) CPI 109,5 → inflatie = <strong>9,5%</strong>. d) €650×22 = <strong>€14.300/mnd</strong>. e) €2.800−€1.200−€550 = <strong>+€1.050 overschot</strong>.</div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+<script>
+function S(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  btn.classList.add('act');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function blT(p,btn){
+  document.querySelectorAll('.bl-pane').forEach(x=>x.classList.remove('act'));
+  document.querySelectorAll('.bl-tab').forEach(b=>b.classList.remove('act'));
+  document.getElementById(p).classList.add('act');btn.classList.add('act');
+}
+function cQ(btn,id){
+  btn.closest('.qbox').querySelectorAll('.opt').forEach(o=>o.disabled=true);
+  const ok=btn.dataset.c==='1';
+  const fb=document.getElementById(id);
+  if(ok){btn.classList.add('ok');fb.className='qfb ok';}
+  else{btn.classList.add('fout');fb.className='qfb fout';fb.textContent='❌ Helaas. Lees de uitleg nog eens terug.';
+    btn.closest('.qbox').querySelectorAll('.opt').forEach(o=>{if(o.dataset.c==='1')o.classList.add('ok');});}
+}
+function tog(ref){
+  let btn,box;
+  if(typeof ref==='string'){box=document.getElementById(ref);btn=box.previousElementSibling;}
+  else{
+    btn=ref;
+    const container=btn.closest('.bi,.hrbox,.rsom');
+    box=container?container.querySelector('.abox'):null;
+  }
+  if(!box)return;
+  box.classList.toggle('show');
+  if(btn)btn.textContent=box.classList.contains('show')?'🔼 Verberg':'💡 Modelantwoord';
+}
+function ld(cb,id){document.getElementById(id).classList.toggle('chk',cb.checked);}
+
+// BEGRIPPEN
+const bg=[
+  {t:'Behoeften',d:'Dingen die mensen willen of nodig hebben; zijn onbeperkt.',p:1},
+  {t:'Primaire behoeften',d:'Behoeften die noodzakelijk zijn voor overleving: eten, drinken, onderdak, kleding.',p:1},
+  {t:'Secundaire behoeften',d:'Behoeften die verder gaan dan overleven: entertainment, luxe, status.',p:1},
+  {t:'Schaarste',d:'Behoeften zijn groter dan de beschikbare middelen; dwingt tot keuzes.',p:1},
+  {t:'Consumeren',d:'Het gebruik van goederen en diensten om in behoeften te voorzien.',p:1},
+  {t:'Goederen',d:'Tastbare, materiële producten die je kunt meenemen (brood, laptop, jas).',p:1},
+  {t:'Diensten',d:'Niet-tastbare activiteiten die ter plekke plaatsvinden (knipbeurt, busrit, cursus).',p:1},
+  {t:'Alternatief aanwendbaar',d:'Middelen kunnen voor meerdere doeleinden worden ingezet; kiezen voor A is afzien van B.',p:1},
+  {t:'Vaste lasten',d:'Terugkerende uitgaven met een vast bedrag (huur, verzekering, abonnement).',p:2},
+  {t:'Huishoudelijke uitgaven',d:'Regelmatige, variabele uitgaven (boodschappen, kleding, benzine).',p:2},
+  {t:'Incidentele uitgaven',d:'Eenmalige of onverwachte kosten (vakantie, kapotte wasmachine).',p:2},
+  {t:'Begroting',d:'Overzicht van verwachte inkomsten en uitgaven voor een bepaalde periode.',p:2},
+  {t:'Overschot',d:'Positief saldo: inkomsten zijn groter dan uitgaven.',p:2},
+  {t:'Tekort',d:'Negatief saldo: uitgaven zijn groter dan inkomsten.',p:2},
+  {t:'Budgetlijn',d:'Grafiek van alle betaalbare combinaties van twee producten bij een vast budget.',p:2},
+  {t:'Directe ruil',d:'Product voor product ruilen zonder geld (barter).',p:3},
+  {t:'Indirecte ruil',d:'Ruilen via geld als tussenstap: verkopen voor geld, kopen met geld.',p:3},
+  {t:'Ruilmiddel',d:'Functie van geld: wordt overal geaccepteerd als betaalmiddel.',p:3},
+  {t:'Rekeneenheid',d:'Functie van geld: gemeenschappelijke maatstaf om waarden te vergelijken.',p:3},
+  {t:'Oppotmiddel',d:'Functie van geld: waarde bewaren voor gebruik in de toekomst.',p:3},
+  {t:'Chartaal geld',d:'Munten en bankbiljetten — fysiek geld.',p:3},
+  {t:'Giraal geld',d:'Digitaal banktegoed; betalen via pin of overschrijving.',p:3},
+  {t:'Cryptocurrency',d:'Digitale, gedecentraliseerde valuta op een blockchain (bijv. bitcoin).',p:3},
+  {t:'Wet van Gresham',d:'Slecht geld verdrijft goed geld — mensen houden goed geld vast en betalen met slecht geld.',p:3},
+  {t:'Inflatie',d:'Algemene stijging van het prijspeil — geld wordt minder waard.',p:3},
+  {t:'Koopkracht',d:'Hoeveel goederen je kunt kopen voor een bepaald geldbedrag.',p:3},
+  {t:'Indexcijfer',d:'(Waarde meetjaar ÷ waarde basisjaar) × 100. Inflatie = indexcijfer − 100.',p:3},
+  {t:'Produceren',d:'Het creëren van goederen en diensten.',p:4},
+  {t:'Bedrijfskolom',d:'Aaneenschakeling van bedrijven van grondstof tot consument; elke schakel voegt waarde toe.',p:4},
+  {t:'Toegevoegde waarde (TV)',d:'Verkoopprijs minus inkoopprijs: TV = verkoopprijs − inkoopkosten.',p:4},
+  {t:'Omzet',d:'Totale verkoopopbrengst: omzet = prijs × hoeveelheid.',p:4},
+  {t:'Inkoopwaarde',d:'Kosten van ingekochte grondstoffen of halffabrikaten.',p:4},
+  {t:'Winst',d:'Omzet minus alle kosten; positief resultaat.',p:4},
+  {t:'Verlies',d:'Kosten zijn hoger dan omzet; negatief resultaat.',p:4},
+  {t:'MVO',d:'Maatschappelijk Verantwoord Ondernemen: balans tussen People, Planet en Profit.',p:4},
+];
+function fB(f){
+  const g=document.getElementById('bgrd'),fl=(f||'').toLowerCase();
+  g.innerHTML=bg.filter(b=>b.t.toLowerCase().includes(fl)||b.d.toLowerCase().includes(fl))
+    .map(b=>`<div class="bcard p${b.p}"><div class="bt">${b.t}</div><div class="bd">${b.d}</div></div>`).join('');
+}
+fB('');
+</script>
+</body>
+</html>
