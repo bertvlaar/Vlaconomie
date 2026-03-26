@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vlaconomie — H4 Ruilen over de Tijd</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--gd:#1a7a4a;--gl:#2ecc71;--glicht:#e8faf0;--gzl:#f0fdf4;
+  --goud:#f0c040;--goudd:#d4a012;
+  --rood:#b30000;--roodl:#e53e3e;
+  --blauw:#1a2e4a;--blauwl:#2d4a6e;
+  --donker:#1a1a2e;--donkerp:#2d1b4e;
+  --grijs:#6b7280;--lichtgrijs:#f7f9fc;--rand:#e0e8f4;
+  --sh:0 2px 10px rgba(0,0,0,.1);
+  --sh2:0 4px 20px rgba(0,0,0,.12);
+  --bg:#f4f7f4
+}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--bg);color:#1a1a2e;font-size:15px}
+header{background:linear-gradient(135deg,var(--groen),var(--gd));position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(15,77,46,.4)}
+.hdr-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.logo{font-family:'Lexend',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.5px;color:#fff}
+.logo em{color:var(--goud);font-style:normal}
+.logo-sub{font-size:.7rem;color:rgba(255,255,255,.7);font-family:'DM Sans',sans-serif}
+nav{display:flex;overflow-x:auto;background:rgba(0,0,0,.2);padding:0 14px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{padding:9px 12px;border:none;background:none;color:rgba(255,255,255,.75);font-family:'Lexend',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+nav button:hover,nav button.act{color:#fff;border-bottom-color:var(--goud);background:rgba(255,255,255,.1)}
+main{max-width:900px;margin:0 auto;padding:20px 14px 60px}
+.sec{display:none;animation:fu .3s ease}.sec.act{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.phdr{background:linear-gradient(135deg,var(--groen),var(--gd));color:#fff;padding:22px 26px;border-radius:12px 12px 0 0}
+.phdr .pn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--goud);color:var(--groen);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;font-weight:700}
+.phdr h2{font-family:'Lexend',sans-serif;font-size:1.4rem;margin-bottom:4px;font-weight:800}
+.phdr p{color:rgba(255,255,255,.8);font-size:.87rem}
+.nk{padding:18px 22px;margin-bottom:2px;border-left:6px solid var(--gd)}
+.nk-groen{background:linear-gradient(135deg,#e8faf0,#c8efd8);border-color:var(--gd)}
+.nk-rood{background:linear-gradient(135deg,#fdecea,#f9d0cd);border-color:var(--roodl)}
+.nk-goud{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-color:var(--goudd)}
+.nk-blauw{background:linear-gradient(135deg,#e8f0fb,#d0e2f7);border-color:var(--blauwl)}
+.nk-tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grijs);margin-bottom:5px}
+.nk-kop{font-family:'Lexend',sans-serif;font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:3px;line-height:1.35}
+.nk-meta{font-size:.73rem;color:var(--grijs);margin-bottom:10px}
+.nk-body{font-size:.87rem;line-height:1.55;color:#333;margin-bottom:12px}
+.nk-stats{display:flex;margin-bottom:12px;background:rgba(255,255,255,.55);border-radius:8px;overflow:hidden}
+.nk-stat{flex:1;padding:9px 12px;text-align:center;border-right:1px solid rgba(255,255,255,.6)}
+.nk-stat:last-child{border-right:none}
+.nk-sv{font-family:'Lexend',sans-serif;font-size:1.1rem;font-weight:700;color:#1a1a2e;margin-bottom:2px}
+.nk-sl{font-size:.68rem;color:var(--grijs);line-height:1.3}
+.blok{background:#fff;padding:22px;box-shadow:var(--sh);margin-bottom:2px}
+.blok:last-child{border-radius:0 0 12px 12px;margin-bottom:18px}
+.bttl{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gd);margin-bottom:14px;display:flex;align-items:center;gap:8px;font-family:'Lexend',sans-serif}
+.bttl::before{content:'';display:inline-block;width:3px;height:15px;background:var(--gd);border-radius:2px}
+.dhdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--glicht)}
+.dav{font-size:1.5rem;background:var(--glicht);width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.dbody{font-size:.91rem;line-height:1.85;color:#222}
+.dbody p{margin-bottom:14px}.dbody p:last-child{margin-bottom:0}
+.dbody strong{color:var(--groen);font-weight:700}
+.dsep{border:none;border-top:2px dashed rgba(26,122,74,.2);margin:18px 0}
+.dex{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:11px 15px;margin:12px 0 4px;font-size:.86rem;color:#333;line-height:1.55}
+.dex::before{content:'Voorbeeld: ';font-weight:700;color:var(--gd)}
+.fml{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:10px 15px;margin:10px 0;font-size:.88rem;font-family:'Courier New',monospace;color:var(--groen);font-weight:700}
+.dialoog{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border:2px solid rgba(26,122,74,.2);border-radius:10px;padding:16px;margin-bottom:14px}
+.dialoog-rij{margin-bottom:8px;font-size:.87rem;line-height:1.55}
+.dialoog-rij:last-child{margin-bottom:0}
+.dialoog-naam{font-weight:700;color:var(--gd)}
+.dialoog-naam2{font-weight:700;color:var(--groen)}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.tbl th{background:var(--gd);color:#fff;padding:9px 12px;text-align:left;font-family:'Lexend',sans-serif;font-weight:600;font-size:.78rem}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--rand)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even){background:#f9fdf9}
+.wjd{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-left:4px solid var(--goud);border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#4a3b00}
+.wjd::before{content:'🌍 Wist je dat? ';font-weight:700;color:var(--goudd)}
+.waarsch{background:linear-gradient(135deg,#fff8e1,#fff3cd);border-left:4px solid #ff9800;border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#5d4037}
+.bgrp-blok{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border-radius:8px;padding:14px;margin:10px 0}
+.bgrp-blok h4{font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--gd);margin-bottom:10px;letter-spacing:.4px}
+.qbox{background:#fffbe6;border:2px solid rgba(240,192,64,.5);border-radius:10px;padding:16px;margin-bottom:12px}
+.ql{font-size:.7rem;color:var(--goudd);font-weight:700;text-transform:uppercase;margin-bottom:8px;font-family:'Lexend',sans-serif}
+.qt{font-weight:600;margin-bottom:10px;font-size:.9rem;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:9px 12px;border:2px solid #ddd;border-radius:7px;cursor:pointer;font-size:.87rem;background:#fff;text-align:left;transition:all .2s;font-family:'DM Sans',sans-serif}
+.opt:hover:not([disabled]){border-color:var(--gd);background:var(--glicht)}
+.opt.ok{border-color:var(--gd)!important;background:var(--glicht);color:var(--groen);font-weight:600}
+.opt.fout{border-color:var(--roodl)!important;background:#fdecea;color:var(--roodl)}
+.qfb{margin-top:8px;font-size:.87rem;font-weight:600;display:none;padding:8px 12px;border-radius:6px}
+.qfb.ok{display:block;color:var(--groen);background:var(--glicht)}
+.qfb.fout{display:block;color:var(--roodl);background:#fdecea}
+.bleg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;font-size:.72rem}
+.bleg span{padding:3px 9px;border-radius:10px;color:#fff;font-weight:700;font-family:'Lexend',sans-serif}
+.b1{background:#0f4d2e}.b2{background:#1a7a4a}.b3{background:#d4a012}
+.b4{background:#b85c00}.b5{background:#b30000}.b6{background:#2d1b4e}
+.bi{border-left:3px solid var(--rand);padding:13px 0 13px 15px;margin-bottom:10px}
+.brow{display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
+.bbadge{font-family:'Lexend',sans-serif;font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:9px;color:#fff;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:3px}
+.bq{font-size:.89rem;line-height:1.65;color:#222;margin-bottom:6px}
+.bq em{font-style:italic;font-weight:700;color:var(--groen)}
+.antw-input{width:100%;margin-top:8px;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.88rem;font-family:'DM Sans',inherit;resize:vertical;min-height:65px;outline:none;transition:border-color .2s;line-height:1.55}
+.antw-input:focus{border-color:var(--gd)}
+.antw-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.abtn{background:none;border:2px solid var(--gd);color:var(--gd);padding:7px 13px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Lexend',sans-serif}
+.abtn:hover{background:var(--gd);color:#fff}
+.abox{display:none;background:var(--glicht);border-left:4px solid var(--gd);padding:11px 14px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.86rem;line-height:1.65}
+.abox.show{display:block}
+.bl-tabs{display:flex;margin-bottom:18px;border-bottom:2px solid var(--rand)}
+.bl-tab{padding:9px 18px;border:none;background:none;font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--grijs);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s}
+.bl-tab.act{color:var(--gd);border-bottom-color:var(--gd)}
+.bl-pane{display:none}.bl-pane.act{display:block}
+.bsrch{width:100%;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.9rem;margin-bottom:16px;outline:none;font-family:'DM Sans',sans-serif}
+.bsrch:focus{border-color:var(--gd)}
+.bgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.bcard{background:#fff;border-radius:8px;padding:12px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-top:3px solid var(--gd);transition:transform .15s}
+.bcard:hover{transform:translateY(-2px)}
+.bcard.p2{border-top-color:var(--roodl)}.bcard.p3{border-top-color:var(--goudd)}.bcard.p4{border-top-color:var(--blauwl)}
+.bcard .bt{font-family:'Lexend',sans-serif;font-weight:700;color:var(--gd);font-size:.88rem}
+.bcard.p2 .bt{color:var(--roodl)}.bcard.p3 .bt{color:var(--goudd)}.bcard.p4 .bt{color:var(--blauwl)}
+.bcard .bd{font-size:.8rem;color:#555;margin-top:4px;line-height:1.35}
+.card{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh)}
+.card h3{font-family:'Lexend',sans-serif;font-size:1rem;margin-bottom:10px}
+.ldi{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #eee}
+.ldi:last-child{border-bottom:none}
+.ldi input{width:17px;height:17px;accent-color:var(--gd);flex-shrink:0;margin-top:3px;cursor:pointer}
+.ldi label{font-size:.89rem;cursor:pointer;line-height:1.45}
+.ldi.chk label{color:var(--gd);text-decoration:line-through}
+.sblok{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.sblok.p2{border-left-color:var(--roodl)}.sblok.p3{border-left-color:var(--goudd)}.sblok.p4{border-left-color:var(--blauwl)}
+.sblok h3{font-family:'Lexend',sans-serif;font-size:.97rem;margin-bottom:8px}
+.sblok p{font-size:.89rem;line-height:1.65;color:#333}
+.hrbox{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:5px solid var(--gd)}
+.hrbox.p2{border-left-color:var(--roodl)}.hrbox.p3{border-left-color:var(--goudd)}.hrbox.p4{border-left-color:var(--blauwl)}
+.hrn{font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--gd);margin-bottom:8px}
+.hrbox.p2 .hrn{color:var(--roodl)}.hrbox.p3 .hrn{color:var(--goudd)}.hrbox.p4 .hrn{color:var(--blauwl)}
+.hrq{font-size:.9rem;line-height:1.6;font-weight:600;margin-bottom:8px}
+.rsom{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.rsom .rn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--gd);color:#fff;padding:2px 9px;border-radius:12px;display:inline-block;margin-bottom:7px;font-weight:700}
+.rsom p{font-size:.89rem;line-height:1.65;margin-bottom:4px}
+.rsom .rsub{font-size:.83rem;color:#555;margin-top:4px}
+.rode-draad{background:linear-gradient(135deg,var(--groen),var(--gd));border-radius:10px;padding:18px 22px;color:#fff;margin:14px 0}
+.rode-draad h4{font-family:'Lexend',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--goud)}
+.rode-draad p{font-size:.87rem;line-height:1.8;color:rgba(255,255,255,.9)}
+@media(max-width:600px){.phdr h2{font-size:1.15rem}nav button{font-size:.68rem;padding:8px 9px}.bgrd{grid-template-columns:1fr 1fr}.tbl{font-size:.78rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-top">
+    <a href="index.html" style="text-decoration:none">
+      <div class="logo">vla<em>conomie</em>.nl</div>
+      <div class="logo-sub">Economie · 3 HAVO/VWO · Hoofdstuk 4 — Ruilen over de Tijd</div>
+    </a>
+  </div>
+  <nav>
+    <button class="act" onclick="S('s41',this)">§4.1 Levensfasen</button>
+    <button onclick="S('s42',this)">§4.2 Sparen &amp; Lenen</button>
+    <button onclick="S('s43',this)">§4.3 Kopen of Huren</button>
+    <button onclick="S('ssamenv',this)">📋 Samenvatting</button>
+    <button onclick="S('sbegrippen',this)">📖 Begrippen</button>
+    <button onclick="S('sherhaling',this)">🔁 Herhaling</button>
+    <button onclick="S('srekensommen',this)">🔢 Rekensommen</button>
+  </nav>
+</header>
+<main>
+
+<!-- ===== §4.1 ===== -->
+<div id="s41" class="sec act">
+  <div class="phdr">
+    <div class="pn">§ 4.1</div>
+    <h2>Levensfasen en financiële keuzes</h2>
+    <p>Levensfasen · Inter-temporele ruil · Consumentenkrediet · Vermogensopbouw · Pensioen</p>
+  </div>
+
+  <div class="nk nk-groen">
+    <div class="nk-tag">⏳ Ruilen over de Tijd</div>
+    <div class="nk-kop">Nu of later? Inter-temporele ruil bepaalt je financiële toekomst</div>
+    <div class="nk-meta">2025 · Economie havo/vwo</div>
+    <div class="nk-body">Je ruilt niet alleen op dit moment — je ruilt ook over de tijd. <strong>Inter-temporele ruil</strong> betekent dat je nu iets opgeeft om later meer te ontvangen, of andersom. Door je leven heen veranderen je inkomsten en uitgaven: als student leef je van stufi, als werkende bouw je vermogen op, en als gepensioneerde teer je in. Elke fase vraagt andere financiële keuzes.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">sparen</div><div class="nk-sl">nu opgeven, later meer</div></div>
+      <div class="nk-stat"><div class="nk-sv">lenen</div><div class="nk-sl">nu ontvangen, later terugbetalen</div></div>
+      <div class="nk-stat"><div class="nk-sv">pensioen</div><div class="nk-sl">werkleven → rustleven</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Tom (17):</span> <em>"Ik ga straks studeren. Mijn ouders zeggen dat ik moet lenen en dat ik later wel terugbetaal."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Sarah (17):</span> <em>"Maar is dat wel slim? Je betaalt toch ook rente?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Tom:</span> <em>"Ja, maar als ik nu niet studeer, verdien ik later veel minder. Dan is lenen eigenlijk goedkoop."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Sarah:</span> <em>"Dus je ruilt eigenlijk arm-nu voor rijk-later. Dat is economie!"</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--gd);font-family:'Lexend',sans-serif">§4.1 — Levensfasen en financiële keuzes</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Inter-temporele ruil</strong>: ruil die niet op één moment plaatsvindt, maar waarbij je nu iets opgeeft om later iets te ontvangen (of andersom). Bijvoorbeeld: je spaart nu (geeft koopkracht op) om later meer te hebben. Of je leent nu (ontvangt koopkracht) en betaalt later terug.</p>
+      <p><strong>Levensfasen</strong>: de typische stadia die mensen doormaken, elk met andere inkomsten, uitgaven en financiële behoeften.</p>
+      <table class="tbl">
+        <tr><th>Levensfase</th><th>Typische financiële situatie</th><th>Kenmerkende keuzes</th></tr>
+        <tr><td><strong>Jeugd &amp; studie (0–25 jaar)</strong></td><td>Weinig of geen inkomen; hoge onderwijskosten; afhankelijk van ouders of studiefinanciering.</td><td>Studielening afsluiten; bijbaantje nemen; zuinig leven.</td></tr>
+        <tr><td><strong>Startende werkende (25–35 jaar)</strong></td><td>Stijgend inkomen; hoge vaste lasten (huur, vervoer); weinig vermogen opgebouwd.</td><td>Hypotheek oriëntatie; beginnen met sparen; aflossen studieschuld.</td></tr>
+        <tr><td><strong>Gezinsfase (30–50 jaar)</strong></td><td>Twee inkomens mogelijk; kosten voor kinderen, hypotheek en verzekeringen.</td><td>Vermogensopbouw via eigen huis; pensioenopbouw; levensverzekering.</td></tr>
+        <tr><td><strong>Voor-pensioen (50–65 jaar)</strong></td><td>Inkomen op hoogtepunt; kinderen uit huis; hypotheek bijna afgelost.</td><td>Extra sparen voor pensioen; afbetalen schulden; nadenken over zorgkosten.</td></tr>
+        <tr><td><strong>Pensioen (65+)</strong></td><td>Geen arbeidsinkomen meer; AOW + aanvullend pensioen; vermogen gebruiken.</td><td>Uitbesteden; zorgkosten; erfenis plannen; vermogen interen.</td></tr>
+      </table>
+      <hr class="dsep">
+      <p><strong>Kritiek op financiële keuzes</strong>: niet elke keuze in een levensfase is rationeel of optimaal. Veelgemaakte fouten zijn: te vroeg grote schulden aangaan, geen noodfonds opbouwen, te laat beginnen met pensioensparen of juist te vroeg en te risicovol pensioengeld beleggen.</p>
+      <div class="dex">Lena (22) gaat studeren. Ze leent €1.050 per maand via DUO. Na 4 jaar heeft ze €50.400 geleend. Ze verwacht €500/maand meer te verdienen. Terugverdientijd: €50.400 ÷ €500 = 100,8 maanden ≈ 8,4 jaar. Conclusie: inter-temporele ruil kan heel verstandig zijn, mits het toekomstig voordeel groter is dan de kosten (inclusief rente).</div>
+      <div class="wjd">Nederlanders beginnen gemiddeld pas op hun 37ste serieus te sparen voor hun pensioen. Economen adviseren om al op je 25ste te beginnen: door samengestelde rente is elke euro die je vroeg inlegt op pensioensleeftijd 5 tot 7 keer meer waard.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat is inter-temporele ruil?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q41a')">A. Ruil waarbij je goederen inwisselt voor diensten op hetzelfde moment.</button><button class="opt" data-c="1" onclick="cQ(this,'q41a')">B. Ruil waarbij je nu iets opgeeft om later iets te ontvangen, of omgekeerd.</button><button class="opt" data-c="0" onclick="cQ(this,'q41a')">C. Ruil die alleen plaatsvindt tussen landen met verschillende valuta.</button><button class="opt" data-c="0" onclick="cQ(this,'q41a')">D. Ruil waarbij de prijs afhankelijk is van het tijdstip van de dag.</button></div><div id="q41a" class="qfb">✅ Antwoord B — Inter-temporele ruil = je geeft nu iets op om later iets te ontvangen, of je ontvangt nu en betaalt later.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Onthouden</div><div class="qt">Welke levensfase wordt gekenmerkt door een inkomen op het hoogtepunt, maar ook door hoge pensioenvoorbereiding?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q41b')">A. Jeugd &amp; studie</button><button class="opt" data-c="0" onclick="cQ(this,'q41b')">B. Gezinsfase</button><button class="opt" data-c="1" onclick="cQ(this,'q41b')">C. Voor-pensioen (50–65 jaar)</button><button class="opt" data-c="0" onclick="cQ(this,'q41b')">D. Pensioenfase (65+)</button></div><div id="q41b" class="qfb">✅ Antwoord C — De voor-pensioenfase (50–65 jaar) kenmerkt zich door het inkomen op het hoogtepunt én actieve pensioenvoorbereiding.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 8 — Analyseren</div><div class="qt">Waarom is een studieschuld aangaan voor een HBO-opleiding in sommige gevallen een rationele economische keuze, terwijl het in andere gevallen onverstandig is?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q41c')">A. Omdat lenen altijd goedkoper is dan werken.</button><button class="opt" data-c="1" onclick="cQ(this,'q41c')">B. Omdat de verwachte inkomensstijging na de opleiding groter moet zijn dan de totale kosten van de lening inclusief rente.</button><button class="opt" data-c="0" onclick="cQ(this,'q41c')">C. Omdat de overheid alle studieschulden uiteindelijk kwijtscheldt.</button><button class="opt" data-c="0" onclick="cQ(this,'q41c')">D. Omdat lenen in de studietijd altijd risico-vrij is.</button></div><div id="q41c" class="qfb">✅ Antwoord B — De lening is rationeel als de inkomensstijging (na kosten) de totale leenkosten overtreft.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 11 — Analyseren</div><div class="qt">Welke stelling over inter-temporele ruil is juist?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q41d')">A. Inter-temporele ruil is altijd voordelig, omdat je later altijd meer hebt.</button><button class="opt" data-c="1" onclick="cQ(this,'q41d')">B. Inter-temporele ruil is voordelig als de toekomstige opbrengst (gecorrigeerd voor rente en risico) groter is dan het huidige offer.</button><button class="opt" data-c="0" onclick="cQ(this,'q41d')">C. Inter-temporele ruil is alleen van toepassing op leningen, niet op sparen.</button><button class="opt" data-c="0" onclick="cQ(this,'q41d')">D. Inter-temporele ruil is alleen rationeel als de looptijd korter is dan 5 jaar.</button></div><div id="q41d" class="qfb">✅ Antwoord B — Inter-temporele ruil is voordelig als de toekomstige opbrengst (gecorrigeerd voor rente en risico) groter is dan het huidige offer.</div></div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem drie typische financiële kenmerken van de <em>gezinsfase (30–50 jaar)</em> en geef bij elk een concreet voorbeeld.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">1. Kosten voor kinderen (opvang, school, sport) — voorbeeld: kinderdagverblijf kost €1.000+ per maand.<br>2. Hypotheeklasten voor de koopwoning — voorbeeld: maandelijkse hypotheek van €1.200.<br>3. Verzekeringen voor gezin en woning — voorbeeld: levensverzekering voor de partner bij overlijden.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Een student leent €900 per maand voor haar studie. Na 3 jaar verwacht ze €400 per maand meer te verdienen dan zonder diploma. Na hoeveel maanden heeft ze haar investering terugverdiend (exclusief rente)?<br><br>A. Na 27 maanden &nbsp; B. Na 67,5 maanden &nbsp; C. Na 81 maanden &nbsp; D. Na 100 maanden</div><textarea class="antw-input" rows="3" placeholder="Kies en beredeneer je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Juist antwoord: <strong>D — 81 maanden</strong>.<br>Berekening: €900 × 36 maanden = €32.400 totale lening. €32.400 ÷ €400 = 81 maanden.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit waarom het financieel verstandig is om vroeg te beginnen met pensioensparen. Gebruik het begrip <em>samengestelde rente</em> in je antwoord.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Samengestelde rente betekent dat je rente ontvangt over je spaarbedrag én over de al opgebouwde rente. Bij vroeg starten heb je meer jaren van samengestelde rente-aangroei. Voorbeeld: €1.000 op je 25ste bij 5% groeit na 40 jaar tot €7.040. Op je 45ste begonnen: slechts €2.653. Conclusie: elke 10 jaar eerder starten verdubbelt ruwweg het eindvermogen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Mark (28) verdient €2.200 netto per maand. Hij heeft een studieschuld van €24.000 die hij in 10 jaar wil aflossen.<br>a) Welke maandelijkse aflossing is nodig (exclusief rente)?<br>b) Stel dat hij tegelijkertijd een noodfonds van 3 maanden netto loon wil opbouwen. Hoeveel moet hij daarvoor sparen?<br>c) Geef kritiek op zijn situatie: is het verstandig dat hij nu ook een hypotheek overweegt?</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) €24.000 ÷ 120 maanden = <strong>€200 per maand</strong>.<br>b) Noodfonds = 3 × €2.200 = <strong>€6.600</strong>.<br>c) Kritiek: Mark betaalt al €200/maand studieschuld + noodfonds opbouwen kost ook maanden. Met netto €2.200 heeft hij weinig ruimte. Een hypotheek erbij zou zijn maandlasten fors verhogen. Advies: eerst studieschuld (deels) aflossen en noodfonds opbouwen vóór hypotheek.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Beschrijf voor elk van de volgende personen in welke levensfase ze zich bevinden en welke financiële keuze kritiek verdient:<br>a) Petra (24): studeert nog, heeft al een auto op afbetaling en een creditcardschuld.<br>b) Jan (52): hypotheek bijna afgelost, maar hij heeft geen aanvullend pensioen opgebouwd.<br>c) Els (68): heeft een hoge AOW + pensioen, maar belegt het allemaal in risicovolle crypto.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Petra: jeugd &amp; studiefase. Kritiek: auto op afbetaling + creditcardschuld met duur rentetarief is onverstandig. Ze heeft nog geen inkomen. Schulden stapelen risico op.<br>b) Jan: voor-pensioenfase. Kritiek: te laat begonnen met aanvullend pensioen. Op zijn 52ste is er nog 13 jaar, maar het gemiste rendement is enorm. Hij moet nu agressief sparen.<br>c) Els: pensioenfase. Kritiek: crypto is extreem risicovol voor iemand op pensioenleeftijd. Ze heeft geen tijd om verliezen te herstellen. Beter: defensief beleggen of sparen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Analyseer de financiële situatie van een gezin in de gezinsfase:<br>a) Noem twee redenen waarom de uitgaven in deze fase vaak hoger zijn dan in andere fasen.<br>b) Welke risico's lopen gezinnen die geen noodfonds hebben?<br>c) Hoe kan een gezin tegelijkertijd schuld aflossen én vermogen opbouwen?<br>d) Welke rol speelt de hypotheek hierbij?</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Hoge uitgaven: kinderopvang/school + hypotheeklasten. Beide zijn substantieel en tegelijk.<br>b) Risico's zonder noodfonds: bij ziekte, ontslag of scheiding geen buffer → direct in financiële problemen.<br>c) Tegelijk aflossen én vermogen opbouwen: extra aflossen op hypotheek + pensioensparen via werkgever.<br>d) Hypotheek: vermogensopbouw via overwaarde; naarmate de schuld daalt en de woningwaarde stijgt, groeit het nettovermogen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Vergelijk de situatie van iemand die op zijn 25ste begint te sparen voor zijn pensioen met iemand die pas op zijn 40ste begint. Neem aan dat beiden €200 per maand inleggen en een gemiddeld rendement van 5% per jaar behalen.<br>a) Wie heeft meer vermogen opgebouwd op zijn 65ste? Redeneer zonder exacte berekening.<br>b) Welk principe verklaart dit grote verschil?<br>c) Wat zegt dit over het belang van vroeg starten?</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Degene die start op 25ste heeft meer opgebouwd — door het exponentiële effect van samengestelde rente over 40 i.p.v. 25 jaar.<br>b) Principe: samengestelde rente (rente op rente) leidt tot exponentiële groei.<br>c) Vroeg starten is cruciaal: elk jaar dat je eerder begint heeft een enorme multiplicator op lange termijn.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">De overheid heeft de studiefinanciering veranderd: in plaats van een beurs krijgen studenten alleen nog een lening. Evalueer deze beslissing:<br>a) Welk effect heeft dit op de inter-temporele ruil van studenten?<br>b) Wat zijn de gevolgen voor studenten uit gezinnen met lagere inkomens?<br>c) Is deze maatregel eerlijk? Geef twee argumenten voor en twee tegen.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Studenten lenen nu meer; ze geven toekomstige koopkracht op voor huidig studierecht.<br>b) Studenten uit lagere inkomens zijn meer risicomijdend; sommigen kiezen ervoor niet te studeren.<br>c) Vóór: overheid bespaart geld; beurs was ook 'cadeau' voor rijke studenten. Tegen: drempel voor lagere inkomens; ongelijkheid neemt toe; schuldenangst belemmert studiekeuze.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Iemand in de pensioenfase overweegt zijn spaargeld volledig te besteden in plaats van het te bewaren voor erfenis. Beredeneer of dit economisch rationeel is. Betrek daarin de concepten <em>interen</em>, <em>erfenis</em> en <em>onzekerheid over de levensduur</em>.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Economisch rationeel als: verwachte levensduur kort, geen kinderen die erven willen, maximale levenskwaliteit gewenst. Risico: levensduur onzeker — bij lang leven is het geld op. Spaarbuffer voor zorgkosten is dan weg. Erfenis kan ook 'nuttig zijn' als motivatie om eigen situatie goed te regelen (voorkomt familieconflicten).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Ontwerp een financieel levensplan voor een fictieve persoon van 20 jaar. Beschrijf: a) in welke volgorde je welke financiële beslissingen neemt (opleiding, woning, pensioen, gezin); b) hoe je zorgt voor een noodfonds; c) welke inter-temporele ruilkeuzes je bewust maakt; d) welke risico's je meeneemt in je plan.</div><textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beoordelingscriteria: (1) logische volgorde van opleiding → noodfonds → studieschuld aflossen → pensioen → woning; (2) noodfonds van 3–6 maanden netto inkomen; (3) bewuste inter-temporele keuzes: nu studeren = later meer verdienen, vroeg pensioensparen = samengestelde rente; (4) risico's: arbeidsongeschiktheid, waardedaling woning, lang leven.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een column (minimaal 8 zinnen) voor een scholierenkrant met de titel <em>'Ruil nu slim, profiteer later'</em>. Beschrijf wat inter-temporele ruil is, geef twee concrete voorbeelden en geef drie adviezen aan leeftijdsgenoten.</div><textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beoordelingscriteria: begrip inter-temporele ruil correct uitgelegd; twee concrete voorbeelden (bijv. sparen/studeren); drie adviezen (bijv. vroeg beginnen, noodfonds, leningen vergelijken); minimaal 8 zinnen; toegankelijke toon voor scholieren.</div></div>
+  </div>
+</div>
+
+<!-- ===== §4.2 ===== -->
+<div id="s42" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 4.2</div>
+    <h2>Sparen en lenen</h2>
+    <p>Spaarrekening · Deposito · Beleggen · Persoonlijke lening · Hypotheek · Rente · Samengestelde rente</p>
+  </div>
+
+  <div class="nk nk-blauw">
+    <div class="nk-tag">💰 Sparen &amp; Lenen</div>
+    <div class="nk-kop">Geld bewaren of geld lenen: rekenen aan rente is je sterkste wapen</div>
+    <div class="nk-meta">2025 · Economie havo/vwo</div>
+    <div class="nk-body">Geld heeft een tijdswaarde: een euro vandaag is meer waard dan een euro later. <strong>Sparen</strong> levert rente op, <strong>lenen</strong> kost rente. Bij <strong>samengestelde rente</strong> groeit (of slinkt) een bedrag exponentieel, omdat je rente over rente ontvangt. Het verschil tussen <strong>nominale rente</strong> (op papier) en <strong>effectieve rente</strong> (werkelijk inclusief kosten) is cruciaal bij het vergelijken van leningen.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">sparen</div><div class="nk-sl">0,5 – 8% rendement</div></div>
+      <div class="nk-stat"><div class="nk-sv">lenen</div><div class="nk-sl">3 – 20% rente</div></div>
+      <div class="nk-stat"><div class="nk-sv">effectief</div><div class="nk-sl">vergelijk altijd APR</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Nadia:</span> <em>"Ik ga €5.000 sparen. Moet ik dat op een spaarrekening zetten of beleggen?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Daan:</span> <em>"Sparen is veiliger. Beleggen geeft meer rendement maar ook meer risico."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Nadia:</span> <em>"En als ik nu iets wil kopen en het geld heb ik niet? Kan ik dan beter rood staan of een lening nemen?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Daan:</span> <em>"Roodstaan is vaak duurder. Een persoonlijke lening heeft een vaste rente. Vergelijk altijd de effectieve rente!"</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--blauwl);font-family:'Lexend',sans-serif">§4.2 — Sparen en lenen</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Spaarvormen</strong></p>
+      <table class="tbl">
+        <tr><th>Spaar-/beleggingsvorm</th><th>Kenmerken</th><th>Risico / rendement</th></tr>
+        <tr><td><strong>Spaarrekening</strong></td><td>Vrij opneembaar; lage rente (0,5–2%); gegarandeerd door depositogarantie tot €100.000.</td><td>Laag risico, laag rendement.</td></tr>
+        <tr><td><strong>Depositorekening</strong></td><td>Geld vast voor bepaalde periode (1–5 jaar); hogere rente dan spaarrekening.</td><td>Laag risico, iets hoger rendement; geld niet vrij opneembaar.</td></tr>
+        <tr><td><strong>Beleggen (aandelen/fondsen)</strong></td><td>Geld investeren in bedrijven of fondsen; rendement onzeker maar historisch 5–8% per jaar.</td><td>Hoger risico, hoger verwacht rendement op lange termijn.</td></tr>
+        <tr><td><strong>Pensioensparen (lijfrente)</strong></td><td>Speciaal sparen voor pensioen; belastingvoordeel bij inleg; pas beschikbaar op pensioensleeftijd.</td><td>Laag tot midden risico; fiscaal aantrekkelijk.</td></tr>
+      </table>
+      <hr class="dsep">
+      <p><strong>Leenvormen</strong></p>
+      <table class="tbl">
+        <tr><th>Leenvorm</th><th>Kenmerken</th><th>Typische rente</th></tr>
+        <tr><td><strong>Roodstand</strong></td><td>Tijdelijk meer uitgeven dan je hebt op je betaalrekening; flexibel maar duur.</td><td>8–15% per jaar</td></tr>
+        <tr><td><strong>Creditcard</strong></td><td>Betalingsuitstel tot de volgende maand; bij niet volledig betalen hoge rente.</td><td>10–20% per jaar</td></tr>
+        <tr><td><strong>Persoonlijke lening</strong></td><td>Vast bedrag, vaste looptijd, vaste maandelijkse aflossing en rente.</td><td>4–10% per jaar</td></tr>
+        <tr><td><strong>Doorlopend krediet</strong></td><td>Flexibele lening; je kunt opnemen en aflossen wanneer je wilt.</td><td>5–12% per jaar</td></tr>
+        <tr><td><strong>Hypotheek</strong></td><td>Grote lening voor aankoop onroerend goed; onderpand is de woning zelf.</td><td>3–5% per jaar</td></tr>
+        <tr><td><strong>Studielening (DUO)</strong></td><td>Lening voor studie; lage rente; terugbetaling afhankelijk van inkomen.</td><td>0–1% per jaar</td></tr>
+      </table>
+      <hr class="dsep">
+      <div class="fml">Enkelvoudige rente: Rente = Hoofdsom × rentevoet × tijd</div>
+      <div class="dex">€2.000 × 3% × 2 jaar = €120 rente → Eindwaarde = €2.120</div>
+      <div class="fml">Samengestelde rente: Eindwaarde = Hoofdsom × (1 + r)^n</div>
+      <div class="dex">€2.000 × (1,03)^2 = €2.000 × 1,0609 = €2.121,80</div>
+      <div class="fml">Totale rentekosten lening: Totaal terugbetaald − Hoofdsom</div>
+      <p><strong>Nominale rente</strong>: de rente die op papier wordt afgesproken.</p>
+      <p><strong>Effectieve rente (APR)</strong>: de werkelijke jaarlijkse rente, inclusief alle kosten en de frequentie van renteberekening. Dit is de meest eerlijke vergelijkingsbasis.</p>
+      <div class="wjd">Samengestelde rente wordt ook wel 'het achtste wereldwonder' genoemd (toegeschreven aan Albert Einstein). Een bedrag verdubbelt ruwweg elke 72/r% jaar — bij 6% rente dus na 12 jaar. Dit geldt ook omgekeerd voor schulden: een onbetaalde schuld groeit even snel!</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat is samengestelde rente?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q42a')">A. Rente die alleen over het oorspronkelijke bedrag wordt berekend.</button><button class="opt" data-c="1" onclick="cQ(this,'q42a')">B. Rente die over het oorspronkelijke bedrag én de al opgebouwde rente wordt berekend.</button><button class="opt" data-c="0" onclick="cQ(this,'q42a')">C. De gemiddelde rente van alle bankproducten.</button><button class="opt" data-c="0" onclick="cQ(this,'q42a')">D. De rente die banken aan elkaar berekenen op de interbancaire markt.</button></div><div id="q42a" class="qfb">✅ Antwoord B — Samengestelde rente = rente over hoofdsom én eerder opgebouwde rente; leidt tot exponentiële groei.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Onthouden</div><div class="qt">Wat is het grootste nadeel van roodstaan?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q42b')">A. Je kunt het bedrag niet meer opnemen.</button><button class="opt" data-c="1" onclick="cQ(this,'q42b')">B. De rente is veel hoger dan bij andere leenvormen.</button><button class="opt" data-c="0" onclick="cQ(this,'q42b')">C. Je moet altijd een onderpand opgeven.</button><button class="opt" data-c="0" onclick="cQ(this,'q42b')">D. De looptijd is altijd langer dan 5 jaar.</button></div><div id="q42b" class="qfb">✅ Antwoord B — Roodstaan kent een rente van 8–15% per jaar, veel hoger dan andere leenvormen.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 8 — Analyseren</div><div class="qt">Lening A: hoofdsom €10.000, 3% rente, 5 jaar, maandbedrag €179,69. Lening B: hoofdsom €10.000, 5% rente, 3 jaar, maandbedrag €299,71. Welke lening is uiteindelijk het goedkoopst?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q42c')">A. Lening A, want de maandelijkse last is lager.</button><button class="opt" data-c="1" onclick="cQ(this,'q42c')">B. Lening B, want de looptijd is korter en de totale rentekosten zijn lager.</button><button class="opt" data-c="0" onclick="cQ(this,'q42c')">C. Beide leningen zijn even duur.</button><button class="opt" data-c="0" onclick="cQ(this,'q42c')">D. Lening A, want de rente is lager.</button></div><div id="q42c" class="qfb">✅ Antwoord B — Lening A: €179,69 × 60 = €10.781,40 → €781,40 rente. Lening B: €299,71 × 36 = €10.789,56 → €789,56 rente. Lening B is goedkoper door kortere looptijd.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 11 — Analyseren</div><div class="qt">Waarom is de effectieve rente een betere maatstaf om leningen te vergelijken dan de nominale rente?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q42d')">A. Omdat de effectieve rente altijd lager is dan de nominale rente.</button><button class="opt" data-c="1" onclick="cQ(this,'q42d')">B. Omdat de effectieve rente alle kosten en de rentefrequentie meeneemt, waardoor je leningen eerlijk kunt vergelijken.</button><button class="opt" data-c="0" onclick="cQ(this,'q42d')">C. Omdat de nominale rente door banken vrij wordt bepaald en daardoor onbetrouwbaar is.</button><button class="opt" data-c="0" onclick="cQ(this,'q42d')">D. Omdat de effectieve rente wettelijk verplicht is en de nominale rente niet.</button></div><div id="q42d" class="qfb">✅ Antwoord B — De effectieve rente neemt alle kosten en rentefrequentie mee: meest eerlijke vergelijkingsbasis.</div></div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem drie spaarvormen en drie leenvormen. Noem bij elke vorm één kenmerk.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Spaarvormen: (1) Spaarrekening — vrij opneembaar. (2) Depositorekening — geld vastgezet voor vaste periode. (3) Beleggen — onzeker rendement maar historisch hoog.<br>Leenvormen: (1) Roodstand — flexibel maar dure rente (8–15%). (2) Persoonlijke lening — vast bedrag en looptijd. (3) Hypotheek — lening met woning als onderpand.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Je spaart €3.000 tegen 4% enkelvoudige rente per jaar. Hoeveel rente ontvang je na 3 jaar?<br>A. €120 &nbsp; B. €360 &nbsp; C. €374,86 &nbsp; D. €3.374,86</div><textarea class="antw-input" rows="2" placeholder="Kies en beredeneer…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Antwoord: <strong>B — €360</strong>. Berekening: €3.000 × 4% × 3 jaar = €360 rente.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Je spaart €3.000 tegen 4% <em>samengestelde</em> rente per jaar. Bereken de eindwaarde na 3 jaar. Laat je berekening zien.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je berekening…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Eindwaarde = €3.000 × (1,04)^3 = €3.000 × 1,1249 = <strong>€3.374,87</strong>.<br>Rente = €374,87 (meer dan bij enkelvoudige rente: €360).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Tom leent €8.000 voor een auto via een persoonlijke lening. De looptijd is 48 maanden en het maandbedrag is €195.<br>a) Bereken het totale bedrag dat Tom terugbetaalt.<br>b) Bereken de totale rentekosten.<br>c) Bereken de effectieve jaarlijkse rentelast als percentage van het geleende bedrag (vereenvoudigd: rentekosten ÷ hoofdsom ÷ looptijd in jaren × 100%).</div><textarea class="antw-input" rows="5" placeholder="Typ hier je berekening…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Totaal terugbetaald: €195 × 48 = <strong>€9.360</strong>.<br>b) Rentekosten: €9.360 − €8.000 = <strong>€1.360</strong>.<br>c) Effectieve rentelast: €1.360 ÷ €8.000 ÷ 4 jaar × 100% = <strong>4,25% per jaar</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Nadia overweegt twee opties voor €5.000 die ze 5 jaar niet nodig heeft:<br>Optie A: Spaarrekening 1,5% samengestelde rente.<br>Optie B: Beleggingsfonds met verwacht rendement 6% per jaar (maar onzeker).<br>a) Bereken de eindwaarde bij optie A na 5 jaar.<br>b) Bereken de verwachte eindwaarde bij optie B na 5 jaar.<br>c) Welke optie kiest Nadia als ze risicomijdend is? Verklaar.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je berekening…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Optie A: €5.000 × (1,015)^5 = €5.000 × 1,0773 = <strong>€5.386,60</strong>.<br>b) Optie B: €5.000 × (1,06)^5 = €5.000 × 1,3382 = <strong>€6.691</strong>.<br>c) Risicomijdend → Optie A: het rendement is gegarandeerd. Bij beleggen kan de waarde ook dalen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Analyseer het verschil tussen enkelvoudige en samengestelde rente op €10.000 bij 5% rente over 20 jaar.<br>a) Bereken de eindwaarde bij enkelvoudige rente.<br>b) Bereken de eindwaarde bij samengestelde rente (gebruik (1,05)^20 ≈ 2,653).<br>c) Wat is het verschil in euro's?<br>d) Leg uit waarom dit verschil zo groot is.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je berekening…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Enkelvoudig: €10.000 + (€10.000 × 5% × 20) = €10.000 + €10.000 = <strong>€20.000</strong>.<br>b) Samengesteld: €10.000 × 2,653 = <strong>€26.530</strong>.<br>c) Verschil: €26.530 − €20.000 = <strong>€6.530</strong>.<br>d) Bij samengestelde rente groeit de basis elk jaar: je ontvangt rente over steeds meer. Na 20 jaar zijn de rente-op-rente effecten enorm.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Een persoon heeft een creditcardschuld van €2.000 met 18% rente per jaar. Hij betaalt alleen het minimum van €40 per maand terug.<br>a) Hoeveel rente betaalt hij in het eerste jaar (ruwweg)?<br>b) Neemt de schuld toe of af? Verklaar.<br>c) Welk advies geef jij deze persoon?</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Rente per jaar: €2.000 × 18% = <strong>€360</strong>.<br>b) Aflossing per jaar: €40 × 12 = €480. Netto aflossing: €480 − €360 = €120 → schuld neemt langzaam af, maar door samengestelde rente duurt het lang.<br>c) Advies: zoveel mogelijk extra aflossen, stoppen met nieuwe uitgaven op de card, eventueel herfinancieren tegen lagere rente.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Iemand heeft €15.000 spaargeld en ook een persoonlijke lening van €15.000 met 7% rente. Hij overweegt de lening in één keer af te lossen.<br>a) Wat is zijn jaarlijkse renteverplichting op de lening?<br>b) Wat levert zijn spaargeld op bij 1,5% rente?<br>c) Is het verstandig de lening af te lossen? Beargumenteer met berekeningen.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je berekening…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Rente op lening: €15.000 × 7% = <strong>€1.050 per jaar</strong>.<br>b) Rendement spaargeld: €15.000 × 1,5% = <strong>€225 per jaar</strong>.<br>c) Ja, aflossen is verstandig: hij betaalt €1.050 rente maar ontvangt slechts €225. Netto voordeel van aflossen: €825 per jaar. Door aflossen verbetert zijn financiële positie aanzienlijk.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Een jongere krijgt €10.000 als erfenis. Ze twijfelt tussen: (a) lening aflossen (4% rente), (b) spaarrekening (1% rente), (c) beleggen (verwacht 7%, risico aanwezig). Geef een beredeneerd advies. Betrek daarin het risico, het rendement en de persoonlijke situatie.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beste keuze hangt af van persoonlijke situatie. Als er een lening is: aflossen = gegarandeerd 4% voordeel, beter dan 1% spaar. Als geen lening: beleggen geeft verwacht meer rendement (7%) maar risico. Advies: eerst aflossen (gegarandeerd rendement); dan noodfonds op spaarrekening; rest eventueel beleggen op lange termijn.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Ontwerp een persoonlijk spaarplan voor iemand van 25 jaar die over 10 jaar €30.000 wil hebben voor een eigen huis aanbetaling.<br>a) Hoeveel moet hij maandelijks sparen als hij 3% samengestelde rente haalt? (Schat door te redeneren.)<br>b) Welke spaarvormen adviseer je en waarom?<br>c) Welke risico's moet hij meenemen in zijn plan?</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Bij 3% over 10 jaar groeit €1 tot ca. €1,34. Nodig: ca. €30.000 ÷ 1,34 ≈ €22.400 in totaal. Maandelijkse inleg: circa €200/maand (ruwweg). Exacte berekening vereist annuïteitsformule.<br>b) Combinatie: depositorekening (veilig, iets hoger rendement) + eventueel beperkt beleggen voor extra rendement.<br>c) Risico's: onverwachte uitgaven, stijgende huizenprijzen, baanverlies, rentewijzigingen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een informatieve tekst (minimaal 8 zinnen) voor jongeren van 16 jaar over de keuze tussen sparen en lenen. Gebruik de begrippen: <em>enkelvoudige rente, samengestelde rente, effectieve rente, persoonlijke lening, roodstand</em> en <em>noodfonds</em>.</div><textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beoordelingscriteria: alle zes begrippen correct gebruikt; duidelijk onderscheid enkelvoudig vs. samengesteld; effectieve rente als vergelijkingsmiddel uitgelegd; noodfonds aanbevolen; minimaal 8 zinnen; toegankelijk voor 16-jarigen.</div></div>
+  </div>
+</div>
+
+<!-- ===== §4.3 ===== -->
+<div id="s43" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 4.3</div>
+    <h2>Kopen of huren</h2>
+    <p>Hypotheek · Hypotheekrenteaftrek · Huursubsidie · Eigen vermogen · Overwaarde · Woonlasten</p>
+  </div>
+
+  <div class="nk nk-rood">
+    <div class="nk-tag">🏠 Wonen</div>
+    <div class="nk-kop">Kopen of huren: vermogensopbouw versus flexibiliteit</div>
+    <div class="nk-meta">2025 · Economie havo/vwo</div>
+    <div class="nk-body">Een koopwoning biedt <strong>vermogensopbouw</strong> via overwaarde en fiscaal voordeel via <strong>hypotheekrenteaftrek</strong>, maar brengt ook risico's mee (waardedaling, onderhoudskosten). Een huurwoning biedt <strong>flexibiliteit</strong> en zekerheid zonder aankooprisico, maar geen vermogensopbouw. "Huren is weggegooid geld" is een <em>misvatting</em>: huurders krijgen een dienst terug.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">koop</div><div class="nk-sl">overwaarde opbouwen</div></div>
+      <div class="nk-stat"><div class="nk-sv">huur</div><div class="nk-sl">flexibel &amp; zeker</div></div>
+      <div class="nk-stat"><div class="nk-sv">aftrek</div><div class="nk-sl">lagere netto last</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Fabian (29):</span> <em>"Ik ga een huis kopen. Huren is toch weggegooid geld?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Lisa (29):</span> <em>"Dat is een misvatting. Bij huren betaal je voor zekerheid en flexibiliteit. Bij kopen bouw je vermogen op, maar je hebt ook risico's."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Fabian:</span> <em>"Risico's? Het huis stijgt toch altijd in waarde?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Lisa:</span> <em>"Niet altijd. In 2008 daalde de woningprijzen sterk en stonden veel mensen 'onder water' — ze hadden meer hypotheek dan hun huis waard was."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--roodl);font-family:'Lexend',sans-serif">§4.3 — Kopen of huren</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Hypotheek</strong>: een lening specifiek voor de aankoop van een woning. De woning geldt als onderpand. Typisch 30 jaar looptijd, relatief lage rente.</p>
+      <p><strong>Hypotheekrenteaftrek</strong>: een fiscale regeling waarbij huiseigenaren de betaalde hypotheekrente mogen aftrekken van hun belastbaar inkomen. Dit verlaagt de netto woonlasten.</p>
+      <p><strong>Huursubsidie (huurtoeslag)</strong>: een overheidsvergoeding voor huurders met een laag inkomen en een woning onder de huurliberalisatiegrens.</p>
+      <table class="tbl">
+        <tr><th></th><th>Koopwoning</th><th>Huurwoning</th></tr>
+        <tr><td><strong>Voordelen</strong></td><td>Vermogensopbouw via overwaarde; vaste lasten (vaste rente); hypotheekrenteaftrek; vrijheid in verbouwen.</td><td>Flexibel; geen onderhoudszorgen; geen risico bij waardedaling; geen grote eigen inbreng nodig.</td></tr>
+        <tr><td><strong>Nadelen</strong></td><td>Hoge instapkosten (k.k. 2–6%); onderhoudsrisico; waardedaling mogelijk; minder flexibel.</td><td>Geld 'verdwijnt' (geen vermogensopbouw); afhankelijk van verhuurder; huurstijgingen mogelijk.</td></tr>
+        <tr><td><strong>Geschikt voor</strong></td><td>Stabiel inkomen, lange termijnhorizon, voldoende eigen vermogen en lokale binding.</td><td>Wisselend inkomen, hoge mobiliteit, weinig eigen geld of korte termijnhorizon.</td></tr>
+      </table>
+      <hr class="dsep">
+      <div class="fml">Annuïteitshypotheek: Maandbedrag ≈ Hypotheek × [r(1+r)^n] / [(1+r)^n - 1]</div>
+      <div class="dex">Hypotheek €250.000, 4% jaarrente, 30 jaar. Maandrente = 0,00333. Maandbedrag ≈ €1.193. Na hypotheekrenteaftrek 37%: rentecomponent ≈ €833 → Aftrek ≈ €308 → Netto maand ≈ €885.</div>
+      <p><strong>Overwaarde</strong>: het positieve verschil tussen de actuele woningwaarde en de resterende hypotheekschuld. Bij verkoop valt dit vrij.</p>
+      <p><strong>Onder water staan</strong>: wanneer de hypotheekschuld hoger is dan de woningwaarde. Trad op bij veel huiseigenaren na de financiële crisis van 2008.</p>
+      <div class="wjd">In Nederland was het koopwoningaandeel in 2024 ruim 60%. Voor starters wordt het steeds moeilijker: de mediane koopwoning kost meer dan 8 keer het mediane jaarinkomen. In de jaren negentig was dat nog 3 tot 4 keer. De overheid zoekt manieren om starters te helpen, zoals de startersvrijstelling overdrachtsbelasting.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat is hypotheekrenteaftrek?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q43a')">A. Een subsidie die de overheid geeft aan alle huizenbezitters.</button><button class="opt" data-c="1" onclick="cQ(this,'q43a')">B. Een fiscale regeling waarbij betaalde hypotheekrente van het belastbaar inkomen mag worden afgetrokken.</button><button class="opt" data-c="0" onclick="cQ(this,'q43a')">C. Een lening van de overheid voor mensen die een huis willen kopen.</button><button class="opt" data-c="0" onclick="cQ(this,'q43a')">D. Het gedeelte van de hypotheek dat elk jaar automatisch wordt kwijtgescholden.</button></div><div id="q43a" class="qfb">✅ Antwoord B — Hypotheekrenteaftrek = fiscale regeling waarbij betaalde hypotheekrente van belastbaar inkomen wordt afgetrokken.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Onthouden</div><div class="qt">Wat betekent 'kosten koper' (k.k.)?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q43b')">A. De vraagprijs van de woning, inclusief alle kosten.</button><button class="opt" data-c="1" onclick="cQ(this,'q43b')">B. Bijkomende aankoopkosten die de koper betaalt, zoals overdrachtsbelasting en notariskosten.</button><button class="opt" data-c="0" onclick="cQ(this,'q43b')">C. De kosten die de verkoper maakt bij de verkoop van de woning.</button><button class="opt" data-c="0" onclick="cQ(this,'q43b')">D. De kosten voor verbouwing en onderhoud na de aankoop.</button></div><div id="q43b" class="qfb">✅ Antwoord B — Kosten koper = overdrachtsbelasting, notaris- en taxatiekosten (2–6% van de koopprijs).</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 4 — Begrijpen</div><div class="qt">Een woning heeft een actuele waarde van €320.000. De resterende hypotheekschuld is €280.000. Wat is de overwaarde?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q43c')">A. €280.000</button><button class="opt" data-c="1" onclick="cQ(this,'q43c')">B. €40.000</button><button class="opt" data-c="0" onclick="cQ(this,'q43c')">C. €320.000</button><button class="opt" data-c="0" onclick="cQ(this,'q43c')">D. €600.000</button></div><div id="q43c" class="qfb">✅ Antwoord B — Overwaarde = €320.000 − €280.000 = €40.000.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 8 — Analyseren</div><div class="qt">Waarom zeggen economen dat 'huren is weggegooid geld' een misvatting is?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q43d')">A. Omdat huurders via huursubsidie altijd geld terugkrijgen van de overheid.</button><button class="opt" data-c="1" onclick="cQ(this,'q43d')">B. Omdat huurders flexibiliteit, zekerheid en geen risico op waardedaling krijgen in ruil voor hun huurlasten — dat is geen 'weggooien' maar een dienst afnemen.</button><button class="opt" data-c="0" onclick="cQ(this,'q43d')">C. Omdat de woningmarkt altijd zo stijgt dat huren goedkoper uitpakt dan kopen.</button><button class="opt" data-c="0" onclick="cQ(this,'q43d')">D. Omdat bij huren geen rente betaald hoeft te worden.</button></div><div id="q43d" class="qfb">✅ Antwoord B — Huurders betalen voor een dienst: wonen met flexibiliteit en zonder risico. Dat is geen 'weggooien'.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 11 — Analyseren</div><div class="qt">Wanneer is een huurwoning economisch rationeler dan een koopwoning?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q43e')">A. Altijd, omdat huurders geen onderhoudskosten hebben.</button><button class="opt" data-c="1" onclick="cQ(this,'q43e')">B. Wanneer iemand een korte tijdshorizon heeft, een laag of wisselend inkomen of onvoldoende eigen vermogen voor de aankoop.</button><button class="opt" data-c="0" onclick="cQ(this,'q43e')">C. Nooit, want een koopwoning is altijd een goede investering.</button><button class="opt" data-c="0" onclick="cQ(this,'q43e')">D. Alleen wanneer de huurprijs lager is dan de hypotheeklast.</button></div><div id="q43e" class="qfb">✅ Antwoord B — Huren is rationeler bij korte horizon, wisselend inkomen of onvoldoende eigen vermogen.</div></div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem drie voordelen van een koopwoning en drie voordelen van een huurwoning.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Koopwoning: (1) vermogensopbouw via overwaarde; (2) hypotheekrenteaftrek; (3) vrijheid om te verbouwen.<br>Huurwoning: (1) flexibel (makkelijker verhuizen); (2) geen onderhoudsrisico; (3) geen risico bij waardedaling.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit wat er met een huizenbezitter gebeurt als hij 'onder water staat'. Wat zijn de gevolgen als hij de woning toch wil verkopen?</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Onder water staan: hypotheekschuld is hoger dan de woningwaarde. Bij verkoop moet hij het verschil uit eigen zak betalen. Hij zit 'vast' in zijn woning — kan niet zomaar verhuizen. Financiële vrijheid is ernstig beperkt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Sanne koopt een huis van €300.000. Ze betaalt 10% eigen inbreng en leent de rest via een hypotheek met 3,5% rente voor 30 jaar.<br>a) Bereken de hypotheeksom.<br>b) Bereken de maandelijkse rente (eerste maand).<br>c) Sanne valt in de 37% belastingschijf. Bereken haar netto rentevoordeel per maand via hypotheekrenteaftrek.<br>d) Wat zijn haar netto maandlasten exclusief aflossing?</div><textarea class="antw-input" rows="5" placeholder="Typ hier je berekening…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Hypotheeksom: €300.000 − €30.000 = <strong>€270.000</strong>.<br>b) Maandelijkse rente: €270.000 × 3,5% ÷ 12 = <strong>€787,50</strong>.<br>c) Hypotheekrenteaftrek: €787,50 × 37% = <strong>€291,38</strong> voordeel per maand.<br>d) Netto rente: €787,50 − €291,38 = <strong>€496,13 per maand</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Vergelijk twee situaties voor Bas (30 jaar):<br>Situatie A: Huur €900/maand, stijging 3% per jaar.<br>Situatie B: Koopwoning €250.000 hypotheek, maandlast €1.100, woningwaardestijging 2% per jaar.<br>a) Wat betaalt Bas in situatie A in jaar 5?<br>b) Wat is de verwachte woningwaarde na 10 jaar in situatie B (gebruik 1,02^10 ≈ 1,219)?<br>c) Welke situatie is financieel voordeliger op lange termijn? Beargumenteer.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je berekening…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Huur jaar 5: €900 × 1,03^4 = €900 × 1,1255 = <strong>€1.013/maand</strong>.<br>b) Woningwaarde: €250.000 × 1,219 = <strong>€304.750</strong>.<br>c) Op lange termijn is kopen financieel voordeliger: woningwaarde stijgt en hypotheek wordt afgelost → overwaarde opgebouwd. Huur stijgt steeds zonder vermogensopbouw.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Analyseer de positie van starters op de woningmarkt:<br>a) Waarom hebben starters moeite om een koopwoning te kopen?<br>b) Welke rol speelt de hypotheekrenteaftrek bij dit probleem?<br>c) Wat zijn twee beleidsmaatregelen waarmee de overheid starters kan helpen?<br>d) Zijn deze maatregelen altijd effectief? Verklaar.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Starters hebben weinig eigen vermogen; huizenprijzen zijn hoog t.o.v. inkomen; banken stellen strenge eisen (10% eigen inbreng).<br>b) Hypotheekrenteaftrek profiteert hogere inkomens meer → drijft prijzen op, waardoor starters meer moeite hebben.<br>c) Startersvrijstelling overdrachtsbelasting; sociale koopwoningen; NHG-garantie.<br>d) Niet altijd: subsidies leiden soms tot hogere vraag → prijzen stijgen verder → probleem verplaatst zich.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">In 2008 daalden de woningprijzen in Nederland sterk.<br>a) Wat betekende dit voor mensen die vlak voor de crisis een huis kochten?<br>b) Wat zijn de gevolgen van 'onder water staan' voor de financiële vrijheid?<br>c) Hoe konden banken hierdoor in de problemen komen?<br>d) Welk risico moeten potentiële huizenkopers altijd meewegen?</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Ze stonden 'onder water': hypotheekschuld hoger dan woningwaarde.<br>b) Kunnen niet verkopen zonder verlies; zitten vast; kunnen niet verhuizen voor werk; stress en financiële problemen.<br>c) Banken hadden leningen uitgegeven op onderpand dat nu minder waard was → risico op betalingsproblemen → bankcrisis.<br>d) Woningprijzen kunnen dalen. Koop alleen als je lange horizon hebt en ook een waardedaling kunt opvangen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">De hypotheekrenteaftrek is een omstreden regeling. Critici zeggen dat het de woningprijzen opdrijft en alleen voordelig is voor hogere inkomens.<br>a) Leg uit hoe hypotheekrenteaftrek de woningprijzen kan opdrijven.<br>b) Waarom profiteren hogere inkomens relatief meer?<br>c) Geef twee argumenten om de aftrek te behouden én twee om hem af te schaffen.<br>d) Wat is jouw beredeneerde standpunt?</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Aftrek verlaagt netto woonlasten → mensen kunnen meer lenen → vraag naar woningen stijgt → prijzen stijgen.<br>b) Hogere inkomens vallen in hogere belastingschijven → aftrek levert meer op.<br>c) Behouden: bestaande kopers vertrouwen op voordeel; afschaffen kan woningmarkt destabiliseren. Afschaffen: ongelijk; drijft prijzen op; nieuwe kopers profiteren minder.<br>d) Eigen beredeneerd standpunt op basis van argumenten.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Stelling: <em>'De overheid moet huurders en kopers gelijk behandelen en alle fiscale voordelen voor huizenbezitters afschaffen.'</em> Beoordeel deze stelling vanuit economisch perspectief. Gebruik: hypotheekrenteaftrek, huursubsidie, woningmarkt en overwaarde.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je standpunt…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Vóór stelling: gelijke behandeling is eerlijker; hypotheekrenteaftrek verstoort markt en bevoordeelt rijken; huursubsidie is ook al gericht op lage inkomens. Tegen stelling: abrupte afschaffing schaadt huiseigenaren die erop rekenden; woningmarkt is kwetsbaar; overwaarde is legitiem opgebouwd vermogen. Conclusie: geleidelijke afbouw met compensatie is redelijker dan abrupte afschaffing.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Ontwerp een beslismodel (stappenplan) voor iemand die twijfelt tussen kopen en huren. Betrek daarin: a) minimaal vier persoonlijke factoren; b) minimaal drie financiële berekeningen; c) een conclusiestap met aanbeveling.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je model…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Stap 1: Persoonlijke factoren — stabiel inkomen? Lange tijdshorizon? Voldoende eigen vermogen? Gezinsplannen? Mobiliteit?<br>Stap 2: Financiële berekeningen — bereken max. hypotheek (ca. 4× jaarinkomen); bereken maandlasten koop vs. huur; bereken break-even kopen vs. huren.<br>Stap 3: Risicotoets — waardedaling scenario? Arbeidsrisico?<br>Stap 4: Conclusie — als stabiel inkomen + lange horizon + voldoende eigen geld → kopen. Anders → huren.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een adviesbrief (minimaal 8 zinnen) aan een stel van 28 jaar dat twijfelt of ze een huis moeten kopen of nog een paar jaar huren. Gebruik: hypotheek, hypotheekrenteaftrek, overwaarde, kosten koper, woonlasten en onder water staan.</div><textarea class="antw-input" rows="7" placeholder="Typ hier je adviesbrief…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beoordelingscriteria: ✓ Hypotheek uitgelegd als lening met onderpand. ✓ Hypotheekrenteaftrek correct beschreven als fiscaal voordeel. ✓ Overwaarde als vermogensopbouw benoemd. ✓ Kosten koper (2–6%) meegenomen als instapdrempel. ✓ Woonlasten vergeleken. ✓ Risico onder water staan vermeld. ✓ Beredeneerd advies op basis van hun situatie. ✓ Minimaal 8 zinnen.</div></div>
+  </div>
+</div>
+
+<!-- ===== SAMENVATTING ===== -->
+<div id="ssamenv" class="sec">
+  <div class="phdr">
+    <div class="pn">📋</div>
+    <h2>Samenvatting Hoofdstuk 4</h2>
+    <p>Ruilen over de Tijd — De rode draad</p>
+  </div>
+
+  <div class="blok" style="border-radius:12px;margin-bottom:18px">
+    <div class="bttl">De kern van Hoofdstuk 4</div>
+    <p style="font-size:.9rem;line-height:1.75;margin-bottom:14px">Dit hoofdstuk laat zien dat ruil niet alleen op één moment plaatsvindt, maar ook over de tijd: je geeft nu iets op om later meer te hebben — of andersom.</p>
+
+    <div class="rode-draad">
+      <h4>🔴 De rode draad van Hoofdstuk 4</h4>
+      <p>Ruilen over de tijd: nu iets opgeven → later meer ontvangen (of andersom)<br>→ Levensfasen bepalen wanneer je leent, spaart of inteert<br>→ Samengestelde rente maakt vroeg starten enorm voordelig<br>→ Keuze kopen/huren: weeg overwaarde tegen flexibiliteit en risico</p>
+    </div>
+
+    <div class="sblok" style="margin-top:14px">
+      <h3>§ 4.1 Levensfasen en financiële keuzes</h3>
+      <p>Inter-temporele ruil is de kern: nu iets opgeven voor later meer (of andersom). Mensen doorlopen typische levensfasen van studie via gezinsfase naar pensioen, elk met andere inkomsten, uitgaven en financiële behoeften. Vroeg beginnen met vermogensopbouw is verstandig vanwege de werking van samengestelde rente.</p>
+    </div>
+
+    <div class="sblok p2" style="margin-top:14px">
+      <h3>§ 4.2 Sparen en lenen</h3>
+      <p>Spaarvormen variëren van de veilige spaarrekening tot risicovoller beleggen. Leenvormen variëren van dure roodstand (8–15% rente) tot goedkopere hypotheek (3–5%). Enkelvoudige rente geldt alleen over de hoofdsom; samengestelde rente ook over opgebouwde rente — dit maakt een enorm verschil op lange termijn. Vergelijk leningen altijd op effectieve rente (APR).</p>
+    </div>
+
+    <div class="sblok p3" style="margin-top:14px">
+      <h3>§ 4.3 Kopen of huren</h3>
+      <p>Een koopwoning biedt vermogensopbouw via overwaarde en fiscaal voordeel via hypotheekrenteaftrek, maar brengt ook risico's mee (waardedaling, onderhoudskosten, beperkte flexibiliteit). Een huurwoning biedt flexibiliteit en zekerheid zonder aankooprisico, maar geen vermogensopbouw. De keuze hangt af van inkomensstabiliteit, tijdshorizon, eigen vermogen en persoonlijke woonwensen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BEGRIPPEN ===== -->
+<div id="sbegrippen" class="sec">
+  <div class="phdr">
+    <div class="pn">📖</div>
+    <h2>Begrippenlijst — Alfabetisch</h2>
+    <p>Alle kernbegrippen van Hoofdstuk 4</p>
+  </div>
+
+  <div class="blok" style="border-radius:12px;margin-bottom:18px">
+    <input class="bsrch" placeholder="🔍 Zoek een begrip…" oninput="filtB(this.value)">
+    <div class="bl-tabs">
+      <button class="bl-tab act" onclick="filtParaB('all',this)">Alle</button>
+      <button class="bl-tab" onclick="filtParaB('p1',this)">§4.1</button>
+      <button class="bl-tab" onclick="filtParaB('p2',this)">§4.2</button>
+      <button class="bl-tab" onclick="filtParaB('p3',this)">§4.3</button>
+    </div>
+    <div class="bgrd" id="bgrd">
+      <div class="bcard" data-p="p1"><div class="bt">Inter-temporele ruil</div><div class="bd">Ruil waarbij je nu iets opgeeft om later te ontvangen, of andersom.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Levensfasen</div><div class="bd">Opeenvolgende stadia in het leven van een persoon, elk met kenmerkende financiële situaties.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Vermogensopbouw</div><div class="bd">Geleidelijk opbouwen van bezittingen (spaargeld, huis, aandelen) gedurende het werkzame leven.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Studieschuld</div><div class="bd">Lening afgesloten om studiekosten te bekostigen; dient na de studie te worden terugbetaald.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Pensioen</div><div class="bd">Uitkering na pensionering, opgebouwd via AOW, werkgeverspensioen en eigen sparen.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Noodfonds</div><div class="bd">Buffer van 3–6 maanden netto inkomen voor onverwachte tegenslagen.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Interen</div><div class="bd">Het geleidelijk aanspreken van eerder opgebouwd vermogen, typisch in de pensioenfase.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Spaarrekening</div><div class="bd">Bankrekening waarop geld tegen rente wordt bewaard; vrij opneembaar.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Depositorekening</div><div class="bd">Spaarrekening waarbij geld voor een vaste periode wordt vastgezet tegen hogere rente.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Beleggen</div><div class="bd">Geld investeren in aandelen, obligaties of fondsen met onzeker maar potentieel hoger rendement.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Rente</div><div class="bd">Vergoeding voor uitlenen van geld (voor de uitlener) of de kosten van lenen (voor de kredietnemer).</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Enkelvoudige rente</div><div class="bd">Rente die alleen over de oorspronkelijke hoofdsom wordt berekend.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Samengestelde rente</div><div class="bd">Rente over de hoofdsom én eerder opgebouwde rente; leidt tot exponentiële groei.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Hoofdsom</div><div class="bd">Het oorspronkelijk geleende of gespaarde bedrag.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Nominale rente</div><div class="bd">De op papier afgesproken rentevoet, zonder rekening te houden met bijkomende kosten.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Effectieve rente (APR)</div><div class="bd">De werkelijke jaarlijkse rente, inclusief alle bijkomende kosten; meest eerlijke vergelijkingsbasis.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Persoonlijke lening</div><div class="bd">Lening met vast bedrag, vaste looptijd en vaste maandelijkse aflossing.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Hypotheek</div><div class="bd">Langlopende lening voor aankoop van een woning, met de woning als onderpand.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Hypotheekrenteaftrek</div><div class="bd">Fiscale regeling waarbij betaalde hypotheekrente van het belastbaar inkomen mag worden afgetrokken.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Huursubsidie (huurtoeslag)</div><div class="bd">Overheidsvergoeding voor huurders met laag inkomen om huurlasten te verlagen.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Overwaarde</div><div class="bd">Positief verschil tussen woningwaarde en resterende hypotheekschuld; opgebouwd vermogen.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Onder water staan</div><div class="bd">Situatie waarbij de hypotheekschuld hoger is dan de actuele woningwaarde.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Kosten koper (k.k.)</div><div class="bd">Bijkomende aankoopkosten bij een koopwoning: overdrachtsbelasting, notaris- en taxatiekosten.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Annuïteitshypotheek</div><div class="bd">Hypotheekvorm met een vast maandbedrag; verhouding rente/aflossing verandert door de looptijd.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Woonlasten</div><div class="bd">Alle maandelijkse kosten verbonden aan wonen: huur of hypotheek, energie, verzekering en onderhoud.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Huurliberalisatiegrens</div><div class="bd">Maximale huurprijs waarboven een woning vrij op de markt verhuurd mag worden (vrije sector).</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERHALING ===== -->
+<div id="sherhaling" class="sec">
+  <div class="phdr">
+    <div class="pn">🔁</div>
+    <h2>Herhalingsopdrachten</h2>
+    <p>Beantwoord de volgende vragen ter herhaling van de gehele theorie</p>
+  </div>
+
+  <div class="hrbox">
+    <div class="hrn">§4.1 — Vraag 1 | Open</div>
+    <div class="hrq">Wat is het verschil tussen ruil op één moment (zoals op een markt) en inter-temporele ruil? Geef van elk een concreet voorbeeld uit het dagelijks leven.</div>
+    <textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">Ruil op één moment: je geeft nu iets en ontvangt nu iets terug. Voorbeeld: brood kopen in de supermarkt.<br>Inter-temporele ruil: je geeft nu iets op en ontvangt later (of andersom). Voorbeeld: studie lenen → later hoger inkomen. Het tijdsverschil is het onderscheid; bij inter-temporele ruil speelt rente of risico een rol.</div>
+  </div>
+
+  <div class="hrbox">
+    <div class="hrn">§4.1 — Vraag 2 | Open</div>
+    <div class="hrq">Beschrijf de financiële situatie van iemand in de 'startende werkende'-fase (25–35 jaar). Welke drie financiële prioriteiten zou jij deze persoon aanraden? Motiveer je keuze.</div>
+    <textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">Startende werkende: stijgend maar nog niet hoog inkomen; hoge huurlasten; weinig vermogen. Drie prioriteiten: (1) noodfonds opbouwen (buffer 3–6 maanden). (2) Studieschuld aflossen (duur door rente). (3) Begin pensioensparen via werkgever (vroeg = exponentieel voordeel).</div>
+  </div>
+
+  <div class="hrbox p3">
+    <div class="hrn">§4.2 — Vraag 3 | Rekenen</div>
+    <div class="hrq">Je spaart €4.000 tegen 3% samengestelde rente per jaar.<br>a) Bereken de eindwaarde na 5 jaar.<br>b) Bereken de eindwaarde na 10 jaar (gebruik (1,03)^10 ≈ 1,344).<br>c) Hoeveel meer levert 10 jaar sparen op dan 5 jaar?</div>
+    <textarea class="antw-input" rows="4" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) €4.000 × (1,03)^5 = €4.000 × 1,1593 = <strong>€4.637,20</strong>.<br>b) €4.000 × 1,344 = <strong>€5.376</strong>.<br>c) €5.376 − €4.637,20 = <strong>€738,80 meer</strong> door de extra 5 jaar samengestelde rente.</div>
+  </div>
+
+  <div class="hrbox p2">
+    <div class="hrn">§4.2 — Vraag 4 | Open</div>
+    <div class="hrq">Noem twee leenvormen, leg per leenvorm de typische rente en één kenmerk uit, en beredeneer voor welk doel elke leenvorm het meest geschikt is.</div>
+    <textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">1. Persoonlijke lening: ~5–8% rente; vast bedrag, vaste looptijd. Geschikt voor: auto, verbouwing, grote aankoop.<br>2. Roodstand: 8–15% rente; flexibel, voor tijdelijk tekort. Geschikt voor: overbrugging aan einde van de maand — maar zo kort mogelijk gebruiken vanwege hoge rente.</div>
+  </div>
+
+  <div class="hrbox p4">
+    <div class="hrn">§4.3 — Vraag 5 | Rekenen</div>
+    <div class="hrq">Roos wil een appartement kopen voor €220.000. Ze heeft €22.000 eigen geld.<br>a) Hoeveel moet ze lenen?<br>b) Bij 4% hypotheekrente: bereken de eerste maand aan rentekosten.<br>c) Ze valt in de 37% belastingschijf. Bereken haar netto rentelast die eerste maand.<br>d) Kosten koper = 4%. Hoeveel is dat in euro's?</div>
+    <textarea class="antw-input" rows="5" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) Hypotheeksom: €220.000 − €22.000 = <strong>€198.000</strong>.<br>b) Eerste maand rente: €198.000 × 4% ÷ 12 = <strong>€660</strong>.<br>c) Netto rentelast: €660 − (€660 × 37%) = €660 − €244,20 = <strong>€415,80</strong> per maand.<br>d) Kosten koper: €220.000 × 4% = <strong>€8.800</strong>.</div>
+  </div>
+
+  <div class="hrbox">
+    <div class="hrn">§4.3 — Vraag 6 | Open</div>
+    <div class="hrq">Waarom wordt de keuze tussen kopen en huren ook een 'inter-temporele keuze' genoemd? Gebruik in je antwoord de begrippen <em>overwaarde</em>, <em>vermogensopbouw</em> en <em>woonlasten</em>.</div>
+    <textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">Kopen of huren is inter-temporeel omdat je nu kiest voor hogere of lagere woonlasten in ruil voor toekomstige vermogensopbouw (of flexibiliteit). Bij kopen: hogere maandlasten nu → overwaarde later (vermogensopbouw). Bij huren: lagere instapdrempel nu → geen vermogensopbouw later.</div>
+  </div>
+
+  <div class="hrbox p2">
+    <div class="hrn">§4.2/§4.3 — Vraag 7 | Open + Advies</div>
+    <div class="hrq">Jij bent financieel adviseur. Een cliënt (32 jaar, stabiel inkomen €3.500 netto, spaargeld €15.000, lening €8.000 bij 6%) vraagt of hij beter een huis kan kopen of eerst de lening kan aflossen. Geef een beredeneerd advies in drie stappen: 1) Analyseer zijn financiële positie. 2) Adviseer over de lening. 3) Adviseer over kopen vs. huren.</div>
+    <textarea class="antw-input" rows="6" placeholder="Typ hier je advies…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">1. Financiële positie: inkomen €3.500, lening €8.000 bij 6% → €480 rente/jaar. Spaargeld €15.000 bij ~1,5% → €225/jaar. Netto renteverlies: €255/jaar.<br>2. Advies lening: aflossen is verstandig — hij betaalt 6% maar ontvangt slechts 1,5%. Na aflossen: €7.000 spaargeld over.<br>3. Advies kopen: €7.000 is te weinig voor eigen inbreng (min. 10% van €260.000 = €26.000 + kosten koper). Advies: nog 3–4 jaar extra sparen, dan kopen overwegen.</div>
+  </div>
+
+  <div class="hrbox p3">
+    <div class="hrn">§4.1/§4.2 — Vraag 8 | Analyseren</div>
+    <div class="hrq">Vergelijk: iemand start op zijn 25ste met sparen (€150/maand, 5% rendement) versus iemand die pas op zijn 35ste begint (€150/maand, 5% rendement). Beide stoppen op hun 65ste. Redeneer (zonder exacte formules) wie meer heeft opgebouwd en verklaar waarom het verschil zo groot is.</div>
+    <textarea class="antw-input" rows="4" placeholder="Typ hier je redenering…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">Degene die start op 25 heeft 40 jaar; degene op 35 heeft 25 jaar. Door samengestelde rente groeit vroeg ingelegd geld exponentieel. Verschil: bij 40 jaar sparen verdubbelt het vermogen ruwweg 3×; bij 25 jaar slechts 2×. Conclusie: 10 jaar eerder starten levert mogelijk het dubbele eindvermogen op.</div>
+  </div>
+</div>
+
+<!-- ===== REKENSOMMEN ===== -->
+<div id="srekensommen" class="sec">
+  <div class="phdr">
+    <div class="pn">🔢</div>
+    <h2>Rekensommen</h2>
+    <p>Laat altijd je berekening zien. De sommen zijn stapsgewijs opgebouwd.</p>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 1 — Samengestelde rente</div>
+    <p><strong>Emma</strong> spaart €6.000 op een depositorekening met 3,5% samengestelde rente per jaar.</p>
+    <p class="rsub">a) Bereken de eindwaarde na 1 jaar.<br>b) Bereken de eindwaarde na 4 jaar. (gebruik (1,035)^4 ≈ 1,1475)<br>c) Hoeveel rente heeft ze na 4 jaar ontvangen?<br>d) Bereken de eindwaarde bij enkelvoudige rente na 4 jaar. Wat is het verschil?</p>
+    <textarea class="antw-input" rows="6" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) €6.000 × 1,035 = <strong>€6.210</strong>.<br>b) €6.000 × 1,1475 = <strong>€6.885</strong>.<br>c) Rente: €6.885 − €6.000 = <strong>€885</strong>.<br>d) Enkelvoudig: €6.000 + (€6.000 × 3,5% × 4) = €6.000 + €840 = <strong>€6.840</strong>. Verschil: €6.885 − €6.840 = <strong>€45 extra</strong> door rente-op-rente.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 2 — Kosten van een lening</div>
+    <p><strong>Kevin</strong> leent €12.000 voor een verbouwing via een persoonlijke lening (5,5% rente, 60 maanden, maandbedrag €229,60).</p>
+    <p class="rsub">a) Bereken het totale bedrag dat Kevin terugbetaalt.<br>b) Bereken de totale rentekosten.<br>c) Bereken de effectieve jaarlijkse rentelast als percentage (rentekosten ÷ hoofdsom ÷ looptijd in jaren × 100%).<br>d) Wat zou Kevin hebben als hij €229,60/maand had gespaard bij 4% (schatting)?</p>
+    <textarea class="antw-input" rows="6" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) €229,60 × 60 = <strong>€13.776</strong>.<br>b) Rentekosten: €13.776 − €12.000 = <strong>€1.776</strong>.<br>c) €1.776 ÷ €12.000 ÷ 5 × 100% = <strong>2,96% per jaar</strong>.<br>d) Ingelegd: €229,60 × 60 = €13.776 + ca. 4% rendement → <strong>~€15.000–16.000</strong>. Sparen zou vergelijkbaar zijn, maar hij had het geld dan niet direct.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 3 — Hypotheeklasten</div>
+    <p><strong>Layla en Daan</strong> kopen een huis van €350.000. Ze brengen €35.000 eigen geld in. Hypotheek: 3,8% rente, 30 jaar looptijd.</p>
+    <p class="rsub">a) Bereken de hypotheeksom.<br>b) Bereken de eerste maand aan rente.<br>c) Ze vallen in de 37% belastingschijf. Bereken de netto rentebesparing per maand.<br>d) Kosten koper = 4,5%. Bereken de kosten koper in euro's.<br>e) Na 10 jaar is de woning gestegen naar €430.000 en de resterende hypotheek is €290.000. Bereken de overwaarde.</p>
+    <textarea class="antw-input" rows="7" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) €350.000 − €35.000 = <strong>€315.000</strong>.<br>b) €315.000 × 3,8% ÷ 12 = <strong>€997,50</strong>.<br>c) Netto rentebesparing: €997,50 × 37% = <strong>€369,08 per maand</strong>.<br>d) Kosten koper: €350.000 × 4,5% = <strong>€15.750</strong>.<br>e) Overwaarde: €430.000 − €290.000 = <strong>€140.000</strong>.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 4 — Kopen of huren vergelijken</div>
+    <p><strong>Martijn (27)</strong> overweegt een appartement te kopen voor €240.000 of te huren voor €950/maand. Hypotheek: 4% rente, 30 jaar, eigen inbreng €24.000. Maandlast kopen: €1.030. Woningwaardestijging 2%/jaar. Huurstijging 3%/jaar.</p>
+    <p class="rsub">a) Bereken de verwachte huurprijs na 5 jaar (gebruik 1,03^5 ≈ 1,159).<br>b) Bereken de verwachte woningwaarde na 10 jaar (gebruik 1,02^10 ≈ 1,219).<br>c) Bereken de overwaarde na 10 jaar (resterende hypotheek: €190.000).<br>d) Beredeneer welke optie op 10 jaar termijn financieel voordeliger lijkt.</p>
+    <textarea class="antw-input" rows="7" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) €950 × 1,159 = <strong>€1.101/maand</strong>.<br>b) €240.000 × 1,219 = <strong>€292.560</strong>.<br>c) Overwaarde: €292.560 − €190.000 = <strong>€102.560</strong>.<br>d) Kopen: hogere initiële last (€1.030 vs. €950), maar opbouw van €102.560 overwaarde. Huren: goedkoper nu, maar huur stijgt tot €1.101+ en geen vermogensopbouw. Op 10 jaar: kopen lijkt financieel voordeliger. Let op: minder flexibiliteit, risico waardedaling, kosten koper (€9.600 bij 4%).</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 5 — Levensfasen berekening</div>
+    <p><strong>Sophie (22)</strong> start haar studie en leent €950/maand via DUO. Studie duurt 4 jaar. Rente 0,5%/jaar. Na studie verwacht ze €450 netto meer/maand te verdienen.</p>
+    <p class="rsub">a) Bereken de totale studieschuld na 4 jaar (exclusief rente).<br>b) Bereken de totale rente over 4 jaar (enkelvoudig op gemiddeld uitstaand = helft einschuld).<br>c) Na hoeveel maanden heeft Sophie (exclusief rente) haar investering terugverdiend?<br>d) Geef kritiek als het verwachte meerinkomen slechts €150/maand zou zijn. Beredeneer rekenkundig.</p>
+    <textarea class="antw-input" rows="6" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) €950 × 12 × 4 = <strong>€45.600</strong>.<br>b) Rente (op gemiddeld uitstaand = €22.800): €22.800 × 0,5% × 4 = <strong>€456</strong>.<br>c) €45.600 ÷ €450 = <strong>101,3 maanden ≈ 8,4 jaar</strong>.<br>d) Als meerinkomen €150: €45.600 ÷ €150 = 304 maanden ≈ 25 jaar. Pas op haar 47ste terugverdiend. Conclusie: bij zo laag meerinkomen is de studielening economisch twijfelachtig.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 6 — Integratieopdracht</div>
+    <p><strong>Tim (30)</strong>: netto inkomen €2.800/maand · studieschuld €18.000 (6%, maandbedrag €237) · spaargeld €8.000 (2%) · huur €850/maand · overweegt huis te kopen van €260.000 over 3 jaar.</p>
+    <p class="rsub">a) Bereken Tims totale maandelijkse vaste lasten nu (schuld + huur).<br>b) Hoeveel kan Tim maximaal per maand sparen als hij €600 overhoudt voor variabele uitgaven?<br>c) Bereken hoeveel spaargeld Tim heeft na 3 jaar (huidige bedrag + spaarcapaciteit).<br>d) Is Tim over 3 jaar klaar voor een hypotheek van €260.000 als de bank min. 10% eigen inbreng eist?<br>e) Geef Tim twee concrete adviezen met inter-temporele ruil, vermogensopbouw en effectieve rente.</p>
+    <textarea class="antw-input" rows="8" placeholder="Typ hier je berekening en adviezen…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) €237 + €850 = <strong>€1.087/maand</strong>.<br>b) €2.800 − €1.087 − €600 = <strong>€1.113/maand</strong>.<br>c) Huidig spaargeld: €8.000 × 1,02^3 ≈ €8.490. Maandelijkse inleg: €1.113 × 36 ≈ €40.068 (~€41.000 met rente). Totaal: ~<strong>€49.490</strong>.<br>d) Eigen inbreng nodig: 10% van €260.000 = €26.000. Tim heeft ~€49.490 → genoeg. Maar: resterende studieschuld (~€9.468) verlaagt hypotheekcapaciteit. Haalbaar, maar met aandachtspunten.<br>e) (1) Los studieschuld sneller af — inter-temporele ruil: nu meer aflossen = later meer bestedingsruimte. (2) Zodra schuld weg is: zet extra in op vermogensopbouw via lage effectieve rente of beleggen voor hogere opbrengst.</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function S(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  btn.classList.add('act');
+  window.scrollTo(0,0);
+}
+function cQ(btn,fbId){
+  const box=btn.closest('.qbox');
+  if(box.querySelector('.opt.ok||.opt.fout'))return;
+  const opts=box.querySelectorAll('.opt');
+  opts.forEach(o=>o.disabled=true);
+  const fb=document.getElementById(fbId);
+  if(btn.dataset.c==='1'){btn.classList.add('ok');fb.classList.add('ok');}
+  else{btn.classList.add('fout');fb.classList.add('fout');opts.forEach(o=>{if(o.dataset.c==='1')o.classList.add('ok');});}
+}
+function tog(btn){
+  const abox=btn.closest('.bi,div')?.querySelector?.('.abox')||btn.parentElement.nextElementSibling;
+  const target=btn.parentElement.nextElementSibling;
+  target.classList.toggle('show');
+  btn.textContent=target.classList.contains('show')?'🙈 Verberg antwoord':'💡 Modelantwoord';
+}
+function filtB(q){
+  const cards=document.querySelectorAll('.bcard');
+  cards.forEach(c=>{
+    const t=c.querySelector('.bt').textContent.toLowerCase()+c.querySelector('.bd').textContent.toLowerCase();
+    c.style.display=t.includes(q.toLowerCase())?'':'none';
+  });
+}
+function filtParaB(p,btn){
+  document.querySelectorAll('.bl-tab').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act');
+  document.querySelectorAll('.bcard').forEach(c=>{
+    c.style.display=(p==='all'||c.dataset.p===p)?'':'none';
+  });
+  document.querySelector('.bsrch').value='';
+}
+</script>
+</body>
+</html>
