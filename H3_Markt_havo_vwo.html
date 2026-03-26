@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vlaconomie — H3 De Markt</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--gd:#1a7a4a;--gl:#2ecc71;--glicht:#e8faf0;--gzl:#f0fdf4;
+  --goud:#f0c040;--goudd:#d4a012;
+  --rood:#b30000;--roodl:#e53e3e;
+  --blauw:#1a2e4a;--blauwl:#2d4a6e;
+  --donker:#1a1a2e;--donkerp:#2d1b4e;
+  --grijs:#6b7280;--lichtgrijs:#f7f9fc;--rand:#e0e8f4;
+  --sh:0 2px 10px rgba(0,0,0,.1);
+  --sh2:0 4px 20px rgba(0,0,0,.12);
+  --bg:#f4f7f4
+}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--bg);color:#1a1a2e;font-size:15px}
+header{background:linear-gradient(135deg,var(--groen),var(--gd));position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(15,77,46,.4)}
+.hdr-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.logo{font-family:'Lexend',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.5px;color:#fff}
+.logo em{color:var(--goud);font-style:normal}
+.logo-sub{font-size:.7rem;color:rgba(255,255,255,.7);font-family:'DM Sans',sans-serif}
+nav{display:flex;overflow-x:auto;background:rgba(0,0,0,.2);padding:0 14px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{padding:9px 12px;border:none;background:none;color:rgba(255,255,255,.75);font-family:'Lexend',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+nav button:hover,nav button.act{color:#fff;border-bottom-color:var(--goud);background:rgba(255,255,255,.1)}
+main{max-width:900px;margin:0 auto;padding:20px 14px 60px}
+.sec{display:none;animation:fu .3s ease}.sec.act{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.phdr{background:linear-gradient(135deg,var(--groen),var(--gd));color:#fff;padding:22px 26px;border-radius:12px 12px 0 0}
+.phdr .pn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--goud);color:var(--groen);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;font-weight:700}
+.phdr h2{font-family:'Lexend',sans-serif;font-size:1.4rem;margin-bottom:4px;font-weight:800}
+.phdr p{color:rgba(255,255,255,.8);font-size:.87rem}
+.nk{padding:18px 22px;margin-bottom:2px;border-left:6px solid var(--gd)}
+.nk-groen{background:linear-gradient(135deg,#e8faf0,#c8efd8);border-color:var(--gd)}
+.nk-rood{background:linear-gradient(135deg,#fdecea,#f9d0cd);border-color:var(--roodl)}
+.nk-goud{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-color:var(--goudd)}
+.nk-blauw{background:linear-gradient(135deg,#e8f0fb,#d0e2f7);border-color:var(--blauwl)}
+.nk-tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grijs);margin-bottom:5px}
+.nk-kop{font-family:'Lexend',sans-serif;font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:3px;line-height:1.35}
+.nk-meta{font-size:.73rem;color:var(--grijs);margin-bottom:10px}
+.nk-body{font-size:.87rem;line-height:1.55;color:#333;margin-bottom:12px}
+.nk-stats{display:flex;margin-bottom:12px;background:rgba(255,255,255,.55);border-radius:8px;overflow:hidden}
+.nk-stat{flex:1;padding:9px 12px;text-align:center;border-right:1px solid rgba(255,255,255,.6)}
+.nk-stat:last-child{border-right:none}
+.nk-sv{font-family:'Lexend',sans-serif;font-size:1.1rem;font-weight:700;color:#1a1a2e;margin-bottom:2px}
+.nk-sl{font-size:.68rem;color:var(--grijs);line-height:1.3}
+.blok{background:#fff;padding:22px;box-shadow:var(--sh);margin-bottom:2px}
+.blok:last-child{border-radius:0 0 12px 12px;margin-bottom:18px}
+.bttl{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gd);margin-bottom:14px;display:flex;align-items:center;gap:8px;font-family:'Lexend',sans-serif}
+.bttl::before{content:'';display:inline-block;width:3px;height:15px;background:var(--gd);border-radius:2px}
+.dhdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--glicht)}
+.dav{font-size:1.5rem;background:var(--glicht);width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.dbody{font-size:.91rem;line-height:1.85;color:#222}
+.dbody p{margin-bottom:14px}.dbody p:last-child{margin-bottom:0}
+.dbody strong{color:var(--groen);font-weight:700}
+.dsep{border:none;border-top:2px dashed rgba(26,122,74,.2);margin:18px 0}
+.dex{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:11px 15px;margin:12px 0 4px;font-size:.86rem;color:#333;line-height:1.55}
+.dex::before{content:'Voorbeeld: ';font-weight:700;color:var(--gd)}
+.fml{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:10px 15px;margin:10px 0;font-size:.88rem;font-family:'Courier New',monospace;color:var(--groen);font-weight:700}
+.dialoog{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border:2px solid rgba(26,122,74,.2);border-radius:10px;padding:16px;margin-bottom:14px}
+.dialoog-rij{margin-bottom:8px;font-size:.87rem;line-height:1.55}
+.dialoog-rij:last-child{margin-bottom:0}
+.dialoog-naam{font-weight:700;color:var(--gd)}
+.dialoog-naam2{font-weight:700;color:var(--groen)}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.tbl th{background:var(--gd);color:#fff;padding:9px 12px;text-align:left;font-family:'Lexend',sans-serif;font-weight:600;font-size:.78rem}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--rand)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even){background:#f9fdf9}
+.wjd{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-left:4px solid var(--goud);border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#4a3b00}
+.wjd::before{content:'🌍 Wist je dat? ';font-weight:700;color:var(--goudd)}
+.bgrp-blok{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border-radius:8px;padding:14px;margin:10px 0}
+.bgrp-blok h4{font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--gd);margin-bottom:10px;letter-spacing:.4px}
+.qbox{background:#fffbe6;border:2px solid rgba(240,192,64,.5);border-radius:10px;padding:16px;margin-bottom:12px}
+.ql{font-size:.7rem;color:var(--goudd);font-weight:700;text-transform:uppercase;margin-bottom:8px;font-family:'Lexend',sans-serif}
+.qt{font-weight:600;margin-bottom:10px;font-size:.9rem;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:9px 12px;border:2px solid #ddd;border-radius:7px;cursor:pointer;font-size:.87rem;background:#fff;text-align:left;transition:all .2s;font-family:'DM Sans',sans-serif}
+.opt:hover:not([disabled]){border-color:var(--gd);background:var(--glicht)}
+.opt.ok{border-color:var(--gd)!important;background:var(--glicht);color:var(--groen);font-weight:600}
+.opt.fout{border-color:var(--roodl)!important;background:#fdecea;color:var(--roodl)}
+.qfb{margin-top:8px;font-size:.87rem;font-weight:600;display:none;padding:8px 12px;border-radius:6px}
+.qfb.ok{display:block;color:var(--groen);background:var(--glicht)}
+.qfb.fout{display:block;color:var(--roodl);background:#fdecea}
+.bleg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;font-size:.72rem}
+.bleg span{padding:3px 9px;border-radius:10px;color:#fff;font-weight:700;font-family:'Lexend',sans-serif}
+.b1{background:#0f4d2e}.b2{background:#1a7a4a}.b3{background:#d4a012}
+.b4{background:#b85c00}.b5{background:#b30000}.b6{background:#2d1b4e}
+.bi{border-left:3px solid var(--rand);padding:13px 0 13px 15px;margin-bottom:10px}
+.brow{display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
+.bbadge{font-family:'Lexend',sans-serif;font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:9px;color:#fff;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:3px}
+.bq{font-size:.89rem;line-height:1.65;color:#222;margin-bottom:6px}
+.bq em{font-style:italic;font-weight:700;color:var(--groen)}
+.antw-input{width:100%;margin-top:8px;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.88rem;font-family:'DM Sans',inherit;resize:vertical;min-height:65px;outline:none;transition:border-color .2s;line-height:1.55}
+.antw-input:focus{border-color:var(--gd)}
+.antw-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.abtn{background:none;border:2px solid var(--gd);color:var(--gd);padding:7px 13px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Lexend',sans-serif}
+.abtn:hover{background:var(--gd);color:#fff}
+.abox{display:none;background:var(--glicht);border-left:4px solid var(--gd);padding:11px 14px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.86rem;line-height:1.65}
+.abox.show{display:block}
+.bl-tabs{display:flex;margin-bottom:18px;border-bottom:2px solid var(--rand)}
+.bl-tab{padding:9px 18px;border:none;background:none;font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--grijs);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s}
+.bl-tab.act{color:var(--gd);border-bottom-color:var(--gd)}
+.bl-pane{display:none}.bl-pane.act{display:block}
+.bsrch{width:100%;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.9rem;margin-bottom:16px;outline:none;font-family:'DM Sans',sans-serif}
+.bsrch:focus{border-color:var(--gd)}
+.bgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.bcard{background:#fff;border-radius:8px;padding:12px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-top:3px solid var(--gd);transition:transform .15s}
+.bcard:hover{transform:translateY(-2px)}
+.bcard.p2{border-top-color:var(--roodl)}.bcard.p3{border-top-color:var(--goudd)}.bcard.p4{border-top-color:var(--blauwl)}
+.bcard .bt{font-family:'Lexend',sans-serif;font-weight:700;color:var(--gd);font-size:.88rem}
+.bcard.p2 .bt{color:var(--roodl)}.bcard.p3 .bt{color:var(--goudd)}.bcard.p4 .bt{color:var(--blauwl)}
+.bcard .bd{font-size:.8rem;color:#555;margin-top:4px;line-height:1.35}
+.card{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh)}
+.card h3{font-family:'Lexend',sans-serif;font-size:1rem;margin-bottom:10px}
+.ldi{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #eee}
+.ldi:last-child{border-bottom:none}
+.ldi input{width:17px;height:17px;accent-color:var(--gd);flex-shrink:0;margin-top:3px;cursor:pointer}
+.ldi label{font-size:.89rem;cursor:pointer;line-height:1.45}
+.ldi.chk label{color:var(--gd);text-decoration:line-through}
+.sblok{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.sblok.p2{border-left-color:var(--roodl)}.sblok.p3{border-left-color:var(--goudd)}.sblok.p4{border-left-color:var(--blauwl)}
+.sblok h3{font-family:'Lexend',sans-serif;font-size:.97rem;margin-bottom:8px}
+.sblok p{font-size:.89rem;line-height:1.65;color:#333}
+.hrbox{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:5px solid var(--gd)}
+.hrbox.p2{border-left-color:var(--roodl)}.hrbox.p3{border-left-color:var(--goudd)}.hrbox.p4{border-left-color:var(--blauwl)}
+.hrn{font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--gd);margin-bottom:8px}
+.hrbox.p2 .hrn{color:var(--roodl)}.hrbox.p3 .hrn{color:var(--goudd)}.hrbox.p4 .hrn{color:var(--blauwl)}
+.hrq{font-size:.9rem;line-height:1.6;font-weight:600;margin-bottom:8px}
+.rsom{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.rsom .rn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--gd);color:#fff;padding:2px 9px;border-radius:12px;display:inline-block;margin-bottom:7px;font-weight:700}
+.rsom p{font-size:.89rem;line-height:1.65;margin-bottom:4px}
+.rsom .rsub{font-size:.83rem;color:#555;margin-top:4px}
+.rode-draad{background:linear-gradient(135deg,var(--groen),var(--gd));border-radius:10px;padding:18px 22px;color:#fff;margin:14px 0}
+.rode-draad h4{font-family:'Lexend',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--goud)}
+.rode-draad p{font-size:.87rem;line-height:1.8;color:rgba(255,255,255,.9)}
+@media(max-width:600px){.phdr h2{font-size:1.15rem}nav button{font-size:.68rem;padding:8px 9px}.bgrd{grid-template-columns:1fr 1fr}.tbl{font-size:.78rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-top">
+    <a href="index.html" style="text-decoration:none">
+      <div class="logo">vla<em>conomie</em>.nl</div>
+      <div class="logo-sub">Economie · 3 HAVO/VWO · Hoofdstuk 3 — De Markt</div>
+    </a>
+  </div>
+  <nav>
+    <button class="act" onclick="S('s31',this)">§3.1 Hoe ontstaat een prijs?</button>
+    <button onclick="S('s32',this)">§3.2 Wat verandert de prijs?</button>
+    <button onclick="S('s33',this)">§3.3 Winst berekenen</button>
+    <button onclick="S('s34',this)">§3.4 Koopgedrag</button>
+    <button onclick="S('ssamenv',this)">📋 Samenvatting</button>
+    <button onclick="S('sbegrippen',this)">📖 Begrippen</button>
+    <button onclick="S('sherhaling',this)">🔁 Herhaling</button>
+    <button onclick="S('srekensommen',this)">🔢 Rekensommen</button>
+  </nav>
+</header>
+<main>
+
+<!-- ===== §3.1 ===== -->
+<div id="s31" class="sec act">
+  <div class="phdr">
+    <div class="pn">§ 3.1</div>
+    <h2>Hoe ontstaat een prijs?</h2>
+    <p>Markt · Vraag · Aanbod · Evenwichtsprijs · Vraagoverschot · Aanbodoverschot</p>
+  </div>
+
+  <div class="nk nk-groen">
+    <div class="nk-tag">📈 Markt & Prijsvorming</div>
+    <div class="nk-kop">Vraag en aanbod: het onzichtbare mechanisme achter elke prijs</div>
+    <div class="nk-meta">2025 · Economie havo/vwo</div>
+    <div class="nk-body">Op elke markt — van de supermarkt tot de aandelenmarkt — bepalen <strong>vraag</strong> en <strong>aanbod</strong> samen de prijs. Bij een te lage prijs ontstaat <strong>vraagoverschot</strong>: meer mensen willen kopen dan er aanbod is. Bij een te hoge prijs ontstaat <strong>aanbodoverschot</strong>: verkopers kunnen hun producten niet kwijt. Alleen bij de <strong>evenwichtsprijs</strong> is de markt in balans.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">vraag</div><div class="nk-sl">dalende curve</div></div>
+      <div class="nk-stat"><div class="nk-sv">aanbod</div><div class="nk-sl">stijgende curve</div></div>
+      <div class="nk-stat"><div class="nk-sv">evenwicht</div><div class="nk-sl">vraag = aanbod</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--gd);font-family:'Lexend',sans-serif">§3.1 — Hoe ontstaat een prijs?</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Markt</strong>: een ontmoetingsplaats — fysiek of digitaal — waar kopers (<strong>vraagzijde</strong>) en verkopers (<strong>aanbodzijde</strong>) goederen of diensten verhandelen.</p>
+      <p><strong>Vraag</strong>: de hoeveelheid die consumenten bij elke prijs willen en kunnen kopen. De vraagcurve loopt <strong>dalend</strong>: bij een hogere prijs daalt de gevraagde hoeveelheid.</p>
+      <p><strong>Aanbod</strong>: de hoeveelheid die producenten bij elke prijs willen en kunnen aanbieden. De aanbodcurve loopt <strong>stijgend</strong>: bij een hogere prijs stijgt de aangeboden hoeveelheid.</p>
+      <div class="fml">Evenwicht: Gevraagde hoeveelheid = Aangeboden hoeveelheid</div>
+      <p><strong>Evenwichtsprijs</strong>: de prijs waarbij vraag en aanbod precies gelijk zijn — geen tekort, geen overschot.</p>
+      <hr class="dsep">
+      <table class="tbl">
+        <tr><th>Situatie</th><th>Wat er gebeurt</th><th>Gevolg</th></tr>
+        <tr><td><strong>Prijs &lt; evenwicht</strong></td><td>Vraagoverschot: meer kopers dan aanbieders</td><td>Prijs stijgt naar evenwicht</td></tr>
+        <tr><td><strong>Prijs = evenwicht</strong></td><td>Vraag = aanbod</td><td>Markt in evenwicht</td></tr>
+        <tr><td><strong>Prijs &gt; evenwicht</strong></td><td>Aanbodoverschot: meer aanbieders dan kopers</td><td>Prijs daalt naar evenwicht</td></tr>
+      </table>
+      <div class="wjd">Op de aandelenmarkt veranderen prijzen elke seconde. Toch werkt hetzelfde mechanisme: als meer mensen een aandeel willen kopen (vraag stijgt) dan te koop is (aanbod), stijgt de koers. Bij massale verkoop daalt de koers.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Mila:</span> <em>"Waarom kost een flesje water op een festival drie euro, maar in de supermarkt maar twintig cent?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Ravi:</span> <em>"Omdat op een festival weinig verkopers zijn en veel dorste mensen. Schaarste bepaalt de prijs."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Mila:</span> <em>"Maar wie bepaalt dan precies hoeveel iets kost?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Ravi:</span> <em>"Vraag en aanbod samen. Als veel mensen iets willen en er weinig van is, stijgt de prijs. Als niemand iets wil, daalt hij."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat is de evenwichtsprijs?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q31a')">A. De laagste prijs die een producent accepteert.</button><button class="opt" data-c="1" onclick="cQ(this,'q31a')">B. De prijs waarbij gevraagde en aangeboden hoeveelheid aan elkaar gelijk zijn.</button><button class="opt" data-c="0" onclick="cQ(this,'q31a')">C. De prijs die de overheid vaststelt.</button><button class="opt" data-c="0" onclick="cQ(this,'q31a')">D. De gemiddelde prijs van alle vergelijkbare producten op de markt.</button></div><div id="q31a" class="qfb">✅ Antwoord B — De evenwichtsprijs is precies de prijs waarbij vraag en aanbod gelijk zijn: geen tekort en geen overschot.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Onthouden</div><div class="qt">Hoe verloopt een vraagcurve?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q31b')">A. Stijgend: bij hogere prijs meer gevraagd.</button><button class="opt" data-c="0" onclick="cQ(this,'q31b')">B. Horizontaal: de prijs heeft geen invloed.</button><button class="opt" data-c="1" onclick="cQ(this,'q31b')">C. Dalend: bij hogere prijs minder gevraagd.</button><button class="opt" data-c="0" onclick="cQ(this,'q31b')">D. Grillig: de vraag is niet voorspelbaar.</button></div><div id="q31b" class="qfb">✅ Antwoord C — De vraagcurve loopt dalend: hoe hoger de prijs, hoe minder mensen het product willen of kunnen kopen.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Toepassen</div><div class="qt">Op de markt voor fietsen geldt: bij €80 worden 60 gevraagd en 60 aangeboden. Bij €60 worden 90 gevraagd en 40 aangeboden. Bij €100 worden 40 gevraagd en 80 aangeboden. Wat is de evenwichtsprijs?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q31c')">A. €60</button><button class="opt" data-c="1" onclick="cQ(this,'q31c')">B. €80</button><button class="opt" data-c="0" onclick="cQ(this,'q31c')">C. €100</button><button class="opt" data-c="0" onclick="cQ(this,'q31c')">D. €70</button></div><div id="q31c" class="qfb">✅ Antwoord B — Bij €80 zijn gevraagde en aangeboden hoeveelheid beide 60: markt in evenwicht.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Leg in je eigen woorden uit wat een <em>vraagoverschot</em> en een <em>aanbodoverschot</em> zijn. Geef bij elk een eigen voorbeeld.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Vraagoverschot: de gevraagde hoeveelheid is groter dan de aangeboden hoeveelheid — prijs is te laag. Voorbeeld: bioscoopkaartjes zijn uitverkocht. Aanbodoverschot: de aangeboden hoeveelheid is groter dan de gevraagde — prijs is te hoog. Voorbeeld: te veel onverkochte winterjassen in de uitverkoop.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Bij een prijs van €10: 200 gevraagd, 120 aangeboden. Wat is er aan de hand en hoe reageert de markt?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox"><strong>Vraagoverschot</strong>: de prijs is te laag (meer gevraagd dan aangeboden). Er is een tekort van 80 stuks. Kopers bieden meer → prijs stijgt naar de evenwichtsprijs.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Op de markt voor tweedehands fietsen geldt: bij €80 → 60/60 | bij €60 → 90/40 | bij €100 → 40/80.<br>a) Wat is de evenwichtsprijs? b) Wat is er bij €60 aan de hand? c) Wat is er bij €100 aan de hand?</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Evenwichtsprijs: <strong>€80</strong> (gevraagd = aangeboden = 60). b) Bij €60: vraagoverschot (90 gevraagd, 40 aangeboden). Tekort van 50 fietsen → prijs stijgt naar €80. c) Bij €100: aanbodoverschot (80 aangeboden, 40 gevraagd). Overschot van 40 fietsen → prijs daalt naar €80.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Gemeente introduceert een maximumhuurprijs <em>onder</em> de evenwichtsprijs op de huurmarkt.<br>a) Wat gebeurt er met de gevraagde hoeveelheid? b) Wat met de aangeboden hoeveelheid? c) Welk type overschot/tekort ontstaat? d) Wat zijn de gevolgen op langere termijn?</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Gevraagde hoeveelheid stijgt (lagere prijs maakt huren aantrekkelijker). b) Aangeboden hoeveelheid daalt (verhuurders vinden het minder aantrekkelijk). c) Vraagoverschot: meer mensen willen huren dan er woningen beschikbaar zijn. d) Op langere termijn: minder nieuwe huurwoningen worden gebouwd, verhuurders trekken woningen terug, wachtlijsten groeien.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Geef twee argumenten vóór vrije prijsvorming en twee argumenten voor overheidsingrijpen in prijzen. Wat is jouw oordeel?</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox"><strong>Vóór vrije prijsvorming:</strong> (1) Signaalfunctie: prijzen geven info over schaarste → efficiënte allocatie. (2) Stimuleert innovatie en productie. <strong>Vóór ingrijpen:</strong> (1) Marktfalen bij basisbehoeften zoals woningmarkt. (2) Asymmetrische informatie: consumenten kunnen eerlijke prijs niet altijd beoordelen. <em>Afweging: vrije prijsvorming werkt best bij normale goederen met voldoende concurrentie.</em></div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een economische column (minimaal 8 zinnen) over de concertticketmarkt. Doorverkopers vragen soms tien keer de originele prijs. Gebruik de begrippen evenwichtsprijs, vraagoverschot en aanbodoverschot.</div><textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beoordelingscriteria: vanuit vraag-en-aanbodlogica: dit is een normaal marktmechanisme — de originele prijs lag onder de evenwichtsprijs (meer vraag dan aanbod). De doorverkoopprijs weerspiegelt de werkelijke marktwaarde. Vanuit ethisch perspectief: alleen mensen met veel geld krijgen toegang. Originele fans worden buitengesloten. Een goede column bevat: juiste begrippen, een helder standpunt en minimaal 8 zinnen.</div></div>
+  </div>
+</div>
+
+<!-- ===== §3.2 ===== -->
+<div id="s32" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 3.2</div>
+    <h2>Wat verandert de prijs?</h2>
+    <p>Veranderingsfactoren · Verschuiving van de curve · Nieuwe evenwichtsprijs · Substituut</p>
+  </div>
+
+  <div class="nk nk-blauw">
+    <div class="nk-tag">🔄 Veranderingsfactoren</div>
+    <div class="nk-kop">Waarom stijgen avocado's, dalen zonnepanelen en pieken vliegtickets?</div>
+    <div class="nk-meta">2025 · Economie havo/vwo</div>
+    <div class="nk-body">De prijs van een product kan veranderen als de vraag of het aanbod verschuift. Factoren als <strong>inkomen</strong>, <strong>mode</strong>, <strong>productiekosten</strong> en <strong>technologie</strong> duwen de vraag- of aanbodcurve opzij. Elke verschuiving leidt tot een <strong>nieuwe evenwichtsprijs</strong>.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">vraag↑</div><div class="nk-sl">prijs stijgt</div></div>
+      <div class="nk-stat"><div class="nk-sv">aanbod↑</div><div class="nk-sl">prijs daalt</div></div>
+      <div class="nk-stat"><div class="nk-sv">substituut</div><div class="nk-sl">vervangend product</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--blauwl);font-family:'Lexend',sans-serif">§3.2 — Wat verandert de prijs?</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p>De vraag- of aanbodcurve kan verschuiven door <strong>veranderingsfactoren</strong> — dat zijn andere factoren dan de eigen prijs.</p>
+      <table class="tbl">
+        <tr><th>Factor (vraag)</th><th>Effect op vraag</th><th>Voorbeeld</th></tr>
+        <tr><td>Inkomen stijgt</td><td>Meer te besteden → vraag stijgt</td><td>Hogere inkomens → meer vakantietickets</td></tr>
+        <tr><td>Prijs substituut stijgt</td><td>Vraag naar dit product stijgt</td><td>Benzine duurder → meer elektrische auto's</td></tr>
+        <tr><td>Mode / trend</td><td>Vraag kan stijgen of dalen</td><td>Hype om sneakers → vraag stijgt sterk</td></tr>
+        <tr><td>Verwachting hogere prijs</td><td>Nu meer kopen → vraag stijgt</td><td>Inflatie verwacht → hamsterkopen</td></tr>
+      </table>
+      <table class="tbl">
+        <tr><th>Factor (aanbod)</th><th>Effect op aanbod</th><th>Voorbeeld</th></tr>
+        <tr><td>Productiekosten stijgen</td><td>Minder winstgevend → aanbod daalt</td><td>Hogere lonen → minder horeca-aanbod</td></tr>
+        <tr><td>Technologie verbetert</td><td>Goedkoper produceren → aanbod stijgt</td><td>Zonnepanelen efficiënter → meer aanbod</td></tr>
+        <tr><td>Subsidie</td><td>Lagere kosten → aanbod stijgt</td><td>Subsidie op e-auto's → meer aanbod</td></tr>
+        <tr><td>Slechte oogst</td><td>Minder productie → aanbod daalt</td><td>Droogte → minder graan, hogere prijs</td></tr>
+      </table>
+      <div class="fml">Vraag stijgt → curve naar rechts → vraagoverschot → prijs stijgt → nieuwe hogere evenwichtsprijs</div>
+      <div class="fml">Aanbod stijgt → curve naar rechts → aanbodoverschot → prijs daalt → nieuwe lagere evenwichtsprijs</div>
+      <div class="wjd">Tijdens de coronacrisis sloot veel horeca. Minder vraag naar koffie en eieren voor de horeca. Tegelijk nam de vraag naar supermarktproducten toe. Gevolg: supermarktprijzen stegen, terwijl groothandelspartijen voor horeca hun producten moesten weggooien.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Die avocado's zijn weer duurder. Vorig jaar kostten ze 80 cent, nu €1,50!"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dat komt doordat iedereen ze nu wil eten. De vraag is gestegen, maar het aanbod kan dat niet bijhouden."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Dus als meer mensen iets willen, stijgt de prijs vanzelf?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Precies. En andersom: als er meer aanbod is dan vraag, daalt de prijs. Zie het als een weegschaal."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Welke van de volgende factoren is een veranderingsfactor voor het <em>aanbod</em>?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q32a')">A. Stijging van het inkomen van consumenten.</button><button class="opt" data-c="0" onclick="cQ(this,'q32a')">B. Een nieuwe mode-trend bij jongeren.</button><button class="opt" data-c="1" onclick="cQ(this,'q32a')">C. Hogere productiekosten voor fabrikanten.</button><button class="opt" data-c="0" onclick="cQ(this,'q32a')">D. De verwachting dat de prijs morgen stijgt.</button></div><div id="q32a" class="qfb">✅ Antwoord C — Hogere productiekosten maken produceren duurder, waardoor het aanbod daalt (aanbodcurve naar links).</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Begrijpen</div><div class="qt">Door een droge zomer mislukken de aardbeienoogsten grotendeels. Wat is het directe effect?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q32b')">A. De vraag daalt → prijs daalt.</button><button class="opt" data-c="1" onclick="cQ(this,'q32b')">B. Het aanbod daalt → prijs stijgt.</button><button class="opt" data-c="0" onclick="cQ(this,'q32b')">C. Het aanbod stijgt → prijs daalt.</button><button class="opt" data-c="0" onclick="cQ(this,'q32b')">D. De vraag stijgt → prijs stijgt.</button></div><div id="q32b" class="qfb">✅ Antwoord B — Een mislukte oogst is een veranderingsfactor voor het aanbod: aanbodcurve naar links → prijs stijgt.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Analyseren</div><div class="qt">In de jaren 2000 daalden de prijzen van flatscreen-tv's sterk, terwijl de vraag juist steeg. Welke combinatie verklaart dit?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q32c')">A. Vraag daalde en aanbod steeg.</button><button class="opt" data-c="1" onclick="cQ(this,'q32c')">B. Technologische verbetering deed het aanbod sterk stijgen, terwijl hogere inkomens de vraag verhoogden.</button><button class="opt" data-c="0" onclick="cQ(this,'q32c')">C. Inkomen van consumenten daalde.</button><button class="opt" data-c="0" onclick="cQ(this,'q32c')">D. Overheid subsidieerde producenten.</button></div><div id="q32c" class="qfb">✅ Antwoord B — Technologie verlaagde de productiekosten sterk (aanbod stijgt, prijs daalt). Tegelijk verhoogden hogere inkomens en de dalende prijs zelf de vraag.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem vier veranderingsfactoren die de <em>vraag</em> kunnen verhogen. Geef bij elke factor een concreet voorbeeld.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">1. Inkomensstijging (meer mensen kunnen zich het product veroorloven). 2. Prijs substituut stijgt (benzine duurder → meer e-bikes). 3. Mode/trend (hype → vraag stijgt snel). 4. Verwachting hogere prijs (mensen kopen nu alvast meer).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Beschrijf voor elk van de volgende situaties: welke factor verandert, of vraag of aanbod verschuift, en wat er met de evenwichtsprijs gebeurt:<br>a) Overheid introduceert suikertaks op frisdrank.<br>b) Nieuwe technologie maakt zonnepanelen 30% goedkoper.<br>c) Studie toont aan dat dagelijks noten eten hartziekten vermindert.<br>d) Minimumloon stijgt → restaurants hebben hogere personeelskosten.</div><textarea class="antw-input" rows="8" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Suikertaks: productiekosten stijgen → aanbod frisdrank daalt → prijs stijgt. b) Technologie: productiekosten dalen → aanbod zonnepanelen stijgt → prijs daalt. c) Studie over noten: meer bewustzijn → vraag naar noten stijgt → prijs stijgt. d) Hoger minimumloon: arbeidskosten stijgen → aanbod restaurantmaaltijden daalt → prijs stijgt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Lees de nieuwskop: "Graan wordt duurder: oorlog in Oekraïne verstoort tarweaanbod."<br>a) Identificeer de veranderingsfactor. b) Welke curve verschuift, en in welke richting? c) Wat is het effect op evenwichtsprijs en -hoeveelheid? d) Welke producten worden indirect ook duurder?</div><textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Veranderingsfactor: slechte/gedwongen oogst door oorlog (productiestoornis). b) Aanbodcurve verschuift naar links (minder aanbod bij elke prijs). c) Evenwichtsprijs stijgt, evenwichtshoeveelheid daalt. d) Brood, pasta, koekjes, veevoer en dus ook vlees/zuivel worden indirect duurder.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">De overheid overweegt een belasting op vlees om milieuredenen. Analyseer: wie zijn de winnaars en verliezers? Gebruik de begrippen veranderingsfactor, aanbod, vraag en evenwichtsprijs.</div><textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Veranderingsfactor aanbod: belasting verhoogt productiekosten → aanbodcurve naar links → evenwichtsprijs stijgt. Winnaars: milieu (minder vleesconsumptie), overheid (belastinginkomsten), plantaardige alternatieven. Verliezers: vleesproducenten, consumenten (hogere prijs), lagere inkomens (regressief effect). Oordeel: economisch zinvol als belasting negatieve externe effecten (milieuschade) corrigeert.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een economische column (minimaal 8 zinnen) over een product waarvan de prijs het afgelopen jaar is veranderd. Analyseer welke veranderingsfactoren een rol speelden, hoe de curve verschoof en wat de nieuwe evenwichtsprijs werd.</div><textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beoordelingscriteria: actueel en herkenbaar voorbeeld. Veranderingsfactor(en) correct benoemd. Effect op vraag- of aanbodcurve correct beschreven. Nieuwe evenwichtsprijs logisch beredeneerd. Minimaal 8 zinnen.</div></div>
+  </div>
+</div>
+
+<!-- ===== §3.3 ===== -->
+<div id="s33" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 3.3</div>
+    <h2>Winst berekenen</h2>
+    <p>Omzet · Kostprijs · Totale kosten · Winst · Break-even · Winstmarge</p>
+  </div>
+
+  <div class="nk nk-goud">
+    <div class="nk-tag">💰 Winst & Kosten</div>
+    <div class="nk-kop">Van omzet naar winst: de rekenkunde van een ondernemer</div>
+    <div class="nk-meta">2025 · Economie havo/vwo</div>
+    <div class="nk-body">Een ondernemer wil weten of zijn bedrijf winstgevend is. Daarvoor berekent hij <strong>omzet</strong>, <strong>totale kosten</strong> en <strong>winst</strong>. Het <strong>break-evenpunt</strong> is het moment waarop omzet precies gelijk is aan de kosten: winst is nul. De <strong>winstmarge</strong> geeft aan hoeveel procent van de omzet over blijft als winst.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">omzet</div><div class="nk-sl">prijs × afzet</div></div>
+      <div class="nk-stat"><div class="nk-sv">break-even</div><div class="nk-sl">winst = 0</div></div>
+      <div class="nk-stat"><div class="nk-sv">marge</div><div class="nk-sl">winst ÷ omzet × 100%</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--goudd);font-family:'Lexend',sans-serif">§3.3 — Winst berekenen</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <div class="fml">Omzet = verkoopprijs × afzet</div>
+      <div class="fml">Totale kosten = kostprijs × afzet</div>
+      <div class="fml">Winst = Omzet − Totale kosten</div>
+      <div class="fml">Break-even hoeveelheid = Vaste kosten ÷ (Verkoopprijs − Variabele kostprijs)</div>
+      <div class="fml">Winstmarge (%) = Winst ÷ Omzet × 100%</div>
+      <hr class="dsep">
+      <div class="dex">Sneakerwinkel verkoopt 200 paar à €80. Kostprijs per paar: €50. Vaste kosten: €3.000. Omzet = 200 × €80 = €16.000. Totale kosten = 200 × €50 + €3.000 = €13.000. Winst = €16.000 − €13.000 = €3.000. Winstmarge = €3.000 ÷ €16.000 × 100% = 18,75%.</div>
+      <div class="wjd">Grote bedrijven zoals IKEA werken met lage winstmarges per product maar verkopen enorme aantallen. Een hamburgerketen verdient soms meer aan friet en frisdrank dan aan hamburgers zelf — cross-selling en volume zijn het geheim van hun winst.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Noa:</span> <em>"Ik verkoop zelfgemaakte kaarsen voor €8 per stuk. Ik dacht dat ik veel verdiende, maar aan het einde van de maand bleef er niets over."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Tim:</span> <em>"Heb je ook je vaste kosten meegeteld? Huur, apparatuur, verpakking?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Noa:</span> <em>"Nee, ik telde alleen de materiaalkosten."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Tim:</span> <em>"Dan snap je het nu. Winst = omzet minus álle kosten. Je moet eerst het break-evenpunt bereiken voordat je écht verdient."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Hoe bereken je de omzet?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q33a')">A. Omzet = winst + kosten.</button><button class="opt" data-c="0" onclick="cQ(this,'q33a')">B. Omzet = kostprijs × winstmarge.</button><button class="opt" data-c="1" onclick="cQ(this,'q33a')">C. Omzet = verkoopprijs × afzet.</button><button class="opt" data-c="0" onclick="cQ(this,'q33a')">D. Omzet = vaste kosten + variabele kosten.</button></div><div id="q33a" class="qfb">✅ Antwoord C — Omzet = verkoopprijs × afzet. Dit is de totale opbrengst uit verkoop.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Toepassen</div><div class="qt">Een bakker verkoopt broden voor €3,50. Kostprijs per brood: €1,50. Vaste kosten: €400 per maand. Bereken de break-even hoeveelheid.</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q33b')">A. 133 broden</button><button class="opt" data-c="1" onclick="cQ(this,'q33b')">B. 200 broden</button><button class="opt" data-c="0" onclick="cQ(this,'q33b')">C. 267 broden</button><button class="opt" data-c="0" onclick="cQ(this,'q33b')">D. 400 broden</button></div><div id="q33b" class="qfb">✅ Antwoord B — Break-even = €400 ÷ (€3,50 − €1,50) = €400 ÷ €2 = <strong>200 broden</strong>.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Analyseren</div><div class="qt">Een restaurant verdient €80 per tafel per avond. Variabele kosten: €45 per tafel. Vaste kosten: €700 per avond. Hoeveel tafels voor break-even?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q33c')">A. 9 tafels</button><button class="opt" data-c="0" onclick="cQ(this,'q33c')">B. 14 tafels</button><button class="opt" data-c="1" onclick="cQ(this,'q33c')">C. 20 tafels</button><button class="opt" data-c="0" onclick="cQ(this,'q33c')">D. 25 tafels</button></div><div id="q33c" class="qfb">✅ Antwoord C — Break-even = €700 ÷ (€80 − €45) = €700 ÷ €35 = <strong>20 tafels</strong>.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem de drie formules voor winst (omzet, totale kosten, winst) en schrijf de break-even formule op.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">1. Omzet = verkoopprijs × afzet. 2. Totale kosten = kostprijs × afzet. 3. Winst = omzet − totale kosten. Break-even hoeveelheid = vaste kosten ÷ (verkoopprijs − variabele kostprijs).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">EcoBottle verkoopt herbruikbare waterflessen voor €14,50. Variabele kostprijs per fles: €5,50. Vaste kosten: €1.800 per maand.<br>a) Bereken de bijdrage per fles. b) Bereken de break-even hoeveelheid. c) In mei worden 260 flessen verkocht — bereken de winst. d) In juni stijgen de materiaalkosten naar €7,00 per fles — bereken de nieuwe break-even hoeveelheid.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Bijdrage = €14,50 − €5,50 = <strong>€9,00</strong>. b) Break-even = €1.800 ÷ €9 = <strong>200 flessen</strong>. c) Winst = (260 − 200) × €9 = 60 × €9 = <strong>€540</strong>. d) Nieuwe bijdrage = €14,50 − €7,00 = €7,50. Break-even = €1.800 ÷ €7,50 = <strong>240 flessen</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Vergelijk twee bedrijven:<br>Bedrijf X: verkoopprijs €8, kostprijs €5, afzet 500 stuks, vaste kosten €600.<br>Bedrijf Y: verkoopprijs €25, kostprijs €18, afzet 120 stuks, vaste kosten €400.<br>a) Bereken de winst van beide. b) Bereken de winstmarge. c) Bereken de break-even hoeveelheid. d) Welk bedrijf is financieel gezonder?</div><textarea class="antw-input" rows="8" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Bedrijf X: Omzet = €8×500 = €4.000. Kosten = €5×500+€600 = €3.100. Winst = <strong>€900</strong>. Marge = €900÷€4.000×100% = <strong>22,5%</strong>. Break-even = €600÷(€8−€5) = <strong>200 stuks</strong>.<br>Bedrijf Y: Omzet = €25×120 = €3.000. Kosten = €18×120+€400 = €2.560. Winst = <strong>€440</strong>. Marge = €440÷€3.000×100% = <strong>14,7%</strong>. Break-even = €400÷(€25−€18) ≈ <strong>57 stuks</strong>.<br>d) Bedrijf X is financieel gezonder: hogere absolute winst én hogere winstmarge.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Een startup verkoopt een app voor €1,99. Ontwikkelkosten: €80.000 (eenmalig). Extra kosten per download: €0.<br>a) Hoeveel downloads voor break-even? b) Na 100.000 downloads — bereken de winst. c) Is dit een goed businessmodel? Geef twee voor- en twee nadelen.</div><textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Break-even = €80.000 ÷ €1,99 ≈ <strong>40.201 downloads</strong>. b) Winst = 100.000 × €1,99 − €80.000 = €199.000 − €80.000 = <strong>€119.000</strong>. c) Voordelen: hoge schaalbaarheid (elke extra download levert bijna pure winst), lage marginale kosten. Nadelen: hoog risico als downloads achterblijven, sterke concurrentie in de appmarkt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een winstanalyse (minimaal 8 zinnen) voor een denkbeeldig kledingbedrijf met twee productlijnen: een goedkope lijn en een premium lijn. Gebruik de begrippen omzet, kostprijs, totale kosten, winst, break-even en winstmarge. Beredeneer welke lijn de ondernemer beter kan uitbreiden.</div><textarea class="antw-input" rows="8" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beoordelingscriteria: alle zes begrippen correct gebruikt, berekeningen kloppen, onderbouwde keuze voor uitbreiding. Tip: de premium lijn heeft vaak een hogere winstmarge maar vereist meer marketinginspanning; de goedkope lijn heeft meer volume maar minder marge per stuk.</div></div>
+  </div>
+</div>
+
+<!-- ===== §3.4 ===== -->
+<div id="s34" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 3.4</div>
+    <h2>Koopgedrag beïnvloeden</h2>
+    <p>Marketing · Reclame · Prijspsychologie · Nudging · Loyaliteitsprogramma's · Sociale bewijskracht</p>
+  </div>
+
+  <div class="nk nk-rood">
+    <div class="nk-tag">🧠 Marketing & Gedragseconomie</div>
+    <div class="nk-kop">Hoe bedrijven jouw koopgedrag sturen — bewust én onbewust</div>
+    <div class="nk-meta">2025 · Economie havo/vwo</div>
+    <div class="nk-body">Bedrijven gebruiken tientallen technieken om jou meer te laten kopen: van <strong>prijspsychologie</strong> (€9,99) tot <strong>nudging</strong> (groenten op ooghoogte), van <strong>schaarste creëren</strong> tot <strong>sociale bewijskracht</strong>. Consumenten zijn niet altijd rationeel — ze reageren op emotionele en sociale prikkels.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">6.000+</div><div class="nk-sl">reclame-uitingen per dag</div></div>
+      <div class="nk-stat"><div class="nk-sv">nudging</div><div class="nk-sl">sturen zonder dwang</div></div>
+      <div class="nk-stat"><div class="nk-sv">€9,99</div><div class="nk-sl">prijspsychologie</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--roodl);font-family:'Lexend',sans-serif">§3.4 — Koopgedrag beïnvloeden</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <table class="tbl">
+        <tr><th>Techniek</th><th>Uitleg</th><th>Voorbeeld</th></tr>
+        <tr><td><strong>Reclame</strong></td><td>Bewust positief beeld creëren via media, influencers of sponsoring.</td><td>"Drink SportdrinkX — winnaars kiezen X."</td></tr>
+        <tr><td><strong>Prijspsychologie</strong></td><td>Prijzen instellen zodat ze goedkoper lijken dan ze zijn.</td><td>€9,99 voelt goedkoper dan €10.</td></tr>
+        <tr><td><strong>Schaarste & urgentie</strong></td><td>Suggereren dat een product beperkt of tijdelijk beschikbaar is.</td><td>"Nog 2 kamers beschikbaar!"</td></tr>
+        <tr><td><strong>Loyaliteitsprogramma</strong></td><td>Klanten belonen voor herhaalaankopen.</td><td>Koffiezegels, Air Miles.</td></tr>
+        <tr><td><strong>Upselling & cross-selling</strong></td><td>Klanten verleiden tot een duurdere versie of extra product.</td><td>"Wil je er friet bij?" / "Upgrade naar business class?"</td></tr>
+        <tr><td><strong>Nudging</strong></td><td>Kleine duwjes richting gewenste keuze, zonder te verbieden.</td><td>Groenten op ooghoogte in de supermarkt.</td></tr>
+        <tr><td><strong>Sociale bewijskracht</strong></td><td>Mensen kopen wat anderen ook kopen.</td><td>"Bestseller" / "4,8 sterren — 2.400 reviews"</td></tr>
+        <tr><td><strong>Personalisatie</strong></td><td>Aanbiedingen afstemmen op persoonlijk gedrag via data.</td><td>Amazon toont producten op basis van je zoekgeschiedenis.</td></tr>
+      </table>
+      <div class="bgrp-blok">
+        <h4>🧠 Waarom werken deze technieken?</h4>
+        <p style="font-size:.87rem;line-height:1.65;color:#333">Mensen nemen niet altijd rationele beslissingen. Ze worden beïnvloed door: gevoel van schaarste ("wat schaars is, is waardevol"), sociale druk ("als anderen het kopen, zal het wel goed zijn"), gewoontegedrag ("hier koop ik altijd, dus ook nu") en beperkte aandacht ("ik lees niet de kleine lettertjes").</p>
+      </div>
+      <div class="wjd">Nederlanders zien gemiddeld 6.000 tot 10.000 reclame-uitingen per dag — van banners tot gesponsorde posts, verpakkingen, billboards en podcastreclame. Slechts een fractie wordt bewust verwerkt, maar veel ervan beïnvloedt ons koopgedrag onbewust.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Sam:</span> <em>"Ik wilde eigenlijk alleen een broek kopen, maar ik heb ook een shirt, een riem en een fles parfum meegenomen."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Fien:</span> <em>"Ze doen dat expres. 'Klanten die dit kochten, kochten ook…' Dat heet upselling."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Sam:</span> <em>"En die tijdelijke aanbieding die maar 2 uur geldig was… dat werkte ook."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Fien:</span> <em>"Schaarste creëren en tijdsdruk. Klassieke technieken om je te laten kopen voordat je goed nadenkt."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat is nudging?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q34a')">A. Een techniek waarbij consumenten worden gedwongen een bepaald product te kopen.</button><button class="opt" data-c="1" onclick="cQ(this,'q34a')">B. Een techniek waarbij consumenten subtiel worden gestuurd richting een gewenste keuze, zonder dwang.</button><button class="opt" data-c="0" onclick="cQ(this,'q34a')">C. Reclame maken via sociale media.</button><button class="opt" data-c="0" onclick="cQ(this,'q34a')">D. Het opzetten van een loyaliteitsprogramma.</button></div><div id="q34a" class="qfb">✅ Antwoord B — Nudging = een subtiel duwtje richting de gewenste keuze zonder verbod of dwang. Voorbeeld: groenten op ooghoogte.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Toepassen</div><div class="qt">Benoem de techniek: a) Netflix "Anderen bekeken ook:" b) Snoep bij de kassa c) "Nog 1 kamer beschikbaar!" d) Gratis koffie na tien aankopen e) €119,95 in plaats van €120</div><div class="opts"><button class="opt" data-c="1" onclick="cQ(this,'q34b')">Antwoord tonen (open vraag)</button></div><div id="q34b" class="qfb">✅ a) Sociale bewijskracht / personalisatie. b) Nudging (plaatsing stimuleert impulsaankopen). c) Schaarste en urgentie. d) Loyaliteitsprogramma. e) Prijspsychologie.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Analyseren</div><div class="qt">Populaire producten liggen achterin de supermarkt. Welke techniek is dit en waarom is het effectief?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q34c')">A. Prijspsychologie: dure producten zijn onzichtbaar.</button><button class="opt" data-c="1" onclick="cQ(this,'q34c')">B. Nudging: klanten lopen door meer schappen en kopen onderweg extra producten.</button><button class="opt" data-c="0" onclick="cQ(this,'q34c')">C. Loyaliteitsprogramma: klanten komen vaker terug.</button><button class="opt" data-c="0" onclick="cQ(this,'q34c')">D. Sociale bewijskracht: iedereen loopt dezelfde route.</button></div><div id="q34c" class="qfb">✅ Antwoord B — Nudging: klanten lopen langs meer schappen en kopen onderweg extra producten die ze niet van plan waren te kopen.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem vijf technieken waarmee bedrijven koopgedrag beïnvloeden. Geef bij elke techniek een eigen voorbeeld.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Vijf technieken (uit: reclame, prijspsychologie, schaarste, loyaliteitsprogramma, upselling, nudging, sociale bewijskracht, personalisatie). Elk met een concreet, eigen voorbeeld.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Een supermarkt past de volgende strategie toe: huismerkproducten op ooghoogte, snacks bij de kassa, spaarzegels per €10, digitale app met persoonlijke aanbiedingen.<br>a) Welke vier technieken herken je? b) Welke is het meest effectief vanuit gedragseconomisch perspectief? c) Is dit ethisch verantwoord? Geef twee argumenten voor en twee tegen.</div><textarea class="antw-input" rows="8" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) 1. Nudging (huismerk op ooghoogte). 2. Nudging (snacks bij kassa). 3. Loyaliteitsprogramma (spaarzegels). 4. Personalisatie (app). b) Nudging is meest effectief: consumenten verwerken dit onbewust en het werkt zelfs bij mensen die weten dat het wordt toegepast. c) Voor: consument wordt niet gedwongen, keuze blijft vrij. Tegen: consument is zich niet bewust van manipulatie; kwetsbare groepen (kinderen) worden extra geraakt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Vergelijk de beïnvloedingstechnieken van een <em>fysieke winkel</em> met een <em>online webshop</em>.<br>a) Noem drie technieken die een fysieke winkel gebruikt. b) Noem drie technieken die een webshop gebruikt. c) Welk kanaal heeft een voordeel bij personalisatie en waarom?</div><textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Fysiek: (1) nudging (productplaatsing, geuren), (2) sociale bewijskracht (andere klanten, populaire rekken), (3) upselling door medewerkers. b) Online: (1) personalisatie (aanbevelingsalgoritme), (2) schaarste & urgentie ("nog 3 op voorraad", aftelklok), (3) sociale bewijskracht via reviews. c) Online heeft voordeel bij personalisatie: elke klik en aankoop wordt opgeslagen → hyperpersoonlijke aanbevelingen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Bedrijven verzamelen steeds meer data over consumenten voor betere marketingtechnieken.<br>a) Welke twee technieken worden het meest versterkt door data? b) Wat zijn de economische voordelen voor bedrijven? c) Wat zijn de risico's voor consumenten?</div><textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Personalisatie en sociale bewijskracht worden het meest versterkt. b) Voordelen bedrijven: hogere conversierate, klantloyaliteit, efficiëntere advertentie-uitgaven. c) Risico's consument: manipulatie zonder bewustzijn, privacyschending, filterbubbel (je ziet alleen wat het algoritme wil dat je ziet).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Ontwerp een marketingcampagne voor "GreenSip" — een duurzame herbruikbare drinkfles voor scholieren.<br>a) Beschrijf de doelgroep. b) Kies drie technieken en pas ze toe. c) Schrijf een slagzin. d) Hoe meet je of de campagne werkt?</div><textarea class="antw-input" rows="8" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beoordelingscriteria: doelgroep helder beschreven (leeftijd, behoeften), drie technieken concreet toegepast op GreenSip, slagzin die koopgedrag aanstuurt, meetmethode realistisch. Voorbeeld: Doelgroep: scholieren 12–18. Techniek 1 (sociale bewijskracht): "Al 200 scholieren dragen GreenSip." Techniek 2 (loyaliteitsprogramma): bij 3 flessen gratis sticker. Techniek 3 (schaarste): "Beperkte oplage nieuwe kleur." Slagzin: "Duurzaam drinken begint bij jou. GreenSip."</div></div>
+  </div>
+</div>
+
+<!-- ===== SAMENVATTING ===== -->
+<div id="ssamenv" class="sec">
+  <div class="phdr">
+    <div class="pn">Samenvatting</div>
+    <h2>Hoofdstuk 3 — De Markt</h2>
+    <p>Kerninzichten per paragraaf</p>
+  </div>
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="sblok">
+      <h3>§ 3.1 Hoe ontstaat een prijs?</h3>
+      <p>Op een <strong>markt</strong> ontmoeten vraagzijde (kopers) en aanbodzijde (verkopers) elkaar. De <strong>vraagcurve</strong> loopt dalend, de <strong>aanbodcurve</strong> stijgend. Bij de <strong>evenwichtsprijs</strong> is vraag = aanbod. Bij een lagere prijs ontstaat <strong>vraagoverschot</strong> (prijs stijgt), bij een hogere prijs <strong>aanbodoverschot</strong> (prijs daalt).</p>
+    </div>
+    <div class="sblok p2">
+      <h3>§ 3.2 Wat verandert de prijs?</h3>
+      <p><strong>Veranderingsfactoren</strong> (anders dan de eigen prijs) verschuiven de vraag- of aanbodcurve. Vraagfactoren: inkomen, mode, verwachtingen, substituutprijzen. Aanbodfactoren: productiekosten, technologie, subsidies, oogsten. Stelregel: stijgende vraag → hogere prijs; stijgend aanbod → lagere prijs.</p>
+    </div>
+    <div class="sblok p3">
+      <h3>§ 3.3 Winst berekenen</h3>
+      <p>Omzet = verkoopprijs × afzet. Totale kosten = kostprijs × afzet. Winst = omzet − totale kosten. Bij het break-evenpunt is winst nul: break-even hoeveelheid = vaste kosten ÷ (verkoopprijs − variabele kostprijs). De winstmarge (%) = winst ÷ omzet × 100%.</p>
+    </div>
+    <div class="sblok p4">
+      <h3>§ 3.4 Koopgedrag beïnvloeden</h3>
+      <p>Bedrijven sturen koopgedrag via: reclame, prijspsychologie (€9,99), schaarste & urgentie, loyaliteitsprogramma's, upselling, nudging, sociale bewijskracht en personalisatie. Consumenten zijn niet altijd rationeel en reageren op emotionele en sociale prikkels.</p>
+    </div>
+    <div class="rode-draad">
+      <h4>🔴 De rode draad van Hoofdstuk 3</h4>
+      <p>Markt: kopers en verkopers → Vraag (dalend) + Aanbod (stijgend) → Evenwichtsprijs<br>→ Veranderingsfactoren verschuiven de curve → nieuwe evenwichtsprijs<br>→ Ondernemer berekent: omzet, kosten, winst, break-even<br>→ Bedrijven beïnvloeden koopgedrag via marketing & psychologie</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BEGRIPPEN ===== -->
+<div id="sbegrippen" class="sec">
+  <div class="phdr">
+    <div class="pn">Begrippen</div>
+    <h2>Begrippenlijst Hoofdstuk 3</h2>
+    <p>Zoek, filter en leer alle kernbegrippen</p>
+  </div>
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bl-tabs">
+      <button class="bl-tab act" onclick="blT('bp-all',this)">Alle begrippen</button>
+      <button class="bl-tab" onclick="blT('bp-31',this)">§ 3.1 Markt</button>
+      <button class="bl-tab" onclick="blT('bp-32',this)">§ 3.2 Verandering</button>
+      <button class="bl-tab" onclick="blT('bp-33',this)">§ 3.3 Winst</button>
+      <button class="bl-tab" onclick="blT('bp-34',this)">§ 3.4 Koopgedrag</button>
+    </div>
+    <div id="bp-all" class="bl-pane act">
+      <input class="bsrch" type="text" placeholder="🔍 Zoek een begrip…" oninput="fB(this.value)">
+      <div id="bgrd" class="bgrd"></div>
+    </div>
+    <div id="bp-31" class="bl-pane">
+      <div class="bgrd" id="bgrd31"></div>
+    </div>
+    <div id="bp-32" class="bl-pane">
+      <div class="bgrd" id="bgrd32"></div>
+    </div>
+    <div id="bp-33" class="bl-pane">
+      <div class="bgrd" id="bgrd33"></div>
+    </div>
+    <div id="bp-34" class="bl-pane">
+      <div class="bgrd" id="bgrd34"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERHALING ===== -->
+<div id="sherhaling" class="sec">
+  <div class="phdr">
+    <div class="pn">Herhaling</div>
+    <h2>Herhalingsopdrachten</h2>
+    <p>Verwerk de gehele theorie van hoofdstuk 3</p>
+  </div>
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+
+    <div class="hrbox">
+      <div class="hrn">§ 3.1 — Markt & Prijsvorming</div>
+      <div class="hrq">Wat is het verschil tussen een vraagoverschot en een aanbodoverschot? Leg bij elk uit hoe de markt zichzelf corrigeert.</div>
+      <textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+      <div class="abox">Vraagoverschot: gevraagde hoeveelheid > aangeboden hoeveelheid (prijs te laag). Correctie: kopers bieden hogere prijs → prijs stijgt naar evenwicht. Aanbodoverschot: aangeboden hoeveelheid > gevraagde hoeveelheid (prijs te hoog). Correctie: verkopers verlagen prijs om overschot kwijt te raken → prijs daalt naar evenwicht.</div>
+    </div>
+
+    <div class="hrbox">
+      <div class="hrn">§ 3.1 — Fietsmarkt</div>
+      <div class="hrq">Bij €200: 300 gevraagd / 300 aangeboden. Bij €150: 400 gevraagd / 200 aangeboden. Bij €250: 200 gevraagd / 400 aangeboden.<br>a) Evenwichtsprijs? b) Wat is er bij €150 aan de hand? c) Wat is er bij €250 aan de hand?</div>
+      <textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+      <div class="abox">a) Evenwichtsprijs = €200 (gevraagd = aangeboden = 300). b) Bij €150: vraagoverschot van 200. Prijs stijgt naar €200. c) Bij €250: aanbodoverschot van 200. Prijs daalt naar €200.</div>
+    </div>
+
+    <div class="hrbox p2">
+      <div class="hrn">§ 3.2 — Belasting op vliegreizen</div>
+      <div class="hrq">De overheid legt een belasting op vliegreizen. Beschrijf de keten van effecten: veranderingsfactor → curve verschuift → nieuwe evenwichtsprijs. Hoe reageren consumenten en maatschappijen?</div>
+      <textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+      <div class="abox">Belasting verhoogt productiekosten luchtvaart (veranderingsfactor aanbod) → aanbodcurve naar links → vraagoverschot bij oude prijs → evenwichtsprijs stijgt, -hoeveelheid daalt. Consumenten: minder vliegen, trein/auto als alternatief. Maatschappijen: efficiëntere vluchten, routes schrappen.</div>
+    </div>
+
+    <div class="hrbox p3">
+      <div class="hrn">§ 3.3 — STIJL kledingmerk</div>
+      <div class="hrq">Kledingmerk STIJL verkoopt T-shirts voor €25. Variabele kostprijs per shirt: €9. Vaste kosten: €3.200 per maand.<br>a) Break-even hoeveelheid. b) In januari: 280 shirts verkocht — winst? c) Productiekosten stijgen naar €12 — nieuwe break-even? d) Twee opties om winst te beschermen.</div>
+      <textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+      <div class="abox">a) Break-even = €3.200 ÷ (€25−€9) = €3.200 ÷ €16 = <strong>200 shirts</strong>. b) Winst = (280−200) × €16 = 80 × €16 = <strong>€1.280</strong>. c) Nieuwe break-even = €3.200 ÷ (€25−€12) = €3.200 ÷ €13 ≈ <strong>246 shirts</strong>. d) Verkoopprijs verhogen of vaste kosten verlagen (bijv. goedkoper pand of minder personeel).</div>
+    </div>
+
+    <div class="hrbox p4">
+      <div class="hrn">§ 3.4 — Supermarkt koopgedrag</div>
+      <div class="hrq">Analyseer de winkelstrategie van een grote supermarkt. Noem en verklaar vier beïnvloedingstechnieken. Welke is het meest effectief vanuit gedragseconomisch perspectief?</div>
+      <textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea>
+      <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+      <div class="abox">Vier technieken: (1) nudging — populaire producten achterin, zodat je langs meer schappen loopt. (2) Prijspsychologie — €2,99 in plaats van €3. (3) Sociale bewijskracht — "bestseller" labels. (4) Loyaliteitsprogramma — spaarzegels. Meest effectief: nudging, omdat consumenten het onbewust verwerken en het zelfs werkt als je er van af weet.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== REKENSOMMEN ===== -->
+<div id="srekensommen" class="sec">
+  <div class="phdr">
+    <div class="pn">Rekensommen</div>
+    <h2>Rekensommen Hoofdstuk 3</h2>
+    <p>Oefen met berekeningen over winst, break-even en vraag & aanbod</p>
+  </div>
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+
+    <div class="rsom"><div class="rn">Som 1 — Winst berekenen</div>
+      <p>Een kledingwinkel verkoopt jassen voor <strong>€120 per stuk</strong>. De inkoopprijs per jas is <strong>€65</strong>. De vaste kosten zijn <strong>€2.200 per maand</strong>. In november worden <strong>60 jassen</strong> verkocht.</p>
+      <p class="rsub">a) Bereken de omzet. b) Bereken de totale kosten. c) Bereken de winst. d) Bereken de winstmarge. e) Bereken de break-even hoeveelheid.</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) Omzet = 60 × €120 = <strong>€7.200</strong>. b) Totale kosten = 60 × €65 + €2.200 = €3.900 + €2.200 = <strong>€6.100</strong>. c) Winst = €7.200 − €6.100 = <strong>€1.100</strong>. d) Winstmarge = €1.100 ÷ €7.200 × 100% = <strong>15,3%</strong>. e) Break-even = €2.200 ÷ (€120 − €65) = €2.200 ÷ €55 = <strong>40 jassen</strong>.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 2 — Break-even berekenen</div>
+      <p>EcoBottle verkoopt herbruikbare waterflessen voor <strong>€14,50</strong>. Variabele kostprijs per fles: <strong>€5,50</strong>. Vaste kosten: <strong>€1.800 per maand</strong>.</p>
+      <p class="rsub">a) Bereken de bijdrage per fles. b) Bereken de break-even hoeveelheid. c) In mei worden 260 flessen verkocht — bereken de winst. d) In juni stijgen de materiaalkosten naar €7,00 — bereken de nieuwe break-even.</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) Bijdrage = €14,50 − €5,50 = <strong>€9,00</strong>. b) Break-even = €1.800 ÷ €9 = <strong>200 flessen</strong>. c) Winst = (260−200) × €9 = <strong>€540</strong>. d) Nieuwe bijdrage = €14,50 − €7,00 = €7,50. Break-even = €1.800 ÷ €7,50 = <strong>240 flessen</strong>.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 3 — Vraag en aanbod analyseren</div>
+      <p>Op de markt voor elektrische steps geldt:</p>
+      <table class="tbl" style="margin:10px 0">
+        <tr><th>Prijs (€)</th><th>Gevraagd</th><th>Aangeboden</th></tr>
+        <tr><td>300</td><td>500</td><td>100</td></tr>
+        <tr><td>400</td><td>350</td><td>200</td></tr>
+        <tr><td>500</td><td>250</td><td>250</td></tr>
+        <tr><td>600</td><td>150</td><td>350</td></tr>
+        <tr><td>700</td><td>80</td><td>450</td></tr>
+      </table>
+      <p class="rsub">a) Evenwichtsprijs en -hoeveelheid? b) Bij €300: wat is er aan de hand? c) Bij €700: wat is er aan de hand? d) Nieuwe technologie doet productieprijs sterk dalen — wat verandert er?</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) Evenwichtsprijs: <strong>€500</strong> (gevraagd = aangeboden = 250). b) Bij €300: vraagoverschot van 400 (500 gevraagd, 100 aangeboden). Prijs stijgt naar €500. c) Bij €700: aanbodoverschot van 370. Prijs daalt naar €500. d) Productieprijs daalt → aanbodcurve naar rechts → aanbodoverschot bij €500 → evenwichtsprijs daalt; evenwichtshoeveelheid stijgt.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 4 — Veranderingsfactoren en nieuwe evenwichtsprijs</div>
+      <p>Avocadomarkt: evenwichtsprijs <strong>€1,20</strong> bij evenwichtshoeveelheid <strong>8.000 per week</strong>.</p>
+      <p class="rsub">a) Studie bewijst gezondheidsvoordelen — effect op vraag, aanbod, evenwichtsprijs? b) Vrachtkosten vanuit Mexico stijgen sterk — effect? c) Beide effecten tegelijk — wat weet je zeker en wat is onzeker?</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) Vraag stijgt → vraagcurve naar rechts → vraagoverschot bij €1,20 → prijs stijgt boven €1,20. b) Hogere vrachtkosten: aanbodcurve naar links → aanbod daalt → prijs stijgt. c) Beide duwen de prijs omhoog → zeker: prijs stijgt. Onzeker: de nieuwe evenwichtshoeveelheid (vraagstijging verhoogt hoeveelheid, aanbodsdaling verlaagt die — netto-effect hangt af van de grootte van elk effect).</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 5 — Vergelijking van twee bedrijven</div>
+      <p>Bedrijf X: verkoopprijs €8, kostprijs €5, afzet 500 stuks, vaste kosten €600.<br>Bedrijf Y: verkoopprijs €25, kostprijs €18, afzet 120 stuks, vaste kosten €400.</p>
+      <p class="rsub">a) Winst van bedrijf X? b) Winst van bedrijf Y? c) Winstmarge van beide? d) Break-even hoeveelheid van beide? e) Welk bedrijf is financieel gezonder?</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">Bedrijf X: Omzet = €4.000. Kosten = €3.100. Winst = <strong>€900</strong>. Marge = <strong>22,5%</strong>. Break-even = <strong>200 stuks</strong>.<br>Bedrijf Y: Omzet = €3.000. Kosten = €2.560. Winst = <strong>€440</strong>. Marge = <strong>14,7%</strong>. Break-even = <strong>57 stuks</strong>.<br>e) Bedrijf X is financieel gezonder: hogere absolute winst (€900 vs €440), hogere winstmarge (22,5% vs 14,7%).</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 6 — Koopgedrag analyseren</div>
+      <p>Een supermarkt past toe: huismerk op ooghoogte, snacks bij kassa, spaarzegels per €10, digitale app op basis van aankoopgeschiedenis.</p>
+      <p class="rsub">a) Welke vier technieken herken je? b) Welke is het meest effectief vanuit gedragseconomisch perspectief? c) Is dit ethisch verantwoord? Twee argumenten voor en twee tegen.</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) 1. Nudging (huismerk op ooghoogte). 2. Nudging (snacks bij kassa). 3. Loyaliteitsprogramma (spaarzegels). 4. Personalisatie (app). b) Nudging: consumenten verwerken dit onbewust — het werkt zelfs bij mensen die weten dat het wordt toegepast. c) Voor: consument wordt niet gedwongen; keuze blijft vrij. Tegen: consument is zich niet bewust van manipulatie; kwetsbare groepen (kinderen, impulskopers) worden extra geraakt.</div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+<script>
+function S(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  btn.classList.add('act');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function blT(p,btn){
+  document.querySelectorAll('.bl-pane').forEach(x=>x.classList.remove('act'));
+  document.querySelectorAll('.bl-tab').forEach(b=>b.classList.remove('act'));
+  document.getElementById(p).classList.add('act');btn.classList.add('act');
+}
+function cQ(btn,id){
+  btn.closest('.qbox').querySelectorAll('.opt').forEach(o=>o.disabled=true);
+  const ok=btn.dataset.c==='1';
+  const fb=document.getElementById(id);
+  if(ok){btn.classList.add('ok');fb.className='qfb ok';}
+  else{btn.classList.add('fout');fb.className='qfb fout';fb.textContent='❌ Helaas. Lees de uitleg nog eens terug.';
+    btn.closest('.qbox').querySelectorAll('.opt').forEach(o=>{if(o.dataset.c==='1')o.classList.add('ok');});}
+}
+function tog(ref){
+  let btn,box;
+  if(typeof ref==='string'){box=document.getElementById(ref);btn=box.previousElementSibling;}
+  else{
+    btn=ref;
+    const container=btn.closest('.bi,.hrbox,.rsom');
+    box=container?container.querySelector('.abox'):null;
+  }
+  if(!box)return;
+  box.classList.toggle('show');
+  if(btn)btn.textContent=box.classList.contains('show')?'🔼 Verberg':'💡 Modelantwoord';
+}
+
+// BEGRIPPEN
+const bg=[
+  {t:'Markt',d:'Ontmoetingsplaats van kopers (vraagzijde) en verkopers (aanbodzijde).',p:1},
+  {t:'Vraag',d:'De hoeveelheid die consumenten bij elke prijs willen en kunnen kopen.',p:1},
+  {t:'Aanbod',d:'De hoeveelheid die producenten bij elke prijs willen en kunnen verkopen.',p:1},
+  {t:'Evenwichtsprijs',d:'De prijs waarbij gevraagde en aangeboden hoeveelheid aan elkaar gelijk zijn.',p:1},
+  {t:'Evenwichtshoeveelheid',d:'De hoeveelheid die bij de evenwichtsprijs verhandeld wordt.',p:1},
+  {t:'Vraagoverschot',d:'Gevraagde hoeveelheid > aangeboden hoeveelheid; prijs is te laag.',p:1},
+  {t:'Aanbodoverschot',d:'Aangeboden hoeveelheid > gevraagde hoeveelheid; prijs is te hoog.',p:1},
+  {t:'Vraagcurve',d:'Grafische weergave van vraag bij elke prijs; loopt dalend.',p:1},
+  {t:'Aanbodcurve',d:'Grafische weergave van aanbod bij elke prijs; loopt stijgend.',p:1},
+  {t:'Veranderingsfactor vraag',d:'Een factor (anders dan de eigen prijs) die de vraag doet verschuiven.',p:2},
+  {t:'Veranderingsfactor aanbod',d:'Een factor (anders dan de eigen prijs) die het aanbod doet verschuiven.',p:2},
+  {t:'Substituut',d:'Een vervangend product dat dezelfde behoefte bevredigt (bijv. boter en margarine).',p:2},
+  {t:'Verschuiving van de curve',d:'Het opschuiven van de vraag- of aanbodcurve door een veranderingsfactor.',p:2},
+  {t:'Nieuwe evenwichtsprijs',d:'De prijs die ontstaat nadat vraag of aanbod is veranderd en de markt zich aanpast.',p:2},
+  {t:'Omzet',d:'Totale opbrengst uit verkoop. Formule: verkoopprijs × afzet.',p:3},
+  {t:'Kostprijs',d:'De kosten per geproduceerd of verkocht product.',p:3},
+  {t:'Totale kosten',d:'Alle kosten samen. Formule: kostprijs × afzet.',p:3},
+  {t:'Winst',d:'Omzet minus totale kosten (positief resultaat).',p:3},
+  {t:'Verlies',d:'Totale kosten minus omzet (negatief resultaat).',p:3},
+  {t:'Break-even',d:'Het punt waarop omzet gelijk is aan totale kosten; winst = 0.',p:3},
+  {t:'Winstmarge',d:'Winst als percentage van de omzet. Formule: winst ÷ omzet × 100%.',p:3},
+  {t:'Afzet',d:'Het aantal verkochte producten in een bepaalde periode.',p:3},
+  {t:'Koopgedrag',d:'De manier waarop consumenten beslissen wat, wanneer en hoeveel ze kopen.',p:4},
+  {t:'Marketing',d:'Alle activiteiten waarmee een bedrijf zijn product bij de juiste klant brengt.',p:4},
+  {t:'Reclame',d:'Betaalde boodschappen om consumenten te informeren en te overtuigen.',p:4},
+  {t:'Prijspsychologie',d:'Het bewust instellen van prijzen om de consument te beïnvloeden (bijv. €9,99).',p:4},
+  {t:'Nudging',d:'Het subtiel sturen van keuzegedrag zonder verboden of dwang.',p:4},
+  {t:'Schaarste (marketing)',d:'Het suggereren van beperkte beschikbaarheid om urgentie te creëren.',p:4},
+  {t:'Loyaliteitsprogramma',d:'Systeem waarbij klanten bij herhaalaankopen punten of beloningen ontvangen.',p:4},
+  {t:'Upselling',d:'Klant verleiden tot aanschaf van een duurdere versie van het product.',p:4},
+  {t:'Sociale bewijskracht',d:'Mensen laten zich beïnvloeden door wat anderen doen of kopen.',p:4},
+  {t:'Personalisatie',d:'Aanbiedingen afstemmen op persoonlijk gedrag via data-analyse.',p:4},
+];
+
+function fB(f){
+  const g=document.getElementById('bgrd'),fl=(f||'').toLowerCase();
+  g.innerHTML=bg.filter(b=>b.t.toLowerCase().includes(fl)||b.d.toLowerCase().includes(fl))
+    .map(b=>`<div class="bcard p${b.p}"><div class="bt">${b.t}</div><div class="bd">${b.d}</div></div>`).join('');
+}
+fB('');
+
+// Per-paragraaf grids
+function fillGrid(id,p){
+  const g=document.getElementById(id);
+  if(g)g.innerHTML=bg.filter(b=>b.p===p).map(b=>`<div class="bcard p${b.p}"><div class="bt">${b.t}</div><div class="bd">${b.d}</div></div>`).join('');
+}
+fillGrid('bgrd31',1);fillGrid('bgrd32',2);fillGrid('bgrd33',3);fillGrid('bgrd34',4);
+</script>
+</body>
+</html>
