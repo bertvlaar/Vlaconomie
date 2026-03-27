@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vlaconomie — H7 Groei en Welvaart</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--gd:#1a7a4a;--gl:#2ecc71;--glicht:#e8faf0;--gzl:#f0fdf4;
+  --goud:#f0c040;--goudd:#d4a012;
+  --rood:#b30000;--roodl:#e53e3e;
+  --blauw:#1a2e4a;--blauwl:#2d4a6e;
+  --donker:#1a1a2e;--donkerp:#2d1b4e;
+  --grijs:#6b7280;--lichtgrijs:#f7f9fc;--rand:#e0e8f4;
+  --sh:0 2px 10px rgba(0,0,0,.1);--sh2:0 4px 20px rgba(0,0,0,.12);
+  --bg:#f4f7f4
+}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--bg);color:#1a1a2e;font-size:15px}
+header{background:linear-gradient(135deg,var(--groen),var(--gd));position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(15,77,46,.4)}
+.hdr-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.logo{font-family:'Lexend',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.5px;color:#fff}
+.logo em{color:var(--goud);font-style:normal}
+.logo-sub{font-size:.7rem;color:rgba(255,255,255,.7);font-family:'DM Sans',sans-serif}
+nav{display:flex;overflow-x:auto;background:rgba(0,0,0,.2);padding:0 14px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{padding:9px 12px;border:none;background:none;color:rgba(255,255,255,.75);font-family:'Lexend',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+nav button:hover,nav button.act{color:#fff;border-bottom-color:var(--goud);background:rgba(255,255,255,.1)}
+main{max-width:900px;margin:0 auto;padding:20px 14px 60px}
+.sec{display:none;animation:fu .3s ease}.sec.act{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.phdr{background:linear-gradient(135deg,var(--groen),var(--gd));color:#fff;padding:22px 26px;border-radius:12px 12px 0 0}
+.phdr .pn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--goud);color:var(--groen);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;font-weight:700}
+.phdr h2{font-family:'Lexend',sans-serif;font-size:1.4rem;margin-bottom:4px;font-weight:800}
+.phdr p{color:rgba(255,255,255,.8);font-size:.87rem}
+.nk{padding:18px 22px;margin-bottom:2px;border-left:6px solid var(--gd)}
+.nk-groen{background:linear-gradient(135deg,#e8faf0,#c8efd8);border-color:var(--gd)}
+.nk-rood{background:linear-gradient(135deg,#fdecea,#f9d0cd);border-color:var(--roodl)}
+.nk-goud{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-color:var(--goudd)}
+.nk-blauw{background:linear-gradient(135deg,#e8f0fb,#d0e2f7);border-color:var(--blauwl)}
+.nk-tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grijs);margin-bottom:5px}
+.nk-kop{font-family:'Lexend',sans-serif;font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:3px;line-height:1.35}
+.nk-meta{font-size:.73rem;color:var(--grijs);margin-bottom:10px}
+.nk-body{font-size:.87rem;line-height:1.55;color:#333;margin-bottom:12px}
+.nk-stats{display:flex;margin-bottom:12px;background:rgba(255,255,255,.55);border-radius:8px;overflow:hidden}
+.nk-stat{flex:1;padding:9px 12px;text-align:center;border-right:1px solid rgba(255,255,255,.6)}
+.nk-stat:last-child{border-right:none}
+.nk-sv{font-family:'Lexend',sans-serif;font-size:1.1rem;font-weight:700;color:#1a1a2e;margin-bottom:2px}
+.nk-sl{font-size:.68rem;color:var(--grijs);line-height:1.3}
+.blok{background:#fff;padding:22px;box-shadow:var(--sh);margin-bottom:2px}
+.blok:last-child{border-radius:0 0 12px 12px;margin-bottom:18px}
+.bttl{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gd);margin-bottom:14px;display:flex;align-items:center;gap:8px;font-family:'Lexend',sans-serif}
+.bttl::before{content:'';display:inline-block;width:3px;height:15px;background:var(--gd);border-radius:2px}
+.dhdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--glicht)}
+.dav{font-size:1.5rem;background:var(--glicht);width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.dbody{font-size:.91rem;line-height:1.85;color:#222}
+.dbody p{margin-bottom:14px}.dbody p:last-child{margin-bottom:0}
+.dbody strong{color:var(--groen);font-weight:700}
+.dsep{border:none;border-top:2px dashed rgba(26,122,74,.2);margin:18px 0}
+.dex{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:11px 15px;margin:12px 0 4px;font-size:.86rem;color:#333;line-height:1.55}
+.dex::before{content:'Voorbeeld: ';font-weight:700;color:var(--gd)}
+.fml{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:10px 15px;margin:10px 0;font-size:.88rem;font-family:'Courier New',monospace;color:var(--groen);font-weight:700}
+.dialoog{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border:2px solid rgba(26,122,74,.2);border-radius:10px;padding:16px;margin-bottom:14px}
+.dialoog-rij{margin-bottom:8px;font-size:.87rem;line-height:1.55}
+.dialoog-rij:last-child{margin-bottom:0}
+.dialoog-naam{font-weight:700;color:var(--gd)}
+.dialoog-naam2{font-weight:700;color:var(--groen)}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.tbl th{background:var(--gd);color:#fff;padding:9px 12px;text-align:left;font-family:'Lexend',sans-serif;font-weight:600;font-size:.78rem}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--rand)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even){background:#f9fdf9}
+.wjd{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-left:4px solid var(--goud);border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#4a3b00}
+.wjd::before{content:'🌍 Wist je dat? ';font-weight:700;color:var(--goudd)}
+.qbox{background:#fffbe6;border:2px solid rgba(240,192,64,.5);border-radius:10px;padding:16px;margin-bottom:12px}
+.ql{font-size:.7rem;color:var(--goudd);font-weight:700;text-transform:uppercase;margin-bottom:8px;font-family:'Lexend',sans-serif}
+.qt{font-weight:600;margin-bottom:10px;font-size:.9rem;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:9px 12px;border:2px solid #ddd;border-radius:7px;cursor:pointer;font-size:.87rem;background:#fff;text-align:left;transition:all .2s;font-family:'DM Sans',sans-serif}
+.opt:hover:not([disabled]){border-color:var(--gd);background:var(--glicht)}
+.opt.ok{border-color:var(--gd)!important;background:var(--glicht);color:var(--groen);font-weight:600}
+.opt.fout{border-color:var(--roodl)!important;background:#fdecea;color:var(--roodl)}
+.qfb{margin-top:8px;font-size:.87rem;font-weight:600;display:none;padding:8px 12px;border-radius:6px}
+.qfb.ok{display:block;color:var(--groen);background:var(--glicht)}
+.qfb.fout{display:block;color:var(--roodl);background:#fdecea}
+.bleg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;font-size:.72rem}
+.bleg span{padding:3px 9px;border-radius:10px;color:#fff;font-weight:700;font-family:'Lexend',sans-serif}
+.b1{background:#0f4d2e}.b2{background:#1a7a4a}.b3{background:#d4a012}
+.b4{background:#b85c00}.b5{background:#b30000}.b6{background:#2d1b4e}
+.bi{border-left:3px solid var(--rand);padding:13px 0 13px 15px;margin-bottom:10px}
+.brow{display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
+.bbadge{font-family:'Lexend',sans-serif;font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:9px;color:#fff;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:3px}
+.bq{font-size:.89rem;line-height:1.65;color:#222;margin-bottom:6px}
+.bq em{font-style:italic;font-weight:700;color:var(--groen)}
+.antw-input{width:100%;margin-top:8px;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.88rem;font-family:'DM Sans',inherit;resize:vertical;min-height:65px;outline:none;transition:border-color .2s;line-height:1.55}
+.antw-input:focus{border-color:var(--gd)}
+.antw-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.ai-btn{background:linear-gradient(135deg,var(--groen),var(--gd));color:#fff;border:none;padding:7px 16px;border-radius:7px;font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s}
+.ai-btn:hover:not(:disabled){filter:brightness(1.15)}
+.ai-btn:disabled{background:rgba(26,122,74,.4);cursor:not-allowed}
+.abtn{background:none;border:2px solid var(--gd);color:var(--gd);padding:7px 13px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Lexend',sans-serif}
+.abtn:hover{background:var(--gd);color:#fff}
+.abox{display:none;background:var(--glicht);border-left:4px solid var(--gd);padding:11px 14px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.86rem;line-height:1.65}
+.abox.show{display:block}
+.ai-fb{display:none;margin-top:10px;padding:12px 15px;border-radius:8px;font-size:.88rem;line-height:1.6;border-left:4px solid #ccc}
+.ai-fb.show{display:block}
+.ai-fb.good{background:var(--glicht);border-color:var(--gd);color:#1a5c2e}
+.ai-fb.partial{background:#fff8e1;border-color:#e6a817;color:#6b4200}
+.ai-fb.bad{background:#fdecea;border-color:var(--roodl);color:#6b1010}
+.ai-fb .ail{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;opacity:.7;font-family:'Lexend',sans-serif}
+.ai-load{display:none;margin-top:10px;font-size:.84rem;color:var(--grijs);font-style:italic}
+.ai-load.show{display:block}
+.bl-tabs{display:flex;margin-bottom:18px;border-bottom:2px solid var(--rand)}
+.bl-tab{padding:9px 18px;border:none;background:none;font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--grijs);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s}
+.bl-tab.act{color:var(--gd);border-bottom-color:var(--gd)}
+.bl-pane{display:none}.bl-pane.act{display:block}
+.bsrch{width:100%;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.9rem;margin-bottom:16px;outline:none;font-family:'DM Sans',sans-serif}
+.bsrch:focus{border-color:var(--gd)}
+.bgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.bcard{background:#fff;border-radius:8px;padding:12px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-top:3px solid var(--gd);transition:transform .15s}
+.bcard:hover{transform:translateY(-2px)}
+.bcard.p2{border-top-color:var(--roodl)}.bcard.p3{border-top-color:var(--goudd)}.bcard.p4{border-top-color:var(--blauwl)}
+.bcard .bt{font-family:'Lexend',sans-serif;font-weight:700;color:var(--gd);font-size:.88rem}
+.bcard.p2 .bt{color:var(--roodl)}.bcard.p3 .bt{color:var(--goudd)}.bcard.p4 .bt{color:var(--blauwl)}
+.bcard .bd{font-size:.8rem;color:#555;margin-top:4px;line-height:1.35}
+.card{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh)}
+.card h3{font-family:'Lexend',sans-serif;font-size:1rem;margin-bottom:10px}
+.ldi{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #eee}
+.ldi:last-child{border-bottom:none}
+.ldi input{width:17px;height:17px;accent-color:var(--gd);flex-shrink:0;margin-top:3px;cursor:pointer}
+.ldi label{font-size:.89rem;cursor:pointer;line-height:1.45}
+.ldi.chk label{color:var(--gd);text-decoration:line-through}
+.sblok{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.sblok.p2{border-left-color:var(--roodl)}.sblok.p3{border-left-color:var(--goudd)}.sblok.p4{border-left-color:var(--blauwl)}
+.sblok h3{font-family:'Lexend',sans-serif;font-size:.97rem;margin-bottom:8px}
+.sblok p{font-size:.89rem;line-height:1.65;color:#333}
+.hrbox{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:5px solid var(--gd)}
+.hrbox.p2{border-left-color:var(--roodl)}.hrbox.p3{border-left-color:var(--goudd)}.hrbox.p4{border-left-color:var(--blauwl)}
+.hrn{font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--gd);margin-bottom:8px}
+.hrbox.p2 .hrn{color:var(--roodl)}.hrbox.p3 .hrn{color:var(--goudd)}.hrbox.p4 .hrn{color:var(--blauwl)}
+.hrq{font-size:.9rem;line-height:1.6;font-weight:600;margin-bottom:8px}
+.rsom{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.rsom .rn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--gd);color:#fff;padding:2px 9px;border-radius:12px;display:inline-block;margin-bottom:7px;font-weight:700}
+.rsom p{font-size:.89rem;line-height:1.65;margin-bottom:4px}
+.rsom .rsub{font-size:.83rem;color:#555;margin-top:4px}
+.rode-draad{background:linear-gradient(135deg,var(--groen),var(--gd));border-radius:10px;padding:18px 22px;color:#fff;margin:14px 0}
+.rode-draad h4{font-family:'Lexend',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--goud)}
+.rode-draad p{font-size:.87rem;line-height:1.8;color:rgba(255,255,255,.9)}
+.hint-btn{background:#fffbe6;color:#856404;border:1px solid var(--goud);border-radius:8px;padding:6px 14px;font-size:.82rem;cursor:pointer;transition:all .2s;font-family:'Lexend',sans-serif;font-weight:600}
+.hint-btn:hover{background:var(--goud);color:var(--groen)}
+.hint-box{display:none;background:#fffbe6;border-left:3px solid var(--goud);padding:10px 14px;margin:8px 0;border-radius:6px;font-size:.85rem;color:#664d03;line-height:1.6}
+.hint-box.show{display:block}
+@media(max-width:600px){.phdr h2{font-size:1.15rem}nav button{font-size:.68rem;padding:8px 9px}.bgrd{grid-template-columns:1fr 1fr}.tbl{font-size:.78rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-top">
+    <div>
+      <div class="logo">vla<em>conomie</em>.nl</div>
+      <div class="logo-sub">Economie · 3 HAVO/VWO · Hoofdstuk 7 — Groei en Welvaart</div>
+    </div>
+  </div>
+  <nav>
+    <button class="act" onclick="S('s71',this)">§7.1 Ontwikkelingsgebieden</button>
+    <button onclick="S('s72',this)">§7.2 Belastingen</button>
+    <button onclick="S('s73',this)">§7.3 Economische groei</button>
+    <button onclick="S('s74',this)">§7.4 Europa &amp; EU</button>
+    <button onclick="S('sam',this)">📋 Samenvatting</button>
+    <button onclick="S('bl',this)">📖 Begrippen &amp; Leerdoelen</button>
+    <button onclick="S('her',this)">🔁 Herhaling</button>
+    <button onclick="S('rek',this)">🔢 Rekensommen</button>
+  </nav>
+</header>
+<main>
+
+<!-- ===== §7.1 ===== -->
+<div id="s71" class="sec act">
+  <div class="phdr">
+    <div class="pn">§ 7.1</div>
+    <h2>Ontwikkelingsgebieden — Welvaart meten</h2>
+    <p>Bbp per inwoner · HDI-index · Ontwikkelingsland · Opkomend land · Informele sector · Armoedegrens</p>
+  </div>
+
+  <div class="nk nk-groen">
+    <div class="nk-tag">🌍 Welvaart &amp; ontwikkeling</div>
+    <div class="nk-kop">Rijk en arm in één wereld: hoe meet je welvaart?</div>
+    <div class="nk-meta">2024 · VN / Wereldbank / UNDP</div>
+    <div class="nk-body">Hoe rijk is een land? Het eenvoudigste antwoord: kijk naar het <strong>bbp per inwoner</strong> — de totale productie gedeeld door het aantal mensen. Maar dat vertelt niet het hele verhaal. De <strong>HDI-index</strong> van de VN combineert inkomen, gezondheid en onderwijs in één getal. In veel arme landen telt bovendien een grote <strong>informele sector</strong> mee: economische activiteit die nooit geregistreerd wordt.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">€60.000</div><div class="nk-sl">bbp/inwoner NL (2023)</div></div>
+      <div class="nk-stat"><div class="nk-sv">0,94+</div><div class="nk-sl">HDI-score Nederland (top-10)</div></div>
+      <div class="nk-stat"><div class="nk-sv">$2,15</div><div class="nk-sl">Wereldbank armoedegrens/dag</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--groen);font-family:'Lexend',sans-serif">§7.1 — Welvaart meten in de wereld</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Bbp (bruto binnenlands product)</strong> is de totale waarde van alle goederen en diensten die in een land worden geproduceerd in één jaar. Door het bbp te delen door het aantal inwoners, krijg je het <strong>bbp per inwoner</strong> — een veelgebruikte maatstaf voor de gemiddelde welvaart.</p>
+      <p>Landen worden ingedeeld op basis van inkomen: <strong>hoge-inkomenslanden</strong> (bbp/inw > $13.000, bijv. Nederland), <strong>opkomende landen</strong> met snelle groei maar nog geen hoog inkomen (bijv. India, Brazilië), en <strong>ontwikkelingslanden</strong> met laag inkomen, beperkte industrie en hoge armoede (bijv. Mali, Haïti).</p>
+      <div class="fml">Bbp per inwoner = Bbp ÷ Aantal inwoners &nbsp;|&nbsp; Voorbeeld: €900 mrd ÷ 18 mln = €50.000 per inwoner</div>
+      <hr class="dsep">
+      <p>Het bbp zegt niets over gezondheid of onderwijs. Daarom ontwikkelde de VN de <strong>Human Development Index (HDI)</strong>. Die combineert drie dimensies: levensverwachting (gezondheid), opleidingsniveau (onderwijs) en nationaal inkomen per inwoner (koopkracht). De score loopt van 0 tot 1.</p>
+      <div class="dex">Nederland scoort boven 0,94 (top-10 wereld). Niger scoort onder 0,40. Twee landen kunnen hetzelfde bbp per inwoner hebben maar sterk verschillende HDI-scores, afhankelijk van hoe de overheid investeert in zorg en onderwijs.</div>
+      <hr class="dsep">
+      <p>De <strong>informele sector</strong> omvat alle niet-geregistreerde economische activiteiten buiten het officiële bbp: straatverkopers, klusjesmannen zonder factuur, boerenmarkten zonder kassabon. In veel ontwikkelingslanden vertegenwoordigt dit 40–60% van de werkgelegenheid. De <strong>absolute armoedegrens</strong> van de Wereldbank ligt op $2,15 per dag (2022, koopkrachtpariteit).</p>
+      <div class="wjd">In de ranglijst van de HDI staat Nederland vrijwel altijd in de top-10 van de wereld. Toch leven ook in Nederland ruim één miljoen mensen onder de nationale relatieve armoedegrens — want die is veel hoger dan de Wereldbank-grens van $2,15.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Ik zag op het nieuws dat mensen in sommige landen voor minder dan twee euro per dag leven. Hoe is dat mogelijk?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dat komt door enorme welvaartsverschillen. In rijke landen verdienen mensen gemiddeld veel meer."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Maar hoe meet je dan precies hoe rijk een land is?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Meestal kijk je naar het bbp per inwoner. Maar dat zegt niets over gezondheid of onderwijs."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Is er dan een betere maatstaf?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Ja — de HDI-index van de VN. Die combineert inkomen, gezondheid en onderwijs in één getal."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat meet het bbp per inwoner?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q71a')">A. De totale productie van een land.</button><button class="opt" data-c="1" onclick="cQ(this,'q71a')">B. De gemiddelde welvaart per persoon in een land.</button><button class="opt" data-c="0" onclick="cQ(this,'q71a')">C. Het aantal mensen in armoede.</button><button class="opt" data-c="0" onclick="cQ(this,'q71a')">D. De hoogte van het gemiddelde loon.</button></div><div id="q71a" class="qfb">✅ Bbp per inwoner = bbp ÷ aantal inwoners = maatstaf voor gemiddelde welvaart per persoon.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Onthouden</div><div class="qt">Uit welke drie dimensies bestaat de HDI-index?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q71b')">A. Inkomen, belastingen, werkgelegenheid</button><button class="opt" data-c="1" onclick="cQ(this,'q71b')">B. Levensverwachting, opleidingsniveau, inkomen per inwoner</button><button class="opt" data-c="0" onclick="cQ(this,'q71b')">C. Bbp, inflatie, exportquote</button><button class="opt" data-c="0" onclick="cQ(this,'q71b')">D. Gezondheid, veiligheid, geluk</button></div><div id="q71b" class="qfb">✅ HDI = levensverwachting (gezondheid) + opleidingsniveau (onderwijs) + inkomen per inwoner (koopkracht).</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Begrijpen</div><div class="qt">Land A heeft een bbp van €540 mrd en 12 mln inwoners. Land B heeft €120 mrd en 2 mln inwoners. Welk land is welvarender op basis van bbp per inwoner?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q71c')">A. Land A, want het totale bbp is hoger.</button><button class="opt" data-c="1" onclick="cQ(this,'q71c')">B. Land B, want bbp/inw. = €60.000 vs. €45.000.</button><button class="opt" data-c="0" onclick="cQ(this,'q71c')">C. Allebei even welvarend.</button><button class="opt" data-c="0" onclick="cQ(this,'q71c')">D. Niet te bepalen zonder HDI-score.</button></div><div id="q71c" class="qfb">✅ Land A: €540mrd÷12mln = €45.000. Land B: €120mrd÷2mln = €60.000. Land B is welvarender per inwoner.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem de drie categorieën landen op basis van inkomensniveau en geef van elk één voorbeeld.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">1. Hoge-inkomenslanden (bijv. Nederland, VS, Duitsland). 2. Opkomende landen / emerging markets (bijv. India, Brazilië, Vietnam). 3. Ontwikkelingslanden (bijv. Mali, Haïti, Niger).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is de informele sector? Geef twee concrete voorbeelden.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De informele sector omvat niet-geregistreerde economische activiteiten buiten het officiële bbp. Voorbeelden: straatverkopers zonder vergunning, klusjesmannen die zwart werken, boerenmarkten zonder kassaregister.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is de absolute armoedegrens van de Wereldbank en hoeveel bedraagt deze (2022)?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De absolute armoedegrens van de Wereldbank (2022) is $2,15 per persoon per dag (koopkrachtpariteit). Mensen hieronder kunnen niet voorzien in basisbehoeften als voeding, water en onderdak.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit waarom het bbp per inwoner als welvaartsmaatstaf tekortschiet. Geef twee redenen.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">1. Het meet geen verdeling: een hoog gemiddelde kan samengaan met grote ongelijkheid — een kleine elite kan het gemiddelde omhoogtrekken terwijl de meerderheid arm blijft. 2. Het meet geen kwaliteit van leven: gezondheid, onderwijs, milieukwaliteit en geluk tellen niet mee.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Wat is het verschil tussen een opkomend land en een ontwikkelingsland? Geef van elk een concreet voorbeeld en leg het verschil uit.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Opkomend land: economie groeit snel, inkomen stijgt sterk maar is nog geen hoog inkomen. Voorbeeld: India, Brazilië, Vietnam. Ontwikkelingsland: laag bbp per inwoner, beperkte industrie, hoge armoede, trage groei. Voorbeeld: Mali, Haïti, Niger. Verschil: opkomende landen zijn al op weg omhoog; ontwikkelingslanden zitten nog in een vroeg stadium.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Land A: bbp = €540 mrd, 12 mln inwoners. Land B: bbp = €120 mrd, 2 mln inwoners.<br>a) Bereken het bbp per inwoner van beide landen.<br>b) Welk land is welvarender op basis van bbp per inwoner?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) Land A: €540mrd ÷ 12mln = <strong>€45.000 per inwoner</strong>. Land B: €120mrd ÷ 2mln = <strong>€60.000 per inwoner</strong>. b) Land B is welvarender per inwoner, ondanks een kleiner totaal bbp.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Een land scoort: levensverwachting 0,72, onderwijs 0,65, inkomen 0,60.<br>a) Bereken de gemiddelde HDI-score.<br>b) Tot welke categorie behoort dit land (hoog &gt; 0,80 / medium 0,55–0,80 / laag &lt; 0,55)?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) HDI = (0,72 + 0,65 + 0,60) ÷ 3 = 1,97 ÷ 3 = <strong>0,657</strong>. b) Medium menselijke ontwikkeling (0,55–0,80).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Het bbp stijgt van €200 mrd naar €240 mrd. De bevolking groeit van 8 mln naar 10 mln.<br>a) Bereken het bbp per inwoner in jaar 1 en jaar 2.<br>b) Is de gemiddelde burger er op vooruit gegaan? Verklaar.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) Jaar 1: €200mrd÷8mln = <strong>€25.000/inw.</strong> Jaar 2: €240mrd÷10mln = <strong>€24.000/inw.</strong> b) Nee. Hoewel het totale bbp steeg, groeide de bevolking relatief harder (+25% vs. +20% bbp), waardoor het gemiddelde daalde. Meer mensen moeten een grotere taart verdelen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Land X: bbp/inw. $45.000, HDI 0,72. Land Y: bbp/inw. $18.000, HDI 0,88. Hoe verklaar je dit verschil? Wat zegt dit over de verdeling van welvaart en overheidsinvesteringen?</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Land X heeft hoog inkomen maar lage HDI: dit wijst op grote inkomensongelijkheid (rijke elite trekt gemiddelde omhoog) en lage overheidsinvesteringen in zorg en onderwijs. Land Y heeft lager inkomen maar hogere HDI: sterke overheidsinvesteringen in gezondheid en onderwijs leiden tot hogere levensverwachting en opleidingsniveau. Conclusie: bbp en HDI meten verschillende aspecten; beleidskeuzes zijn doorslaggevend.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">In een ontwikkelingsland maakt de informele sector 55% van de werkgelegenheid uit. Het officiële bbp is €30 mrd. Als informele activiteiten ook gemeten zouden worden, zou het niveau 40% hoger liggen.<br>a) Bereken de verborgen economische activiteit (in €).<br>b) Welke gevolgen heeft dit voor beleid en ontwikkelingshulp?</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) €30 mrd × 40% = <strong>€12 mrd verborgen activiteit</strong>. b) Het officiële bbp onderschat de werkelijke economische activiteit. Beleid en ontwikkelingshulp op basis van officiële cijfers overschatten de behoefte en onderschatten de capaciteit. Belastinginkomsten worden onderschat. Informele werkers zijn niet beschermd (geen pensioen, ziekteverzekering).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Nigeria heeft een bbp van ruim $440 mrd maar een HDI van slechts 0,54. De meeste olie-inkomsten komen bij een kleine elite terecht. Analyseer hoe dit de discrepantie verklaart.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Nigeria's olie-inkomsten zijn sterk geconcentreerd bij een kleine elite. De brede bevolking profiteert nauwelijks. Investeringen in gezondheidszorg en onderwijs blijven achter. Corruptie leidt tot lage kwaliteit overheidsdiensten, waardoor levensverwachting en opleidingsniveau laag blijven. Resultaat: hoog bbp (door olie) maar lage HDI (door ongelijkheid en slecht bestuur).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Een politicus stelt: "Om armoede te meten moeten we alleen het bbp per inwoner gebruiken — dat is objectief en eenvoudig." Beoordeel deze stelling. Geef twee argumenten voor én twee argumenten tegen.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox"><strong>Voor:</strong> 1. Bbp/inw. is objectief meetbaar en internationaal vergelijkbaar. 2. Geeft snelle indicatie van gemiddelde koopkracht. <strong>Tegen:</strong> 1. Meet geen ongelijkheid — een hoog gemiddelde kan bij een kleine groep liggen. 2. Meet geen kwaliteit van leven (gezondheid, onderwijs, geluk). <strong>Conclusie:</strong> de stelling is te absoluut. HDI en aanvullende indicatoren zijn noodzakelijk.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Is het eerlijk om landen te rangschikken op bbp per inwoner terwijl de informele sector buiten beschouwing wordt gelaten? Beargumenteer je standpunt.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Niet volledig eerlijk: landen met een grote informele sector (vaak ontwikkelingslanden) worden systematisch lager gerangschikt dan hun werkelijke activiteit rechtvaardigt. Dit kan leiden tot minder hulp of onterecht lage kredietwaardigheid. Tegenargument: meting is moeilijk en onbetrouwbaar — volledig weglaten is soms methodologisch noodzakelijk.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Ontwerp een alternatieve welvaartsmaatstaf voor een fictief ontwikkelingsland. Benoem minimaal vier indicatoren, leg uit waarom je ze kiest en geef aan hoe je ze weegt.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Voorbeeldindicatoren (vier van): 1. Levensverwachting (gezondheid, 25%). 2. Gemiddeld aantal jaren onderwijs (menselijk kapitaal, 25%). 3. Toegang tot schoon drinkwater (basisbehoeften, 20%). 4. Gini-coëfficiënt (inkomensgelijkheid, 20%). 5. CO₂-uitstoot per hoofd (duurzaamheid, 10%). Andere geldige keuzes: misdaadcijfers, internettoegang, vrije pers.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een beleidsnotitie (8–10 zinnen) aan de minister van Buitenlandse Handel. Beargumenteer hoe Nederland twee specifieke ontwikkelingslanden concreet kan helpen hun HDI-score te verbeteren.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Verwacht: 8–10 zinnen; twee landen benoemd; concrete maatregelen. Voorbeeldmaatregelen: investeer in basisonderwijs (HDI onderwijs-component), financier vaccinatieprogramma's (levensverwachting), ondersteun formalisering van de informele sector (verhoogt bbp en belastingbasis). Gebruik begrippen: HDI, bbp per inwoner, informele sector, armoedegrens.</div></div>
+  </div>
+</div>
+
+<!-- ===== §7.2 ===== -->
+<div id="s72" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 7.2</div>
+    <h2>Belastingen en nivellering</h2>
+    <p>Belasting · Progressief stelsel · Proportioneel stelsel · Belastingschijf · Marginaal tarief · Gemiddeld tarief · Nivellering</p>
+  </div>
+
+  <div class="nk nk-rood">
+    <div class="nk-tag">💰 Belasting &amp; inkomensverdeling</div>
+    <div class="nk-kop">Progressieve belasting: hoe meer je verdient, hoe meer je betaalt — maar nooit over het hele inkomen</div>
+    <div class="nk-meta">2024 · Belastingdienst Nederland</div>
+    <div class="nk-body">Nederland hanteert een <strong>progressief belastingstelsel</strong>: het inkomen is verdeeld in <strong>schijven</strong> met oplopende tarieven. Het tarief over de laatste verdiende euro heet het <strong>marginale tarief</strong>. Het werkelijk betaalde percentage over het totale inkomen is het <strong>gemiddelde tarief</strong> — altijd lager dan het marginale. Dit systeem leidt tot <strong>nivellering</strong>: netto-inkomens liggen dichter bij elkaar dan bruto-inkomens.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">36,93%</div><div class="nk-sl">tarief schijf 1 (t/m €38.000)</div></div>
+      <div class="nk-stat"><div class="nk-sv">49,50%</div><div class="nk-sl">tarief schijf 2 (boven €38.000)</div></div>
+      <div class="nk-stat"><div class="nk-sv">↓ kloof</div><div class="nk-sl">nivellering: netto dichter bij elkaar</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--roodl);font-family:'Lexend',sans-serif">§7.2 — Belastingen en nivellering</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Belasting</strong> is een verplichte afdracht aan de overheid zonder directe tegenprestatie. De overheid gebruikt de opbrengsten voor collectieve voorzieningen: onderwijs, zorg, infrastructuur en sociale zekerheid.</p>
+      <p>Bij een <strong>proportioneel stelsel</strong> betaalt iedereen hetzelfde percentage, ongeacht inkomen. Bij een <strong>progressief stelsel</strong> stijgt het belastingpercentage naarmate het inkomen hoger is. Het inkomen wordt verdeeld in <strong>schijven</strong>. Elke schijf heeft een eigen tarief. Het tarief over de laatste verdiende euro heet het <strong>marginale tarief</strong>.</p>
+      <table class="tbl">
+        <tr><th>Schijf</th><th>Inkomen (bruto per jaar)</th><th>Tarief</th><th>Max. belasting schijf</th><th>Cumulatief max.</th></tr>
+        <tr><td><strong>1</strong></td><td>€0 – €38.000</td><td>36,93%</td><td>€14.033</td><td>€14.033</td></tr>
+        <tr><td><strong>2</strong></td><td>€38.001 – €75.000</td><td>49,50%</td><td>€18.315</td><td>€32.348</td></tr>
+        <tr><td><strong>3</strong></td><td>Boven €75.000</td><td>49,50%</td><td>Over het meerdere</td><td>—</td></tr>
+      </table>
+      <p style="font-size:.75rem;color:var(--grijs);margin-top:4px">Vereenvoudigd stelsel gebaseerd op Nederlandse tarieven 2024, bedragen afgerond.</p>
+      <hr class="dsep">
+      <div class="fml">Gemiddeld tarief = (Totale belasting ÷ Bruto inkomen) × 100%
+Voorbeeld: inkomen €52.000 → belasting = (€38.000 × 36,93%) + (€14.000 × 49,50%) = €14.033 + €6.930 = €20.963
+Gemiddeld tarief = €20.963 ÷ €52.000 × 100% = 40,3%</div>
+      <hr class="dsep">
+      <p><strong>Nivellering</strong>: een progressief stelsel vermindert de inkomensverschillen na belastingen. De netto-inkomens liggen dichter bij elkaar dan de bruto-inkomens. Critici stellen dat dit de prikkel om meer te verdienen vermindert.</p>
+      <div class="wjd">In 1979 bedroeg het toptarief in de VS 70%. Tegenwoordig is dat 37%. In Nederland was het toptarief in de jaren '70 tachtig procent. Economen debatteren nog altijd over de optimale hoogte van het toptarief — de zogeheten 'Laffer-curve'.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Mijn vader zegt dat hij bijna de helft van zijn salaris afdraagt aan belasting. Dat is toch oneerlijk?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dat heet een progressief belastingstelsel: hoe meer je verdient, hoe hoger het percentage dat je betaalt."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Maar betaalt hij dan over zijn héle salaris bijna 50%?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Nee! Het inkomen is verdeeld in schijven. Alleen het deel bóven een bepaald bedrag wordt zwaarder belast."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"En het idee erachter?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Wie meer verdient kan meer bijdragen. En het verkleint inkomensverschillen — dat heet nivellering."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Welk belastingstelsel kenmerkt zich door hetzelfde percentage voor iedereen, ongeacht inkomen?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q72a')">A. Progressief</button><button class="opt" data-c="0" onclick="cQ(this,'q72a')">B. Regressief</button><button class="opt" data-c="1" onclick="cQ(this,'q72a')">C. Proportioneel</button><button class="opt" data-c="0" onclick="cQ(this,'q72a')">D. Degressief</button></div><div id="q72a" class="qfb">✅ Proportioneel stelsel = iedereen betaalt hetzelfde percentage van het inkomen.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Begrijpen</div><div class="qt">Iemand verdient €50.000. Gebruik de tabel. Welk tarief betaalt hij over zijn 40.000ste euro?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q72b')">A. 36,93% — hij zit nog in schijf 1.</button><button class="opt" data-c="1" onclick="cQ(this,'q72b')">B. 49,50% — €40.000 valt in schijf 2.</button><button class="opt" data-c="0" onclick="cQ(this,'q72b')">C. 43% — gemiddelde van de twee schijven.</button><button class="opt" data-c="0" onclick="cQ(this,'q72b')">D. 0% — de eerste €40.000 is altijd vrijgesteld.</button></div><div id="q72b" class="qfb">✅ Schijf 2 start bij €38.001. De 40.000ste euro valt in schijf 2 → 49,50%.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Toepassen</div><div class="qt">Bereken de belasting van iemand met een bruto inkomen van €52.000. Gebruik de tabel.</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q72c')">A. €52.000 × 49,50% = €25.740</button><button class="opt" data-c="1" onclick="cQ(this,'q72c')">B. (€38.000 × 36,93%) + (€14.000 × 49,50%) = €20.963</button><button class="opt" data-c="0" onclick="cQ(this,'q72c')">C. €52.000 × 36,93% = €19.204</button><button class="opt" data-c="0" onclick="cQ(this,'q72c')">D. €14.033 + €52.000 = €66.033</button></div><div id="q72c" class="qfb">✅ Schijf 1: €38.000 × 36,93% = €14.033. Schijf 2: €14.000 × 49,50% = €6.930. Totaal: €20.963.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is het verschil tussen een marginaal tarief en een gemiddeld tarief? Geef van elk een definitie.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Marginaal tarief: het belastingpercentage dat geldt over de laatste verdiende euro (= tarief van de hoogste van toepassing zijnde schijf). Gemiddeld tarief: totale belasting gedeeld door het bruto inkomen × 100%. Het gemiddeld tarief is bij een progressief stelsel altijd lager dan het marginale tarief.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat verstaan we onder nivellering? Leg uit in eigen woorden.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Nivellering is het effect waarbij een progressief belastingstelsel de inkomensverschillen verkleint: mensen met hogere inkomens betalen een hoger percentage, zodat de netto-inkomens dichter bij elkaar liggen dan de bruto-inkomens.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Waarom betaalt iemand met €80.000 inkomen niet over zijn hele inkomen 49,50%? Leg het schijvenstelsel in twee zinnen uit.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Het schijvenstelsel verdeelt het inkomen in stukken: elk deel wordt belast tegen het tarief van dié schijf. De eerste €38.000 wordt belast tegen 36,93%; pas het deel daarboven krijgt het hogere tarief van 49,50%.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit waarom het gemiddeld tarief bij een progressief stelsel altijd lager is dan het marginale tarief.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Het marginale tarief geldt alleen over het bovenste deel van het inkomen. Het grootste deel van het inkomen is al belast tegen lagere schijftarieven. Het gemiddeld tarief is een gewogen gemiddelde over alle schijven samen — daardoor altijd lager dan het marginale tarief.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Gebruik de belastingschijventabel. Welk tarief betaalt iemand over zijn 38.001ste verdiende euro? En over zijn 75.001ste euro?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Over de 38.001ste euro: 49,50% (eerste euro van schijf 2). Over de 75.001ste euro: 49,50% (eerste euro van schijf 3). In dit stelsel zijn schijf 2 en 3 gelijk — het marginale tarief is hetzelfde boven €38.000.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Bereken de belasting en het gemiddeld tarief voor iemand met een bruto inkomen van €52.000. Gebruik de tabel. Toon alle stappen.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Schijf 1: €38.000 × 36,93% = <strong>€14.033</strong>. Schijf 2: (€52.000 − €38.000) × 49,50% = €14.000 × 49,50% = <strong>€6.930</strong>. Totale belasting: <strong>€20.963</strong>. Gemiddeld tarief: €20.963 ÷ €52.000 × 100% = <strong>40,3%</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Iemand verdient €90.000 bruto. Bereken de totale belasting en het gemiddeld tarief. Gebruik de tabel. Toon alle stappen.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Schijf 1: €38.000 × 36,93% = €14.033. Schijf 2: €37.000 × 49,50% = €18.315. Schijf 3: €15.000 × 49,50% = €7.425. Totaal: <strong>€39.773</strong>. Gemiddeld tarief: €39.773 ÷ €90.000 × 100% = <strong>44,2%</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Anita verdient €35.000, Bart verdient €95.000.<br>a) Bereken voor beiden de belasting en het gemiddeld tarief.<br>b) Hoeveel procentpunt hoger is Barts gemiddeld tarief?</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Anita: €35.000 × 36,93% = <strong>€12.926</strong> | gem. tarief: 37,0%. Bart: schijf 1 €14.033 + schijf 2 €18.315 + schijf 3 €9.900 = <strong>€42.248</strong> | gem. tarief: 44,5%. Verschil: 44,5% − 37,0% = <strong>7,5 procentpunt</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Stel: het tarief van schijf 2 stijgt van 49,50% naar 55%. Bereken hoeveel meer belasting iemand met €70.000 dan betaalt.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Bij €70.000 valt schijf 2: €70.000 − €38.000 = €32.000 in schijf 2. Huidig: €32.000 × 49,50% = €15.840. Nieuw: €32.000 × 55% = €17.600. Meer belasting: <strong>€1.760 per jaar</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Gebruik de inkomens van Anita (€35.000) en Bart (€95.000) uit vraag 8.<br>a) Bereken de netto-inkomens.<br>b) Vergelijk de bruto- en netto-verhouding. Laat zien dat het progressieve stelsel nivelleert.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Anita netto: €35.000 − €12.926 = <strong>€22.074</strong>. Bart netto: €95.000 − €42.248 = <strong>€52.752</strong>. Bruto-verhouding: €95.000 ÷ €35.000 = <strong>2,71×</strong>. Netto-verhouding: €52.752 ÷ €22.074 = <strong>2,39×</strong>. De verhouding daalt van 2,71 naar 2,39 → het verschil is netto kleiner → <strong>nivellering aantoonbaar</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Een criticus zegt: "Door hoge belastingen migreren topverdieners naar het buitenland, waardoor de opbrengst daalt." Analyseer dit argument. Gebruik het begrip <em>marginaal tarief</em> in je antwoord.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Het argument verwijst naar de Laffer-curve: bij een te hoog marginaal tarief daalt de belastingopbrengst. Een hoog marginaal tarief kan topverdieners motiveren naar landen met lagere tarieven te vertrekken (Monaco, Zwitserland). Empirisch bewijs is echter beperkt: de meeste mensen vertrekken niet puur om belastingen. Sociale bindingen, taal en netwerken spelen ook een rol. Het argument is valide als risico, maar mag niet als absoluut bezwaar worden gehanteerd.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Beoordeel: "Een progressief belastingstelsel is eerlijker dan een proportioneel stelsel." Geef twee argumenten voor en twee argumenten tegen.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox"><strong>Voor:</strong> 1. Draagkrachtbeginsel: wie meer verdient kan meer bijdragen. 2. Verkleint ongelijkheid en financiert collectieve voorzieningen. <strong>Tegen:</strong> 1. Disproportioneel bestraffen van extra inspanning. 2. 'Eerlijk' is normatief — velen vinden gelijk percentage juist eerlijker.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Is het wenselijk dat de overheid inkomens nivelleert via belastingen? Weeg twee economische en twee sociale argumenten af.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox"><strong>Economisch voor:</strong> 1. Vermindert armoede, verhoogt consumptie bij lage inkomens. 2. Financiert onderwijs en zorg → hogere arbeidsproductiviteit. <strong>Economisch tegen:</strong> 1. Kan investeringen afremmen. 2. Risico belastingontwijking. <strong>Sociaal voor:</strong> Verkleint maatschappelijke spanningen. <strong>Sociaal tegen:</strong> Mogelijk vermindert eigenverantwoordelijkheidsgevoel.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Ontwerp een vereenvoudigd belastingstelsel met drie schijven voor een fictief land. Beargumenteer je tariefkeuzes en bereken de belasting voor iemand met €45.000 inkomen.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Voorbeeld: Schijf 1 €0–30.000 → 25%; schijf 2 €30.001–60.000 → 40%; schijf 3 > €60.000 → 55%. Bij €45.000: schijf 1: €30.000 × 25% = €7.500; schijf 2: €15.000 × 40% = €6.000. Totaal: <strong>€13.500</strong>. Gem. tarief: 30%. Tarieven beredeneerd vanuit draagkrachtbeginsel en minimale inkomensongelijkheid.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een opiniestuk (8–10 zinnen) vanuit de rol van een laagverdiener of een topverdiener over het huidige progressieve belastingstelsel. Gebruik minimaal drie begrippen uit §7.2.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Beoordelingscriteria: 8–10 zinnen; consistent standpunt; minimaal drie begrippen (bijv. progressief stelsel, marginaal tarief, nivellering, gemiddeld tarief). Laagverdiener: eerlijk vanwege draagkracht; nivellering biedt meer gelijkheid; marginaal tarief laag. Topverdiener: hoog marginaal tarief demotiveert; proportioneel eerlijker. Beoordeel: consistentie, begripsgebruik, overtuigingskracht.</div></div>
+  </div>
+</div>
+
+<!-- ===== §7.3 ===== -->
+<div id="s73" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 7.3</div>
+    <h2>Economische groei</h2>
+    <p>Nominale groei · Reële groei · Inflatie · Deflator · Extensieve groei · Intensieve groei · Recessie · Conjunctuur</p>
+  </div>
+
+  <div class="nk nk-goud">
+    <div class="nk-tag">📈 Groei &amp; welvaart</div>
+    <div class="nk-kop">Nominale groei vs. reële groei: waarom hoge inflatie je bbp-cijfer kan opblazen</div>
+    <div class="nk-meta">2024 · CBS / ECB</div>
+    <div class="nk-body"><strong>Nominale economische groei</strong> is de stijging van het bbp in lopende prijzen. Bij hoge <strong>inflatie</strong> overschat dit de werkelijke groei. <strong>Reële groei</strong> corrigeert voor inflatie en geeft de werkelijke productiestijging. Formule: reële groei = nominale groei − inflatie. Groei kan extensief zijn (meer productiefactoren) of intensief (hogere productiviteit). Twee kwartalen krimp = officieel een <strong>recessie</strong>.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">Reëel</div><div class="nk-sl">= nominaal − inflatie</div></div>
+      <div class="nk-stat"><div class="nk-sv">2 kwartalen</div><div class="nk-sl">krimp = recessie</div></div>
+      <div class="nk-stat"><div class="nk-sv">Intensief</div><div class="nk-sl">= duurzamere groei</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--goudd);font-family:'Lexend',sans-serif">§7.3 — Economische groei</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Nominale economische groei</strong> is de toename van het bbp uitgedrukt in lopende prijzen. Als prijzen ook stijgen (inflatie), overschat dit de werkelijke groei. <strong>Reële economische groei</strong> corrigeert voor inflatie en geeft de werkelijke toename van de productie en welvaart.</p>
+      <div class="fml">Reële groei (%) = Nominale groei (%) − Inflatie (%)
+Voorbeeld: nominale groei = 5,2%; inflatie = 3,1% → reële groei = 2,1%
+
+Via indexcijfers: Reëel bbp = (Nominaal bbp ÷ Prijsindex) × 100
+Voorbeeld: nominaal bbp = €580 mrd; prijsindex = 115 → reëel bbp = €504,3 mrd</div>
+      <hr class="dsep">
+      <p>Economische groei kan op twee manieren optreden. <strong>Extensieve groei</strong>: meer productiefactoren inzetten (meer arbeid, meer kapitaal, meer grond). <strong>Intensieve groei</strong>: dezelfde productiefactoren productiever maken via technologie, onderwijs en innovatie. Intensieve groei is duurzamer.</p>
+      <p>Oorzaken van groei: technologische innovatie, investeringen in kapitaalgoederen, menselijk kapitaal (beter opgeleide bevolking), politieke stabiliteit en goed bestuur, vrijhandel en open economie.</p>
+      <hr class="dsep">
+      <p><strong>Conjunctuur</strong>: economische groei verloopt in golven. Bij <strong>hoogconjunctuur</strong> is er snelle groei en lage werkloosheid. Bij <strong>laagconjunctuur</strong> is er trage groei of krimp. Een <strong>recessie</strong> is officieel twee opeenvolgende kwartalen van negatieve groei.</p>
+      <div class="wjd">China groeide tussen 1990 en 2010 gemiddeld meer dan 9% per jaar — grotendeels intensieve groei door enorme investeringen in industrie, onderwijs en infrastructuur. Tegelijk steeg de ongelijkheid sterk. Een les: bbp-groei en welvaartsverbetering voor iedereen zijn niet hetzelfde.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Op het nieuws zei iemand dat de economie met 3% is gegroeid. Maar mijn vader zegt dat hij er niets van merkt."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dat klopt misschien — als de inflatie ook hoog was, gaat de koopkracht er juist op achteruit."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Dus economische groei en meer welvaart zijn niet hetzelfde?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Precies. Reële groei corrigeert voor inflatie — dat is wat echt telt."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"En wat zorgt voor echte groei op de lange termijn?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Technologie, onderwijs, investeringen — dat zijn de echte motoren."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wanneer is er officieel sprake van een recessie?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q73a')">A. Als de inflatie boven 5% uitkomt.</button><button class="opt" data-c="1" onclick="cQ(this,'q73a')">B. Bij twee opeenvolgende kwartalen van negatieve economische groei.</button><button class="opt" data-c="0" onclick="cQ(this,'q73a')">C. Als de werkloosheid stijgt naar meer dan 10%.</button><button class="opt" data-c="0" onclick="cQ(this,'q73a')">D. Als het bbp lager is dan het jaar ervoor.</button></div><div id="q73a" class="qfb">✅ Twee opeenvolgende kwartalen van negatieve groei = recessie (officiële definitie).</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Toepassen</div><div class="qt">Het nominale bbp steeg van €400 mrd naar €432 mrd. Inflatie: 5%. Bereken de reële groei.</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q73b')">A. 8% − 5% = 3% reëel</button><button class="opt" data-c="1" onclick="cQ(this,'q73b')">B. (432−400)÷400×100=8%, dan 8%−5%=3% reëel</button><button class="opt" data-c="0" onclick="cQ(this,'q73b')">C. 432÷400=1,08, dus 8% nominaal, 8% reëel</button><button class="opt" data-c="0" onclick="cQ(this,'q73b')">D. 5% − 8% = −3% reëel</button></div><div id="q73b" class="qfb">✅ Nominaal: (432−400)÷400×100 = 8%. Reëel: 8% − 5% = 3%.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Analyseren</div><div class="qt">Land A groeit reëel met 4% via onderwijs. Land B groeit reëel met 4% via mijnbouw. Welk land heeft duurzamere groei?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q73c')">A. Land B — mijnbouw levert meer op.</button><button class="opt" data-c="1" onclick="cQ(this,'q73c')">B. Land A — intensieve groei via menselijk kapitaal is duurzamer.</button><button class="opt" data-c="0" onclick="cQ(this,'q73c')">C. Allebei even duurzaam (zelfde groeipercentage).</button><button class="opt" data-c="0" onclick="cQ(this,'q73c')">D. Niet te bepalen zonder bbp-cijfers.</button></div><div id="q73c" class="qfb">✅ Land A: intensieve groei via onderwijs (menselijk kapitaal) is duurzamer dan mijnbouw (uitputtend, extensief).</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is het verschil tussen nominale en reële economische groei? Geef van elk een definitie.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Nominale groei: stijging van het bbp in lopende prijzen, zonder correctie voor inflatie. Reële groei: stijging van het bbp gecorrigeerd voor inflatie — geeft de werkelijke toename van productie en welvaart.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem twee oorzaken van intensieve economische groei.</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Twee van: 1. Technologische innovatie (hogere productiviteit per werknemer). 2. Betere opleiding van de beroepsbevolking (menselijk kapitaal). 3. Investeringen in kapitaalgoederen (machines, software). 4. Betere organisatie van productieprocessen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wanneer is er officieel sprake van een recessie?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Bij twee opeenvolgende kwartalen van negatieve economische groei (krimp van het reëel bbp).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit waarom reële groei een betere maatstaf is voor welvaartsontwikkeling dan nominale groei.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Nominale groei kan stijgen doordat prijzen stijgen, ook als de werkelijke productie gelijk blijft. Reële groei corrigeert voor inflatie en laat zien of er daadwerkelijk meer wordt geproduceerd en de koopkracht is gestegen. Zonder inflatiecorrectie word je misleid over de werkelijke economische ontwikkeling.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Wat is het verschil tussen extensieve en intensieve groei? Geef van elk een voorbeeld uit een opkomend land.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Extensieve groei: meer productiefactoren inzetten. Voorbeeld opkomend land: India bouwt nieuwe fabrieken en trekt miljoenen extra arbeiders de industrie in. Intensieve groei: dezelfde factoren productiever maken. Voorbeeld: Zuid-Korea investeert in R&D waardoor dezelfde werknemers meer produceren.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Nominaal bbp steeg van €400 mrd naar €432 mrd. Inflatie: 5%.<br>a) Bereken de nominale groei (%).<br>b) Bereken de reële groei (%).</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) Nominale groei: (€432 − €400) ÷ €400 × 100% = €32 ÷ €400 × 100% = <strong>8,0%</strong>. b) Reële groei: 8,0% − 5,0% = <strong>3,0%</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Nominaal bbp = €580 mrd; prijsindex = 115. Bereken het reëel bbp. Gebruik de formule: Reëel bbp = (Nominaal ÷ Prijsindex) × 100.</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Reëel bbp = (€580 mrd ÷ 115) × 100 = <strong>€504,3 miljard</strong>.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Jaar 1: nominaal bbp = €500 mrd; prijsindex = 100. Jaar 2: nominaal = €545 mrd; prijsindex = 108.<br>a) Bereken reëel bbp jaar 2.<br>b) Bereken de reële groei.<br>c) Bevolking groeide met 1,5%. Is er reëel bbp-groei per inwoner?</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) Reëel bbp jr.2 = (€545 ÷ 108) × 100 = <strong>€504,6 mrd</strong>. Reëel bbp jr.1 = €500 mrd. b) Reële groei: (504,6 − 500) ÷ 500 × 100% = <strong>0,92%</strong>. c) Bevolkingsgroei = 1,5% > 0,92% → reëel bbp per inwoner daalt licht. De gemiddelde burger gaat er per inwoner op achteruit.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Land X: nominale groei 7%, inflatie 9%.<br>a) Bereken de reële groei.<br>b) Wat betekent dit voor de koopkracht van de bevolking?</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) Reële groei: 7% − 9% = <strong>−2%</strong>. b) De koopkracht van de bevolking daalt: men verdient nominaal meer, maar prijzen stijgen harder. Men kan zich minder goederen permitteren dan het jaar daarvoor.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Vergelijk: land A groeit reëel 4% via onderwijs; land B groeit reëel 4% via mijnbouw. Analyseer welk land duurzamere groei heeft en waarom.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Land A (intensieve groei via onderwijs): menselijk kapitaal accumuleert en verbetert in de tijd. Het land is minder afhankelijk van één grondstof. Land B (extensieve groei via mijnbouw): grondstoffen zijn uitputtend. Zodra de reserves op zijn of de prijs daalt, stopt de groei. Risico op 'resource curse'. <strong>Conclusie: land A heeft duurzamere groei.</strong></div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">In 2020 kromp het Nederlandse bbp met circa 3,8% (coronacrisis). Analyseer welke vraag- en aanbodzijdefactoren hiervoor verantwoordelijk waren.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Vraagzijde: massale daling consumptie (horeca gesloten, reisverbod), investeringen stopgezet, export daalde. Aanbodzijde: fabrieken en dienstverlening gesloten door lockdown, verstoorde toeleveringsketens, ziekteverzuim. Zowel vraag als aanbod verminderden tegelijk → ongekend snelle krimp van −3,8%.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Stelling: "Economische groei is altijd goed voor een land." Beoordeel met twee argumenten voor en twee argumenten tegen.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox"><strong>Voor:</strong> 1. Groei creëert werkgelegenheid en verhoogt levensstandaard. 2. Genereert belastingopbrengsten voor collectieve voorzieningen. <strong>Tegen:</strong> 1. Kan gepaard gaan met ongelijkheid: niet iedereen profiteert evenredig. 2. Ten koste van milieu (CO₂, uitputting grondstoffen). <strong>Conclusie:</strong> stelling is te absoluut — reële, duurzame groei met eerlijke verdeling is het doel.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Is het wenselijk economische groei als hoofddoel van beleid te hanteren? Betrek de begrippen <em>reële groei</em>, <em>ongelijkheid</em> en <em>duurzaamheid</em>.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Reële groei is een relevanter doel dan nominale groei. Maar groei als enige doel kan ongelijkheid versterken (herverdelingsbeleid nodig, zie §7.2). Duurzaamheid vereist ontkoppeling van groei en milieu-impact. Alternatieve doelen: brede welvaart, 'wellbeing economy'. Conclusie: groei is relevant maar moet gecombineerd met gelijkheids- en duurzaamheidsdoelen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Ontwerp een groeistrategie voor een fictief opkomend land. Beschrijf vijf concrete maatregelen. Gebruik: <em>intensieve groei</em>, <em>menselijk kapitaal</em> en <em>inflatie</em>.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Vijf maatregelen (voorbeelden): 1. Investeer 6% bbp in onderwijs → menselijk kapitaal → intensieve groei. 2. Houd inflatie laag via onafhankelijke centrale bank. 3. R&D-subsidies voor technologiesector. 4. Infrastructuurinvesteringen (wegen, internet). 5. Aantrekken buitenlandse investeringen via stabiel rechtssysteem. Beoordeel: consistentie, economisch inzicht, correcte begripstoepassing.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Maak een schema dat de relatie toont tussen inflatie, nominale groei en reële groei. Illustreer met een getalsvoorbeeld.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Schema: Nominale bbp-groei → min inflatie = Reële bbp-groei. Voorbeeld: nominaal +6%, inflatie 2,5% → reëel +3,5%. Via prijsindex: reëel bbp = nominaal ÷ prijsindex × 100. Voorbeeld: €580 mrd ÷ 115 × 100 = €504,3 mrd. Beoordeel: correcte relaties, duidelijk schema, correct getalsvoorbeeld.</div></div>
+  </div>
+</div>
+
+<!-- ===== §7.4 ===== -->
+<div id="s74" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 7.4</div>
+    <h2>Europa en de EU</h2>
+    <p>Europese Unie · Interne markt · Vier vrijheden · Eurozone · ECB · Vrijhandelsakkoord · Subsidiariteitsbeginsel · Brexit</p>
+  </div>
+
+  <div class="nk nk-blauw">
+    <div class="nk-tag">🇪🇺 Europese samenwerking</div>
+    <div class="nk-kop">De interne markt: 450 miljoen consumenten, geen douane — de motor achter Europese welvaart</div>
+    <div class="nk-meta">2024 · Europese Commissie / ECB</div>
+    <div class="nk-body">De EU is een politiek en economisch samenwerkingsverband van 27 landen. Het hart is de <strong>interne markt</strong>: geen handelsbelemmeringen, gebaseerd op vier vrijheden (goederen, diensten, personen, kapitaal). De <strong>eurozone</strong> telt 20 landen. Uitdagingen: ongelijkheid, soevereiniteitsspan­ning en schuldencrises. Het <strong>subsidiariteitsbeginsel</strong> bepaalt wie beslist.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">27</div><div class="nk-sl">EU-lidstaten (2024)</div></div>
+      <div class="nk-stat"><div class="nk-sv">20</div><div class="nk-sl">landen met de euro</div></div>
+      <div class="nk-stat"><div class="nk-sv">450 mln</div><div class="nk-sl">consumenten interne markt</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--blauwl);font-family:'Lexend',sans-serif">§7.4 — Europa en de EU</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p>De <strong>Europese Unie (EU)</strong> is een politiek en economisch samenwerkingsverband van 27 landen (2024). Opgericht na de Tweede Wereldoorlog met als doel vrede, stabiliteit en economische welvaart. Het hart is de <strong>interne markt</strong>: een gemeenschappelijke markt zonder handelsbelemmeringen, gebaseerd op vier vrijheden:</p>
+      <table class="tbl">
+        <tr><th>Vrijheid</th><th>Betekenis</th><th>Voorbeeld</th></tr>
+        <tr><td><strong>1. Goederen</strong></td><td>Vrij verkeer van producten; geen invoertarieven of quota.</td><td>Nederlandse boter wordt tariefloos verkocht in Duitsland.</td></tr>
+        <tr><td><strong>2. Diensten</strong></td><td>Bedrijven mogen in elk EU-land diensten aanbieden.</td><td>Een Spaans IT-bedrijf heeft klanten in heel Europa.</td></tr>
+        <tr><td><strong>3. Personen</strong></td><td>EU-burgers mogen vrij in elk EU-land wonen en werken.</td><td>Een Pool werkt als bouwvakker in Nederland.</td></tr>
+        <tr><td><strong>4. Kapitaal</strong></td><td>Vrij verkeer van geld en investeringen binnen de EU.</td><td>Een Nederlands pensioenfonds investeert in Ierse startups.</td></tr>
+      </table>
+      <hr class="dsep">
+      <p>De <strong>eurozone</strong> bestaat uit 20 landen die de euro als gemeenschappelijke munt gebruiken. Het monetaire beleid wordt bepaald door de <strong>Europese Centrale Bank (ECB)</strong> in Frankfurt. De EU treedt als één blok op bij internationale handelsakkoorden — dat geeft meer onderhandelingsmacht dan individuele landen. Zo sluit de EU <strong>vrijhandelsakkoorden</strong> af met landen buiten de EU.</p>
+      <hr class="dsep">
+      <p>Uitdagingen: <strong>ongelijke ontwikkeling</strong> (rijk Noord vs. armer Oost), <strong>soevereiniteitsdiscussie</strong> (hoeveel macht geef je op aan Brussel?), <strong>Brexit</strong> (VK verliet EU in 2020), en <strong>schuldcrises</strong> (Griekenland). Het <strong>subsidiariteitsbeginsel</strong>: beslissingen worden genomen op het laagst mogelijke bestuursniveau — de EU grijpt alleen in als een probleem beter Europees dan nationaal opgelost kan worden.</p>
+      <div class="wjd">Wetenschappers schatten dat de interne markt de welvaart van EU-burgers gemiddeld met circa 10% heeft verhoogd. Voor Nederland — als open exporteconomie — zijn de voordelen nog groter: circa 80% van het bbp is handelsgerelateerd.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Mijn oom zegt dat de EU ons alleen maar geld kost. Mijn leraar zegt dat we er juist rijker van worden. Wie heeft gelijk?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Allebei een beetje. De EU kost geld aan bijdragen, maar levert ook veel op door vrijhandel en samenwerking."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Maar waarom mogen Europeanen zomaar overal werken?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dat is één van de vier vrijheden van de interne markt: vrij verkeer van personen."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"En betaalt iedereen dan met de euro?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Nee — Zweden en Polen niet, bijvoorbeeld. Niet alle EU-landen zitten in de eurozone."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat zijn de vier vrijheden van de interne markt?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q74a')">A. Arbeid, kapitaal, goederen, subsidies</button><button class="opt" data-c="1" onclick="cQ(this,'q74a')">B. Goederen, diensten, personen, kapitaal</button><button class="opt" data-c="0" onclick="cQ(this,'q74a')">C. Belastingen, valuta, goederen, diensten</button><button class="opt" data-c="0" onclick="cQ(this,'q74a')">D. Goederen, personen, informatie, kapitaal</button></div><div id="q74a" class="qfb">✅ Vier vrijheden: vrij verkeer van goederen, diensten, personen en kapitaal.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Begrijpen</div><div class="qt">Duitsland heft een extra belasting op Spaanse sinaasappelen. Waarom is dit in strijd met de interne markt?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q74b')">A. Omdat sinaasappelen een luxeproduct zijn.</button><button class="opt" data-c="1" onclick="cQ(this,'q74b')">B. Omdat vrij goederenverkeer geen invoertarieven of vergelijkbare maatregelen toestaat.</button><button class="opt" data-c="0" onclick="cQ(this,'q74b')">C. Omdat Spanje meer exporteert dan importeert.</button><button class="opt" data-c="0" onclick="cQ(this,'q74b')">D. Omdat de ECB dit verbiedt.</button></div><div id="q74b" class="qfb">✅ Vrij goederenverkeer verbiedt invoertarieven én maatregelen met vergelijkbaar effect. Dit is EU-recht.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Analyseren</div><div class="qt">De eurozone heeft één munt maar geen gemeenschappelijk begrotingsbeleid. Welk probleem ontstaat als één land in recessie raakt?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q74c')">A. Het land kan gewoon de rente verlagen via de ECB.</button><button class="opt" data-c="1" onclick="cQ(this,'q74c')">B. Het land kan zijn munt niet devalueren en heeft beperkte begrotingsruimte — schulden en rente stijgen.</button><button class="opt" data-c="0" onclick="cQ(this,'q74c')">C. Andere eurolanden nemen automatisch de schulden over.</button><button class="opt" data-c="0" onclick="cQ(this,'q74c')">D. De interne markt compenseert automatisch.</button></div><div id="q74c" class="qfb">✅ Zonder eigen munt geen devaluatiemogelijkheid. Bij grote tekorten dreigen schuldencrisis en besmetting naar andere eurolanden.</div></div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem de vier vrijheden van de interne markt en geef bij elk één voorbeeld.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">1. Vrij verkeer van goederen — bijv. Nederlandse boter tariefloos naar Duitsland. 2. Vrij verkeer van diensten — bijv. Spaans IT-bedrijf met klanten in heel Europa. 3. Vrij verkeer van personen — bijv. Poolse bouwvakker werkt in Nederland. 4. Vrij verkeer van kapitaal — bijv. Nederlands pensioenfonds investeert in Ierland.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is het subsidiariteitsbeginsel? Geef een definitie en één voorbeeld.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Het subsidiariteitsbeginsel houdt in dat beslissingen worden genomen op het laagst mogelijke, meest effectieve bestuursniveau. De EU grijpt alleen in als een probleem beter Europees dan nationaal kan worden opgelost. Voorbeeld: klimaatbeleid is bij uitstek Europees, want CO₂ kent geen grenzen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Hoeveel landen telde de EU in 2024 en hoeveel landen gebruikten de euro?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De EU telt 27 lidstaten (2024). De eurozone telt 20 landen die de euro als gemeenschappelijke munt gebruiken.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit waarom de interne markt kan leiden tot meer welvaart voor EU-burgers.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Door het wegvallen van handelsbelemmeringen worden goederen en diensten goedkoper verhandeld. Bedrijven hebben toegang tot 450 miljoen consumenten. Meer concurrentie drukt prijzen omlaag en stimuleert innovatie. Consumenten profiteren van lagere prijzen en meer keuze. Schaalvoordelen leiden tot lagere productiekosten.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Wat zijn de voordelen voor Nederland van het feit dat de EU als één blok onderhandelt over handelsakkoorden?</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Nederland is een klein land met beperkte onderhandelingsmacht tegenover grote economieën als de VS of China. Als EU-lid onderhandelt NL mee als onderdeel van de grootste economische blok ter wereld. Dit leidt tot betere handelsakkoorden: lagere invoertarieven voor Nederlandse exportproducten en betere markttoegang. Cruciaal voor Nederland: circa 80% bbp is handelsgerelateerd.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Een Nederlands bedrijf wil een fabriek openen in Polen. Gebruik de vier vrijheden om te verklaren welke voordelen het EU-lidmaatschap dit bedrijf biedt.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">1. Goederen: grondstoffen en eindproducten mogen tariefloos tussen NL en PL worden verscheept. 2. Diensten: het bedrijf kan diensten aanbieden in Polen zonder aparte vergunning. 3. Personen: het bedrijf kan Nederlandse managers naar Polen sturen en Poolse werknemers in dienst nemen. 4. Kapitaal: het bedrijf kan vrij investeren in de Poolse fabriek zonder kapitaalbeperkingen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Duitsland heft een extra belasting op Spaanse sinaasappelen in Duitsland. Licht toe waarom dit in strijd is met de interne markt.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De vrijheid van goederenverkeer verbiedt niet alleen douanetarieven maar ook maatregelen met een vergelijkbaar effect (discriminerende belastingen). Een extra belasting specifiek op Spaanse sinaasappelen beperkt vrij goederenverkeer en is daarmee in strijd met EU-recht. Duitsland mag dit niet eenzijdig instellen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">De eurozone heeft één munt maar geen gemeenschappelijk begrotingsbeleid. Analyseer welke problemen dit kan opleveren als een land in een recessie terechtkomt.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Zonder eigen munt kan een land in recessie zijn munt niet devalueren om export te stimuleren. Het is afhankelijk van begrotingsbeleid. Bij grote tekorten dreigt schuldencrisis: beleggers vragen hogere rente. Dit drukt rente voor andere eurolanden omhoog (schuldbesmetting). Het land heeft beperkte eigen beleidsinstrumenten. Griekse schuldencrisis 2010–2012 illustreert dit.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">In 2020 verliet het VK de EU (Brexit). Analyseer twee economische gevolgen voor het VK en twee voor de EU.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">VK (twee van): 1. Toename handelsfrictie met EU (douane, certificeringen). 2. Daling directe investeringen. 3. Britse financiële sector verloor EU-paspoortrechten. EU (twee van): 1. Verlies netto-bijdrage VK aan EU-begroting. 2. Verlies marktomvang. 3. Logistieke verstoringen in toeleveringsketens.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Rijke EU-landen (NL, D) betalen netto bij; armere landen (PL, HU) ontvangen netto. Analyseer hoe dit bijdraagt aan verkleining van welvaartsverschillen binnen de EU. Gebruik begrippen uit §7.1.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Het systeem is vergelijkbaar met nivellering (§7.2) op Europees niveau: rijke landen dragen bij, arme landen ontvangen. Cohesiefondsen financieren infrastructuur, onderwijs en bedrijvigheid in achterblijvende regio's. Dit verhoogt bbp per inwoner (§7.1) in Oost-Europa. HDI-scores verbeteren door investeringen in onderwijs en gezondheid. Doel: verkleinen van de bbp/inw-kloof.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Waarom is het problematisch voor de eurozone als één lid grote begrotingstekorten heeft? Gebruik het begrip <em>schuldbesmetting</em>.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Als één euroland grote tekorten heeft, neemt het risico toe dat het zijn schulden niet kan terugbetalen. Beleggers worden nerveus en vragen hogere rente op leningen aan andere eurolanden ook — zelfs als die een gezonde begroting hebben. Dit heet schuldbesmetting. Alle eurolanden betalen daardoor hogere rente, wat groei afremt. De Griekse crisis 2010–2012 is het schoolvoorbeeld.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Stelling: "De voordelen van EU-lidmaatschap wegen ruimschoots op tegen de nadelen voor Nederland." Beoordeel met twee voordelen en twee nadelen.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox"><strong>Voordelen:</strong> 1. Interne markt: NL is sterk exportgericht — douanevrije toegang cruciaal. 2. Meer onderhandelingsmacht in wereldhandel. <strong>Nadelen:</strong> 1. Netto-bijdrage: NL betaalt meer dan het ontvangt. 2. Soevereiniteitsafstand: EU-regelgeving gaat voor nationale wet. <strong>Conclusie:</strong> voor een exportland als NL wegen voordelen over het algemeen zwaarder.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Is het subsidiariteitsbeginsel in de praktijk voldoende gewaarborgd? Gebruik een concreet beleidsvoorbeeld (klimaat of migratie).</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Klimaat: EU heeft Green Deal en ETS opgelegd. Voorstanders: klimaat is grensoverschrijdend, EU-aanpak effectiever. Tegenstanders: landen hebben verschillende omstandigheden (Polen met steenkool). Migratie: EU probeert gemeenschappelijk asielbeleid (Dublin-akkoord), maar lidstaten handhaven sterk eigen beleid. Conclusie: er is spanning tussen het beginsel en de behoefte aan coherent Europees beleid.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Ontwerp een fictief EU-beleidsprogramma om welvaartsverschillen tussen oost- en west-Europa te verkleinen. Beschrijf drie maatregelen en gebruik begrippen uit §7.1 en §7.4.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Drie maatregelen (gebruik begrippen §7.1 en §7.4): 1. Vergroting cohesiefondsen voor onderwijs in Oost-Europa → HDI verhogen (§7.1). 2. EU-brede minimumloonrichtlijn → vermindert loonkostenvoordeel, verkleint bbp/inw-kloof (§7.1). 3. Investeringsprogramma digitale infrastructuur → intensieve groei (§7.3) via interne markt (§7.4). Beoordeel: begripsgebruik, economische logica, haalbaarheid.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een debatvoorbereiding (10 zinnen) voor de stelling: "De EU moet uitgroeien tot een federale staat met één begrotings- en belastingbeleid." Formuleer drie sterke argumenten voor en drie argumenten tegen.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox"><strong>Voor:</strong> 1. Gemeenschappelijk begrotingsbeleid voorkomt schuldbesmetting. 2. Één belastingbeleid vermindert fiscale concurrentie. 3. Meer slagkracht op wereldtoneel. <strong>Tegen:</strong> 1. Verlies nationale soevereiniteit (subsidiariteitsbeginsel). 2. Grote economische verschillen maken uniform beleid inefficiënt. 3. Politiek draagvlak ontbreekt (Brexit als waarschuwing). Beoordeel: kwaliteit argumenten, begripsgebruik, evenwichtigheid.</div></div>
+  </div>
+</div>
+
+<!-- ===== SAMENVATTING ===== -->
+<div id="sam" class="sec">
+  <div class="phdr"><div class="pn">Overzicht</div><h2>Samenvatting Hoofdstuk 7 — Groei en Welvaart</h2><p>De vier paragrafen in het kort.</p></div>
+  <div style="padding:8px 0">
+    <div class="sblok"><h3 style="color:var(--gd)">§7.1 — Ontwikkelingsgebieden: welvaart meten</h3><p>Het <strong>bbp per inwoner</strong> meet de gemiddelde welvaart: bbp ÷ aantal inwoners. Landen worden ingedeeld als hoge-inkomenslanden, <strong>opkomende landen</strong> of <strong>ontwikkelingslanden</strong>. De <strong>HDI-index</strong> is breder: combineert levensverwachting, onderwijs en inkomen (schaal 0–1). De <strong>informele sector</strong> valt buiten het officiële bbp maar vertegenwoordigt in veel landen 40–60% van de werkgelegenheid. De Wereldbank-<strong>armoedegrens</strong> ligt op $2,15 per dag (2022).</p></div>
+    <div class="sblok p2"><h3 style="color:var(--roodl)">§7.2 — Belastingen en nivellering</h3><p>Bij een <strong>progressief stelsel</strong> stijgt het belastingpercentage met het inkomen. Het inkomen is verdeeld in <strong>schijven</strong>. Het <strong>marginale tarief</strong> geldt over de laatste verdiende euro; het <strong>gemiddelde tarief</strong> is altijd lager. Formule gemiddeld tarief: (totale belasting ÷ bruto inkomen) × 100%. <strong>Nivellering</strong>: door progressieve belasting liggen netto-inkomens dichter bij elkaar dan bruto-inkomens.</p></div>
+    <div class="sblok p3"><h3 style="color:var(--goudd)">§7.3 — Economische groei</h3><p><strong>Nominale groei</strong> = stijging bbp in lopende prijzen. <strong>Reële groei</strong> = nominale groei − inflatie (werkelijke productiestijging). Via indexcijfers: reëel bbp = (nominaal ÷ prijsindex) × 100. <strong>Extensieve groei</strong>: meer productiefactoren. <strong>Intensieve groei</strong>: hogere productiviteit — duurzamer. Een <strong>recessie</strong> = twee kwartalen negatieve groei. <strong>Conjunctuur</strong> = golfbeweging van hoog- naar laagconjunctuur.</p></div>
+    <div class="sblok p4"><h3 style="color:var(--blauwl)">§7.4 — Europa en de EU</h3><p>De <strong>EU</strong> is een samenwerking van 27 landen. De <strong>interne markt</strong> steunt op vier vrijheden: goederen, diensten, personen, kapitaal. De <strong>eurozone</strong> telt 20 landen; de <strong>ECB</strong> bepaalt het monetaire beleid. Uitdagingen: ongelijkheid, soevereiniteit, <strong>Brexit</strong>, schuldencrises. Het <strong>subsidiariteitsbeginsel</strong>: beslis op het laagste effectieve niveau.</p></div>
+    <div class="rode-draad">
+      <h4>🔴 De rode draad van Hoofdstuk 7</h4>
+      <p>Welvaartsverschillen meten (bbp/inw, HDI, informele sector)<br>→ Ongelijkheid verkleinen via progressieve belasting (schijven, marginaal tarief, nivellering)<br>→ Welvaart laten groeien (nominaal vs. reëel, extensief vs. intensief)<br>→ Samenwerken op Europees niveau (interne markt, eurozone, uitdagingen)<br>→ Doel: duurzame, eerlijke groei voor iedereen</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BEGRIPPEN & LEERDOELEN ===== -->
+<div id="bl" class="sec">
+  <div class="phdr"><div class="pn">Overzicht</div><h2>Begrippen &amp; Leerdoelen</h2><p>Zoek begrippen op of vink je leerdoelen af.</p></div>
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bl-tabs">
+      <button class="bl-tab act" onclick="blT('bpane',this)">📖 Begrippen</button>
+      <button class="bl-tab" onclick="blT('ldpane',this)">✅ Leerdoelen</button>
+    </div>
+    <div id="bpane" class="bl-pane act">
+      <input type="text" class="bsrch" placeholder="🔍 Zoek een begrip…" oninput="fB(this.value)">
+      <div id="bgrd" class="bgrd"></div>
+    </div>
+    <div id="ldpane" class="bl-pane">
+      <div class="card"><h3 style="color:var(--gd)">§7.1 Ontwikkelingsgebieden</h3>
+        <div class="ldi" id="l1"><input type="checkbox" onchange="ld(this,'l1')"><label>Ik kan uitleggen wat een ontwikkelingsland en een opkomend land zijn en een voorbeeld geven.</label></div>
+        <div class="ldi" id="l2"><input type="checkbox" onchange="ld(this,'l2')"><label>Ik kan het bbp per inwoner berekenen en landen vergelijken.</label></div>
+        <div class="ldi" id="l3"><input type="checkbox" onchange="ld(this,'l3')"><label>Ik kan de drie dimensies van de HDI-index benoemen en uitleggen.</label></div>
+        <div class="ldi" id="l4"><input type="checkbox" onchange="ld(this,'l4')"><label>Ik kan de informele sector omschrijven en het belang ervan toelichten.</label></div>
+        <div class="ldi" id="l5"><input type="checkbox" onchange="ld(this,'l5')"><label>Ik kan uitleggen waarom bbp per inwoner als maatstaf tekortschiet.</label></div>
+      </div>
+      <div class="card"><h3 style="color:var(--roodl)">§7.2 Belastingen en nivellering</h3>
+        <div class="ldi" id="l6"><input type="checkbox" onchange="ld(this,'l6')"><label>Ik kan het verschil uitleggen tussen een proportioneel en een progressief stelsel.</label></div>
+        <div class="ldi" id="l7"><input type="checkbox" onchange="ld(this,'l7')"><label>Ik kan belastingschijven lezen en de te betalen belasting berekenen.</label></div>
+        <div class="ldi" id="l8"><input type="checkbox" onchange="ld(this,'l8')"><label>Ik kan het marginale en gemiddelde tarief berekenen en uitleggen.</label></div>
+        <div class="ldi" id="l9"><input type="checkbox" onchange="ld(this,'l9')"><label>Ik kan nivellering uitleggen en aantonen met netto-inkomensberekeningen.</label></div>
+      </div>
+      <div class="card"><h3 style="color:var(--goudd)">§7.3 Economische groei</h3>
+        <div class="ldi" id="l10"><input type="checkbox" onchange="ld(this,'l10')"><label>Ik kan het verschil uitleggen tussen nominale en reële groei.</label></div>
+        <div class="ldi" id="l11"><input type="checkbox" onchange="ld(this,'l11')"><label>Ik kan de reële groei berekenen (nominaal − inflatie) en via indexcijfers.</label></div>
+        <div class="ldi" id="l12"><input type="checkbox" onchange="ld(this,'l12')"><label>Ik kan extensieve en intensieve groei onderscheiden en oorzaken benoemen.</label></div>
+        <div class="ldi" id="l13"><input type="checkbox" onchange="ld(this,'l13')"><label>Ik kan uitleggen wanneer een recessie officieel is en wat conjunctuur is.</label></div>
+      </div>
+      <div class="card"><h3 style="color:var(--blauwl)">§7.4 Europa en de EU</h3>
+        <div class="ldi" id="l14"><input type="checkbox" onchange="ld(this,'l14')"><label>Ik kan de vier vrijheden van de interne markt benoemen en illustreren.</label></div>
+        <div class="ldi" id="l15"><input type="checkbox" onchange="ld(this,'l15')"><label>Ik kan het subsidiariteitsbeginsel uitleggen en toepassen.</label></div>
+        <div class="ldi" id="l16"><input type="checkbox" onchange="ld(this,'l16')"><label>Ik kan ten minste twee uitdagingen van Europese samenwerking benoemen en beoordelen.</label></div>
+        <div class="ldi" id="l17"><input type="checkbox" onchange="ld(this,'l17')"><label>Ik kan het verschil uitleggen tussen EU-lidmaatschap en eurozone-lidmaatschap.</label></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERHALING ===== -->
+<div id="her" class="sec">
+  <div class="phdr"><div class="pn">Herhaling</div><h2>Herhalingsopdrachten Hoofdstuk 7</h2><p>Schrijf je antwoord, klik dan op het modelantwoord.</p></div>
+  <div style="padding:8px 0">
+    <div class="hrbox"><div class="hrn">§7.1 — Vraag 1</div>
+      <div class="hrq">Wat is het verschil tussen bbp per inwoner en de HDI-index? Wanneer gebruik je welke maatstaf?</div>
+      <textarea class="antw-input" rows="3" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div>
+      <div class="abox">Bbp per inwoner meet alleen de gemiddelde economische productie (geldelijke welvaart). HDI combineert ook gezondheid en onderwijs. Bbp/inw gebruik je voor snelle economische vergelijking; HDI gebruik je voor een bredere vergelijking van menselijke ontwikkeling en levenskwaliteit.</div>
+    </div>
+    <div class="hrbox"><div class="hrn">§7.1 — Vraag 2</div>
+      <div class="hrq">Land A: bbp €360 mrd, 9 mln inwoners. Land B: bbp €90 mrd, 1,5 mln inwoners. Bereken het bbp per inwoner van beide landen en geef aan welk land welvarender is per inwoner.</div>
+      <textarea class="antw-input" rows="3" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div>
+      <div class="abox">Land A: €360mrd ÷ 9mln = <strong>€40.000/inw.</strong> Land B: €90mrd ÷ 1,5mln = <strong>€60.000/inw.</strong> Land B is welvarender per inwoner, ondanks een kleiner totaal bbp.</div>
+    </div>
+    <div class="hrbox"><div class="hrn">§7.1 — Vraag 3</div>
+      <div class="hrq">Waarom wordt de informele sector niet meegeteld in het officiële bbp? Geef twee gevolgen van deze meetfout voor ontwikkelingsbeleid.</div>
+      <textarea class="antw-input" rows="3" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div>
+      <div class="abox">De informele sector wordt niet geregistreerd (geen belasting, geen administratie). Gevolgen: 1. Het officiële bbp onderschat de werkelijke economische activiteit → ontwikkelingshulp te laag ingeschat. 2. Beleidsprioriteiten worden verkeerd gesteld; informele werkers missen sociale bescherming.</div>
+    </div>
+    <div class="hrbox p2"><div class="hrn">§7.2 — Vraag 4</div>
+      <div class="hrq">Gebruik de schijventabel. Bereken de belasting en het gemiddeld tarief voor iemand met €65.000 bruto inkomen. Toon alle stappen.</div>
+      <textarea class="antw-input" rows="4" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div>
+      <div class="abox">Schijf 1: €38.000 × 36,93% = €14.033. Schijf 2: (€65.000 − €38.000) × 49,50% = €27.000 × 49,50% = €13.365. Totaal: <strong>€27.398</strong>. Gem. tarief: €27.398 ÷ €65.000 × 100% = <strong>42,2%</strong>.</div>
+    </div>
+    <div class="hrbox p2"><div class="hrn">§7.2 — Vraag 5</div>
+      <div class="hrq">Leg nivellering uit aan de hand van twee personen: persoon X (€30.000) en persoon Y (€80.000). Bereken netto-inkomens en vergelijk de bruto- en netto-verhouding.</div>
+      <textarea class="antw-input" rows="5" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div>
+      <div class="abox">X: €30.000 × 36,93% = €11.079 belasting → netto: <strong>€18.921</strong>. Y: schijf 1: €14.033 + schijf 2: €21.285 = €35.318 belasting → netto: <strong>€44.682</strong>. Bruto-verhouding: €80.000÷€30.000 = 2,67×. Netto-verhouding: €44.682÷€18.921 = 2,36×. De ratio daalt → nivellering aantoonbaar.</div>
+    </div>
+    <div class="hrbox p3"><div class="hrn">§7.3 — Vraag 6</div>
+      <div class="hrq">Nominaal bbp steeg van €480 mrd naar €516 mrd. Inflatie: 4,5%.<br>a) Bereken de nominale groei (%). b) Bereken de reële groei. c) Is het land welvarender geworden? Verklaar.</div>
+      <textarea class="antw-input" rows="4" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div>
+      <div class="abox">a) Nominale groei: (516−480)÷480×100% = <strong>7,5%</strong>. b) Reële groei: 7,5% − 4,5% = <strong>3,0%</strong>. c) Ja, het land is welvarender geworden: de reële groei is positief. Er wordt daadwerkelijk 3% meer geproduceerd na correctie voor prijsstijgingen.</div>
+    </div>
+    <div class="hrbox p3"><div class="hrn">§7.3 — Vraag 7</div>
+      <div class="hrq">Wat is het verschil tussen een hoogconjunctuur en een laagconjunctuur? Beschrijf twee kenmerken van elk.</div>
+      <textarea class="antw-input" rows="4" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div>
+      <div class="abox">Hoogconjunctuur: 1. Snelle economische groei (hoog bbp). 2. Lage werkloosheid, hoge consumptie en investeringen. Laagconjunctuur: 1. Trage groei of krimp (laag/negatief bbp). 2. Hogere werkloosheid, minder consumptie en investeringen. Recessie = twee kwartalen negatieve groei.</div>
+    </div>
+    <div class="hrbox p4"><div class="hrn">§7.4 — Vraag 8</div>
+      <div class="hrq">Leg uit hoe de interne markt werkt en waarom dit voor Nederland als exportland bijzonder belangrijk is.</div>
+      <textarea class="antw-input" rows="4" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div>
+      <div class="abox">De interne markt is een gemeenschappelijke markt zonder handelsbelemmeringen, gebaseerd op vier vrijheden (goederen, diensten, personen, kapitaal). Voor Nederland (open exporteconomie, ~80% bbp handelsgerelateerd) is dit cruciaal: tariefloos exporteren naar 450 miljoen consumenten, geen douaneformaliteiten, vrij vestigingsrecht voor Nederlandse bedrijven in Europa.</div>
+    </div>
+    <div class="hrbox p4"><div class="hrn">§7.4 — Vraag 9</div>
+      <div class="hrq">Wat zijn drie uitdagingen van Europese economische samenwerking? Kies de twee uitdagingen die jij het zwaarst vindt wegen en beargumenteer je keuze.</div>
+      <textarea class="antw-input" rows="5" placeholder="Typ je antwoord…"></textarea>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+      <div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div>
+      <div class="abox">Drie uitdagingen (kies): 1. Ongelijke ontwikkeling (rijk Noord vs. arm Oost). 2. Soevereiniteitsdiscussie (hoeveel macht aan Brussel?). 3. Schuldcrises in eurozone. 4. Brexit als precedent. 5. Klimaat en migratie vragen Europees beleid. Beoordeel: eigen beredeneerde keuze met economische argumentatie.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REKENSOMMEN ===== -->
+<div id="rek" class="sec">
+  <div class="phdr"><div class="pn">Rekenen</div><h2>Rekensommen Hoofdstuk 7</h2><p>Laat altijd je berekening zien. Klik op 💡 voor het antwoord.</p></div>
+  <div style="padding:8px 0">
+
+    <div class="rsom"><div class="rn">Som 1 — Bbp per inwoner vergelijken</div>
+      <p>Land A: bbp = €1.200 mrd; bevolking = 20 mln. Land B: bbp = €180 mrd; bevolking = 3 mln. Land C: bbp = €600 mrd; bevolking = 60 mln.</p>
+      <p class="rsub">a) Bereken het bbp per inwoner van de drie landen. b) Rangschik van meest naar minst welvarend. c) HDI: land A = 0,79; land B = 0,91; land C = 0,88. Hoe verklaar je dat land B hoger scoort dan land A terwijl A een hoger bbp/inw heeft?</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) Land A: €1.200mrd÷20mln = <strong>€60.000/inw.</strong> Land B: €180mrd÷3mln = <strong>€60.000/inw.</strong> Land C: €600mrd÷60mln = <strong>€10.000/inw.</strong> b) Land A = Land B (gelijk, €60.000) &gt; Land C (€10.000). c) Land B scoort hoger op HDI ondanks gelijk bbp/inw.: land B investeert meer in gezondheidszorg en onderwijs, of heeft gelijkmatigere inkomensverdeling. Bbp/inw en HDI meten verschillende aspecten van welvaart.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 2 — Progressieve belasting berekenen</div>
+      <p>Schijvenstelsel: Schijf 1 €0–€38.000 → 36,93% | Schijf 2 €38.001–€75.000 → 49,50% | Schijf 3 &gt; €75.000 → 49,50%.</p>
+      <p>Persoon A: bruto inkomen €55.000. Persoon B: bruto inkomen €100.000.</p>
+      <p class="rsub">a) Bereken totale belasting persoon A. b) Bereken gemiddeld tarief persoon A. c) Bereken totale belasting persoon B. d) Bereken gemiddeld tarief persoon B. e) Vergelijk netto-inkomens en toon aan dat er sprake is van nivellering.</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">Persoon A (€55.000): schijf 1: €38.000×36,93%=€14.033; schijf 2: €17.000×49,50%=€8.415. Totaal: <strong>€22.448</strong>. Gem. tarief: <strong>40,8%</strong>. Netto: €32.552.<br>Persoon B (€100.000): schijf 1: €14.033; schijf 2: €18.315; schijf 3: €25.000×49,50%=€12.375. Totaal: <strong>€44.723</strong>. Gem. tarief: <strong>44,7%</strong>. Netto: €55.277.<br>Bruto-verhouding B/A: 100.000÷55.000=1,82×. Netto-verhouding: 55.277÷32.552=1,70×. Ratio daalt → <strong>nivellering aantoonbaar</strong>.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 3 — Reële economische groei berekenen</div>
+      <p>Jaar 1: nominaal bbp = €480 mrd. Jaar 2: nominaal bbp = €516 mrd. Inflatie in jaar 2: 4,5%.</p>
+      <p class="rsub">a) Bereken de nominale bbp-groei (%). b) Bereken de reële bbp-groei. c) Bevolking groeide van 16 naar 16,3 mln. Bereken reëel bbp/inw. in jaar 2 (gebruik: reëel bbp = nominaal ÷ 1,045). d) Is het land gemiddeld rijker of armer geworden? Verklaar.</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) Nominale groei: (516−480)÷480×100% = <strong>7,5%</strong>. b) Reële groei: 7,5%−4,5% = <strong>3,0%</strong>. c) Reëel bbp jr.2: €516mrd÷1,045 = €493,8mrd. Reëel bbp/inw.: €493,8mrd÷16,3mln = <strong>€30.294</strong>. Reëel bbp/inw. jr.1: €480mrd÷16mln = €30.000. d) Het land is gemiddeld licht rijker geworden per inwoner (+0,98%). De reële groei (3,0%) overtreft de bevolkingsgroei (1,9%).</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 4 — Belasting én reële groei combineren</div>
+      <p>Land D: nominaal bbp groeit van €700 mrd naar €749 mrd. Inflatie: 3%. De overheid int €185 mrd aan belasting bij nominaal bbp €749 mrd. Bevolking: 14 mln.</p>
+      <p class="rsub">a) Bereken de nominale groei (%). b) Bereken de reële groei. c) Bereken het belastingquote (belasting als % van nominaal bbp jaar 2). d) Bereken het nominaal bbp/inw. jaar 2. e) Als inflatie volgend jaar daalt naar 1% maar het nominale bbp met hetzelfde absolute bedrag stijgt: wat is dan de nieuwe reële groei?</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) Nominale groei: (749−700)÷700×100% = <strong>7,0%</strong>. b) Reële groei: 7,0%−3,0% = <strong>4,0%</strong>. c) Belastingquote: €185mrd÷€749mrd×100% = <strong>24,7%</strong>. d) Bbp/inw.: €749mrd÷14mln = <strong>€53.500</strong>. e) Zelfde abs. stijging = +€49mrd → nieuw nominaal: €798mrd. Nominale groei: €49÷€749×100%=6,54%. Reële groei: 6,54%−1,0% = <strong>5,54%</strong>.</div>
+    </div>
+
+    <div class="rsom"><div class="rn">Som 5 — EU-welvaartsverschillen analyseren</div>
+      <p>EU-land X: bbp/inw. = €42.000; HDI = 0,93; 17 mln inwoners; betaalt jaarlijks €2,5 mrd netto aan EU. EU-land Y: bbp/inw. = €18.000; HDI = 0,82; 8 mln inwoners; ontvangt €3,8 mrd netto.</p>
+      <p class="rsub">a) Bereken de netto-bijdrage van land X per inwoner. b) Bereken de netto-ontvangst van land Y per inwoner. c) Land Y investeert alle EU-gelden in onderwijs en infrastructuur: bereken het bedrag per inwoner per jaar. Welk effect kan dit hebben op HDI en groei? d) Is dit systeem eerlijk? Gebruik begrippen uit §7.1 en §7.2 (minimaal drie).</p>
+      <div style="margin-top:8px"><button class="abtn" onclick="tog(this)">💡 Antwoord</button></div>
+      <div class="abox">a) €2,5mrd÷17mln = <strong>€147 per inwoner/jaar</strong>. b) €3,8mrd÷8mln = <strong>€475 per inwoner/jaar</strong>. c) €475/inw./jaar in onderwijs → menselijk kapitaal stijgt → HDI onderwijs-component verbetert → intensieve groei (§7.3); hogere productiviteit → bbp/inw. stijgt (§7.1). d) Vergelijkbaar met nivellering (§7.2): rijke landen dragen bij aan arme. Pro: verkleint bbp/inw.-kloof (§7.1), verhoogt HDI. Contra: mogelijk moreel risico als ontvanger slecht bestuur niet hervormt.</div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+<script>
+function S(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  btn.classList.add('act');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function blT(p,btn){
+  document.querySelectorAll('.bl-pane').forEach(x=>x.classList.remove('act'));
+  document.querySelectorAll('.bl-tab').forEach(b=>b.classList.remove('act'));
+  document.getElementById(p).classList.add('act');btn.classList.add('act');
+}
+function cQ(btn,id){
+  btn.closest('.qbox').querySelectorAll('.opt').forEach(o=>o.disabled=true);
+  const ok=btn.dataset.c==='1';
+  const fb=document.getElementById(id);
+  if(ok){btn.classList.add('ok');fb.className='qfb ok';}
+  else{btn.classList.add('fout');fb.className='qfb fout';fb.textContent='❌ Helaas. Lees de uitleg nog eens terug.';
+    btn.closest('.qbox').querySelectorAll('.opt').forEach(o=>{if(o.dataset.c==='1')o.classList.add('ok');});}
+}
+function tog(ref){
+  let btn,box;
+  if(typeof ref==='string'){box=document.getElementById(ref);btn=box.previousElementSibling;}
+  else{btn=ref;box=btn.nextElementSibling;while(box&&!box.classList.contains('abox'))box=box.nextElementSibling;}
+  if(!box)return;
+  box.classList.toggle('show');
+  if(btn)btn.textContent=box.classList.contains('show')?'🔼 Verberg':'💡 Antwoord';
+}
+function ld(cb,id){document.getElementById(id).classList.toggle('chk',cb.checked);}
+
+async function aiCheck(btn){
+  const item=btn.closest('.bi,.hrbox,.rsom');if(!item)return;
+  const bqEl=item.querySelector('.bq,.hrq');
+  const q=bqEl?bqEl.innerText.trim():'(zie opdracht)';
+  const ans=item.querySelector('.antw-input')?.value.trim();
+  let abox=btn.nextElementSibling;
+  while(abox&&!abox.classList.contains('abox'))abox=abox.nextElementSibling;
+  const mod=abox?abox.innerText.trim():'';
+  const fb=item.querySelector('.ai-fb');
+  const load=item.querySelector('.ai-load');
+  if(!ans){const inp=item.querySelector('.antw-input');if(inp){inp.focus();inp.style.borderColor='var(--roodl)';setTimeout(()=>inp.style.borderColor='',1500);}return;}
+  btn.disabled=true;btn.textContent='⏳ Nakijken…';
+  load.classList.add('show');fb.classList.remove('show','good','partial','bad');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,
+        system:`Je bent een economieleraar voor 3 HAVO/VWO in Nederland (vlaconomie.nl, hoofdstuk 7: Groei en Welvaart — §7.1 Ontwikkelingsgebieden, §7.2 Belastingen/nivellering, §7.3 Economische groei, §7.4 Europa/EU). Beoordeel het antwoord van de leerling. Begin ALTIJD met: ✅ Goed gedaan! — ⚠️ Gedeeltelijk goed. — of ❌ Nog niet helemaal. Max 3 korte zinnen: wat klopt, wat ontbreekt, wat beter kan. Gebruik vakbegrippen. Bemoedigend maar eerlijk. Altijd in het Nederlands.`,
+        messages:[{role:'user',content:`Opdracht: ${q}\n\nAntwoord leerling: ${ans}\n\nModelantwoord (voor jou, niet tonen): ${mod}`}]})});
+    const data=await res.json();
+    const txt=data.content[0].text.trim();
+    fb.innerHTML='<div class="ail">🤖 AI-feedback</div>'+txt.replace(/\n/g,'<br>');
+    fb.className='ai-fb show '+(txt.startsWith('✅')?'good':txt.startsWith('⚠️')?'partial':'bad');
+  }catch(e){fb.innerHTML='<div class="ail">Fout</div>Kon niet nakijken. Probeer het opnieuw.';fb.className='ai-fb show partial';}
+  load.classList.remove('show');btn.disabled=false;btn.textContent='🤖 Opnieuw nakijken';
+}
+
+const bg=[
+  {t:'Armoedegrens',d:'Inkomensniveau waaronder mensen onvoldoende kunnen voorzien in basisbehoeften ($2,15/dag, Wereldbank 2022).',p:1},
+  {t:'Bbp (bruto binnenlands product)',d:'Totale waarde van alle in een land geproduceerde goederen en diensten in één jaar.',p:1},
+  {t:'Bbp per inwoner',d:'Bbp gedeeld door het aantal inwoners; maatstaf voor gemiddelde welvaart.',p:1},
+  {t:'HDI-index',d:'Human Development Index; combineert levensverwachting, onderwijs en inkomen per inwoner (schaal 0–1).',p:1},
+  {t:'Informele sector',d:'Niet-geregistreerde economische activiteiten buiten het officiële bbp.',p:1},
+  {t:'Ontwikkelingsland',d:'Land met laag inkomen per inwoner, beperkte industrie en grootschalige armoede.',p:1},
+  {t:'Opkomend land',d:'Land met sterke economische groei dat zich ontwikkelt van laag naar middeninkomen.',p:1},
+  {t:'Belasting',d:'Verplichte afdracht aan de overheid, zonder directe tegenprestatie.',p:2},
+  {t:'Belastingschijf',d:'Inkomensbereik waarover een bepaald belastingtarief geldt.',p:2},
+  {t:'Gemiddeld tarief',d:'Totale belasting gedeeld door het bruto inkomen, uitgedrukt in procenten.',p:2},
+  {t:'Marginaal tarief',d:'Belastingpercentage dat geldt over de laatste verdiende euro.',p:2},
+  {t:'Nivellering',d:'Verkleining van inkomensverschillen door een progressief belastingstelsel.',p:2},
+  {t:'Progressief stelsel',d:'Belastingstelsel waarbij het tarief toeneemt naarmate het inkomen hoger is.',p:2},
+  {t:'Proportioneel stelsel',d:'Belastingstelsel waarbij iedereen hetzelfde percentage betaalt, ongeacht inkomen.',p:2},
+  {t:'Conjunctuur',d:'Periodieke schommelingen in economische activiteit (hoog- en laagconjunctuur).',p:3},
+  {t:'Deflator',d:'Prijsindex waarmee nominaal bbp wordt omgezet naar reëel bbp.',p:3},
+  {t:'Extensieve groei',d:'Economische groei door meer productiefactoren in te zetten.',p:3},
+  {t:'Inflatie',d:'Algemene, aanhoudende stijging van het prijspeil.',p:3},
+  {t:'Intensieve groei',d:'Economische groei door productiefactoren productiever te maken (technologie, onderwijs).',p:3},
+  {t:'Nominale groei',d:'Stijging van het bbp in lopende prijzen, zonder correctie voor inflatie.',p:3},
+  {t:'Recessie',d:'Twee opeenvolgende kwartalen van negatieve economische groei.',p:3},
+  {t:'Reële groei',d:'Stijging van het bbp gecorrigeerd voor inflatie; de werkelijke productiestijging.',p:3},
+  {t:'Brexit',d:'Het vertrek van het Verenigd Koninkrijk uit de EU in 2020.',p:4},
+  {t:'ECB',d:'Europese Centrale Bank; bepaalt het monetaire beleid voor de eurozone.',p:4},
+  {t:'Eurozone',d:'De EU-landen die de euro als gemeenschappelijke munt gebruiken (20 landen in 2024).',p:4},
+  {t:'Europese Unie (EU)',d:'Politiek en economisch samenwerkingsverband van 27 Europese landen.',p:4},
+  {t:'Interne markt',d:'Gemeenschappelijke EU-markt zonder handelsbelemmeringen, gebaseerd op vier vrijheden.',p:4},
+  {t:'Subsidiariteitsbeginsel',d:'Principe dat beslissingen worden genomen op het laagst mogelijke, meest effectieve bestuursniveau.',p:4},
+  {t:'Vier vrijheden',d:'Vrij verkeer van goederen, diensten, personen en kapitaal binnen de EU.',p:4},
+  {t:'Vrijhandelsakkoord',d:'Overeenkomst waarbij landen handelsbelemmeringen jegens elkaar verminderen.',p:4},
+];
+function fB(f){
+  const g=document.getElementById('bgrd'),fl=(f||'').toLowerCase();
+  g.innerHTML=bg.filter(b=>b.t.toLowerCase().includes(fl)||b.d.toLowerCase().includes(fl))
+    .map(b=>`<div class="bcard p${b.p}"><div class="bt">${b.t}</div><div class="bd">${b.d}</div></div>`).join('');
+}
+fB('');
+</script>
+</body>
+</html>
