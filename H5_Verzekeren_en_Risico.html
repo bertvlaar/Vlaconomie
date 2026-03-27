@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vlaconomie — H5 Verzekeren en Risico</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--gd:#1a7a4a;--gl:#2ecc71;--glicht:#e8faf0;--gzl:#f0fdf4;
+  --goud:#f0c040;--goudd:#d4a012;
+  --rood:#b30000;--roodl:#e53e3e;
+  --blauw:#1a2e4a;--blauwl:#2d4a6e;
+  --donker:#1a1a2e;--donkerp:#2d1b4e;
+  --grijs:#6b7280;--lichtgrijs:#f7f9fc;--rand:#e0e8f4;
+  --sh:0 2px 10px rgba(0,0,0,.1);--sh2:0 4px 20px rgba(0,0,0,.12);--bg:#f4f7f4
+}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--bg);color:#1a1a2e;font-size:15px}
+header{background:linear-gradient(135deg,var(--groen),var(--gd));position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(15,77,46,.4)}
+.hdr-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.logo{font-family:'Lexend',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.5px;color:#fff}
+.logo em{color:var(--goud);font-style:normal}
+.logo-sub{font-size:.7rem;color:rgba(255,255,255,.7);font-family:'DM Sans',sans-serif}
+nav{display:flex;overflow-x:auto;background:rgba(0,0,0,.2);padding:0 14px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{padding:9px 12px;border:none;background:none;color:rgba(255,255,255,.75);font-family:'Lexend',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+nav button:hover,nav button.act{color:#fff;border-bottom-color:var(--goud);background:rgba(255,255,255,.1)}
+main{max-width:900px;margin:0 auto;padding:20px 14px 60px}
+.sec{display:none;animation:fu .3s ease}.sec.act{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.phdr{background:linear-gradient(135deg,var(--groen),var(--gd));color:#fff;padding:22px 26px;border-radius:12px 12px 0 0}
+.phdr .pn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--goud);color:var(--groen);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;font-weight:700}
+.phdr h2{font-family:'Lexend',sans-serif;font-size:1.4rem;margin-bottom:4px;font-weight:800}
+.phdr p{color:rgba(255,255,255,.8);font-size:.87rem}
+.blok{background:#fff;padding:22px;box-shadow:var(--sh);margin-bottom:2px}
+.blok:last-child{border-radius:0 0 12px 12px;margin-bottom:18px}
+.bttl{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gd);margin-bottom:14px;display:flex;align-items:center;gap:8px;font-family:'Lexend',sans-serif}
+.bttl::before{content:'';display:inline-block;width:3px;height:15px;background:var(--gd);border-radius:2px}
+.dhdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--glicht)}
+.dav{font-size:1.5rem;background:var(--glicht);width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.dbody{font-size:.91rem;line-height:1.85;color:#222}
+.dbody p{margin-bottom:14px}.dbody p:last-child{margin-bottom:0}
+.dbody strong{color:var(--groen);font-weight:700}
+.dex{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:11px 15px;margin:12px 0 4px;font-size:.86rem;color:#333;line-height:1.55}
+.fml{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:14px 18px;margin:12px 0;font-size:.88rem;color:#1a1a2e;line-height:1.75}
+.fml strong{color:var(--groen)}
+.dialoog{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border:2px solid rgba(26,122,74,.2);border-radius:10px;padding:16px;margin-bottom:14px}
+.dialoog-rij{margin-bottom:8px;font-size:.87rem;line-height:1.55}
+.dialoog-rij:last-child{margin-bottom:0}
+.dialoog-naam{font-weight:700;color:var(--gd)}
+.dialoog-naam2{font-weight:700;color:var(--groen)}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.tbl th{background:var(--gd);color:#fff;padding:9px 12px;text-align:left;font-family:'Lexend',sans-serif;font-weight:600;font-size:.78rem}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--rand)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even){background:#f9fdf9}
+.wjd{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-left:4px solid var(--goud);border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#4a3b00}
+.wjd::before{content:'💡 Wist je dat? ';font-weight:700;color:var(--goudd)}
+.uitleg-blok{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border:2px solid rgba(26,122,74,.2);border-radius:10px;padding:16px;margin:14px 0}
+.uitleg-blok-titel{font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:700;color:var(--gd);margin-bottom:10px}
+.waarsch{background:linear-gradient(135deg,#fff8e1,#fff3cd);border-left:4px solid #ff9800;border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#5d4037}
+.qbox{background:#fffbe6;border:2px solid rgba(240,192,64,.5);border-radius:10px;padding:16px;margin-bottom:12px}
+.ql{font-size:.7rem;color:var(--goudd);font-weight:700;text-transform:uppercase;margin-bottom:8px;font-family:'Lexend',sans-serif}
+.qt{font-weight:600;margin-bottom:10px;font-size:.9rem;line-height:1.5}
+.antw-input{width:100%;margin-top:8px;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.88rem;font-family:'DM Sans',inherit;resize:vertical;min-height:65px;outline:none;transition:border-color .2s;line-height:1.55}
+.antw-input:focus{border-color:var(--gd)}
+.antw-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.abtn{background:none;border:2px solid var(--gd);color:var(--gd);padding:7px 13px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Lexend',sans-serif}
+.abtn:hover{background:var(--gd);color:#fff}
+.abox{display:none;background:var(--glicht);border-left:4px solid var(--gd);padding:11px 14px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.86rem;line-height:1.65}
+.abox.show{display:block}
+.bsrch{width:100%;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.9rem;margin-bottom:16px;outline:none;font-family:'DM Sans',sans-serif}
+.bsrch:focus{border-color:var(--gd)}
+.bgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.bcard{background:#fff;border-radius:8px;padding:12px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-top:3px solid var(--gd);transition:transform .15s}
+.bcard:hover{transform:translateY(-2px)}
+.bcard .bt{font-family:'Lexend',sans-serif;font-weight:700;color:var(--gd);font-size:.88rem}
+.bcard .bd{font-size:.8rem;color:#555;margin-top:4px;line-height:1.35}
+.bcard.p2{border-top-color:var(--roodl)}.bcard.p2 .bt{color:var(--roodl)}
+.bcard.p3{border-top-color:var(--goudd)}.bcard.p3 .bt{color:var(--goudd)}
+.bcard.p4{border-top-color:var(--blauwl)}.bcard.p4 .bt{color:var(--blauwl)}
+.sblok{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.sblok.p2{border-left-color:var(--roodl)}.sblok.p3{border-left-color:var(--goudd)}.sblok.p4{border-left-color:var(--blauwl)}
+.sblok h3{font-family:'Lexend',sans-serif;font-size:.97rem;margin-bottom:8px}
+.sblok p{font-size:.89rem;line-height:1.65;color:#333}
+.hrbox{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:5px solid var(--gd)}
+.hrbox.p2{border-left-color:var(--roodl)}.hrbox.p3{border-left-color:var(--goudd)}.hrbox.p4{border-left-color:var(--blauwl)}
+.hrn{font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--gd);margin-bottom:8px}
+.hrbox.p2 .hrn{color:var(--roodl)}.hrbox.p3 .hrn{color:var(--goudd)}.hrbox.p4 .hrn{color:var(--blauwl)}
+.hrq{font-size:.9rem;line-height:1.6;font-weight:600;margin-bottom:8px}
+.rsom{background:#fff;border-radius:10px;padding:18px 22px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.rsom .rn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--gd);color:#fff;padding:2px 9px;border-radius:12px;display:inline-block;margin-bottom:7px;font-weight:700}
+.rsom p{font-size:.89rem;line-height:1.65;margin-bottom:4px}
+.rsom .rsub{font-size:.83rem;color:#555;margin-top:4px}
+.rsom .oplossing{display:none;margin-top:12px;background:var(--glicht);border-left:4px solid var(--gd);padding:12px 15px;border-radius:0 8px 8px 0;font-size:.86rem;line-height:1.75}
+.rsom .oplossing.show{display:block}
+.rsom .rbtn{margin-top:10px;background:none;border:2px solid var(--gd);color:var(--gd);padding:7px 14px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:'Lexend',sans-serif;transition:all .2s}
+.rsom .rbtn:hover{background:var(--gd);color:#fff}
+.rode-draad{background:linear-gradient(135deg,var(--groen),var(--gd));border-radius:10px;padding:18px 22px;color:#fff;margin:14px 0}
+.rode-draad h4{font-family:'Lexend',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--goud)}
+.rode-draad p{font-size:.87rem;line-height:1.8;color:rgba(255,255,255,.9)}
+.bl-tabs{display:flex;margin-bottom:18px;border-bottom:2px solid var(--rand)}
+.bl-tab{padding:9px 18px;border:none;background:none;font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--grijs);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s}
+.bl-tab.act{color:var(--gd);border-bottom-color:var(--gd)}
+.bl-pane{display:none}.bl-pane.act{display:block}
+@media(max-width:600px){.phdr h2{font-size:1.15rem}nav button{font-size:.68rem;padding:8px 9px}.bgrd{grid-template-columns:1fr 1fr}.tbl{font-size:.78rem}}
+
+.hrbox{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:5px solid var(--gd)}
+.hrbox.p2{border-left-color:var(--roodl)}.hrbox.p3{border-left-color:var(--goudd)}.hrbox.p4{border-left-color:var(--blauwl)}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-top">
+    <a href="index.html" style="text-decoration:none">
+      <div class="logo">vla<em>conomie</em>.nl</div>
+      <div class="logo-sub">Economie · 3 VWO · Hoofdstuk 5 — Verzekeren en Risico</div>
+    </a>
+  </div>
+  <nav>
+    <button onclick="S('s51',this)">§5.1 Risico</button>
+    <button onclick="S('s52',this)">§5.2 Collectief</button>
+    <button onclick="S('s53',this)">§5.3 Informatie</button>
+    <button onclick="S('s54',this)">§5.4 Gedrag</button>
+    <button onclick="S('ssamenv',this)">📋 Samenvatting</button>
+    <button onclick="S('sbegrippen',this)">📖 Begrippen</button>
+    <button onclick="S('sherhaling',this)">🔁 Herhaling</button>
+    <button onclick="S('srekensommen',this)">🔢 Rekensommen</button>
+  </nav>
+</header>
+<main>
+<div id="s51" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 5.1</div>
+    <h2>Risico en Risico-aversie</h2>
+    <p>Risico · Kans · Schade · Verwachte schade · Risico-aversie · Verzekering</p>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog"><div class="dialoog-rij"><span class="dialoog-naam">Emma:</span> <em>"Mijn nieuwe fatbike is gisteren gestolen! €1.200</em></div><div class="dialoog-rij">weg…"</div><div class="dialoog-rij"><span class="dialoog-naam">Tom:</span> <em>"Had je hem verzekerd?\</em></div><div class="dialoog-rij"><span class="dialoog-naam">Emma:</span> <em>"Nee, ik dacht: wat is de kans dat hij gestolen wordt?\</em></div><div class="dialoog-rij"><span class="dialoog-naam">Tom:</span> <em>"Ja maar áls het dan toch gebeurt, ben je echt al je geld</em></div><div class="dialoog-rij">kwijt. Daar moet je toch iets tegen doen?"</div><div class="dialoog-rij"><span class="dialoog-naam">Emma:</span> <em>"Maar een verzekering kost ook geld. Wanneer is dat dan</em></div><div class="dialoog-rij">slim?"</div><div class="dialoog-rij"><span class="dialoog-naam">Tom:</span> <em>"Dat heeft te maken met risico én met hoe erg jij het vindt om</em></div><div class="dialoog-rij">geld kwijt te raken. Kom, dat leg ik je uit!"</div></div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--gd);font-family:'Lexend',sans-serif">§5.1 — Risico en Risico-aversie</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p>Verzekering*</p>
+<p><strong>Risico</strong> is de kans dat er iets ongewensts gebeurt, gecombineerd met de gevolgen (schade) als dat inderdaad gebeurt. In het dagelijks leven lopen we voortdurend risico: je fiets kan worden gestolen, je telefoon kan kapotgaan, je huis kan afbranden. <strong>De formule voor verwachte schade</strong>:</p>
+<p><strong>Risico-aversie</strong> (letterlijk: risicoschuwheid) betekent dat mensen het liever vermijden om een grote, onzekere schade te lijden, ook als de verwachte schade klein is. Mensen geven de voorkeur aan zekerheid boven onzekerheid. Waarom betalen mensen €80 per jaar voor een fietsverzekering, terwijl de verwachte schade slechts €60 is? Omdat ze risico-avers zijn: de zekerheid dat ze nooit plotseling €1.200 kwijt zijn, is hen die extra €20 waard. <strong>Nut en zekerheidswaarde:</strong> Economen zeggen dat het nut dat iemand verliest bij een grote tegenvaller (€1.200 verlies) groter is dan het nut dat hij gewint bij een kleine meevaller (€80 bespaard). Dit komt doordat het nut van geld afneemt naarmate je meer geld hebt — een verschijnsel dat economen <strong>afnemend grensnut</strong> noemen. <strong>Wanneer is verzekeren rationeel?</strong> Een verzekering is economisch zinvol wanneer:</p>
+<ol style="margin:8px 0 8px 20px;line-height:1.75;font-size:.89rem"><li>De mogelijke schade groot is ten opzichte van je inkomen of</li></ol>
+<p>vermogen.</p>
+<ol style="margin:8px 0 8px 20px;line-height:1.75;font-size:.89rem"><li>De kans op schade reëel is (niet verwaarloosbaar klein).</li><li>De premiehoogte in verhouding staat tot de verwachte schade + je</li></ol>
+<p>risico-aversie. <strong>Soorten risico:</strong><table class="tbl" style="margin:12px 0">
+<thead><tr><th>Soort</th><th>Omschrijving</th><th>Voorbeeld</th></tr></thead>
+<tbody>
+<tr><td><strong>Zuiver risico</strong></td><td>Kan alleen tot verlies leiden, nooit tot winst.</td><td>Brand, diefstal, ziekte</td></tr>
+<tr><td><strong>Speculatief risico</strong></td><td>Kan tot verlies óf winst leiden.</td><td>Beleggen in aandelen</td></tr>
+<tr><td><strong>Catastroferisico</strong></td><td>Treft velen tegelijk, onverzekerbaar.</td><td>Overstromingen, oorlog</td></tr>
+<tr><td><strong>Persoonlijk risico</strong></td><td>Treft één persoon / huishouden.</td><td>Kapotte telefoon</td></tr>
+</tbody></table></p>
+<p><table class="tbl" style="margin:12px 0"><thead><tr><th>Begriff</th><th>Definitie</th></tr></thead><tbody>
+<tr><td><strong>Risico</strong></td><td>De kans dat een ongewenste gebeurtenis plaatsvindt, vermenigvuldigd met de omvang van de schade.</td></tr>
+<tr><td><strong>Kans (p)</strong></td><td>De waarschijnlijkheid dat een bepaalde gebeurtenis optreedt, uitgedrukt als getal tussen 0 en 1.</td></tr>
+<tr><td><strong>Schade (S)</strong></td><td>Het financiële verlies dat optreedt als een ongewenste gebeurtenis plaatsvindt.</td></tr>
+<tr><td><strong>Verwachte schade</strong></td><td>Het gemiddeld te verwachten verlies per periode: p × S.</td></tr>
+<tr><td><strong>Risico-aversie</strong></td><td>De neiging van mensen om zekerheid te prefereren boven onzekerheid.</td></tr>
+<tr><td><strong>Afnemend grensnut</strong></td><td>Elke extra euro geeft minder extra nut naarmate je rijker bent.</td></tr>
+<tr><td><strong>Zuiver risico</strong></td><td>Kan alleen tot verlies leiden, nooit tot winst.</td></tr>
+<tr><td><strong>Speculatief risico</strong></td><td>Kan tot winst of verlies leiden.</td></tr>
+<tr><td><strong>Verzekering</strong></td><td>Contract waarbij een verzekeraar tegen premie het financiële risico overneemt.</td></tr>
+</tbody></table></p>
+      <div class="fml"><div style="font-weight:700;font-size:.8rem;color:var(--gd);margin-bottom:8px"><strong>🧮 Formule</strong></div><div style="margin:2px 0">Verwachte schade = Kans (p) × Schade (S)</div><div style="margin:2px 0">Voorbeeld: Kans op diefstal = 5% = 0,05 | Waarde fatbike = €1.200</div><div style="margin:2px 0">Verwachte schade = 0,05 × €1.200 = €60 per jaar</div><div style="margin:2px 0">Dit betekent: gemiddeld genomen verlies je €60 per jaar door</div><div style="margin:2px 0">diefstal.</div></div>
+      <div class="wjd">Nederlanders betalen gemiddeld meer dan €4.000 per jaar aan premies voor alle verzekeringen samen — van zorgverzekering tot autoverzekering. Dat is meer dan 10% van een modaal inkomen! Toch vinden de meeste mensen dit rationeel, omdat ze risico-avers zijn. Verzekeringseconomen noemen het bedrag dat iemand bereid is extra te betalen boven de verwachte schade de 'risicokorting' of risicopremie — de prijs van zekerheid.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">📖 Begrippen §5.1</div>
+    
+  </div>
+
+  <div class="blok">
+    <div class="bttl">📝 Vragen §5.1 — 15 BLOOM-opdrachten</div>
+    <div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Onthouden</span>
+    Vraag 1 — Definieer risico
+  </div>
+  <div class="qt">Wat is de definitie van het begrip 'risico' in de economie? Noem ook de twee elementen waaruit risico bestaat. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_1')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_1"><p style="margin:4px 0">Risico is de combinatie van:</p>
+<p style="margin:4px 0">1\. Kans (p): de waarschijnlijkheid dat een ongewenste gebeurtenis</p>
+<p style="margin:4px 0">plaatsvindt.</p>
+<p style="margin:4px 0">2\. Schade (S): het financieel verlies als die gebeurtenis optreedt.</p>
+<p style="margin:4px 0">Formule: Verwachte schade = p × S</p>
+<p style="margin:4px 0">Voorbeeld: kans 5%, schade €1.000 → verwachte schade €50.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Onthouden</span>
+    Vraag 2 — Noem soorten risico
+  </div>
+  <div class="qt">Noem de vier soorten risico die in de theorie worden onderscheiden en geef bij elk soort een eigen voorbeeld (niet uit de tekst). ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_2')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_2"><p style="margin:4px 0">1\. Zuiver risico — kan alleen tot verlies leiden. Eigen voorbeeld:</p>
+<p style="margin:4px 0">huisbrand.</p>
+<p style="margin:4px 0">2\. Speculatief risico — kan tot winst of verlies leiden. Eigen</p>
+<p style="margin:4px 0">voorbeeld: valutahandel.</p>
+<p style="margin:4px 0">3\. Catastroferisico — treft velen tegelijk. Eigen voorbeeld:</p>
+<p style="margin:4px 0">overstroming van een stad.</p>
+<p style="margin:4px 0">4\. Persoonlijk risico — treft één persoon/huishouden. Eigen</p>
+<p style="margin:4px 0">voorbeeld: kapotte wasmachine.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Onthouden</span>
+    Vraag 3 — Formule verwachte schade
+  </div>
+  <div class="qt">Noteer de formule voor de verwachte schade. Welke twee variabelen heb je nodig? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_3')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_3"><p style="margin:4px 0">Formule: Verwachte schade = p × S</p>
+<p style="margin:4px 0">p = kans op schade (getal tussen 0 en 1, of percentage)</p>
+<p style="margin:4px 0">S = omvang van de schade in euro's</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 4 — Uitleg risico-aversie
+  </div>
+  <div class="qt">Leg in eigen woorden uit wat risico-aversie betekent. Waarom zijn mensen bereid meer te betalen voor een verzekering dan de verwachte schade? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_4')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_4"><p style="margin:4px 0">Risico-aversie betekent dat mensen zekerheid prefereren boven</p>
+<p style="margin:4px 0">onzekerheid, ook als de verwachte uitkomst gelijk is.</p>
+<p style="margin:4px 0">Mensen betalen meer dan de verwachte schade omdat:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Een groot plotseling verlies (bijv. €1.200 kwijt) pijnlijker voelt</li></ul>
+<p style="margin:4px 0">dan een klein zeker verlies (premie €80).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Dit heeft te maken met afnemend grensnut: elke euro verlies doet</li></ul>
+<p style="margin:4px 0">meer pijn naarmate je minder geld hebt.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De 'prijs van zekerheid' (het bedrag boven de verwachte schade</li></ul>
+<p style="margin:4px 0">dat men bereid is te betalen) heet de risicopremie.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 5 — Verklaar afnemend grensnut
+  </div>
+  <div class="qt">Een leerling zegt: 'Rijke mensen hoeven zich minder snel te verzekeren dan arme mensen.' Leg uit of dit economisch klopt. Gebruik het begrip afnemend grensnut. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_5')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_5"><p style="margin:4px 0">Dit klopt economisch. Afnemend grensnut betekent dat elke extra euro</p>
+<p style="margin:4px 0">steeds minder nut oplevert naarmate je rijker bent.</p>
+<p style="margin:4px 0">Andersom: het verlies van €1.000 doet een rijke persoon minder</p>
+<p style="margin:4px 0">'pijn' dan een arme persoon.</p>
+<p style="margin:4px 0">Een rijke persoon kan een plotselinge schade beter zelf opvangen</p>
+<p style="margin:4px 0">(eigen vermogen als buffer).</p>
+<p style="margin:4px 0">Een arme persoon verliest bij eenzelfde schade een groter deel van</p>
+<p style="margin:4px 0">zijn welzijn, en is dus meer gebaat bij verzekering.</p>
+<p style="margin:4px 0">Conclusie: arme mensen zijn doorgaans sterker risico-avers en hebben</p>
+<p style="margin:4px 0">meer baat bij verzekeren.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 6 — Onderscheid risicotypen
+  </div>
+  <div class="qt">Waarom is een catastroferisico moeilijker verzekerbaar dan een persoonlijk risico? Leg het verschil uit. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_6')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_6"><p style="margin:4px 0">Persoonlijk risico treft steeds slechts één (of weinig) personen</p>
+<p style="margin:4px 0">tegelijk, willekeurig verdeeld over de pool.</p>
+<p style="margin:4px 0">Hierdoor kunnen de schades gesmoerd worden over alle verzekerden (wet</p>
+<p style="margin:4px 0">van de grote getallen werkt).</p>
+<p style="margin:4px 0">Catastroferisico treft velen gelijktijdig (bijv. heel Nederland bij</p>
+<p style="margin:4px 0">overstroming).</p>
+<p style="margin:4px 0">Bij catastrofes moet de verzekeraar ineens voor duizenden of</p>
+<p style="margin:4px 0">miljoenen claims uitkeren — dat kan een verzekeraar niet dragen.</p>
+<p style="margin:4px 0">Bovendien werkt de wet van de grote getallen niet: alle leden van de</p>
+<p style="margin:4px 0">pool lijden tegelijk schade.</p>
+<p style="margin:4px 0">Catastroferisico's worden vaak afgedekt door de overheid (bijv.</p>
+<p style="margin:4px 0">Nationaal Rampenfonds) of herverzekering.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 7 — Berekening verwachte schade
+  </div>
+  <div class="qt">Lena heeft een racefiets van €800. De kans op diefstal is 8% per jaar. a) Bereken de verwachte schade per jaar. b) Een verzekering kost €50 per jaar. Is dit rationeel voor een gemiddelde, risico-averse persoon? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_7')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_7"><p style="margin:4px 0">a\) Verwachte schade = p × S = 0,08 × €800 = €64 per jaar.</p>
+<p style="margin:4px 0">b\) De premie (€50) is lager dan de verwachte schade (€64).</p>
+<p style="margin:4px 0">Dit is een 'actuarieel voordelige' verzekering: gemiddeld betaalt</p>
+<p style="margin:4px 0">Lena minder dan ze verwacht terug te krijgen.</p>
+<p style="margin:4px 0">Voor een risico-avers persoon is dit zeker rationeel: ze betalen €50</p>
+<p style="margin:4px 0">voor zekerheid i.p.v. een kans op €800 verlies.</p>
+<p style="margin:4px 0">Zelfs als de premie iets hoger dan de verwachte schade zou zijn, kan</p>
+<p style="margin:4px 0">het rationeel zijn vanwege risico-aversie.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 8 — Premie vs verwachte schade
+  </div>
+  <div class="qt">De kans dat Jakes iPhone kapotgaat, is 12%. De telefoon is €900 waard. a) Bereken de verwachte schade. b) Een verzekering kost €130 per jaar. Bereken het verschil tussen de premie en de verwachte schade. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_8')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_8"><p style="margin:4px 0">a\) Verwachte schade = 0,12 × €900 = €108 per jaar.</p>
+<p style="margin:4px 0">b\) Verschil = premie − verwachte schade = €130 − €108 = €22 per</p>
+<p style="margin:4px 0">jaar.</p>
+<p style="margin:4px 0">Jake betaalt €22 meer dan zijn verwachte schade: dit is de prijs van</p>
+<p style="margin:4px 0">zekerheid (risicopremie voor de verzekeraar).</p>
+<p style="margin:4px 0">Voor een risico-avers persoon kan dit alsnog rationeel zijn.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 9 — Soort risico bepalen
+  </div>
+  <div class="qt">Classificeer elk van de volgende situaties als zuiver, speculatief of catastroferisico, en licht je keuze toe: a) Een aardbeving treft een hele stad. b) Je koopt aandelen in een techbedrijf. c) Jouw auto wordt aangereden op de parkeerplaats. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_9')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_9"><p style="margin:4px 0">a\) Aardbeving treft stad: CATASTROFERISICO.</p>
+<p style="margin:4px 0">Treft velen tegelijk; onverzekerbaar voor normale verzekeraars.</p>
+<p style="margin:4px 0">b\) Aandelen kopen: SPECULATIEF RISICO.</p>
+<p style="margin:4px 0">Kan tot winst én verlies leiden; geen verzekerbaar risico.</p>
+<p style="margin:4px 0">c\) Auto aangereden op parkeerplaats: ZUIVER RISICO.</p>
+<p style="margin:4px 0">Kan alleen tot verlies leiden; verzekerbaar als persoonlijk/zuiver</p>
+<p style="margin:4px 0">risico.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 10 — Analyseer verzekeringsgedrag
+  </div>
+  <div class="qt">Analyse: Twee leerlingen, Sara (spaargeld €5.000) en Daan (spaargeld €200), overwegen allebei geen fietsverzekering te nemen (verwachte schade €60/jaar, premie €70). Analyseer voor wie dit risicovol gedrag rationeler is. Gebruik het concept afnemend grensnut. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_10')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_10"><p style="margin:4px 0">Verwachte schade = €60/jaar; premie = €70/jaar (iets duurder dan</p>
+<p style="margin:4px 0">verwachte schade).</p>
+<p style="margin:4px 0">Sara (spaargeld €5.000): als haar fiets (waarde bijv. €400) gestolen</p>
+<p style="margin:4px 0">wordt, kan ze dit eenvoudig opvangen uit haar spaargeld.</p>
+<p style="margin:4px 0">→ Het nut-verlies van €400 is voor Sara beperkt: afnemend grensnut</p>
+<p style="margin:4px 0">werkt gunstig voor haar.</p>
+<p style="margin:4px 0">→ Niet verzekeren is voor Sara rationeler: ze spaart €70 premie per</p>
+<p style="margin:4px 0">jaar.</p>
+<p style="margin:4px 0">Daan (spaargeld €200): €400 verlies is voor hem catastrofaal — hij</p>
+<p style="margin:4px 0">kan dit nauwelijks opvangen.</p>
+<p style="margin:4px 0">→ Afnemend grensnut: elke euro verlies doet hem veel meer pijn.</p>
+<p style="margin:4px 0">→ Voor Daan is verzekeren rationeler, ook al is de premie iets boven</p>
+<p style="margin:4px 0">de verwachte schade.</p>
+<p style="margin:4px 0">Conclusie: risico-aversie is sterker bij mensen met minder financiële</p>
+<p style="margin:4px 0">buffer (Daan).</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 11 — Vergelijk risico's
+  </div>
+  <div class="qt">Een ondernemer overweegt: (A) een fabriek bouwen in een overstromingsgebied, of (B) een fabriek bouwen op een veilige locatie met iets hogere grondprijs. Analyseer welke soort risico's meespelen en waarom catastroferisico moeilijk te verzekeren is. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_11')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_11"><p style="margin:4px 0">Optie A — overstromingsgebied:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Catastroferisico: overstroming treft meerdere bedrijven tegelijk.</li><li>Dit risico is nauwelijks verzekerbaar (of heel duur via</li></ul>
+<p style="margin:4px 0">herverzekering).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Bij overstroming: enorme schade, mogelijk geen vergoeding.</li></ul>
+<p style="margin:4px 0">Optie B — veilige locatie:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Hogere aanschafkosten (grondprijs), maar geen catastroferisico.</li><li>Overige risico's (brand, diefstal) zijn wél verzekerbaar als</li></ul>
+<p style="margin:4px 0">zuiver risico.</p>
+<p style="margin:4px 0">Catastroferisico is moeilijker te verzekeren omdat:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Wet van grote getallen werkt niet (iedereen lijdt tegelijk schade).</li><li>Premies zouden astronomisch hoog worden.</li></ul>
+<p style="margin:4px 0">Conclusie: optie B is economisch veiliger en beter verzekerbaar.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 12 — Kritische analyse
+  </div>
+  <div class="qt">Een verzekeringsmaatschappij hanteert de stelling: 'Wij verzekeren alles.' Analyseer waarom dit in de praktijk onmogelijk is. Betrek de begrippen catastroferisico en verwachte schade in je antwoord. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_12')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_12"><p style="margin:4px 0">Een verzekeraar kan niet alles verzekeren om meerdere redenen:</p>
+<p style="margin:4px 0">1\. Catastroferisico is onverzekerbaar: bij oorlog of grote</p>
+<p style="margin:4px 0">natuurrampen is de totale schade zo groot dat geen verzekeraar dit</p>
+<p style="margin:4px 0">kan dragen.</p>
+<p style="margin:4px 0">2\. Verwachte schade is niet berekend voor unieke gebeurtenissen: de</p>
+<p style="margin:4px 0">kans is onbekend (onzekerheid vs. risico).</p>
+<p style="margin:4px 0">3\. Moreel wangedrag: sommige verzekeringen creëren zulke sterke</p>
+<p style="margin:4px 0">prikkels voor wangedrag dat de schade onbeheersbaar wordt.</p>
+<p style="margin:4px 0">4\. Averechtse selectie: 'alles verzekeren' trekt</p>
+<p style="margin:4px 0">hoog-risicoklanten aan, wat de premies opdrijft.</p>
+<p style="margin:4px 0">5\. Juridische beperkingen: misdaden, opzettelijke schade e.d. zijn</p>
+<p style="margin:4px 0">uitgesloten.</p>
+<p style="margin:4px 0">Conclusie: verzekerbaarheid vereist dat schades zuiver, meetbaar en</p>
+<p style="margin:4px 0">niet-catastrofaal zijn.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b30000;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Evalueren</span>
+    Vraag 13 — Beoordeel keuze
+  </div>
+  <div class="qt">Tom betaalt €120 per jaar voor een reisverzekering. De kans op schade op reis is 3% en de gemiddelde schade is €2.000. Evalueer of Toms keuze economisch rationeel is. Betrek risico-aversie en afnemend grensnut in je oordeel. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_13')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_13"><p style="margin:4px 0">Verwachte schade = 0,03 × €2.000 = €60 per jaar.</p>
+<p style="margin:4px 0">Tom betaalt €120 — dat is €60 meer dan de verwachte schade.</p>
+<p style="margin:4px 0">Op het eerste gezicht lijkt dit irrationeel (hij betaalt dubbel).</p>
+<p style="margin:4px 0">Maar: het is rationeel als:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De potentiële schade (€2.000) groot is t.o.v. zijn inkomen →</li></ul>
+<p style="margin:4px 0">risico-aversie rechtvaardigt hogere premie.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Reizen vaak juridische bijstand, medische zorg etc. omvat —</li></ul>
+<p style="margin:4px 0">schade kan ook hoger uitvallen dan €2.000.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Tom sterk risico-avers is en de zekerheid van 'geen verrassingen</li></ul>
+<p style="margin:4px 0">op reis' zeer waardeert.</p>
+<p style="margin:4px 0">Evaluatie: voor een risico-averse persoon is €120 premie voor een</p>
+<p style="margin:4px 0">verwachte schade van €60 verdedigbaar,</p>
+<p style="margin:4px 0">maar het is relatief duur. Een kritische consument zou alternatieve</p>
+<p style="margin:4px 0">aanbieders vergelijken.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b30000;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Evalueren</span>
+    Vraag 14 — Aanbeveling geven
+  </div>
+  <div class="qt">Emma's ouders willen bezuinigen op verzekeringen. Ze overwegen de volgende verzekeringen op te zeggen: (1) aansprakelijkheidsverzekering (premie €50/jaar, schade bij ongeval tot €1 mln), (2) fietsverzekering (premie €60/jaar, schade max €400). Evalueer welke verzekering ze beter kunnen opzeggen. Onderbouw je advies economisch. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_14')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_14"><p style="margin:4px 0">Aansprakelijkheidsverzekering:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Premie: €50/jaar — goedkoop.</li><li>Maximale schade: €1.000.000 — catastrofaal voor een gezin.</li><li>Zelfs met kleine kans op claim is dit risico onverantwoord groot</li></ul>
+<p style="margin:4px 0">zonder verzekering.</p>
+<p style="margin:4px 0">→ NIET opzeggen: de potentiële schade is existentieel voor het gezin.</p>
+<p style="margin:4px 0">Fietsverzekering:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Premie: €60/jaar — vergelijkbaar hoog t.o.v. de maximale schade</li></ul>
+<p style="margin:4px 0">van €400.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Als het gezin €400 eenvoudig zelf kan betalen (financiële buffer),</li></ul>
+<p style="margin:4px 0">is zelfdragen rationeel.</p>
+<p style="margin:4px 0">→ WEL opzeggen: de schade is behapbaar; zelf opvangen is financieel</p>
+<p style="margin:4px 0">verstandiger.</p>
+<p style="margin:4px 0">Advies: zeg de fietsverzekering op. Behoudt</p>
+<p style="margin:4px 0">aansprakelijkheidsverzekering altijd.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#2d1b4e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Creëren</span>
+    Vraag 15 — Informatievideo ontwerpen
+  </div>
+  <div class="qt">Ontwerp een script voor een korte informatievideo (max. 2 minuten) over 'risico en risico-aversie' voor leerlingen van jouw leeftijd. Verwerk minimaal: de formule voor verwachte schade, een berekening met eigen getallen, en een persoonlijk voorbeeld. Gebruik herkenbare taal! ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a51_15')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a51_15"><p style="margin:4px 0">Dit is een creatieve opdracht. Het antwoord verschilt per leerling.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Het script bevat een heldere introductie die de aandacht trekt</li></ul>
+<p style="margin:4px 0">(bijv. herkenbaar voorbeeld: gestolen fiets of kapotte telefoon).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De formule 'verwachte schade = p × S' wordt correct uitgelegd en</li></ul>
+<p style="margin:4px 0">toegepast met eigen getallen.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Risico-aversie wordt in begrijpelijke taal uitgelegd (voorkeur voor</li></ul>
+<p style="margin:4px 0">zekerheid).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Er is een persoonlijk, herkenbaar voorbeeld gebruikt.</li><li>Het script is geschikt voor 13-15 jarigen (taalgebruik, toon).</li><li>Maximale lengte 2 minuten (ongeveer 300 woorden gesproken tekst).</li><li>Beoordelingsnorm: 1 pt per bovenstaand element = maximaal 6 punten.</li></ul></div>
+</div>
+
+  </div>
+</div><div id="s52" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 5.2</div>
+    <h2>De Kracht van het Collectief</h2>
+    <p>Solidariteit · Verzekeringspool · Premieberekening · Risicodeling · Wet van de grote getallen</p>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog"><div class="dialoog-rij"><span class="dialoog-naam">Lena:</span> <em>"Waarom betaal ik ziektekosten-premie als ik nooit ziek</em></div><div class="dialoog-rij">ben? Dat is toch weggegooid geld?"</div><div class="dialoog-rij"><span class="dialoog-naam">Noah:</span> <em>"Maar als jij nu eens €50.000 aan ziekenhuiskosten hebt?</em></div><div class="dialoog-rij">Dan ben je blij dat anderen meebetalen!"</div><div class="dialoog-rij"><span class="dialoog-naam">Lena:</span> <em>"Dus ik betaal mee voor anderen… en anderen betalen voor</em></div><div class="dialoog-rij">mij als het nodig is?"</div><div class="dialoog-rij"><span class="dialoog-naam">Noah:</span> <em>"Precies! Dat heet solidariteit. En hoe meer mensen meedoen,</em></div><div class="dialoog-rij">hoe beter het werkt."</div><div class="dialoog-rij"><span class="dialoog-naam">Lena:</span> <em>"Maar hoe bepaalt de verzekeraar wat ik moet betalen?\</em></div><div class="dialoog-rij"><span class="dialoog-naam">Noah:</span> <em>"Via een slimme formule. Wil je het weten?\</em></div></div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--gd);font-family:'Lexend',sans-serif">§5.2 — De Kracht van het Collectief</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p>van de grote getallen*</p>
+<p><strong>Solidariteit</strong> is het principe dat mensen risico's samen dragen: wie geluk heeft (geen schade), helpt mee te betalen voor wie pech heeft (wel schade). Dit is de kern van een verzekering. <strong>Een verzekeringspool</strong> is een groep mensen die samen hun risico's poolen (bundelen). De verzekeraar int premies van alle leden en betaalt uit dit fonds de schades die optreden. Hoe groter de pool, hoe voorspelbaarder de totale schade — dit heet de <strong>wet van de grote getallen</strong>.</p>
+<p><strong>De wet van de grote getallen</strong>: In een kleine pool kan de werkelijke schade sterk afwijken van de verwachte schade (grote spreiding). In een grote pool middelt het toeval weg: de werkelijke totale schade benadert steeds beter de verwachte schade. Dit maakt verzekeraars stabieler naarmate ze meer klanten hebben. <strong>Risicodeling en solidariteit in de praktijk:</strong> Bij de Nederlandse zorgverzekering betaalt iedereen (jong en oud, ziek en gezond) een basisverzekeringspremie. Jongeren en gezonde mensen betalen in principe meer dan hun verwachte schade; ouderen en zieken minder. Dit is een bewuste solidariteitskeuze van de overheid: iedereen heeft recht op basiszorg, ongeacht inkomen of gezondheid.</p>
+<p><table class="tbl" style="margin:12px 0"><thead><tr><th>Begriff</th><th>Definitie</th></tr></thead><tbody>
+<tr><td><strong>Solidariteit</strong></td><td>Mensen dragen elkaars risico's: wie geen schade heeft, helpt betalen voor wie dat wel heeft.</td></tr>
+<tr><td><strong>Verzekeringspool</strong></td><td>Een groep verzekerden die samen hun risico's bundelen via premies.</td></tr>
+<tr><td><strong>Nettopremie</strong></td><td>De premie die precies genoeg is om de verwachte schades te dekken (= p × S).</td></tr>
+<tr><td><strong>Brutopremie</strong></td><td>Nettopremie plus opslagen voor kosten en winst.</td></tr>
+<tr><td><strong>Opslag</strong></td><td>Bedrag bovenop de nettopremie voor beheerskosten, veiligheidsmarge en winst.</td></tr>
+<tr><td><strong>Wet van de grote getallen</strong></td><td>Hoe groter de pool, hoe dichter de werkelijke schade bij de verwachte schade ligt.</td></tr>
+<tr><td><strong>Risicodeling</strong></td><td>Het spreiden van risico's over meerdere personen zodat de individuele last kleiner wordt.</td></tr>
+<tr><td><strong>Veiligheidsmarge</strong></td><td>Extra premie-opslag om onverwacht hogere schades op te vangen.</td></tr>
+</tbody></table></p>
+      <div class="fml"><div style="font-weight:700;font-size:.8rem;color:var(--gd);margin-bottom:8px"><strong>🧮 Premieberekening (basisformule)</strong></div><div style="margin:2px 0">Stap 1: Totale verwachte schade = n × p × S</div><div style="margin:2px 0">(n = aantal verzekerden, p = kans, S = schade per geval)</div><div style="margin:2px 0">Stap 2: Nettopremie per persoon = Totale verwachte schade ÷ n = p × S</div><div style="margin:2px 0">Stap 3: Brutopremie = Nettopremie + opslag (voor beheerskosten,</div><div style="margin:2px 0">winst, veiligheidsmarge)</div><div style="margin:2px 0">Voorbeeld:</div><div style="margin:2px 0">Pool van 1.000 mensen | p = 5% | S = €2.000</div><div style="margin:2px 0">Totale verwachte schade = 1.000 × 0,05 × €2.000 = €100.000</div><div style="margin:2px 0">Nettopremie = €100.000 ÷ 1.000 = €100 per persoon per jaar</div><div style="margin:2px 0">Brutopremie (+ 30% opslag) = €100 × 1,30 = €130 per persoon</div></div>
+      <div class="wjd">De Nederlandse zorgverzekering heeft meer dan 17 miljoen verzekerden. Dit is één van de grootste verzekeringspool ter wereld per hoofd van de bevolking. Door deze enorme schaal kan de wet van de grote getallen optimaal werken: de totale zorgkosten zijn van jaar tot jaar vrij goed voorspelbaar, ondanks dat individuele gezondheidsrisico's enorm verschillen.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">📖 Begrippen §5.2</div>
+    
+  </div>
+
+  <div class="blok">
+    <div class="bttl">📝 Vragen §5.2 — 15 BLOOM-opdrachten</div>
+    <div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Onthouden</span>
+    Vraag 1 — Definitie solidariteit
+  </div>
+  <div class="qt">Wat betekent solidariteit in de context van verzekeringen? Geef een eigen voorbeeld. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_1')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_1"><p style="margin:4px 0">Solidariteit bij verzekeringen betekent dat degenen die geen schade</p>
+<p style="margin:4px 0">lijden, meebetalen voor degenen die wél schade lijden.</p>
+<p style="margin:4px 0">Via de premie draagt iedereen bij aan een gemeenschappelijk fonds.</p>
+<p style="margin:4px 0">Eigen voorbeeld: bij de zorgverzekering betalen gezonde mensen mee</p>
+<p style="margin:4px 0">voor zieke mensen.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Onthouden</span>
+    Vraag 2 — Stappen premieberekening
+  </div>
+  <div class="qt">Noteer de drie stappen van de premieberekening (nettopremie → brutopremie) in de juiste volgorde. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_2')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_2"><p style="margin:4px 0">Stap 1: Bereken de totale verwachte schade van de pool: n × p × S</p>
+<p style="margin:4px 0">Stap 2: Bereken de nettopremie per persoon: totale verwachte schade ÷</p>
+<p style="margin:4px 0">n = p × S</p>
+<p style="margin:4px 0">Stap 3: Bereken de brutopremie: nettopremie × (1 + opslagpercentage)</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Onthouden</span>
+    Vraag 3 — Wet grote getallen
+  </div>
+  <div class="qt">Wat zegt de wet van de grote getallen? Waarom is dit voordelig voor een verzekeringsmaatschappij? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_3')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_3"><p style="margin:4px 0">De wet van de grote getallen stelt: hoe groter het aantal</p>
+<p style="margin:4px 0">waarnemingen (verzekerden), hoe dichter de werkelijke gemiddelde</p>
+<p style="margin:4px 0">schade bij de verwachte gemiddelde schade ligt.</p>
+<p style="margin:4px 0">Voordeel voor verzekeraar:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De totale schadeontwikkeling wordt voorspelbaarder.</li><li>Minder kans op grote tegenvallers (toeval middelt weg).</li><li>Lagere veiligheidsmarge nodig → lagere premie → meer concurrerend.</li></ul></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 4 — Verklaar nettopremie
+  </div>
+  <div class="qt">Lieg uit waarom de nettopremie gelijk is aan p × S. Gebruik een rekenkundig voorbeeld met eigen getallen. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_4')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_4"><p style="margin:4px 0">In een pool van n mensen treedt gemiddeld p × n schadegevallen op.</p>
+<p style="margin:4px 0">Elke schadegeval kost S euro's.</p>
+<p style="margin:4px 0">Totale schade = n × p × S</p>
+<p style="margin:4px 0">De nettopremie per persoon = totale schade ÷ n = p × S</p>
+<p style="margin:4px 0">Eigen voorbeeld: 200 leden, p = 5%, S = €1.000</p>
+<p style="margin:4px 0">Totale schade = 200 × 0,05 × €1.000 = €10.000</p>
+<p style="margin:4px 0">Nettopremie = €10.000 ÷ 200 = €50 = p × S = 0,05 × €1.000 ✓</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 5 — Begrijp solidariteit
+  </div>
+  <div class="qt">Lena zegt: 'Ik ben jong en gezond, dus mijn zorgverzekeringspremie is weggegooid geld.' Leg uit waarom economen dit een te kortzichtige redenering vinden. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_5')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_5"><p style="margin:4px 0">Lena's redenering is kortzichtig om meerdere redenen:</p>
+<p style="margin:4px 0">1\. Solidariteit: het systeem werkt doordat iedereen — ziek en</p>
+<p style="margin:4px 0">gezond — meebetaalt. Zonder deelname van gezonde mensen zouden</p>
+<p style="margin:4px 0">premies voor zieken onbetaalbaar worden.</p>
+<p style="margin:4px 0">2\. Onzekerheid over de toekomst: ook Lena kan ziek worden; vandaag</p>
+<p style="margin:4px 0">betaalt ze mee, morgen profiteert ze misschien.</p>
+<p style="margin:4px 0">3\. Risico-aversie: het is rationeel een kleine, zekere premie te</p>
+<p style="margin:4px 0">betalen i.p.v. het risico te lopen op grote, onzekere zorgkosten.</p>
+<p style="margin:4px 0">4\. Wettelijke verplichting: in Nederland is de zorgverzekering</p>
+<p style="margin:4px 0">verplicht juist om dit solidariteitsprobleem op te lossen.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 6 — Pool-grootte en spreiding
+  </div>
+  <div class="qt">Waarom is een verzekeraar met 10.000 klanten stabieler dan eentje met 100 klanten, zelfs als de gemiddelde schade per klant gelijk is? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_6')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_6"><p style="margin:4px 0">Bij 100 klanten is de variatie in het aantal schadegevallen relatief</p>
+<p style="margin:4px 0">groot.</p>
+<p style="margin:4px 0">Bijv.: verwacht zijn 5 gevallen; in werkelijkheid kunnen het er 0 of</p>
+<p style="margin:4px 0">15 zijn (grote spreiding).</p>
+<p style="margin:4px 0">Bij 10.000 klanten: verwacht 500 gevallen; werkelijkheid ligt bijna</p>
+<p style="margin:4px 0">altijd dichtbij 500 (kleine relatieve spreiding).</p>
+<p style="margin:4px 0">Dit is de wet van de grote getallen: met meer waarnemingen nadert het</p>
+<p style="margin:4px 0">steekproefgemiddelde het populatiegemiddelde.</p>
+<p style="margin:4px 0">Grotere verzekeraar heeft minder veiligheidsmarge nodig → kan lagere</p>
+<p style="margin:4px 0">premie vragen → is concurrerender.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 7 — Premieberekening basis
+  </div>
+  <div class="qt">Een fietsverzekering-pool telt 500 leden. De kans op diefstal is 4% per jaar. De gemiddelde schade bij diefstal is €600. a) Bereken de totale verwachte schade van de pool. b) Bereken de nettopremie per persoon. c) Bereken de brutopremie bij een opslag van 25%. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_7')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_7"><p style="margin:4px 0">a\) Totale verwachte schade = n × p × S = 500 × 0,04 × €600 = €12.000</p>
+<p style="margin:4px 0">b\) Nettopremie = totale schade ÷ n = €12.000 ÷ 500 = €24 per persoon</p>
+<p style="margin:4px 0">per jaar</p>
+<p style="margin:4px 0">OF: nettopremie = p × S = 0,04 × €600 = €24 ✓</p>
+<p style="margin:4px 0">c\) Brutopremie = nettopremie × (1 + opslag) = €24 × 1,25 = €30 per</p>
+<p style="margin:4px 0">persoon per jaar</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 8 — Grotere pool
+  </div>
+  <div class="qt">Dezelfde verzekeraar vergroot zijn pool naar 2.000 leden (zelfde p en S). a) Bereken de nieuwe totale verwachte schade. b) Verandert de nettopremie per persoon? Verklaar waarom (niet). ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_8')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_8"><p style="margin:4px 0">a\) Nieuwe totale verwachte schade = 2.000 × 0,04 × €600 = €48.000</p>
+<p style="margin:4px 0">b\) Nettopremie per persoon = €48.000 ÷ 2.000 = €24</p>
+<p style="margin:4px 0">De nettopremie verandert NIET.</p>
+<p style="margin:4px 0">Verklaring: de nettopremie = p × S, en p en S zijn ongewijzigd.</p>
+<p style="margin:4px 0">Wat wél verandert: de pool is stabieler (wet van de grote getallen),</p>
+<p style="margin:4px 0">dus de veiligheidsmarge in de opslag kan dalen.</p>
+<p style="margin:4px 0">Dit kan de brutopremie wél verlagen.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 9 — Schade bij dure goederen
+  </div>
+  <div class="qt">Een smartphone-verzekeraar verzekert 800 klanten. Kans op schade: 10%, gemiddelde reparatiekosten: €350. Bereken: a) totale verwachte schade, b) nettopremie, c) brutopremie bij 20% opslag. d) Is de premie hoger of lager dan de verwachte schade per persoon? Verklaar. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_9')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_9"><p style="margin:4px 0">a\) Totale verwachte schade = 800 × 0,10 × €350 = €28.000</p>
+<p style="margin:4px 0">b\) Nettopremie = €28.000 ÷ 800 = €35 OF 0,10 × €350 = €35 ✓</p>
+<p style="margin:4px 0">c\) Brutopremie = €35 × 1,20 = €42 per persoon per jaar</p>
+<p style="margin:4px 0">d\) De brutopremie (€42) is HOGER dan de verwachte schade per persoon</p>
+<p style="margin:4px 0">(€35).</p>
+<p style="margin:4px 0">Verschil = €42 − €35 = €7 = de opslag (20% van €35).</p>
+<p style="margin:4px 0">Dit is normaal: de opslag dekt beheerskosten en winst van de</p>
+<p style="margin:4px 0">verzekeraar.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 10 — Analyseer solidariteitskeuze
+  </div>
+  <div class="qt">In de Nederlandse zorgverzekering betalen jongeren en ouderen dezelfde premie, ondanks dat ouderen gemiddeld veel hogere zorgkosten maken. Analyseer: (a) waarom dit een solidariteitskeuze is, (b) welk nadeel dit heeft voor jongeren, (c) welk voordeel dit heeft voor de samenleving als geheel. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_10')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_10"><p style="margin:4px 0">a\) Solidariteitskeuze: de overheid heeft bewust gekozen voor een</p>
+<p style="margin:4px 0">uniforme premie. Jongeren betalen meer dan hun verwachte schade;</p>
+<p style="margin:4px 0">ouderen minder. Dit is een politieke keuze: iedereen heeft recht op</p>
+<p style="margin:4px 0">betaalbare zorg, ongeacht leeftijd.</p>
+<p style="margin:4px 0">b\) Nadeel voor jongeren: zij subsidiëren effectief de zorgkosten van</p>
+<p style="margin:4px 0">ouderen. Vanuit individueel oogpunt is dit 'oneerlijk' (je betaalt</p>
+<p style="margin:4px 0">meer dan je verwachte schade).</p>
+<p style="margin:4px 0">c\) Voordeel voor samenleving: ouderenzorg blijft betaalbaar; geen</p>
+<p style="margin:4px 0">tweedeling in zorgtoegang; sociale cohesie en solidariteit worden</p>
+<p style="margin:4px 0">versterkt. Iedereen weet: ook als ik oud en ziek ben, heb ik recht op</p>
+<p style="margin:4px 0">zorg.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 11 — Analyse veiligheidsmarge
+  </div>
+  <div class="qt">Een verzekeraar berekent zijn premie zonder veiligheidsmarge. In een jaar met uitzonderlijk veel schades gaat hij failliet. Analyseer: (a) welke functie de veiligheidsmarge heeft, (b) hoe groot de wet van de grote getallen in dit geval meegespeeld kan hebben. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_11')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_11"><p style="margin:4px 0">Functie van de veiligheidsmarge:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Buffert onverwachte pieken in schadelast (bijv. extreme storm,</li></ul>
+<p style="margin:4px 0">epidemie).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Zorgt dat de verzekeraar ook bij tegenvallende jaren solvabel</li></ul>
+<p style="margin:4px 0">blijft.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Beschermt verzekerden: zij verwachten dat hun claims altijd worden</li></ul>
+<p style="margin:4px 0">uitbetaald.</p>
+<p style="margin:4px 0">Wet van grote getallen:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Bij kleine pools is de spreiding rond de verwachte schade groter.</li><li>Een kleine verzekeraar heeft dus een grotere veiligheidsmarge</li></ul>
+<p style="margin:4px 0">nodig.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Bij een grote pool werkt de wet van grote getallen beter: extremen</li></ul>
+<p style="margin:4px 0">middelen weg, minder marge nodig.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Als de pool klein is én er geen marge is: één slechte schadeperiode</li></ul>
+<p style="margin:4px 0">volstaat voor faillissement.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 12 — Vergelijk pools
+  </div>
+  <div class="qt">Pool A heeft 200 verzekerden met p = 2%, S = €5.000. Pool B heeft 5.000 verzekerden met p = 2%, S = €5.000. a) Bereken de nettopremie voor beide pools. b) Welke pool is stabieler en waarom? c) Bereken voor beide pools de totale verwachte schade. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_12')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_12"><p style="margin:4px 0">a\) Nettopremie = p × S = 0,02 × €5.000 = €100 per persoon — GELIJK</p>
+<p style="margin:4px 0">voor A en B.</p>
+<p style="margin:4px 0">b\) Pool B (5.000 leden) is stabieler, omdat de wet van de grote</p>
+<p style="margin:4px 0">getallen beter werkt:</p>
+<p style="margin:4px 0">relatieve spreiding rond verwachte schade is kleiner naarmate n</p>
+<p style="margin:4px 0">groter is.</p>
+<p style="margin:4px 0">c\) Totale verwachte schade:</p>
+<p style="margin:4px 0">Pool A: 200 × 0,02 × €5.000 = €20.000</p>
+<p style="margin:4px 0">Pool B: 5.000 × 0,02 × €5.000 = €500.000</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b30000;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Evalueren</span>
+    Vraag 13 — Evalueer premiebeleid
+  </div>
+  <div class="qt">Een verzekeraar wil de opslag verhogen van 20% naar 40%. Evalueer de gevolgen hiervan voor: (a) de betaalbaarheid voor klanten, (b) de financiële stabiliteit van de verzekeraar, (c) de solidariteit binnen de pool. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_13')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_13"><p style="margin:4px 0">a\) Betaalbaarheid: premies stijgen voor alle klanten (nettopremie</p>
+<p style="margin:4px 0">ongewijzigd, maar opslag stijgt). Klanten met laag risico stappen</p>
+<p style="margin:4px 0">eerder uit → averechtse selectie dreigt.</p>
+<p style="margin:4px 0">b\) Financiële stabiliteit: hogere opslag vergroot de buffer →</p>
+<p style="margin:4px 0">verzekeraar kan extremere schadeperiodes opvangen → stabieler.</p>
+<p style="margin:4px 0">c\) Solidariteit: hogere premie maakt verzekering minder toegankelijk</p>
+<p style="margin:4px 0">voor mensen met laag inkomen. Solidariteit komt onder druk als mensen</p>
+<p style="margin:4px 0">afhaken door hoge kosten.</p>
+<p style="margin:4px 0">Oordeel: er is een spanning tussen stabiliteit en</p>
+<p style="margin:4px 0">betaalbaarheid/solidariteit. De verzekeraar dient een evenwicht te</p>
+<p style="margin:4px 0">vinden.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b30000;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Evalueren</span>
+    Vraag 14 — Beoordeel overheidsrol
+  </div>
+  <div class="qt">De overheid verplicht alle Nederlanders een zorgverzekering af te sluiten. Evalueer twee argumenten vóór en twee argumenten tégen deze verplichting. Gebruik de begrippen solidariteit en verzekeringspool. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_14')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_14"><p style="margin:4px 0">VOOR:</p>
+<p style="margin:4px 0">1\. Voorkomt averechtse selectie: ook gezonde mensen nemen deel →</p>
+<p style="margin:4px 0">pool blijft groot en gevarieerd.</p>
+<p style="margin:4px 0">2\. Solidariteit: iedereen heeft recht op basiszorg; ook mensen met</p>
+<p style="margin:4px 0">laag inkomen (zorgtoelage).</p>
+<p style="margin:4px 0">TEGEN:</p>
+<p style="margin:4px 0">1\. Beperking keuzevrijheid: mensen worden verplicht iets te kopen</p>
+<p style="margin:4px 0">dat ze wellicht niet willen.</p>
+<p style="margin:4px 0">2\. Moral hazard: verplichte zorgverzekering kan overconsumptie van</p>
+<p style="margin:4px 0">zorg stimuleren.</p>
+<p style="margin:4px 0">Eigen standpunt: accepteer elk goed onderbouwd standpunt met</p>
+<p style="margin:4px 0">economische argumentatie.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#2d1b4e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Creëren</span>
+    Vraag 15 — Ontwerp eigen verzekering
+  </div>
+  <div class="qt">Jij start een scholieren-fietsverzekering op jouw school (500 leerlingen). Ontwerp een premiestructuur: a) stel een realistische kans en schadetbedrag in, b) bereken netto- en brutopremie, c) leg uit hoe je de solidariteit borgt, d) beschrijf één risico voor jouw verzekeraar dat je bedreigt. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a52_15')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a52_15"><p style="margin:4px 0">Voorbeeldantwoord (leerling kan variëren):</p>
+<p style="margin:4px 0">Kans op diefstal: p = 5% | Schade: S = €400</p>
+<p style="margin:4px 0">Nettopremie = 0,05 × €400 = €20/jaar</p>
+<p style="margin:4px 0">Brutopremie (+25% opslag): €20 × 1,25 = €25/jaar</p>
+<p style="margin:4px 0">Pool: 500 × €25 = €12.500 per jaar beschikbaar</p>
+<p style="margin:4px 0">Verwachte schadeuitkeringen: 500 × 0,05 × €400 = €10.000 → buffer</p>
+<p style="margin:4px 0">€2.500</p>
+<p style="margin:4px 0">Solidariteitsborging: iedereen op school betaalt mee, ongeacht hoe</p>
+<p style="margin:4px 0">voorzichtig ze zijn.</p>
+<p style="margin:4px 0">Risico voor verzekeraar: als meer fietsen gestolen worden dan</p>
+<p style="margin:4px 0">verwacht (bijv. p=8%), tekort aan fonds.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Realistische kans en schade zijn ingesteld (onderbouwd).</li><li>Nettopremie correct berekend met formule.</li><li>Brutopremie correct berekend met opslag.</li><li>Solidariteit wordt uitgelegd als gedeeld risico.</li><li>Minimaal één realistisch bedrijfsrisico is benoemd.</li><li>Beoordelingsnorm: 1 pt per bovenstaand element = maximaal 5 punten.</li></ul></div>
+</div>
+
+  </div>
+</div><div id="s53" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 5.3</div>
+    <h2>Informatie-achterstand</h2>
+    <p>Asymmetrische informatie · Averechtse selectie · Adverse Selection · Informatieparadox</p>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog"><div class="dialoog-rij"><span class="dialoog-naam">Mia:</span> <em>"Ik ga mijn oude auto verkopen. Ik weet dat de motor bijna</em></div><div class="dialoog-rij">kapot is, maar de koper weet dat niet."</div><div class="dialoog-rij"><span class="dialoog-naam">Finn:</span> <em>"Dat is unfair! Jij hebt meer informatie dan de koper.</em></div><div class="dialoog-rij">Dat heet toch een informatie-asymmetrie?"</div><div class="dialoog-rij"><span class="dialoog-naam">Mia:</span> <em>"Ja, en bij verzekeringen werkt het andersom: ik weet hoe</em></div><div class="dialoog-rij">ongezond ik ben, maar de verzekeraar niet."</div><div class="dialoog-rij"><span class="dialoog-naam">Finn:</span> <em>"Precies! En dat kan een heel gevaarlijk probleem worden —</em></div><div class="dialoog-rij">ze noemen het averechtse selectie."</div><div class="dialoog-rij"><span class="dialoog-naam">Mia:</span> <em>"Waarom is dat gevaarlijk?\</em></div><div class="dialoog-rij"><span class="dialoog-naam">Finn:</span> <em>"Omdat alleen de mensen die het hardst nodig hebben een</em></div><div class="dialoog-rij">verzekering afsluiten… en dat maakt verzekeren steeds duurder."</div></div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--gd);font-family:'Lexend',sans-serif">§5.3 — Informatie-achterstand</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p>Informatieparadox*</p>
+<p><strong>Asymmetrische informatie</strong> is het verschijnsel dat de ene partij bij een transactie meer informatie heeft dan de andere partij. Bij verzekeringen weet de verzekerde (de klant) doorgaans meer over zijn eigen risico dan de verzekeraar. <strong>Averechtse selectie (Adverse Selection)</strong> treedt op als gevolg van asymmetrische informatie: mensen met een hoog risico sluiten wél een verzekering af, mensen met een laag risico niet. Hierdoor bestaat de verzekeringspool voor een onevenredig groot deel uit hoog-risicogroepen.</p>
+<p><strong>Het klassieke voorbeeld: de markt voor gebruikte auto's (Akerlof)</strong>. Econoom George Akerlof beschreef in 1970 hoe asymmetrische informatie de markt voor tweedehands auto's kan laten instorten. Verkopers weten of hun auto een 'lemon' (slechte auto) is of niet; kopers weten het niet. Kopers bieden daardoor altijd een lage prijs (ze vermoeden een lemon). Eigenaren van goede auto's vinden die prijs te laag en stappen uit de markt. Uiteindelijk blijven alleen lemons over: de markt voor kwaliteitsauto's verdwijnt. <strong>Oplossingen voor informatie-asymmetrie:</strong></p>
+<ol style="margin:8px 0 8px 20px;line-height:1.75;font-size:.89rem"><li><strong>Screening</strong>: de verzekeraar verzamelt informatie over de klant</li></ol>
+<p>(medische keuring, vragenformulieren).</p>
+<ol style="margin:8px 0 8px 20px;line-height:1.75;font-size:.89rem"><li><strong>Verplichte verzekering</strong>: de overheid verplicht iedereen deel te</li></ol>
+<p>nemen, waardoor laag-risicogroepen ook instappen.</p>
+<ol style="margin:8px 0 8px 20px;line-height:1.75;font-size:.89rem"><li><strong>Signaling</strong>: de verzekerde stuurt signalen over zijn risico (bijv.</li></ol>
+<p>diploma's, gezondheidscertificaten).</p>
+<p><table class="tbl" style="margin:12px 0"><thead><tr><th>Begriff</th><th>Definitie</th></tr></thead><tbody>
+<tr><td><strong>Asymmetrische informatie</strong></td><td>Situatie waarbij de ene partij meer informatie heeft dan de andere.</td></tr>
+<tr><td><strong>Averechtse selectie</strong></td><td>Hoog-risico individuen verzekeren zich wél, laag-risico niet — pool verslechtert.</td></tr>
+<tr><td><strong>Adverse Selection</strong></td><td>Engelse term voor averechtse selectie.</td></tr>
+<tr><td><strong>Death spiral</strong></td><td>Stijgende premies drijven laag-risico verzekerden weg, waardoor premies verder stijgen.</td></tr>
+<tr><td><strong>Screening</strong></td><td>De verzekeraar verzamelt informatie om risico-klassen te onderscheiden.</td></tr>
+<tr><td><strong>Signaling</strong></td><td>De verzekerde geeft geloofwaardige signalen over zijn eigen risico.</td></tr>
+<tr><td><strong>Verplichte verzekering</strong></td><td>Overheidsverplichting om verzekerd te zijn, voorkomt averechtse selectie.</td></tr>
+<tr><td><strong>Lemon</strong></td><td>Product waarvan de koper de kwaliteit niet kan beoordelen (Akerlof).</td></tr>
+</tbody></table></p>
+      
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Onthouden</span>
+    Vraag 2 — Definieer averechtse selectie
+  </div>
+  <div class="qt">Wat is averechtse selectie? Beschrijf in maximaal drie zinnen het mechanisme. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_2')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_2"><p style="margin:4px 0">Averechtse selectie = het verschijnsel dat hoog-risicogroepen</p>
+<p style="margin:4px 0">disproportioneel veel verzekeringen afsluiten,</p>
+<p style="margin:4px 0">omdat laag-risicogroepen de gemiddelde premie te hoog vinden en</p>
+<p style="margin:4px 0">afhaken.</p>
+<p style="margin:4px 0">Mechanisme (3 zinnen):</p>
+<p style="margin:4px 0">1\. Verzekeraar berekent premie o.b.v. gemiddeld risico.</p>
+<p style="margin:4px 0">2\. Laag-risico personen vinden premie relatief duur en stappen uit.</p>
+<p style="margin:4px 0">3\. Hoog-risico personen blijven → gemiddeld risico in pool stijgt →</p>
+<p style="margin:4px 0">premie stijgt → herhaling.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Onthouden</span>
+    Vraag 3 — Herken oplossingen
+  </div>
+  <div class="qt">Noem drie oplossingen voor asymmetrische informatie bij verzekeringen en geef bij elke oplossing een korte omschrijving. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_3')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_3"><p style="margin:4px 0">1\. Screening: verzekeraar verzamelt info over klant (medische</p>
+<p style="margin:4px 0">keuring, vragenlijsten, rijbewijshistorie).</p>
+<p style="margin:4px 0">2\. Verplichte verzekering: overheid verplicht iedereen mee te doen,</p>
+<p style="margin:4px 0">ook laag-risicogroepen.</p>
+<p style="margin:4px 0">3\. Signaling: verzekerde geeft betrouwbare signalen over zijn risico</p>
+<p style="margin:4px 0">(bijv. no-claimhistorie, gezondheidsverklaring).</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 4 — Verklaar death spiral
+  </div>
+  <div class="qt">Leg stap voor stap uit hoe een 'death spiral' bij een zorgverzekeraar ontstaat. Gebruik minimaal vier stappen. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_4')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_4"><p style="margin:4px 0">Stap 1: Verzekeraar berekent premie op basis van gemiddeld risico van</p>
+<p style="margin:4px 0">alle inwoners.</p>
+<p style="margin:4px 0">Stap 2: Gezonde/jonge mensen vinden de premie te hoog → stappen uit</p>
+<p style="margin:4px 0">de pool.</p>
+<p style="margin:4px 0">Stap 3: Pool bestaat nu voornamelijk uit zieken/ouderen → gemiddelde</p>
+<p style="margin:4px 0">schade per verzekerde stijgt.</p>
+<p style="margin:4px 0">Stap 4: Verzekeraar verhoogt premie om kosten te dekken.</p>
+<p style="margin:4px 0">Stap 5: Nog meer gezonde mensen haken af → gemiddelde schade stijgt</p>
+<p style="margin:4px 0">verder.</p>
+<p style="margin:4px 0">Stap 6: Herhaling → premie wordt onbetaalbaar → markt dreigt in te</p>
+<p style="margin:4px 0">storten.</p>
+<p style="margin:4px 0">Dit proces heet de 'death spiral' of premie-spiraal.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 5 — Verband overheid en selectie
+  </div>
+  <div class="qt">Waarom lost een verplichte zorgverzekering het probleem van averechtse selectie op? Gebruik in je antwoord de begrippen pool en laag-risico. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_5')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_5"><p style="margin:4px 0">Bij verplichte verzekering moeten ook laag-risicogroepen (jongeren,</p>
+<p style="margin:4px 0">gezonde mensen) deelnemen.</p>
+<p style="margin:4px 0">Hierdoor:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Blijft de pool groot en gevarieerd (mix van hoog en laag risico).</li><li>De gemiddelde schade per verzekerde wordt lager (laag-risicogroepen</li></ul>
+<p style="margin:4px 0">trekken het gemiddelde omlaag).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De premie blijft betaalbaar voor iedereen.</li><li>De death spiral wordt voorkomen: er is geen selectie-effect meer.</li></ul>
+<p style="margin:4px 0">Zonder verplichting selecteren alleen hoog-risicogroepen zichzelf in</p>
+<p style="margin:4px 0">→ premie stijgt → vicieuze cirkel.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 6 — Akerlof en lemons
+  </div>
+  <div class="qt">Beschrijf in eigen woorden hoe het 'lemon-probleem' werkt op de markt voor tweedehands auto's. Waaruit blijkt dat dit markfalen is? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_6')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_6"><p style="margin:4px 0">Verkopers van tweedehands auto's weten of hun auto goed ('cherry')</p>
+<p style="margin:4px 0">of slecht ('lemon') is.</p>
+<p style="margin:4px 0">Kopers kunnen de kwaliteit vóóraf niet beoordelen → ze bieden altijd</p>
+<p style="margin:4px 0">een prijs voor 'gemiddelde' kwaliteit.</p>
+<p style="margin:4px 0">Eigenaars van goede auto's vinden die prijs te laag → trekken hun</p>
+<p style="margin:4px 0">auto terug van de markt.</p>
+<p style="margin:4px 0">Eigenaars van slechte auto's vinden de prijs prima → bieden hun auto</p>
+<p style="margin:4px 0">aan.</p>
+<p style="margin:4px 0">Resultaat: op de markt blijven alleen slechte auto's over.</p>
+<p style="margin:4px 0">Dit is marktfalen: de markt voor kwalitatief goede tweedehands</p>
+<p style="margin:4px 0">auto's verdwijnt door informatie-asymmetrie.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 7 — Toepas op woningmarkt
+  </div>
+  <div class="qt">Op de markt voor huurwoningen weten huurders meer over hun eigen betalingsgedrag dan de verhuurder. a) Identificeer wie de informatievoordeel heeft. b) Welk probleem vergelijkbaar met averechtse selectie kan optreden? c) Noem een oplossing die verhuurders in de praktijk gebruiken. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_7')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_7"><p style="margin:4px 0">a\) De HUURDER heeft informatievoordeel over zijn eigen</p>
+<p style="margin:4px 0">betalingsdiscipline, schulden en woonsituatie.</p>
+<p style="margin:4px 0">b\) Averechtse selectie-achtig probleem: 'slechte betalers' (hoog</p>
+<p style="margin:4px 0">risico) willen graag huren;</p>
+<p style="margin:4px 0">'goede betalers' worden niet onderscheiden door verhuurders.</p>
+<p style="margin:4px 0">Verhuurder vraagt hoge borg of vraagt meer huur → goede huurders</p>
+<p style="margin:4px 0">haken af.</p>
+<p style="margin:4px 0">c\) Oplossingen in de praktijk:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Huurcheck/screening: verhuurder vraagt loonstroken,</li></ul>
+<p style="margin:4px 0">bankafschriften.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Referenties van vorige verhuurder.</li><li>Borg als financieel signaal (goede huurder is bereid borg te</li></ul>
+<p style="margin:4px 0">betalen).</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 8 — Analyseer polis
+  </div>
+  <div class="qt">Een verzekeraar biedt twee polissen aan: Polis A (lage premie, hoog eigen risico) en Polis B (hoge premie, laag eigen risico). Welk type klant kiest voor welke polis? Verklaar dit vanuit het perspectief van averechtse selectie. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_8')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_8"><p style="margin:4px 0">Polis A (lage premie, hoog eigen risico):</p>
+<p style="margin:4px 0">→ Aantrekkelijk voor LAAG-RISICO personen: zij verwachten weinig</p>
+<p style="margin:4px 0">schade en willen lage premie.</p>
+<p style="margin:4px 0">→ Als er schade is, zijn ze bereid het eigen risico zelf te betalen.</p>
+<p style="margin:4px 0">Polis B (hoge premie, laag eigen risico):</p>
+<p style="margin:4px 0">→ Aantrekkelijk voor HOOG-RISICO personen: zij verwachten veel schade</p>
+<p style="margin:4px 0">en willen maximale dekking.</p>
+<p style="margin:4px 0">→ Bereid hogere premie te betalen zodat ze nooit een groot bedrag</p>
+<p style="margin:4px 0">zelf hoeven te betalen.</p>
+<p style="margin:4px 0">Averechtse selectie-aspect: polis B trekt hoog-risicoklanten aan →</p>
+<p style="margin:4px 0">verzekeraar verhoogt premie voor polis B.</p>
+<p style="margin:4px 0">Polis A filtert laag-risico klanten eruit (via eigen risico als</p>
+<p style="margin:4px 0">'screeningmechanisme').</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 9 — Screening in praktijk
+  </div>
+  <div class="qt">Een levensverzekeraar laat klanten een medische keuring ondergaan. a) Welk informatieprobleem lost dit op? b) Welke groep klanten zal deze keuring het liefst willen vermijden en waarom? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_9')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_9"><p style="margin:4px 0">a\) De medische keuring lost ASYMMETRISCHE INFORMATIE op:</p>
+<p style="margin:4px 0">Klanten weten meer over hun eigen gezondheid dan de verzekeraar.</p>
+<p style="margin:4px 0">Door keuring krijgt de verzekeraar informatie over echte</p>
+<p style="margin:4px 0">gezondheidsstatus → kan eerlijker premie berekenen.</p>
+<p style="margin:4px 0">Dit vermindert averechtse selectie (ongezonde mensen kunnen niet meer</p>
+<p style="margin:4px 0">doen alsof ze gezond zijn).</p>
+<p style="margin:4px 0">b\) Mensen met SLECHTE GEZONDHEID (hoog risico) willen de keuring</p>
+<p style="margin:4px 0">vermijden:</p>
+<p style="margin:4px 0">Als hun slechte gezondheid bekend wordt → hogere premie of zelfs</p>
+<p style="margin:4px 0">weigering.</p>
+<p style="margin:4px 0">Ze hopen dat de verzekeraar hen accepteert als 'gemiddeld risico'</p>
+<p style="margin:4px 0">zonder keuring.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 10 — Analyseer marktinstorting
+  </div>
+  <div class="qt">Analyseer waarom de markt voor verzekeringen zonder overheidsinterventie kan instorten. Gebruik de begrippen averechtse selectie, premium spiral en laag-risico groepen in je antwoord. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_10')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_10"><p style="margin:4px 0">Zonder overheidsinterventie verloopt het als volgt:</p>
+<p style="margin:4px 0">1\. Informatie-asymmetrie: verzekeraar kent het individuele risico</p>
+<p style="margin:4px 0">van klanten niet.</p>
+<p style="margin:4px 0">2\. Averechtse selectie: hoog-risico mensen verzekeren zich wel;</p>
+<p style="margin:4px 0">laag-risico mensen niet.</p>
+<p style="margin:4px 0">3\. Gemiddelde schade in pool stijgt → verzekeraar verhoogt premie.</p>
+<p style="margin:4px 0">4\. Meer laag-risico mensen stappen uit → gemiddelde schade stijgt</p>
+<p style="margin:4px 0">verder (premium spiral).</p>
+<p style="margin:4px 0">5\. Uiteindelijk: pool bestaat alleen uit hoog-risico mensen → premie</p>
+<p style="margin:4px 0">astronomisch hoog.</p>
+<p style="margin:4px 0">6\. Markt instorting: betaalbare verzekeringen bestaan niet meer.</p>
+<p style="margin:4px 0">Overheidsinterventies die dit voorkomen:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Verplichte verzekering (zorgt dat laag-risico groepen ook</li></ul>
+<p style="margin:4px 0">deelnemen).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Risicoverevening (overheid compenseert verzekeraars met hoog-risico</li></ul>
+<p style="margin:4px 0">portefeuilles).</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 11 — Vergelijk markten
+  </div>
+  <div class="qt">Vergelijk het informatieprobleem bij (a) autoverzekeringen en (b) levensverzekeringen. Wie heeft in elk geval de informatievoordeel? Zijn de gevolgen van asymmetrische informatie in beide gevallen even erg? Verklaar. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_11')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_11"><p style="margin:4px 0">a\) Autoverzekering:</p>
+<p style="margin:4px 0">Informatievoordeel: de KLANT weet meer over zijn eigen rijgedrag dan</p>
+<p style="margin:4px 0">de verzekeraar.</p>
+<p style="margin:4px 0">(Rijdt hij te hard? Rijdt hij 's nachts? Hoe voorzichtig?).</p>
+<p style="margin:4px 0">b\) Levensverzekering:</p>
+<p style="margin:4px 0">Informatievoordeel: de KLANT weet meer over zijn eigen gezondheid,</p>
+<p style="margin:4px 0">leefstijl, en genetisch risico.</p>
+<p style="margin:4px 0">Gevolgen even erg?</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Bij levensverzekeraar zijn de potentiële schades hoger (uitkering</li></ul>
+<p style="margin:4px 0">bij overlijden kan honderdduizenden euro's zijn).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Averechtse selectie is bij levensverzekeringen ernstiger: ongezonde</li></ul>
+<p style="margin:4px 0">mensen selecteren zichzelf in → pool verslechtert snel.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Bij autoverzekeringen zijn schades gemiddeld lager; bovendien zijn</li></ul>
+<p style="margin:4px 0">er meer data beschikbaar (kentekenregistratie, schadehistorie).</p>
+<p style="margin:4px 0">Conclusie: beide markten hebben informatie-asymmetrie, maar bij</p>
+<p style="margin:4px 0">levensverzekeringen zijn de gevolgen potentieel groter.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 12 — Analyse screeningmethoden
+  </div>
+  <div class="qt">Analyseer de voor- en nadelen van screening als oplossing voor averechtse selectie. Betrek in je antwoord: (a) eerlijkheid/discriminatie, (b) kosten voor de verzekeraar, (c) effectiviteit. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_12')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_12"><p style="margin:4px 0">Voordelen van screening:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Verzekeraar kan eerlijkere premies berekenen (op basis van echt</li></ul>
+<p style="margin:4px 0">risico).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Vermindert averechtse selectie: hoog-risico klanten kunnen niet</li></ul>
+<p style="margin:4px 0">meer 'verstoppen'.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Pool wordt stabieler en premies kunnen dalen voor</li></ul>
+<p style="margin:4px 0">laag-risicogroepen.</p>
+<p style="margin:4px 0">Nadelen van screening:</p>
+<p style="margin:4px 0">a\) Eerlijkheid/discriminatie: mensen kunnen gestraft worden voor</p>
+<p style="margin:4px 0">eigenschappen die ze niet kunnen beïnvloeden (bijv. genetische</p>
+<p style="margin:4px 0">ziektes). Dit roept ethische vragen op.</p>
+<p style="margin:4px 0">b\) Kosten: screening kost de verzekeraar geld (artsen,</p>
+<p style="margin:4px 0">vragenlijsten, dataverzameling) → deels doorberekend in premie.</p>
+<p style="margin:4px 0">c\) Effectiviteit: klanten kunnen informatie verzwijgen of liegen op</p>
+<p style="margin:4px 0">vragenlijsten.</p>
+<p style="margin:4px 0">Conclusie: screening is nuttig maar heeft grenzen (ethisch,</p>
+<p style="margin:4px 0">financieel, praktisch).</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b30000;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Evalueren</span>
+    Vraag 13 — Evalueer verplichte verzekering
+  </div>
+  <div class="qt">Evalueer twee argumenten voor en twee argumenten tegen de stelling: 'De overheid moet alle belangrijke verzekeringen verplicht stellen om averechtse selectie te voorkomen.' Neem zelf een standpunt in. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_13')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_13"><p style="margin:4px 0">VOOR (2 argumenten):</p>
+<p style="margin:4px 0">1\. Voorkomt averechtse selectie op alle verzekeringsmarkten →</p>
+<p style="margin:4px 0">stabiele, betaalbare premies.</p>
+<p style="margin:4px 0">2\. Solidariteit: iedereen is beschermd, ook mensen die zelf niet</p>
+<p style="margin:4px 0">voorzichtig genoeg zijn om te verzekeren.</p>
+<p style="margin:4px 0">TEGEN (2 argumenten):</p>
+<p style="margin:4px 0">1\. Beperking keuzevrijheid: mensen worden gedwongen geld uit te</p>
+<p style="margin:4px 0">geven aan iets dat ze misschien niet willen of niet kunnen betalen.</p>
+<p style="margin:4px 0">2\. Moral hazard: verplicht verzekerd zijn kan roekeloos gedrag</p>
+<p style="margin:4px 0">stimuleren.</p>
+<p style="margin:4px 0">Eigen standpunt: elke goed onderbouwde positie is acceptabel.</p>
+<p style="margin:4px 0">Beoordelingsnorm: 1 pt per argument + 1 pt voor onderbouwd eigen</p>
+<p style="margin:4px 0">standpunt = max. 5 punten.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b30000;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Evalueren</span>
+    Vraag 14 — Beoordeel Akerlof-beleid
+  </div>
+  <div class="qt">Stel dat de overheid een informatieplatform lanceert waar alle verkopers van tweedehands auto's eerlijk rapport moeten uitbrengen over gebreken. Evalueer of dit het lemon-probleem volledig oplost. Noem minimaal één beperking. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_14')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_14"><p style="margin:4px 0">Het informatieplatform helpt deels:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Kopers krijgen meer informatie → kunnen betere prijzen bieden voor</li></ul>
+<p style="margin:4px 0">goede auto's.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Eigenaren van goede auto's kunnen de kwaliteit nu signaleren →</li></ul>
+<p style="margin:4px 0">markt voor goede auto's herleeft deels.</p>
+<p style="margin:4px 0">Beperkingen (minimaal 1 benoemd):</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Handhaving: wie controleert of verkopers eerlijk rapporteren?</li></ul>
+<p style="margin:4px 0">Fraude blijft mogelijk.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Verborgen gebreken: sommige gebreken zijn ook voor de verkoper niet</li></ul>
+<p style="margin:4px 0">zichtbaar.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Vrijwilligheid: als het platform niet verplicht is, doen slechte</li></ul>
+<p style="margin:4px 0">verkopers niet mee.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Informatieovervloed: kopers kunnen rapporten niet altijd goed</li></ul>
+<p style="margin:4px 0">beoordelen.</p>
+<p style="margin:4px 0">Conclusie: het platform lost het probleem deels op, maar niet</p>
+<p style="margin:4px 0">volledig.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#2d1b4e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Creëren</span>
+    Vraag 15 — Maak informatiecampagne
+  </div>
+  <div class="qt">Ontwerp een campagne (bijv. poster, video of social-media post) die 15-jarigen uitlegt wat averechtse selectie is en waarom de verplichte zorgverzekering daarvoor een oplossing is. Beschrijf de inhoud en geef aan welk medium je kiest en waarom. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a53_15')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a53_15"><p style="margin:4px 0">Dit is een creatieve opdracht. Het antwoord verschilt per leerling.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Averechtse selectie wordt correct en begrijpelijk uitgelegd voor</li></ul>
+<p style="margin:4px 0">15-jarigen.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De verplichte zorgverzekering wordt als oplossing benoemd en</li></ul>
+<p style="margin:4px 0">verklaard.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Er is een duidelijk medium gekozen (poster, video, TikTok, etc.)</li></ul>
+<p style="margin:4px 0">met motivatie.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De toon past bij de doelgroep (15-jarigen): toegankelijk, niet te</li></ul>
+<p style="margin:4px 0">technisch.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Er is een concreet inhoudelijk onderdeel beschreven (niet alleen</li></ul>
+<p style="margin:4px 0">'ik maak een video').</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Beoordelingsnorm: 1 pt per bovenstaand element = maximaal 5 punten.</li></ul></div>
+</div>
+
+  </div>
+</div><div id="s54" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 5.4</div>
+    <h2>Gedrag en Eigen Risico</h2>
+    <p>Moreel wangedrag · Moral Hazard · Eigen risico · Premiedifferentiatie · No-claimkorting</p>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog"><div class="dialoog-rij"><span class="dialoog-naam">Saar:</span> <em>"Mijn broer zegt dat hij nu hij een autoverzekering</em></div><div class="dialoog-rij">heeft, veel harder rijdt dan vroeger."</div><div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Dat is juist het probleem! Als je weet dat iemand anders</em></div><div class="dialoog-rij">de schade betaalt, pas je minder goed op."</div><div class="dialoog-rij"><span class="dialoog-naam">Saar:</span> <em>"Dat klinkt logisch. Maar hoe voorkomt de verzekeraar dat?\</em></div><div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Met eigen risico! Als jij ook een deel moet betalen, ga je</em></div><div class="dialoog-rij">voorzichtiger rijden."</div><div class="dialoog-rij"><span class="dialoog-naam">Saar:</span> <em>"Slimme truc. Is er nog meer?\</em></div><div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Ja — premiedifferentiatie en no-claimkorting. Allemaal om</em></div><div class="dialoog-rij">gedrag te sturen!"</div></div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--gd);font-family:'Lexend',sans-serif">§5.4 — Gedrag en Eigen Risico</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p>No-claimkorting*</p>
+<p><strong>Moreel wangedrag (Moral Hazard)</strong> is het verschijnsel dat mensen hun gedrag veranderen nadat ze verzekerd zijn: ze passen minder goed op, nemen meer risico, of gebruiken de verzekering vaker dan nodig — omdat ze de financiële gevolgen niet (volledig) zelf hoeven te dragen. <strong>Voorbeelden van moreel wangedrag:</strong><ul style="margin:8px 0 8px 20px;line-height:1.7;font-size:.89rem"><li>Een autoverzekerde laat zijn auto onafgesloten staan op een drukke plek.</li><li>Een reisverzekerde boekt duurde hotels omdat 'de verzekering het toch betaalt'.</li><li>Iemand met een uitgebreide fietsverzekering laat zijn fiets buiten staan zonder slot.</li><li>Een patiënt vraagt om een MRI-scan die eigenlijk niet nodig is, omdat de zorgverzekering het dekt.</li></ul><strong>Oplossingen voor moreel wangedrag:</strong></p>
+<p><strong>Eigen risico — de afweging:</strong> Een hoog eigen risico verlaagt de premie (voordeel bij geen schade), maar verhoogt de kosten als er wél schade is. Rationeel gedrag: kies een hoog eigen risico als je laag-risico bent en een laag eigen risico als je hoog-risico bent. <strong>Premiedifferentiatie</strong> betekent dat verschillende groepen klanten verschillende premies betalen op basis van hun risico. Dit is economisch efficiënt, maar roept vragen op over eerlijkheid: is het rechtvaardig dat jongeren meer betalen voor een autoverzekering dan ouderen, puur omdat ze tot een hogere-risicogroep behoren?</p>
+<p><table class="tbl" style="margin:12px 0"><thead><tr><th>Begriff</th><th>Definitie</th></tr></thead><tbody>
+<tr><td><strong>Moreel wangedrag</strong></td><td>Minder voorzichtig worden na verzekering omdat gevolgen gedeeltelijk bij anderen liggen.</td></tr>
+<tr><td><strong>Moral Hazard</strong></td><td>Engelse term voor moreel wangedrag.</td></tr>
+<tr><td><strong>Eigen risico</strong></td><td>Het deel van de schade dat de verzekerde zelf betaalt voordat de verzekering uitkeert.</td></tr>
+<tr><td><strong>No-claimkorting</strong></td><td>Premiekorting voor verzekerden die geen schade hebben geclaimd.</td></tr>
+<tr><td><strong>Premiedifferentiatie</strong></td><td>Verschillende premies voor verschillende risicogroepen op basis van risicoprofiel.</td></tr>
+<tr><td><strong>Acceptatiebeleid</strong></td><td>Verzekeraar weigert hoog-risico klanten of stelt extra voorwaarden.</td></tr>
+<tr><td><strong>Fraudedetectie</strong></td><td>Het opsporen van onterechte of bedrieglijke claims.</td></tr>
+<tr><td><strong>Risicoprofiel</strong></td><td>Geheel van kenmerken (leeftijd, rijervaring, gezondheid) dat het risico bepaalt.</td></tr>
+</tbody></table></p>
+<p><strong>📋 Samenvatting Hoofdstuk 5</strong> <strong>Risico</strong> = kans × schade. De <strong>verwachte schade</strong> is het gemiddelde verlies per periode. Mensen zijn <strong>risico-avers</strong>: ze prefereren zekerheid boven onzekerheid, ook als de verwachte waarde gelijk is. Dit verklaart waarom mensen bereid zijn <em>meer</em> dan de verwachte schade te betalen als verzekeringspremie. Soorten risico: zuiver, speculatief en catastroferisico. <strong>Solidariteit</strong>: mensen dragen elkaars risico's. Een <strong>verzekeringspool</strong> bundelt premies en betaalt schades. De <strong>nettopremie</strong> = p × S; de <strong>brutopremie</strong> = nettopremie + opslag. De <strong>wet van de grote getallen</strong> zorgt ervoor dat grotere pools stabieler zijn: de werkelijke schade benadert steeds beter de verwachte schade. <strong>Asymmetrische informatie</strong>: de verzekerde weet meer over zijn eigen risico dan de verzekeraar. Dit leidt tot <strong>averechtse selectie</strong>: hoog-risicogroepen verzekeren zich wél, laag-risicogroepen niet. De pool verslechtert, premies stijgen. Oplossingen: screening, verplichte verzekering, signaling. Het <strong>lemon-probleem</strong> (Akerlof) toont hoe informatie-asymmetrie markten kan laten instorten. <strong>Moreel wangedrag</strong>: verzekerd-zijn verandert gedrag — mensen passen minder goed op. Oplossingen: <strong>eigen risico</strong> (verzekerde betaalt eerste deel zelf), <strong>no-claimkorting</strong> (beloning voor schadeverloos rijden), <strong>premiedifferentiatie</strong> (hogere premie voor hogere-risicogroepen). Alle oplossingen hebben als doel prikkels te geven voor voorzichtiger gedrag.</p>
+      
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Onthouden</span>
+    Vraag 2 — Noem oplossingen
+  </div>
+  <div class="qt">Noem vijf oplossingen die verzekeraars gebruiken om moreel wangedrag te beperken. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_2')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_2"><p style="margin:4px 0">1\. Eigen risico: verzekerde betaalt eerste deel schade zelf.</p>
+<p style="margin:4px 0">2\. No-claimkorting: premiekorting bij geen claim → beloont</p>
+<p style="margin:4px 0">voorzichtig gedrag.</p>
+<p style="margin:4px 0">3\. Premiedifferentiatie: hogere premie voor hoog-risicogroepen →</p>
+<p style="margin:4px 0">prikkel voor voorzichtig gedrag.</p>
+<p style="margin:4px 0">4\. Acceptatiebeleid: extreem hoog-risico klanten worden geweigerd of</p>
+<p style="margin:4px 0">extra voorwaarden gesteld.</p>
+<p style="margin:4px 0">5\. Fraudedetectie: controle van claims om misbruik te ontmoedigen.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Onthouden</span>
+    Vraag 3 — Definitie eigen risico
+  </div>
+  <div class="qt">Wat is een eigen risico? Leg uit hoe eigen risico moreel wangedrag tegengaat. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_3')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_3"><p style="margin:4px 0">Eigen risico = het deel van de schade dat de verzekerde zelf moet</p>
+<p style="margin:4px 0">betalen voordat de verzekering uitkeert.</p>
+<p style="margin:4px 0">Werking tegen moreel wangedrag:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Als schade deels voor eigen rekening is, heeft de verzekerde een</li></ul>
+<p style="margin:4px 0">financiële prikkel om schade te vermijden.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Bijv.: eigen risico €385 bij zorgverzekering → patiënt denkt twee</li></ul>
+<p style="margin:4px 0">keer na voor een onnodige doktersvisite.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De verzekerde is niet meer volledig 'afgeschermd' van de kosten</li></ul>
+<p style="margin:4px 0">van schade.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 4 — Verklaar no-claim
+  </div>
+  <div class="qt">Hoe werkt de no-claimkorting als prikkel tegen moreel wangedrag? Waarom is dit effectiever dan alleen een hoge premie? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_4')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_4"><p style="margin:4px 0">No-claimkorting werkt als beloning: wie geen schade claimt, krijgt</p>
+<p style="margin:4px 0">premiekorting volgend jaar.</p>
+<p style="margin:4px 0">Prikkel: de verzekerde overweegt bij kleine schade of claimdienen het</p>
+<p style="margin:4px 0">waard is → hij betaalt liever zelf.</p>
+<p style="margin:4px 0">Dit is effectiever dan alleen hoge premie, omdat:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Een hoge premie treft iedereen gelijk, ook mensen die al</li></ul>
+<p style="margin:4px 0">voorzichtig zijn.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>No-claimkorting is gedifferentieerd: wie voorzichtig is, betaalt</li></ul>
+<p style="margin:4px 0">minder. Directe koppeling gedrag→beloning.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>No-claimkorting geeft een dynamische prikkel die ook na</li></ul>
+<p style="margin:4px 0">verzekeringingang het gedrag beïnvloedt.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 5 — Leg premiedifferentiatie uit
+  </div>
+  <div class="qt">Leg uit wat premiedifferentiatie is. Waarom betalen jongere automobilisten gemiddeld meer premie dan 50-jarigen? Is dit eerlijk? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_5')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_5"><p style="margin:4px 0">Premiedifferentiatie = het aanpassen van de premie aan het</p>
+<p style="margin:4px 0">risicoprofiel van de klant.</p>
+<p style="margin:4px 0">Jongere automobilisten betalen meer omdat:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Statistische data toont dat 18-24 jarigen significant vaker bij</li></ul>
+<p style="margin:4px 0">ongelukken betrokken zijn.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Hoog verwacht schade → hoge nettopremie → hogere brutopremie.</li></ul>
+<p style="margin:4px 0">Eerlijkheid:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Economisch efficiënt: iedereen betaalt naar verwacht risico → geen</li></ul>
+<p style="margin:4px 0">kruissubsidiëring.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Ethisch probleem: een jonge, voorzichtige bestuurder betaalt meer</li></ul>
+<p style="margin:4px 0">dan een oudere roekeloze bestuurder,</p>
+<p style="margin:4px 0">puur op basis van leeftijd (eigenschap die hij niet kan beïnvloeden).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Acceptabel antwoord: leerling mag zowel 'ja' als 'nee' kiezen,</li></ul>
+<p style="margin:4px 0">mits onderbouwd.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Begrijpen</span>
+    Vraag 6 — Verband schade en gedrag
+  </div>
+  <div class="qt">Een student denkt: 'Ik heb een allrisk fietsverzekering, dus ik hoef geen slot meer.' Leg uit waarom dit moreel wangedrag is en wat de gevolgen zijn voor de verzekeringspool. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_6')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_6"><p style="margin:4px 0">Dit is moreel wangedrag omdat:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De student zijn gedrag (geen slot) aanpast doordat de financiële</li></ul>
+<p style="margin:4px 0">gevolgen van diefstal niet op hem drukken.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Hij is minder voorzichtig dan voor de verzekering.</li></ul>
+<p style="margin:4px 0">Gevolgen voor de verzekeringspool:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Als velen dit doen, stijgt het aantal diefstallen → de totale</li></ul>
+<p style="margin:4px 0">schade van de pool stijgt.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De verzekeraar ziet hogere schadeuitkeringen → verhoogt de premie</li></ul>
+<p style="margin:4px 0">voor alle verzekerden.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Gevolg: ook voorzichtige verzekerden betalen meer premie door het</li></ul>
+<p style="margin:4px 0">gedrag van onvoorzichtige verzekerden.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Dit is oneerlijk voor zorgvuldige verzekerden.</li></ul></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 7 — Eigen risico berekenen
+  </div>
+  <div class="qt">Mia heeft een zorgverzekering met €385 eigen risico. Ze bezoekt de huisarts (€30), laat een röntgenfoto maken (€80) en ondergaat een kleine operatie (€600). a) Welk bedrag betaalt Mia zelf? b) Welk bedrag vergoedt de verzekering? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_7')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_7"><p style="margin:4px 0">Totale kosten = €30 + €80 + €600 = €710</p>
+<p style="margin:4px 0">a\) Mia betaalt zelf: het eigen risico = €385 (want totale kosten</p>
+<p style="margin:4px 0">€710 \> eigen risico €385)</p>
+<p style="margin:4px 0">b\) Verzekering vergoedt: €710 − €385 = €325</p>
+<p style="margin:4px 0">Toelichting: het eigen risico wordt op volgorde opgemaakt. De</p>
+<p style="margin:4px 0">verzekering vergoedt alle kosten boven het eigen risico.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 8 — Premiedifferentiatie berekenen
+  </div>
+  <div class="qt">Een autoverzekeraar hanteert de volgende premies: 18-24 jaar: €1.200/jaar; 25-50 jaar: €600/jaar; 51-70 jaar: €700/jaar. a) Bereken het verschil in premie tussen een 20-jarige en een 35-jarige over 5 jaar. b) Waarom is deze differentiatie economisch te rechtvaardigen? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_8')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_8"><p style="margin:4px 0">a\) Verschil per jaar = €1.200 − €600 = €600</p>
+<p style="margin:4px 0">Verschil over 5 jaar = €600 × 5 = €3.000</p>
+<p style="margin:4px 0">Een 20-jarige betaalt over 5 jaar €3.000 meer dan een 35-jarige.</p>
+<p style="margin:4px 0">b\) Economisch rechtvaardigbaar omdat:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Jongere automobilisten hebben statistisch significant hogere</li></ul>
+<p style="margin:4px 0">schadefrequentie.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Hogere verwachte schade rechtvaardigt hogere nettopremie.</li><li>De verzekeraar past de premie aan het actueel risicoprofiel aan</li></ul>
+<p style="margin:4px 0">(actuarieel eerlijk).</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Toepassen</span>
+    Vraag 9 — Kies eigen risico
+  </div>
+  <div class="qt">Lars overweegt twee polissen: Polis X (premie €800/jaar, eigen risico €0) en Polis Y (premie €600/jaar, eigen risico €500). a) Bereken bij welk schadebedrag beide polissen financieel gelijkwaardig zijn. b) Welke polis is rationeel voor iemand met een laag risico? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_9')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_9"><p style="margin:4px 0">a\) Financieel gelijkwaardig als: totale kosten polis X = totale</p>
+<p style="margin:4px 0">kosten polis Y</p>
+<p style="margin:4px 0">Polis X: premie + 0 eigen risico = €800 (bij gelijk welke schade ≥</p>
+<p style="margin:4px 0">€0)</p>
+<p style="margin:4px 0">Polis Y: premie + eigen risico bij schade S = €600 + min(S, €500)</p>
+<p style="margin:4px 0">Gelijkwaardig als: €800 = €600 + S → S = €200</p>
+<p style="margin:4px 0">Bij schade = €200 zijn beide polissen even duur.</p>
+<p style="margin:4px 0">Bij schade \> €200: Polis X is voordeliger; bij schade \< €200: Polis</p>
+<p style="margin:4px 0">Y is voordeliger.</p>
+<p style="margin:4px 0">b\) Laag-risico persoon: kiest voor POLIS Y (€600 + klein eigen</p>
+<p style="margin:4px 0">risico bij lage verwachte schade).</p>
+<p style="margin:4px 0">Hoog-risico persoon: kiest voor POLIS X (€800, maar geen eigen risico</p>
+<p style="margin:4px 0">bij grote schade).</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 10 — Analyseer prikkelwerking
+  </div>
+  <div class="qt">Analyseer waarom het verplichte eigen risico in de zorgverzekering zowel voordelen als nadelen heeft. Gebruik de begrippen moreel wangedrag, noodzakelijke zorg en premieniveau. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_10')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_10"><p style="margin:4px 0">Voordelen:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Vermindert moreel wangedrag: patiënten denken twee keer na voor</li></ul>
+<p style="margin:4px 0">onnodige zorgconsumptie.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Lagere totale zorgvraag → lagere premies voor alle verzekerden.</li><li>Financiële mede-verantwoordelijkheid stimuleert gezonder gedrag.</li></ul>
+<p style="margin:4px 0">Nadelen:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Noodzakelijke zorg uitstellen: mensen stellen soms medisch</li></ul>
+<p style="margin:4px 0">noodzakelijke zorg uit om eigen risico te vermijden.</p>
+<p style="margin:4px 0">Dit kan leiden tot ergere (en duurdere) klachten later.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Oneerlijk voor mensen met laag inkomen: €385 is voor hen een groter</li></ul>
+<p style="margin:4px 0">deel van inkomen.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Mensen met chronische ziekte 'straften': zij overschrijden eigen</li></ul>
+<p style="margin:4px 0">risico altijd, ongeacht gedrag.</p>
+<p style="margin:4px 0">Conclusie: eigen risico heeft positieve prikkelwerking, maar kan ook</p>
+<p style="margin:4px 0">ongewenste bijeffecten hebben.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 11 — Vergelijk instrumenten
+  </div>
+  <div class="qt">Vergelijk de effectiviteit van (a) eigen risico, (b) no-claimkorting en (c) premiedifferentiatie als instrumenten om moreel wangedrag te beperken. Welk instrument werkt het beste voor welk type risico? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_11')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_11"><p style="margin:4px 0">Eigen risico:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Werkt bij: elke schade waarbij de verzekerde een directe financiële</li></ul>
+<p style="margin:4px 0">prikkel heeft (dagelijkse zorg, kleine schades).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Beperking: werkt minder bij grote, onverwachte schades (bij hoge</li></ul>
+<p style="margin:4px 0">schade maakt eigen risico weinig uit).</p>
+<p style="margin:4px 0">No-claimkorting:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Werkt bij: langdurig voorzichtig gedrag (bijv. autorijden) waarbij</li></ul>
+<p style="margin:4px 0">het effect over jaren opbouwt.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Beperking: geen prikkel na een schade (korting vervalt toch).</li></ul>
+<p style="margin:4px 0">Premiedifferentiatie:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Werkt bij: risico's die sterk samenhangen met meetbare kenmerken</li></ul>
+<p style="margin:4px 0">(leeftijd, rijervaring).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Beperking: straft ook voorzichtige mensen in 'hoog-risico'</li></ul>
+<p style="margin:4px 0">categorie; ethisch gevoelig.</p>
+<p style="margin:4px 0">Welke werkt het beste?</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Er is geen universeel beste instrument; combinatie werkt het best.</li><li>Eigen risico = direct; no-claimkorting = langdurig;</li></ul>
+<p style="margin:4px 0">premiedifferentiatie = ex ante (vooraf).</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Analyseren</span>
+    Vraag 12 — Analyse fraude
+  </div>
+  <div class="qt">Verzekeringsfraude (nep-claims) is een vorm van moreel wangedrag. Analyseer: a) hoe fraudedetectie werkt als oplossing, b) welk negatief effect fraude heeft op eerlijke verzekerden, c) hoe de premie stijgt door fraude. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_12')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_12"><p style="margin:4px 0">a\) Fraudedetectie: verzekeraar controleert claims op echtheid via:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Dataanalyse (afwijkende claim-patronen).</li><li>Expertbezoek ter plaatse.</li><li>Samenwerking met politie bij vermoeden van fraude.</li><li>Cross-referentie met andere databanken.</li></ul>
+<p style="margin:4px 0">→ Fraudeurs worden geweerd of moeten terugbetalen.</p>
+<p style="margin:4px 0">b\) Negatief effect op eerlijke verzekerden:</p>
+<p style="margin:4px 0">Fraude verhoogt de totale schadelast van de pool.</p>
+<p style="margin:4px 0">De verzekeraar compenseert dit door premies te verhogen → eerlijke</p>
+<p style="margin:4px 0">verzekerden betalen mee voor fraudeurs.</p>
+<p style="margin:4px 0">c\) Premie-effect van fraude:</p>
+<p style="margin:4px 0">Totale schadelast stijgt → nettopremie stijgt → brutopremie stijgt.</p>
+<p style="margin:4px 0">Schatting: fraudekosten worden volledig doorberekend aan alle</p>
+<p style="margin:4px 0">verzekerden.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b30000;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Evalueren</span>
+    Vraag 13 — Evalueer eigen risico beleid
+  </div>
+  <div class="qt">De overheid overweegt het eigen risico in de zorgverzekering te verhogen van €385 naar €750. Evalueer de economische gevolgen voor: (a) mensen met een laag inkomen, (b) de totale zorgvraag, (c) de hoogte van de premie. Neem een standpunt in. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_13')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_13"><p style="margin:4px 0">a\) Lage inkomens:</p>
+<p style="margin:4px 0">€750 is een groter financieel obstakel voor mensen met laag inkomen.</p>
+<p style="margin:4px 0">Zij stellen noodzakelijke zorg vaker uit → gezondheidsrisico's nemen</p>
+<p style="margin:4px 0">toe.</p>
+<p style="margin:4px 0">Dit is een ongewenst herverdelingseffect (regressief: treft armen</p>
+<p style="margin:4px 0">harder).</p>
+<p style="margin:4px 0">Overheid kan compenseren via zorgtoeslag.</p>
+<p style="margin:4px 0">b\) Totale zorgvraag:</p>
+<p style="margin:4px 0">Hogere drempel → minder zorggebruik (ook nuttige zorg).</p>
+<p style="margin:4px 0">Positief: minder onnodige zorgconsumptie.</p>
+<p style="margin:4px 0">Negatief: uitgestelde noodzakelijke zorg → hogere kosten later.</p>
+<p style="margin:4px 0">c\) Hoogte premie:</p>
+<p style="margin:4px 0">Minder zorggebruik → lagere totale schadelast → premie kan dalen.</p>
+<p style="margin:4px 0">Of: winst voor verzekeraar/overheid als premie gelijk blijft.</p>
+<p style="margin:4px 0">Eigen standpunt: goed onderbouwde positie accepteren.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#b30000;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Evalueren</span>
+    Vraag 14 — Beoordeel premiedifferentiatie
+  </div>
+  <div class="qt">Stel dat de overheid premiedifferentiatie op basis van leeftijd verbiedt bij autoverzekeringen. Evalueer de gevolgen voor: (a) de premie voor jongeren, (b) de premie voor ouderen, (c) de totale verzekeringsmarkt. Is dit een wenselijk beleid? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_14')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_14"><p style="margin:4px 0">a\) Gevolgen voor jongeren (18-24 jaar):</p>
+<p style="margin:4px 0">Premie DAALT (zij hoeven niet meer het hogere risico volledig te</p>
+<p style="margin:4px 0">betalen).</p>
+<p style="margin:4px 0">Voordeel: financieel toegankelijker voor startende bestuurders.</p>
+<p style="margin:4px 0">b\) Gevolgen voor ouderen (25-70 jaar):</p>
+<p style="margin:4px 0">Premie STIJGT (zij subsidieren de hogere schadelast van jongeren</p>
+<p style="margin:4px 0">mee).</p>
+<p style="margin:4px 0">Nadeel: oneerlijk voor voorzichtige, ervaren bestuurders.</p>
+<p style="margin:4px 0">c\) Gevolgen voor de markt:</p>
+<p style="margin:4px 0">Uniformere premie verlaagt de prikkel voor jongeren om voorzichtig te</p>
+<p style="margin:4px 0">rijden (moral hazard stijgt).</p>
+<p style="margin:4px 0">Averechtse selectie: minder hoog-risico klanten worden 'gestraft'</p>
+<p style="margin:4px 0">via hogere premie → pool wordt minder stabiel.</p>
+<p style="margin:4px 0">Verzekeraar kan minder goed differentiëren → minder efficiënte</p>
+<p style="margin:4px 0">prijsvorming.</p>
+<p style="margin:4px 0">Eigen oordeel: aanvaardbaar als economisch onderbouwd.</p></div>
+</div>
+<div class="qbox">
+  <div class="ql" style="display:flex;align-items:center;gap:8px">
+    <span style="background:#2d1b4e;color:#fff;padding:2px 8px;border-radius:8px;font-size:.64rem;font-weight:700">Creëren</span>
+    Vraag 15 — Ontwerp beloningssysteem
+  </div>
+  <div class="qt">Ontwerp een beloningssysteem voor een fiets-app dat verzekerden motiveert om voorzichtig rijgedrag te tonen. Beschrijf: (a) hoe de app werkt, (b) hoe gedrag wordt gemeten, (c) welke beloning verzekerden krijgen, (d) hoe dit moreel wangedrag vermindert. Onderbouw je ontwerp economisch. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <button class="abtn" onclick="toggleAntw('a54_15')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="a54_15"><p style="margin:4px 0">Voorbeeldantwoord (leerling kan variëren):</p>
+<p style="margin:4px 0">App-naam: SafeRide</p>
+<p style="margin:4px 0">a\) Hoe werkt de app: GPS en sensoren meten snelheid, remgedrag en</p>
+<p style="margin:4px 0">rijroute.</p>
+<p style="margin:4px 0">b\) Hoe gedrag gemeten: score per rit op basis van remmen,</p>
+<p style="margin:4px 0">snelheidsoverschrijdingen, rijduur.</p>
+<p style="margin:4px 0">Maandelijkse 'veiligheidscore' berekend als gemiddelde over alle</p>
+<p style="margin:4px 0">ritten.</p>
+<p style="margin:4px 0">c\) Beloning: bij score ≥ 8/10 → 10% premiekorting volgend jaar.</p>
+<p style="margin:4px 0">Bij score ≥ 9/10 → 20% premiekorting + voucher voor fietsonderhoud.</p>
+<p style="margin:4px 0">d\) Economische onderbouwing: koppelt premie aan gedrag</p>
+<p style="margin:4px 0">(premiedifferentiatie en no-claim gecombineerd).</p>
+<p style="margin:4px 0">Vermindert moral hazard door financiële prikkel voor voorzichtig</p>
+<p style="margin:4px 0">rijgedrag.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De werking van de app is beschreven (hoe gedrag wordt</li></ul>
+<p style="margin:4px 0">geregistreerd).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Gedragsmeting is concreet en realistisch (niet alleen 'een app</li></ul>
+<p style="margin:4px 0">meet alles').</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Er is een specifieke beloning beschreven.</li><li>De economische werking tegen moreel wangedrag wordt uitgelegd.</li><li>Minstens één van de behandelde economische begrippen</li></ul>
+<p style="margin:4px 0">(premiedifferentiatie, no-claim, moral hazard) is correct verwerkt.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Beoordelingsnorm: 1 pt per bovenstaand element = maximaal 5 punten.</li></ul></div>
+</div>
+
+  </div>
+</div>
+<div id="ssamenv" class="sec"><div class="phdr"><div class="pn">📋</div><h2>Samenvatting</h2><p>Hoofdstuk 5 — Verzekeren en Risico</p></div>
+<div class="blok">
+<div class="sblok "><h3>§ 5.1 — Risico en Risico-aversie</h3><p><strong>Risico</strong> = kans × schade. De <strong>verwachte schade</strong> is het gemiddelde verlies per periode. Mensen zijn <strong>risico-avers</strong>: ze prefereren zekerheid boven onzekerheid, ook als de verwachte waarde gelijk is. Dit verklaart waarom mensen bereid zijn <em>meer</em> dan de verwachte schade te betalen als verzekeringspremie. Soorten risico: zuiver, speculatief en catastroferisico.</p></div>
+<div class="sblok p2"><h3>§ 5.2 — De Kracht van het Collectief</h3><p><strong>Solidariteit</strong>: mensen dragen elkaars risico's. Een <strong>verzekeringspool</strong> bundelt premies en betaalt schades. De <strong>nettopremie</strong> = p × S; de <strong>brutopremie</strong> = nettopremie + opslag. De <strong>wet van de grote getallen</strong> zorgt ervoor dat grotere pools stabieler zijn: de werkelijke schade benadert steeds beter de verwachte schade.</p></div>
+<div class="sblok p3"><h3>§ 5.3 — Informatie-achterstand</h3><p><strong>Asymmetrische informatie</strong>: de verzekerde weet meer over zijn eigen risico dan de verzekeraar. Dit leidt tot <strong>averechtse selectie</strong>: hoog-risicogroepen verzekeren zich wél, laag-risicogroepen niet. De pool verslechtert, premies stijgen. Oplossingen: screening, verplichte verzekering, signaling. Het <strong>lemon-probleem</strong> (Akerlof) toont hoe informatie-asymmetrie markten kan laten instorten.</p></div>
+<div class="sblok p4"><h3>§ 5.4 — Gedrag en Eigen Risico</h3><p><strong>Moreel wangedrag</strong>: verzekerd-zijn verandert gedrag — mensen passen minder goed op. Oplossingen: <strong>eigen risico</strong> (verzekerde betaalt eerste deel zelf), <strong>no-claimkorting</strong> (beloning voor schadeverloos rijden), <strong>premiedifferentiatie</strong> (hogere premie voor hogere-risicogroepen). Alle oplossingen hebben als doel prikkels te geven voor voorzichtiger gedrag.</p></div>
+</div></div>
+
+<div id="sbegrippen" class="sec">
+  <div class="phdr"><div class="pn">📖</div><h2>Begrippenlijst</h2><p>Alle begrippen uit Hoofdstuk 5 — Verzekeren en Risico</p></div>
+  <div class="blok">
+    <input type="text" class="bsrch" placeholder="🔍 Zoek een begrip..." oninput="filterBegrippen(this)">
+    <div class="bgrd"><div class="bcard"><div class="bt">Acceptatiebeleid</div><div class="bd">Het beleid van een verzekeraar om bepaalde hoog-risico klanten te weigeren of extra voorwaarden te stellen.</div></div><div class="bcard"><div class="bt">Adverse Selection</div><div class="bd">Engelse term voor averechtse selectie.</div></div><div class="bcard"><div class="bt">Averechtse selectie</div><div class="bd">Het verschijnsel dat hoog-risico individuen wél en laag-risico individuen niet een verzekering afsluiten, waardoor de pool verslechtert.</div></div><div class="bcard"><div class="bt">Afnemend grensnut</div><div class="bd">Het verschijnsel dat elke extra euro minder extra nut geeft naarmate je rijker bent.</div></div><div class="bcard"><div class="bt">Brutopremie</div><div class="bd">Nettopremie plus opslagen voor beheerskosten en winst.</div></div><div class="bcard"><div class="bt">Death spiral</div><div class="bd">Het proces waarbij stijgende premies steeds meer laag-risico verzekerden doen afhaken, waardoor premies verder stijgen.</div></div><div class="bcard"><div class="bt">Eigen risico</div><div class="bd">Het deel van de schade dat de verzekerde zelf moet betalen voordat de verzekering uitkeert.</div></div><div class="bcard"><div class="bt">Fraudedetectie</div><div class="bd">Het opsporen van onterechte of bedrieglijke claims door de verzekeraar.</div></div><div class="bcard"><div class="bt">Kans (p)</div><div class="bd">De waarschijnlijkheid dat een bepaalde gebeurtenis optreedt, uitgedrukt als getal tussen 0 en 1.</div></div><div class="bcard"><div class="bt">Lemon</div><div class="bd">Term voor een product waarvan de koper de kwaliteit niet kan beoordelen.</div></div><div class="bcard"><div class="bt">Moral Hazard</div><div class="bd">Engelse term voor moreel wangedrag.</div></div><div class="bcard"><div class="bt">Moreel wangedrag</div><div class="bd">Het minder voorzichtig worden na verzekering, omdat de financiële gevolgen gedeeltelijk bij anderen liggen.</div></div><div class="bcard"><div class="bt">Nettopremie</div><div class="bd">De premie die precies genoeg is om de verwachte schades te dekken (= p × S).</div></div><div class="bcard"><div class="bt">No-claimkorting</div><div class="bd">Premiekorting voor verzekerden die geen schade hebben geclaimd in een periode.</div></div><div class="bcard"><div class="bt">Opslag</div><div class="bd">Bedrag bovenop de nettopremie voor beheerskosten, veiligheidsmarge en winst.</div></div><div class="bcard"><div class="bt">Premiedifferentiatie</div><div class="bd">Het hanteren van verschillende premies voor verschillende risicogroepen.</div></div><div class="bcard"><div class="bt">Risico</div><div class="bd">De kans dat een ongewenste gebeurtenis plaatsvindt, vermenigvuldigd met de omvang van de schade.</div></div><div class="bcard"><div class="bt">Risico-aversie</div><div class="bd">De neiging van mensen om zekerheid te prefereren boven onzekerheid.</div></div><div class="bcard"><div class="bt">Risicoprofiel</div><div class="bd">Het geheel van kenmerken dat het risico van een verzekerde bepaalt.</div></div><div class="bcard"><div class="bt">Risicodeling</div><div class="bd">Het spreiden van risico's over meerdere personen, zodat de individuele last kleiner wordt.</div></div><div class="bcard"><div class="bt">Schade (S)</div><div class="bd">Het financiële verlies dat optreedt als een ongewenste gebeurtenis plaatsvindt.</div></div><div class="bcard"><div class="bt">Screening</div><div class="bd">Het verzamelen van informatie over de klant om risico-klassen te onderscheiden.</div></div><div class="bcard"><div class="bt">Signaling</div><div class="bd">Het afgeven van geloofwaardige signalen door de verzekerde over zijn eigen risico.</div></div><div class="bcard"><div class="bt">Solidariteit</div><div class="bd">Het principe dat mensen elkaars risico's dragen: wie geen schade heeft, helpt betalen voor wie dat wel heeft.</div></div><div class="bcard"><div class="bt">Veiligheidsmarge</div><div class="bd">Extra premie-opslag om onverwacht hogere schades op te vangen.</div></div><div class="bcard"><div class="bt">Verwachte schade</div><div class="bd">Het gemiddeld te verwachten verlies per periode: kans × schade.</div></div><div class="bcard"><div class="bt">Verzekeringspool</div><div class="bd">Een groep verzekerden die samen hun risico's bundelen.</div></div><div class="bcard"><div class="bt">Verzekering</div><div class="bd">Contract waarbij een verzekeraar tegen premie het financiële risico van de verzekerde overneemt.</div></div><div class="bcard"><div class="bt">Zuiver risico</div><div class="bd">Een risico dat alleen tot verlies kan leiden, nooit tot winst.</div></div></div>
+  </div>
+</div>
+<div id="sherhaling" class="sec"><div class="phdr"><div class="pn">🔁</div><h2>Herhaling</h2><p>Gemengde vragen uit alle paragrafen</p></div>
+<div class="blok">
+<div class="hrbox ">
+  <div class="hrn" style="color:var(--gd)">§5.1 — Definieer risico</div>
+  <div class="hrq">Wat is de definitie van het begrip 'risico' in de economie? Noem ook de twee elementen waaruit risico bestaat. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Onthouden</span>
+    <button class="abtn" onclick="toggleAntw('hr_51_1')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_51_1"><p style="margin:4px 0">Risico is de combinatie van:</p>
+<p style="margin:4px 0">1\. Kans (p): de waarschijnlijkheid dat een ongewenste gebeurtenis</p>
+<p style="margin:4px 0">plaatsvindt.</p>
+<p style="margin:4px 0">2\. Schade (S): het financieel verlies als die gebeurtenis optreedt.</p>
+<p style="margin:4px 0">Formule: Verwachte schade = p × S</p>
+<p style="margin:4px 0">Voorbeeld: kans 5%, schade €1.000 → verwachte schade €50.</p></div>
+</div>
+<div class="hrbox ">
+  <div class="hrn" style="color:var(--gd)">§5.1 — Uitleg risico-aversie</div>
+  <div class="hrq">Leg in eigen woorden uit wat risico-aversie betekent. Waarom zijn mensen bereid meer te betalen voor een verzekering dan de verwachte schade? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Begrijpen</span>
+    <button class="abtn" onclick="toggleAntw('hr_51_4')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_51_4"><p style="margin:4px 0">Risico-aversie betekent dat mensen zekerheid prefereren boven</p>
+<p style="margin:4px 0">onzekerheid, ook als de verwachte uitkomst gelijk is.</p>
+<p style="margin:4px 0">Mensen betalen meer dan de verwachte schade omdat:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Een groot plotseling verlies (bijv. €1.200 kwijt) pijnlijker voelt</li></ul>
+<p style="margin:4px 0">dan een klein zeker verlies (premie €80).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Dit heeft te maken met afnemend grensnut: elke euro verlies doet</li></ul>
+<p style="margin:4px 0">meer pijn naarmate je minder geld hebt.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>De 'prijs van zekerheid' (het bedrag boven de verwachte schade</li></ul>
+<p style="margin:4px 0">dat men bereid is te betalen) heet de risicopremie.</p></div>
+</div>
+<div class="hrbox ">
+  <div class="hrn" style="color:var(--gd)">§5.1 — Berekening verwachte schade</div>
+  <div class="hrq">Lena heeft een racefiets van €800. De kans op diefstal is 8% per jaar. a) Bereken de verwachte schade per jaar. b) Een verzekering kost €50 per jaar. Is dit rationeel voor een gemiddelde, risico-averse persoon? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Toepassen</span>
+    <button class="abtn" onclick="toggleAntw('hr_51_7')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_51_7"><p style="margin:4px 0">a\) Verwachte schade = p × S = 0,08 × €800 = €64 per jaar.</p>
+<p style="margin:4px 0">b\) De premie (€50) is lager dan de verwachte schade (€64).</p>
+<p style="margin:4px 0">Dit is een 'actuarieel voordelige' verzekering: gemiddeld betaalt</p>
+<p style="margin:4px 0">Lena minder dan ze verwacht terug te krijgen.</p>
+<p style="margin:4px 0">Voor een risico-avers persoon is dit zeker rationeel: ze betalen €50</p>
+<p style="margin:4px 0">voor zekerheid i.p.v. een kans op €800 verlies.</p>
+<p style="margin:4px 0">Zelfs als de premie iets hoger dan de verwachte schade zou zijn, kan</p>
+<p style="margin:4px 0">het rationeel zijn vanwege risico-aversie.</p></div>
+</div>
+<div class="hrbox ">
+  <div class="hrn" style="color:var(--gd)">§5.1 — Analyseer verzekeringsgedrag</div>
+  <div class="hrq">Analyse: Twee leerlingen, Sara (spaargeld €5.000) en Daan (spaargeld €200), overwegen allebei geen fietsverzekering te nemen (verwachte schade €60/jaar, premie €70). Analyseer voor wie dit risicovol gedrag rationeler is. Gebruik het concept afnemend grensnut. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Analyseren</span>
+    <button class="abtn" onclick="toggleAntw('hr_51_10')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_51_10"><p style="margin:4px 0">Verwachte schade = €60/jaar; premie = €70/jaar (iets duurder dan</p>
+<p style="margin:4px 0">verwachte schade).</p>
+<p style="margin:4px 0">Sara (spaargeld €5.000): als haar fiets (waarde bijv. €400) gestolen</p>
+<p style="margin:4px 0">wordt, kan ze dit eenvoudig opvangen uit haar spaargeld.</p>
+<p style="margin:4px 0">→ Het nut-verlies van €400 is voor Sara beperkt: afnemend grensnut</p>
+<p style="margin:4px 0">werkt gunstig voor haar.</p>
+<p style="margin:4px 0">→ Niet verzekeren is voor Sara rationeler: ze spaart €70 premie per</p>
+<p style="margin:4px 0">jaar.</p>
+<p style="margin:4px 0">Daan (spaargeld €200): €400 verlies is voor hem catastrofaal — hij</p>
+<p style="margin:4px 0">kan dit nauwelijks opvangen.</p>
+<p style="margin:4px 0">→ Afnemend grensnut: elke euro verlies doet hem veel meer pijn.</p>
+<p style="margin:4px 0">→ Voor Daan is verzekeren rationeler, ook al is de premie iets boven</p>
+<p style="margin:4px 0">de verwachte schade.</p>
+<p style="margin:4px 0">Conclusie: risico-aversie is sterker bij mensen met minder financiële</p>
+<p style="margin:4px 0">buffer (Daan).</p></div>
+</div>
+<div class="hrbox p2">
+  <div class="hrn" style="color:var(--roodl)">§5.2 — Definitie solidariteit</div>
+  <div class="hrq">Wat betekent solidariteit in de context van verzekeringen? Geef een eigen voorbeeld. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Onthouden</span>
+    <button class="abtn" onclick="toggleAntw('hr_52_1')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_52_1"><p style="margin:4px 0">Solidariteit bij verzekeringen betekent dat degenen die geen schade</p>
+<p style="margin:4px 0">lijden, meebetalen voor degenen die wél schade lijden.</p>
+<p style="margin:4px 0">Via de premie draagt iedereen bij aan een gemeenschappelijk fonds.</p>
+<p style="margin:4px 0">Eigen voorbeeld: bij de zorgverzekering betalen gezonde mensen mee</p>
+<p style="margin:4px 0">voor zieke mensen.</p></div>
+</div>
+<div class="hrbox p2">
+  <div class="hrn" style="color:var(--roodl)">§5.2 — Verklaar nettopremie</div>
+  <div class="hrq">Lieg uit waarom de nettopremie gelijk is aan p × S. Gebruik een rekenkundig voorbeeld met eigen getallen. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Begrijpen</span>
+    <button class="abtn" onclick="toggleAntw('hr_52_4')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_52_4"><p style="margin:4px 0">In een pool van n mensen treedt gemiddeld p × n schadegevallen op.</p>
+<p style="margin:4px 0">Elke schadegeval kost S euro's.</p>
+<p style="margin:4px 0">Totale schade = n × p × S</p>
+<p style="margin:4px 0">De nettopremie per persoon = totale schade ÷ n = p × S</p>
+<p style="margin:4px 0">Eigen voorbeeld: 200 leden, p = 5%, S = €1.000</p>
+<p style="margin:4px 0">Totale schade = 200 × 0,05 × €1.000 = €10.000</p>
+<p style="margin:4px 0">Nettopremie = €10.000 ÷ 200 = €50 = p × S = 0,05 × €1.000 ✓</p></div>
+</div>
+<div class="hrbox p2">
+  <div class="hrn" style="color:var(--roodl)">§5.2 — Premieberekening basis</div>
+  <div class="hrq">Een fietsverzekering-pool telt 500 leden. De kans op diefstal is 4% per jaar. De gemiddelde schade bij diefstal is €600. a) Bereken de totale verwachte schade van de pool. b) Bereken de nettopremie per persoon. c) Bereken de brutopremie bij een opslag van 25%. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Toepassen</span>
+    <button class="abtn" onclick="toggleAntw('hr_52_7')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_52_7"><p style="margin:4px 0">a\) Totale verwachte schade = n × p × S = 500 × 0,04 × €600 = €12.000</p>
+<p style="margin:4px 0">b\) Nettopremie = totale schade ÷ n = €12.000 ÷ 500 = €24 per persoon</p>
+<p style="margin:4px 0">per jaar</p>
+<p style="margin:4px 0">OF: nettopremie = p × S = 0,04 × €600 = €24 ✓</p>
+<p style="margin:4px 0">c\) Brutopremie = nettopremie × (1 + opslag) = €24 × 1,25 = €30 per</p>
+<p style="margin:4px 0">persoon per jaar</p></div>
+</div>
+<div class="hrbox p2">
+  <div class="hrn" style="color:var(--roodl)">§5.2 — Analyseer solidariteitskeuze</div>
+  <div class="hrq">In de Nederlandse zorgverzekering betalen jongeren en ouderen dezelfde premie, ondanks dat ouderen gemiddeld veel hogere zorgkosten maken. Analyseer: (a) waarom dit een solidariteitskeuze is, (b) welk nadeel dit heeft voor jongeren, (c) welk voordeel dit heeft voor de samenleving als geheel. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Analyseren</span>
+    <button class="abtn" onclick="toggleAntw('hr_52_10')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_52_10"><p style="margin:4px 0">a\) Solidariteitskeuze: de overheid heeft bewust gekozen voor een</p>
+<p style="margin:4px 0">uniforme premie. Jongeren betalen meer dan hun verwachte schade;</p>
+<p style="margin:4px 0">ouderen minder. Dit is een politieke keuze: iedereen heeft recht op</p>
+<p style="margin:4px 0">betaalbare zorg, ongeacht leeftijd.</p>
+<p style="margin:4px 0">b\) Nadeel voor jongeren: zij subsidiëren effectief de zorgkosten van</p>
+<p style="margin:4px 0">ouderen. Vanuit individueel oogpunt is dit 'oneerlijk' (je betaalt</p>
+<p style="margin:4px 0">meer dan je verwachte schade).</p>
+<p style="margin:4px 0">c\) Voordeel voor samenleving: ouderenzorg blijft betaalbaar; geen</p>
+<p style="margin:4px 0">tweedeling in zorgtoegang; sociale cohesie en solidariteit worden</p>
+<p style="margin:4px 0">versterkt. Iedereen weet: ook als ik oud en ziek ben, heb ik recht op</p>
+<p style="margin:4px 0">zorg.</p></div>
+</div>
+<div class="hrbox p3">
+  <div class="hrn" style="color:var(--goudd)">§5.3 — Definieer asymmetrische informatie</div>
+  <div class="hrq">Wat is asymmetrische informatie? Noem twee voorbeelden van markten waar dit voorkomt (geen verzekering). ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Onthouden</span>
+    <button class="abtn" onclick="toggleAntw('hr_53_1')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_53_1"><p style="margin:4px 0">Asymmetrische informatie = situatie waarbij de ene partij meer</p>
+<p style="margin:4px 0">informatie heeft dan de andere bij een transactie.</p>
+<p style="margin:4px 0">Eigen voorbeelden (niet-verzekering):</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Arbeidsmarkt: sollicitant weet meer over zijn eigen capaciteiten</li></ul>
+<p style="margin:4px 0">dan de werkgever.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Tweedehands auto: verkoper weet meer over verborgen gebreken dan de</li></ul>
+<p style="margin:4px 0">koper.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Dokter-patiëntrelatie: de dokter weet meer over de behandeling dan</li></ul>
+<p style="margin:4px 0">de patiënt.</p></div>
+</div>
+<div class="hrbox p3">
+  <div class="hrn" style="color:var(--goudd)">§5.3 — Verklaar death spiral</div>
+  <div class="hrq">Leg stap voor stap uit hoe een 'death spiral' bij een zorgverzekeraar ontstaat. Gebruik minimaal vier stappen. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Begrijpen</span>
+    <button class="abtn" onclick="toggleAntw('hr_53_4')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_53_4"><p style="margin:4px 0">Stap 1: Verzekeraar berekent premie op basis van gemiddeld risico van</p>
+<p style="margin:4px 0">alle inwoners.</p>
+<p style="margin:4px 0">Stap 2: Gezonde/jonge mensen vinden de premie te hoog → stappen uit</p>
+<p style="margin:4px 0">de pool.</p>
+<p style="margin:4px 0">Stap 3: Pool bestaat nu voornamelijk uit zieken/ouderen → gemiddelde</p>
+<p style="margin:4px 0">schade per verzekerde stijgt.</p>
+<p style="margin:4px 0">Stap 4: Verzekeraar verhoogt premie om kosten te dekken.</p>
+<p style="margin:4px 0">Stap 5: Nog meer gezonde mensen haken af → gemiddelde schade stijgt</p>
+<p style="margin:4px 0">verder.</p>
+<p style="margin:4px 0">Stap 6: Herhaling → premie wordt onbetaalbaar → markt dreigt in te</p>
+<p style="margin:4px 0">storten.</p>
+<p style="margin:4px 0">Dit proces heet de 'death spiral' of premie-spiraal.</p></div>
+</div>
+<div class="hrbox p3">
+  <div class="hrn" style="color:var(--goudd)">§5.3 — Toepas op woningmarkt</div>
+  <div class="hrq">Op de markt voor huurwoningen weten huurders meer over hun eigen betalingsgedrag dan de verhuurder. a) Identificeer wie de informatievoordeel heeft. b) Welk probleem vergelijkbaar met averechtse selectie kan optreden? c) Noem een oplossing die verhuurders in de praktijk gebruiken. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Toepassen</span>
+    <button class="abtn" onclick="toggleAntw('hr_53_7')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_53_7"><p style="margin:4px 0">a\) De HUURDER heeft informatievoordeel over zijn eigen</p>
+<p style="margin:4px 0">betalingsdiscipline, schulden en woonsituatie.</p>
+<p style="margin:4px 0">b\) Averechtse selectie-achtig probleem: 'slechte betalers' (hoog</p>
+<p style="margin:4px 0">risico) willen graag huren;</p>
+<p style="margin:4px 0">'goede betalers' worden niet onderscheiden door verhuurders.</p>
+<p style="margin:4px 0">Verhuurder vraagt hoge borg of vraagt meer huur → goede huurders</p>
+<p style="margin:4px 0">haken af.</p>
+<p style="margin:4px 0">c\) Oplossingen in de praktijk:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Huurcheck/screening: verhuurder vraagt loonstroken,</li></ul>
+<p style="margin:4px 0">bankafschriften.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Referenties van vorige verhuurder.</li><li>Borg als financieel signaal (goede huurder is bereid borg te</li></ul>
+<p style="margin:4px 0">betalen).</p></div>
+</div>
+<div class="hrbox p3">
+  <div class="hrn" style="color:var(--goudd)">§5.3 — Analyseer marktinstorting</div>
+  <div class="hrq">Analyseer waarom de markt voor verzekeringen zonder overheidsinterventie kan instorten. Gebruik de begrippen averechtse selectie, premium spiral en laag-risico groepen in je antwoord. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Analyseren</span>
+    <button class="abtn" onclick="toggleAntw('hr_53_10')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_53_10"><p style="margin:4px 0">Zonder overheidsinterventie verloopt het als volgt:</p>
+<p style="margin:4px 0">1\. Informatie-asymmetrie: verzekeraar kent het individuele risico</p>
+<p style="margin:4px 0">van klanten niet.</p>
+<p style="margin:4px 0">2\. Averechtse selectie: hoog-risico mensen verzekeren zich wel;</p>
+<p style="margin:4px 0">laag-risico mensen niet.</p>
+<p style="margin:4px 0">3\. Gemiddelde schade in pool stijgt → verzekeraar verhoogt premie.</p>
+<p style="margin:4px 0">4\. Meer laag-risico mensen stappen uit → gemiddelde schade stijgt</p>
+<p style="margin:4px 0">verder (premium spiral).</p>
+<p style="margin:4px 0">5\. Uiteindelijk: pool bestaat alleen uit hoog-risico mensen → premie</p>
+<p style="margin:4px 0">astronomisch hoog.</p>
+<p style="margin:4px 0">6\. Markt instorting: betaalbare verzekeringen bestaan niet meer.</p>
+<p style="margin:4px 0">Overheidsinterventies die dit voorkomen:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Verplichte verzekering (zorgt dat laag-risico groepen ook</li></ul>
+<p style="margin:4px 0">deelnemen).</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Risicoverevening (overheid compenseert verzekeraars met hoog-risico</li></ul>
+<p style="margin:4px 0">portefeuilles).</p></div>
+</div>
+<div class="hrbox p4">
+  <div class="hrn" style="color:var(--blauwl)">§5.4 — Definieer moral hazard</div>
+  <div class="hrq">Wat is moreel wangedrag (moral hazard)? Geef twee voorbeelden die niet in de tekst staan. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#0f4d2e;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Onthouden</span>
+    <button class="abtn" onclick="toggleAntw('hr_54_1')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_54_1"><p style="margin:4px 0">Moreel wangedrag (moral hazard) = het verschijnsel dat mensen hun</p>
+<p style="margin:4px 0">gedrag veranderen nadat ze verzekerd zijn,</p>
+<p style="margin:4px 0">doordat de financiële gevolgen van schade niet (volledig) op henzelf</p>
+<p style="margin:4px 0">drukken.</p>
+<p style="margin:4px 0">Eigen voorbeelden (niet uit de tekst):</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Iemand met een inboedelverzekering laat waardevolle spullen</li></ul>
+<p style="margin:4px 0">onbewacht liggen.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Een student met een zorgverzekering vraagt vaker een consult aan</li></ul>
+<p style="margin:4px 0">dan nodig.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Een restauranthouder met brandverzekering investeert minder in</li></ul>
+<p style="margin:4px 0">brandpreventie.</p></div>
+</div>
+<div class="hrbox p4">
+  <div class="hrn" style="color:var(--blauwl)">§5.4 — Verklaar no-claim</div>
+  <div class="hrq">Hoe werkt de no-claimkorting als prikkel tegen moreel wangedrag? Waarom is dit effectiever dan alleen een hoge premie? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#1a7a4a;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Begrijpen</span>
+    <button class="abtn" onclick="toggleAntw('hr_54_4')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_54_4"><p style="margin:4px 0">No-claimkorting werkt als beloning: wie geen schade claimt, krijgt</p>
+<p style="margin:4px 0">premiekorting volgend jaar.</p>
+<p style="margin:4px 0">Prikkel: de verzekerde overweegt bij kleine schade of claimdienen het</p>
+<p style="margin:4px 0">waard is → hij betaalt liever zelf.</p>
+<p style="margin:4px 0">Dit is effectiever dan alleen hoge premie, omdat:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Een hoge premie treft iedereen gelijk, ook mensen die al</li></ul>
+<p style="margin:4px 0">voorzichtig zijn.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>No-claimkorting is gedifferentieerd: wie voorzichtig is, betaalt</li></ul>
+<p style="margin:4px 0">minder. Directe koppeling gedrag→beloning.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>No-claimkorting geeft een dynamische prikkel die ook na</li></ul>
+<p style="margin:4px 0">verzekeringingang het gedrag beïnvloedt.</p></div>
+</div>
+<div class="hrbox p4">
+  <div class="hrn" style="color:var(--blauwl)">§5.4 — Eigen risico berekenen</div>
+  <div class="hrq">Mia heeft een zorgverzekering met €385 eigen risico. Ze bezoekt de huisarts (€30), laat een röntgenfoto maken (€80) en ondergaat een kleine operatie (€600). a) Welk bedrag betaalt Mia zelf? b) Welk bedrag vergoedt de verzekering? ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#d4a012;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Toepassen</span>
+    <button class="abtn" onclick="toggleAntw('hr_54_7')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_54_7"><p style="margin:4px 0">Totale kosten = €30 + €80 + €600 = €710</p>
+<p style="margin:4px 0">a\) Mia betaalt zelf: het eigen risico = €385 (want totale kosten</p>
+<p style="margin:4px 0">€710 \> eigen risico €385)</p>
+<p style="margin:4px 0">b\) Verzekering vergoedt: €710 − €385 = €325</p>
+<p style="margin:4px 0">Toelichting: het eigen risico wordt op volgorde opgemaakt. De</p>
+<p style="margin:4px 0">verzekering vergoedt alle kosten boven het eigen risico.</p></div>
+</div>
+<div class="hrbox p4">
+  <div class="hrn" style="color:var(--blauwl)">§5.4 — Analyseer prikkelwerking</div>
+  <div class="hrq">Analyseer waarom het verplichte eigen risico in de zorgverzekering zowel voordelen als nadelen heeft. Gebruik de begrippen moreel wangedrag, noodzakelijke zorg en premieniveau. ..\.. ..\.. ..\..</div>
+  <textarea class="antw-input" placeholder="Schrijf hier je antwoord..."></textarea>
+  <div class="antw-actions">
+    <span style="font-size:.7rem;background:#b85c00;color:#fff;padding:2px 8px;border-radius:8px;font-weight:700">Analyseren</span>
+    <button class="abtn" onclick="toggleAntw('hr_54_10')">✅ Toon antwoord</button>
+  </div>
+  <div class="abox" id="hr_54_10"><p style="margin:4px 0">Voordelen:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Vermindert moreel wangedrag: patiënten denken twee keer na voor</li></ul>
+<p style="margin:4px 0">onnodige zorgconsumptie.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Lagere totale zorgvraag → lagere premies voor alle verzekerden.</li><li>Financiële mede-verantwoordelijkheid stimuleert gezonder gedrag.</li></ul>
+<p style="margin:4px 0">Nadelen:</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Noodzakelijke zorg uitstellen: mensen stellen soms medisch</li></ul>
+<p style="margin:4px 0">noodzakelijke zorg uit om eigen risico te vermijden.</p>
+<p style="margin:4px 0">Dit kan leiden tot ergere (en duurdere) klachten later.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Oneerlijk voor mensen met laag inkomen: €385 is voor hen een groter</li></ul>
+<p style="margin:4px 0">deel van inkomen.</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.65;font-size:.88rem"><li>Mensen met chronische ziekte 'straften': zij overschrijden eigen</li></ul>
+<p style="margin:4px 0">risico altijd, ongeacht gedrag.</p>
+<p style="margin:4px 0">Conclusie: eigen risico heeft positieve prikkelwerking, maar kan ook</p>
+<p style="margin:4px 0">ongewenste bijeffecten hebben.</p></div>
+</div>
+</div></div>
+
+<div id="srekensommen" class="sec"><div class="phdr"><div class="pn">🔢</div><h2>Rekensommen</h2><p>6 opgaven — Laat altijd je berekening zien</p></div>
+<div class="blok">
+<div class="rsom">
+  <span class="rn">Som 1</span>
+  <p><strong>Verwachte schade en premie</strong></p>
+  <p style="margin:4px 0">Tom heeft een e-bike ter waarde van €1.500. De kans op diefstal is 6%</p><p style="margin:4px 0">per jaar. Een verzekeraar biedt een diefstalverzekering aan.</p><p style="margin:4px 0">a\) Bereken de verwachte schade per jaar.</p><p style="margin:4px 0">b\) Bereken de nettopremie (gelijk aan de verwachte schade).</p><p style="margin:4px 0">c\) De verzekeraar hanteert een opslag van 35%. Bereken de brutopremie.</p><p style="margin:4px 0">d\) Tom vindt de brutopremie te hoog. Hij stelt dat hij beter €6 per</p><p style="margin:4px 0">maand apart kan sparen. Bereken hoeveel hij na 1 jaar gespaard heeft en</p><p style="margin:4px 0">vergelijk dit met de verwachte schade.</p>
+  <button class="rbtn" onclick="toggleOpl('opl_1')">🔢 Toon uitwerking</button>
+  <div class="oplossing" id="opl_1"><p style="margin:4px 0">GEGEVEN: Waarde e-bike S = €1.500 | Kans diefstal p = 6% = 0,06</p>
+<p style="margin:4px 0">GEVRAAGD: a) verwachte schade b) nettopremie c) brutopremie (+35%) d)</p>
+<p style="margin:4px 0">spaaralternatief</p>
+<p style="margin:4px 0">OPLOSSING:</p>
+<p style="margin:4px 0">a\) Verwachte schade = p × S = 0,06 × €1.500 = €90 per jaar</p>
+<p style="margin:4px 0">b\) Nettopremie = verwachte schade = €90 per jaar</p>
+<p style="margin:4px 0">c\) Brutopremie = €90 × 1,35 = €121,50 per jaar</p>
+<p style="margin:4px 0">d\) Sparen: €6 × 12 = €72 per jaar</p>
+<p style="margin:4px 0">Vergelijking: gespaard bedrag (€72) \< verwachte schade (€90)</p>
+<p style="margin:4px 0">Conclusie: sparen dekt de verwachte schade NIET volledig. Bovendien:</p>
+<p style="margin:4px 0">bij diefstal in jaar 1 heeft Tom slechts €72 gespaard maar verliest</p>
+<p style="margin:4px 0">hij €1.500.</p>
+<p style="margin:4px 0">Verzekeren is voor een risico-averse persoon rationeler.</p></div>
+</div>
+<div class="rsom">
+  <span class="rn">Som 2</span>
+  <p><strong>Verzekeringspool en premieberekening</strong></p>
+  <p style="margin:4px 0">Een scholierenverzekering heeft 400 leden. De kans op beschadiging van</p><p style="margin:4px 0">een laptop is 8%. De gemiddelde reparatiekosten zijn €250.</p><p style="margin:4px 0">a\) Bereken de totale verwachte schade van de pool per jaar.</p><p style="margin:4px 0">b\) Bereken de nettopremie per scholier per jaar.</p><p style="margin:4px 0">c\) De verzekeraar rekent 20% opslag. Bereken de brutopremie.</p><p style="margin:4px 0">d\) De pool groeit naar 1.000 leden (zelfde p en S). Bereken de nieuwe</p><p style="margin:4px 0">totale verwachte schade en de nettopremie per leerling.</p><p style="margin:4px 0">e\) Waarom verandert de nettopremie per leerling niet als de pool</p><p style="margin:4px 0">groeit?</p>
+  <button class="rbtn" onclick="toggleOpl('opl_2')">🔢 Toon uitwerking</button>
+  <div class="oplossing" id="opl_2"><p style="margin:4px 0">GEGEVEN: n = 400 leden | p = 8% = 0,08 | S = €250</p>
+<p style="margin:4px 0">GEVRAAGD: a) totale verwachte schade b) nettopremie c) brutopremie</p>
+<p style="margin:4px 0">(+20%) d) bij n=1.000 e) verklaring</p>
+<p style="margin:4px 0">OPLOSSING:</p>
+<p style="margin:4px 0">a\) Totale verwachte schade = 400 × 0,08 × €250 = €8.000</p>
+<p style="margin:4px 0">b\) Nettopremie = €8.000 ÷ 400 = €20 per scholier</p>
+<p style="margin:4px 0">OF: nettopremie = p × S = 0,08 × €250 = €20 ✓</p>
+<p style="margin:4px 0">c\) Brutopremie = €20 × 1,20 = €24 per scholier per jaar</p>
+<p style="margin:4px 0">d\) n = 1.000: Totale verwachte schade = 1.000 × 0,08 × €250 =</p>
+<p style="margin:4px 0">€20.000</p>
+<p style="margin:4px 0">Nettopremie = €20.000 ÷ 1.000 = €20 per leerling → ONVERANDERD</p>
+<p style="margin:4px 0">e\) De nettopremie verandert niet omdat: nettopremie = p × S</p>
+<p style="margin:4px 0">p en S zijn ongewijzigd, dus de nettopremie blijft €20.</p>
+<p style="margin:4px 0">Wat wél verandert: de pool is stabieler (wet van grote getallen).</p>
+<p style="margin:4px 0">Dit kan de veiligheidsmarge en dus de opslag verlagen → lagere</p>
+<p style="margin:4px 0">brutopremie.</p></div>
+</div>
+<div class="rsom">
+  <span class="rn">Som 3</span>
+  <p><strong>Eigen risico en vergoeding</strong></p>
+  <p style="margin:4px 0">Lena heeft een zorgverzekering met een eigen risico van €385 per jaar.</p><p style="margin:4px 0">In januari heeft ze de volgende medische kosten: huisarts €35,</p><p style="margin:4px 0">fysiotherapie €120, ziekenhuisopname €800.</p><p style="margin:4px 0">a\) Bereken Lena's totale medische kosten in januari.</p><p style="margin:4px 0">b\) Hoeveel betaalt Lena zelf (eigen risico)?</p><p style="margin:4px 0">c\) Hoeveel vergoedt de verzekering?</p><p style="margin:4px 0">d\) In februari heeft ze nog eens €150 aan tandartskosten. Het eigen</p><p style="margin:4px 0">risico is al volgemaakt. Hoeveel vergoedt de verzekering nu?</p><p style="margin:4px 0">e\) Bereken Lena's totale eigen uitgaven over beide maanden.</p>
+  <button class="rbtn" onclick="toggleOpl('opl_3')">🔢 Toon uitwerking</button>
+  <div class="oplossing" id="opl_3"><p style="margin:4px 0">GEGEVEN: Eigen risico = €385/jaar | Kosten jan: huisarts €35,</p>
+<p style="margin:4px 0">fysiotherapie €120, ziekenhuis €800</p>
+<p style="margin:4px 0">GEVRAAGD: a) totale kosten jan b) eigen betaling c) vergoeding d) feb</p>
+<p style="margin:4px 0">tandarts €150 e) totale eigen uitgaven</p>
+<p style="margin:4px 0">OPLOSSING:</p>
+<p style="margin:4px 0">a\) Totale kosten januari = €35 + €120 + €800 = €955</p>
+<p style="margin:4px 0">b\) Lena betaalt eigen risico: min(€955, €385) = €385 (kosten \></p>
+<p style="margin:4px 0">eigen risico)</p>
+<p style="margin:4px 0">c\) Vergoeding = €955 − €385 = €570</p>
+<p style="margin:4px 0">d\) Februari: €150 tandarts. Eigen risico is al volgemaakt (€385 in</p>
+<p style="margin:4px 0">januari).</p>
+<p style="margin:4px 0">Vergoeding = volledig €150 (aangenomen dat tandartskosten gedekt</p>
+<p style="margin:4px 0">zijn)</p>
+<p style="margin:4px 0">e\) Totale eigen uitgaven Lena = eigen risico jan €385 + €0 feb =</p>
+<p style="margin:4px 0">€385</p>
+<p style="margin:4px 0">(het eigen risico is een jaardrempel; is die eenmaal bereikt, betaalt</p>
+<p style="margin:4px 0">de verzekering de rest)</p></div>
+</div>
+<div class="rsom">
+  <span class="rn">Som 4</span>
+  <p><strong>No-claimkorting en premiedifferentiatie</strong></p>
+  <p style="margin:4px 0">De basispremie voor een autoverzekering is €1.000 per jaar. Na elk</p><p style="margin:4px 0">schadeverloos jaar krijg je 10% no-claimkorting (maximaal 5 jaar, dus</p><p style="margin:4px 0">max. 50% korting). Indien je schade claimt, vervalt de opgebouwde</p><p style="margin:4px 0">korting.</p><p style="margin:4px 0">a\) Bereken de premie in jaar 1, 2, 3, 4 en 5 als je nooit schade</p><p style="margin:4px 0">claimt.</p><p style="margin:4px 0">b\) Bereken hoeveel je in 5 jaar totaal betaalt (geen schade).</p><p style="margin:4px 0">c\) Stel je claimt aan het einde van jaar 3 schade. Hoeveel premie</p><p style="margin:4px 0">betaal je in jaar 4 (korting vervalt)?</p><p style="margin:4px 0">d\) Bereken het totaal over 5 jaar als je in jaar 3 claimt (jaar 1-3 +</p><p style="margin:4px 0">jaar 4-5 zonder korting).</p><p style="margin:4px 0">e\) Wat is het financieel nadeel van claimdragen in jaar 3 ten opzichte</p><p style="margin:4px 0">van geen schade over 5 jaar?</p>
+  <button class="rbtn" onclick="toggleOpl('opl_4')">🔢 Toon uitwerking</button>
+  <div class="oplossing" id="opl_4"><p style="margin:4px 0">GEGEVEN: Basispremie = €1.000/jaar | No-claimkorting: 10% per</p>
+<p style="margin:4px 0">schadeverloos jaar (max 50%)</p>
+<p style="margin:4px 0">GEVRAAGD: a) premie jaren 1-5 (geen schade) b) totaal c) premie jaar</p>
+<p style="margin:4px 0">4 na claim in jaar 3 d) totaal met claim e) verschil</p>
+<p style="margin:4px 0">OPLOSSING:</p>
+<p style="margin:4px 0">a\) Jaar 1: €1.000 × (1 − 0%) = €1.000</p>
+<p style="margin:4px 0">Jaar 2: €1.000 × (1 − 10%) = €900</p>
+<p style="margin:4px 0">Jaar 3: €1.000 × (1 − 20%) = €800</p>
+<p style="margin:4px 0">Jaar 4: €1.000 × (1 − 30%) = €700</p>
+<p style="margin:4px 0">Jaar 5: €1.000 × (1 − 40%) = €600</p>
+<p style="margin:4px 0">b\) Totaal geen schade: €1.000 + €900 + €800 + €700 + €600 = €4.000</p>
+<p style="margin:4px 0">c\) Claim in jaar 3 → korting vervalt → jaar 4: €1.000 (basispremie,</p>
+<p style="margin:4px 0">geen korting)</p>
+<p style="margin:4px 0">d\) Totaal met claim in jaar 3:</p>
+<p style="margin:4px 0">Jaar 1: €1.000 | Jaar 2: €900 | Jaar 3: €800 (+ claim) | Jaar 4:</p>
+<p style="margin:4px 0">€1.000 | Jaar 5: €900</p>
+<p style="margin:4px 0">Totaal = €1.000 + €900 + €800 + €1.000 + €900 = €4.600</p>
+<p style="margin:4px 0">e\) Financieel nadeel van claimdragen:</p>
+<p style="margin:4px 0">€4.600 − €4.000 = €600 extra premielast over 5 jaar (bovenop de</p>
+<p style="margin:4px 0">schadekost zelf)</p></div>
+</div>
+<div class="rsom">
+  <span class="rn">Som 5</span>
+  <p><strong>Averechtse selectie — integratiesom</strong></p>
+  <p style="margin:4px 0">Een verzekeraar heeft 1.000 klanten: 600 met laag risico (p = 2%, S =</p><p style="margin:4px 0">€500) en 400 met hoog risico (p = 15%, S = €500). De verzekeraar kent</p><p style="margin:4px 0">het verschil niet en berekent één gemiddelde nettopremie.</p><p style="margin:4px 0">a\) Bereken de totale verwachte schade van de laag-risicogroep.</p><p style="margin:4px 0">b\) Bereken de totale verwachte schade van de hoog-risicogroep.</p><p style="margin:4px 0">c\) Bereken de totale verwachte schade van de hele pool.</p><p style="margin:4px 0">d\) Bereken de gemiddelde nettopremie per klant.</p><p style="margin:4px 0">e\) Laag-risicoklanten vinden de premie te hoog (hun eigen verwachte</p><p style="margin:4px 0">schade is slechts €10). Ze stappen uit. Bereken de nieuwe nettopremie</p><p style="margin:4px 0">voor de resterende 400 hoog-risicoklanten. Wat zie je?</p><p style="margin:4px 0">f\) Leg uit hoe dit de 'death spiral' illustreert.</p>
+  <button class="rbtn" onclick="toggleOpl('opl_5')">🔢 Toon uitwerking</button>
+  <div class="oplossing" id="opl_5"><p style="margin:4px 0">GEGEVEN: 1.000 klanten: 600 laag-risico (p=2%, S=€500) + 400</p>
+<p style="margin:4px 0">hoog-risico (p=15%, S=€500)</p>
+<p style="margin:4px 0">Verzekeraar kent het verschil niet → berekent één gemiddelde</p>
+<p style="margin:4px 0">nettopremie.</p>
+<p style="margin:4px 0">GEVRAAGD: a-f) zie vraag</p>
+<p style="margin:4px 0">OPLOSSING:</p>
+<p style="margin:4px 0">a\) Totale verwachte schade laag-risico = 600 × 0,02 × €500 = €6.000</p>
+<p style="margin:4px 0">b\) Totale verwachte schade hoog-risico = 400 × 0,15 × €500 = €30.000</p>
+<p style="margin:4px 0">c\) Totale verwachte schade pool = €6.000 + €30.000 = €36.000</p>
+<p style="margin:4px 0">d\) Gemiddelde nettopremie = €36.000 ÷ 1.000 = €36 per klant</p>
+<p style="margin:4px 0">e\) Laag-risico klanten stappen uit (hun verwachte schade = p × S =</p>
+<p style="margin:4px 0">0,02 × €500 = €10, veel lager dan €36).</p>
+<p style="margin:4px 0">Resterende pool: 400 hoog-risico klanten.</p>
+<p style="margin:4px 0">Nieuwe totale verwachte schade = €30.000</p>
+<p style="margin:4px 0">Nieuwe nettopremie = €30.000 ÷ 400 = €75 per klant</p>
+<p style="margin:4px 0">Premie stijgt van €36 naar €75! (meer dan verdubbeld)</p>
+<p style="margin:4px 0">f\) Death spiral illustratie:</p>
+<p style="margin:4px 0">Stap 1: gemiddelde premie €36 → laag-risico verlaat pool.</p>
+<p style="margin:4px 0">Stap 2: premie stijgt naar €75 → als er ook 'grensgevallen' (medium</p>
+<p style="margin:4px 0">risico) zijn, stappen die ook uit.</p>
+<p style="margin:4px 0">Stap 3: premie stijgt verder → herhaling totdat alleen zeer</p>
+<p style="margin:4px 0">hoog-risico overblijft.</p>
+<p style="margin:4px 0">→ Markt dreigt in te storten (premium spiral / death spiral).</p></div>
+</div>
+<div class="rsom">
+  <span class="rn">Som 6</span>
+  <p><strong>Integratie: alle begrippen</strong></p>
+  <p style="margin:4px 0">Yasmin (17) heeft een scooter van €2.000. Ze overweegt een allrisk</p><p style="margin:4px 0">verzekering (premie €200/jaar, eigen risico €0) of een WA-verzekering</p><p style="margin:4px 0">(premie €80/jaar). De kans op schade is 10% per jaar, gemiddelde schade</p><p style="margin:4px 0">a\) Bereken de verwachte schade per jaar.</p><p style="margin:4px 0">b\) Bereken voor de allrisk: netto verwachte vergoeding minus premie</p><p style="margin:4px 0">(voordeel/nadeel per jaar gemiddeld).</p><p style="margin:4px 0">c\) Bereken voor de WA (dekt schade aan anderen, niet eigen schade): als</p><p style="margin:4px 0">Yasmin zelf schade lijdt, betaalt ze zelf. Bereken haar verwachte totale</p><p style="margin:4px 0">kosten (premie + eigen schade) per jaar.</p><p style="margin:4px 0">d\) Vergelijk beide opties. Welke is financieel voordeliger op korte</p><p style="margin:4px 0">termijn?</p><p style="margin:4px 0">e\) Welke risico-overweging speelt mee naast de verwachte kosten?</p><p style="margin:4px 0">Gebruik risico-aversie in je antwoord.</p>
+  <button class="rbtn" onclick="toggleOpl('opl_6')">🔢 Toon uitwerking</button>
+  <div class="oplossing" id="opl_6"><p style="margin:4px 0">GEGEVEN: Yasmin (17), scooter €2.000 | Allrisk: €200/jaar, eigen</p>
+<p style="margin:4px 0">risico €0 | WA: €80/jaar</p>
+<p style="margin:4px 0">Kans op schade = 10% | Gemiddelde schade = €800</p>
+<p style="margin:4px 0">GEVRAAGD: a-e) zie vraag</p>
+<p style="margin:4px 0">OPLOSSING:</p>
+<p style="margin:4px 0">a\) Verwachte schade = 0,10 × €800 = €80 per jaar</p>
+<p style="margin:4px 0">b\) Allrisk: netto verwachte vergoeding − premie</p>
+<p style="margin:4px 0">Verwachte uitkering = verwachte schade = €80 (verzekeraar dekt alles)</p>
+<p style="margin:4px 0">Netto resultaat = €80 − €200 = −€120 per jaar (Yasmin 'verliest'</p>
+<p style="margin:4px 0">gemiddeld €120/jaar)</p>
+<p style="margin:4px 0">Conclusie: allrisk is gemiddeld financieel nadelig; maar geeft</p>
+<p style="margin:4px 0">volledige dekking bij schade.</p>
+<p style="margin:4px 0">c\) WA: dekt alleen schade aan derden, niet Yasmins eigen scooter.</p>
+<p style="margin:4px 0">Als Yasmin schade lijdt aan eigen scooter → betaalt zelf.</p>
+<p style="margin:4px 0">Verwachte eigen schadekosten = verwachte schade = €80</p>
+<p style="margin:4px 0">Totale verwachte kosten WA = premie + eigen schade = €80 + €80 = €160</p>
+<p style="margin:4px 0">per jaar</p>
+<p style="margin:4px 0">d\) Vergelijking korte termijn:</p>
+<p style="margin:4px 0">Allrisk: Yasmin betaalt €200 premie, verwacht €80 terug → nettolast</p>
+<p style="margin:4px 0">€120</p>
+<p style="margin:4px 0">WA: Yasmin betaalt €80 premie + €80 verwachte eigen schade →</p>
+<p style="margin:4px 0">nettolast €160</p>
+<p style="margin:4px 0">→ WA is financieel DUURDER op verwacht niveau! (€160 \> €120)</p>
+<p style="margin:4px 0">Maar: allrisk kost €200 zeker; WA kost €80 + onzeker €800 bij schade.</p>
+<p style="margin:4px 0">e\) Risico-overweging (risico-aversie):</p>
+<p style="margin:4px 0">Bij WA draagt Yasmin het risico op €800 schade zelf.</p>
+<p style="margin:4px 0">Een risico-avers persoon prefereert de zekerheid van allrisk (€200</p>
+<p style="margin:4px 0">zeker, nooit plotseling €800 kwijt).</p>
+<p style="margin:4px 0">De waarde van zekerheid (€200 − €120 = €80) is wat Yasmin extra</p>
+<p style="margin:4px 0">betaalt voor de gemoedsrust.</p></div>
+</div>
+</div></div>
+
+</main>
+<script>
+
+function S(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  if(btn)btn.classList.add('act');
+  window.scrollTo(0,0);
+}
+function toggleAntw(id){
+  const box=document.getElementById(id);
+  box.classList.toggle('show');
+  const btn=box.previousElementSibling.querySelector('.abtn');
+  if(btn)btn.textContent=box.classList.contains('show')?'▲ Verberg antwoord':'✅ Toon antwoord';
+}
+function toggleOpl(id){
+  const box=document.getElementById(id);
+  box.classList.toggle('show');
+  const btn=box.previousElementSibling;
+  if(btn)btn.textContent=box.classList.contains('show')?'▲ Verberg uitwerking':'🔢 Toon uitwerking';
+}
+function filterBegrippen(inp){
+  const q=inp.value.toLowerCase();
+  document.querySelectorAll('.bcard').forEach(c=>{
+    const match=c.textContent.toLowerCase().includes(q);
+    c.style.display=match?'':'none';
+  });
+}
+function switchTab(tabId,btn,groupClass){
+  document.querySelectorAll('.'+groupClass+' .bl-pane').forEach(p=>p.classList.remove('act'));
+  btn.closest('.'+groupClass).querySelectorAll('.bl-tab').forEach(b=>b.classList.remove('act'));
+  document.getElementById(tabId).classList.add('act');
+  btn.classList.add('act');
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  var firstBtn = document.querySelector('nav button');
+  S('s51', firstBtn);
+});
+
+</script>
+</body>
+</html>
