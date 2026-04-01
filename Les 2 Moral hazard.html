@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les 2 – Moral Hazard | H6 Economie 3 VWO</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Playfair+Display:wght@700;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --dark: #1A0F2E;
+    --mid: #2D1A4A;
+    --accent: #C84B4B;
+    --accent2: #F5A623;
+    --accent3: #3EC9A7;
+    --light: #F5F0F0;
+    --white: #FFFFFF;
+    --text: #2D1A1A;
+    --muted: #8B6B6B;
+  }
+  body { font-family: 'Inter', sans-serif; background: #1A1A2E; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
+  .nav { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; width: 100%; max-width: 960px; justify-content: center; flex-wrap: wrap; }
+  .nav button { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 8px 16px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+  .nav button:hover { background: rgba(200,75,75,0.25); border-color: var(--accent); }
+  .nav button.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+  .slide-counter { color: rgba(255,255,255,0.4); font-size: 12px; margin-left: 8px; }
+  .slide { display: none; width: 100%; max-width: 960px; min-height: 540px; border-radius: 16px; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.6); position: relative; }
+  .slide.active { display: flex; flex-direction: column; }
+  .progress-bar { width: 100%; max-width: 960px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 12px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.4s ease; }
+  .notes-bar { width: 100%; max-width: 960px; margin-top: 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px 24px; color: rgba(255,255,255,0.55); font-size: 13px; line-height: 1.6; }
+  .notes-bar .notes-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+
+  /* SLIDE TITLE */
+  .slide-title { background: linear-gradient(135deg, #1A0A0A 0%, #2E1A1A 50%, #1A0A2E 100%); padding: 60px 70px; justify-content: center; align-items: flex-start; }
+  .overline { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 16px; }
+  .slide-title h1 { font-family: 'Playfair Display', serif; font-size: 52px; color: var(--white); line-height: 1.1; margin-bottom: 20px; max-width: 600px; }
+  .slide-title h1 span { color: var(--accent); }
+  .subtitle { font-size: 16px; color: rgba(255,255,255,0.55); margin-bottom: 40px; }
+  .tags { display: flex; gap: 10px; flex-wrap: wrap; }
+  .tag { background: rgba(200,75,75,0.15); border: 1px solid rgba(200,75,75,0.35); color: var(--accent); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .les-badge { position: absolute; top: 36px; right: 50px; background: var(--accent); color: #fff; padding: 8px 18px; border-radius: 30px; font-weight: 900; font-size: 13px; letter-spacing: 1px; }
+
+  /* HOOK */
+  .slide-hook { background: linear-gradient(140deg, #1A0A0A 0%, #2A1A0A 50%, #0A0A1A 100%); padding: 50px 60px; flex-direction: row; gap: 40px; align-items: center; }
+  .hook-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(200,75,75,0.18); border: 1px solid rgba(200,75,75,0.4); color: var(--accent); padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px; width: fit-content; }
+  .hook-left h2 { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--white); line-height: 1.25; margin-bottom: 16px; }
+  .hook-left p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.65; margin-bottom: 14px; }
+  .hook-right { width: 300px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
+  .scenario-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px 16px; }
+  .scenario-card .sc-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 6px; }
+  .scenario-card p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+  .verdict { background: rgba(200,75,75,0.12); border: 1px solid rgba(200,75,75,0.3); border-radius: 10px; padding: 12px 16px; text-align: center; }
+  .verdict p { font-size: 13px; color: rgba(255,255,255,0.75); }
+  .verdict strong { color: var(--accent); }
+
+  /* CONTENT LIGHT */
+  .slide-light { background: var(--light); padding: 48px 60px; flex-direction: column; }
+  .slide-header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .slide-icon { width: 44px; height: 44px; background: var(--dark); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .slide-light h2 { font-size: 26px; color: var(--dark); font-weight: 900; }
+  .slide-light h2 span { color: var(--accent); }
+
+  /* CONTENT DARK */
+  .slide-dark { background: #1A0A0A; padding: 48px 60px; flex-direction: column; }
+  .slide-dark h2 { font-size: 26px; color: var(--white); font-weight: 900; margin-bottom: 28px; }
+  .slide-dark h2 span { color: var(--accent); }
+  .card-dark { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 18px 22px; }
+  .card-dark h3 { color: rgba(255,255,255,0.4); font-size: 12px; text-transform: uppercase; margin-bottom: 8px; }
+  .card-dark p { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.55; }
+  .cols { display: flex; gap: 20px; flex: 1; }
+  .col { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .card { background: var(--white); border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+  .card h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #8B6B6B; margin-bottom: 8px; }
+  .card p { font-size: 14px; color: var(--text); line-height: 1.55; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #1A0A0A; color: var(--white); padding: 12px 16px; font-size: 13px; font-weight: 600; text-align: left; }
+  td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.06); color: var(--text); }
+  tr:nth-child(even) td { background: rgba(200,75,75,0.04); }
+  .badge-measure { background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.4); color: #C47A00; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+
+  /* EXAMPLES GRID */
+  .examples-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .example-card { background: var(--white); border-radius: 12px; padding: 18px 16px; border-top: 3px solid var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .example-card .emoji { font-size: 28px; margin-bottom: 10px; }
+  .example-card h4 { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .example-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .example-card .mh-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--accent); margin-top: 8px; }
+
+  /* INTERACT */
+  .slide-interact { padding: 48px 60px; flex-direction: column; }
+  .interact-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(62,201,167,0.15); border: 1px solid rgba(62,201,167,0.35); color: var(--accent3); padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; width: fit-content; }
+  .slide-interact h2 { font-size: 24px; color: var(--white); font-weight: 900; margin-bottom: 8px; }
+  .slide-interact .question { font-size: 17px; color: var(--accent3); font-weight: 700; margin-bottom: 22px; font-style: italic; }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .option { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 16px 18px; display: flex; align-items: flex-start; gap: 10px; cursor: pointer; transition: all 0.2s; }
+  .option:hover { background: rgba(62,201,167,0.1); border-color: var(--accent3); }
+  .option .letter { width: 30px; height: 30px; background: rgba(62,201,167,0.2); border: 1px solid var(--accent3); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--accent3); font-size: 13px; flex-shrink: 0; }
+  .option p { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; padding-top: 3px; }
+
+  /* CASE STUDY */
+  .case-flow { display: flex; align-items: center; gap: 0; margin: 20px 0; }
+  .case-step { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px 16px; text-align: center; }
+  .case-step .step-icon { font-size: 22px; margin-bottom: 6px; }
+  .case-step h4 { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); margin-bottom: 4px; }
+  .case-step p { font-size: 11px; color: rgba(255,255,255,0.5); }
+  .case-arrow { color: var(--accent); font-size: 20px; padding: 0 6px; flex-shrink: 0; }
+
+  /* LAGERHUIS */
+  .slide-lagerhuis { background: linear-gradient(135deg, #0A1A0A 0%, #1A2A0A 100%); padding: 48px 60px; flex-direction: column; }
+  .lagerhuis { display: flex; gap: 20px; margin-top: 18px; }
+  .lagerhuis-side { flex: 1; border-radius: 12px; padding: 20px 22px; }
+  .lagerhuis-side.eens { background: rgba(62,201,167,0.1); border: 1px solid rgba(62,201,167,0.3); }
+  .lagerhuis-side.oneens { background: rgba(232,64,64,0.1); border: 1px solid rgba(232,64,64,0.3); }
+  .lagerhuis-side h3 { font-size: 13px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+  .lagerhuis-side.eens h3 { color: var(--accent3); }
+  .lagerhuis-side.oneens h3 { color: #E84040; }
+  .lagerhuis-side ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .lagerhuis-side li { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; padding-left: 16px; position: relative; }
+  .lagerhuis-side li::before { content: '›'; position: absolute; left: 0; font-weight: 700; }
+  .lagerhuis-side.eens li::before { color: var(--accent3); }
+  .lagerhuis-side.oneens li::before { color: #E84040; }
+
+  /* TAKEAWAY */
+  .slide-takeaway { background: linear-gradient(135deg, #1A0A0A 0%, #2A1A1A 100%); padding: 50px 60px; flex-direction: column; }
+  .slide-takeaway h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--white); margin-bottom: 24px; }
+  .slide-takeaway h2 span { color: var(--accent); }
+  .takeaway-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .takeaway-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 20px; display: flex; gap: 12px; align-items: flex-start; }
+  .takeaway-num { width: 34px; height: 34px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #fff; font-size: 15px; flex-shrink: 0; }
+  .takeaway-item p { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.55; padding-top: 5px; }
+  .takeaway-item strong { color: var(--accent2); }
+</style>
+</head>
+<body>
+<div class="nav">
+  <button class="active" onclick="goTo(0)">1 · Titel</button>
+  <button onclick="goTo(1)">2 · Hook</button>
+  <button onclick="goTo(2)">3 · Definitie</button>
+  <button onclick="goTo(3)">4 · Voorbeelden</button>
+  <button onclick="goTo(4)">5 · Maatregelen</button>
+  <button onclick="goTo(5)">6 · Rekensom</button>
+  <button onclick="goTo(6)">7 · Checkvraag</button>
+  <button onclick="goTo(7)">8 · Lagerhuis</button>
+  <button onclick="goTo(8)">9 · Takeaways</button>
+  <span class="slide-counter" id="counter">1 / 9</span>
+</div>
+
+<!-- SLIDE 1: TITEL -->
+<div class="slide slide-title active" id="slide-0">
+  <div class="les-badge">LES 2 · § 6.2</div>
+  <div class="overline">Hoofdstuk 6 · Risico en Informatie · 3 VWO</div>
+  <h1>Moral<br><span>Hazard</span></h1>
+  <p class="subtitle">Wanneer maakt verzekerd zijn je juist roekelozer?</p>
+  <div class="tags">
+    <span class="tag">🚗 Gedragsverandering</span>
+    <span class="tag">💸 No-claim</span>
+    <span class="tag">📊 Bonus-malus</span>
+    <span class="tag">🔍 Gedragsprikkel</span>
+  </div>
+</div>
+
+<!-- SLIDE 2: HOOK -->
+<div class="slide slide-hook" id="slide-1">
+  <div class="hook-left">
+    <div class="hook-tag">🎯 DE HOOK</div>
+    <h2>Jij speelt FIFA online. Plotseling realiseert je neef:<br><span style="color:var(--accent)">"Ik ben toch al-risk verzekerd — maakt niet uit hoe ik rijd."</span></h2>
+    <p>Herkenbaar? Dit is moral hazard in actie. Zodra de financiële gevolgen van een risico worden overgedragen aan iemand anders, verandert gedrag. En niet altijd ten goede.</p>
+    <p style="margin-top:4px;">In 2008 wisten grote banken dat de overheid hen zou redden als het misgaat — dus namen ze mega-risico's. De rekening? Voor de belastingbetaler.</p>
+  </div>
+  <div class="hook-right">
+    <div class="scenario-card">
+      <div class="sc-title" style="color:var(--accent);">🚗 Scenario A</div>
+      <p>Arend rijdt zonder verzekering. Hij parkeert altijd op veilige plekken en rijdt rustig.</p>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-title" style="color:var(--accent2);">🚗 Scenario B</div>
+      <p>Boris heeft all-risk. Hij parkeert overal, maakt zich minder druk over kleine schrammen.</p>
+    </div>
+    <div class="verdict">
+      <p><strong>Moral hazard:</strong> het verschil in gedrag tussen A en B — puur omdat de financiële prikkel is weggevallen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: DEFINITIE -->
+<div class="slide slide-light" id="slide-2">
+  <div class="slide-header">
+    <div class="slide-icon">⚠️</div>
+    <h2>Wat is <span>moral hazard</span>?</h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="card" style="border-top: 3px solid var(--accent);">
+        <h3>📖 definitie</h3>
+        <p><strong>Moral hazard</strong> = risicovoller gedrag nadat iemand verzekerd is en de financiële gevolgen van schade niet meer zelf draagt.</p>
+      </div>
+      <div class="card">
+        <h3>🔑 kernmechanisme</h3>
+        <p>Moral hazard ontstaat door <strong>informatieasymmetrie</strong>: de verzekeraar ziet niet hoe jij je gedraagt. Jij weet zelf of je voorzichtig rijdt — de verzekeraar niet.</p>
+      </div>
+      <div class="card" style="background:rgba(200,75,75,0.07);border-left:3px solid var(--accent);">
+        <h3>⚡ gevolg</h3>
+        <p>De verzekeraar heeft hogere schadeclaims dan verwacht → hogere premies voor iedereen. Of faillissement.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card" style="border-top:3px solid var(--accent2);">
+        <h3>🏦 groot voorbeeld: bankencrisis 2008</h3>
+        <p>Grote banken namen enorme risico's omdat ze wisten dat de overheid hen zou redden als het fout ging. Na de redding... namen ze opnieuw grote risico's. <strong>Klassiek moral hazard.</strong></p>
+      </div>
+      <div style="background: #1A0A0A; border-radius:12px; padding:18px; text-align:center; margin-top:4px;">
+        <p style="font-size:13px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">SLEUTELZIN</p>
+        <p style="font-size:16px;color:var(--accent2);font-weight:700;line-height:1.4;font-style:italic;">"Wie de gevolgen niet draagt, past minder goed op."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: VOORBEELDEN -->
+<div class="slide slide-light" id="slide-3" style="background:#FBF5F5;">
+  <div class="slide-header">
+    <div class="slide-icon">📋</div>
+    <h2>Moral hazard in <span>het echte leven</span></h2>
+  </div>
+  <div class="examples-grid">
+    <div class="example-card">
+      <div class="emoji">🚗</div>
+      <h4>All-risk autoverzekering</h4>
+      <p>Bestuurder parkeert op riskante plekken — want de verzekeraar betaalt toch bij krassen.</p>
+      <div class="mh-label">▲ Risico neemt toe</div>
+    </div>
+    <div class="example-card">
+      <div class="emoji">🏥</div>
+      <h4>Zorgverzekering</h4>
+      <p>Patiënt vraagt meer MRI-scans en specialisten dan nodig, omdat de verzekering alles dekt.</p>
+      <div class="mh-label">▲ Gebruik neemt toe</div>
+    </div>
+    <div class="example-card">
+      <div class="emoji">📱</div>
+      <h4>Telefoonverzekering</h4>
+      <p>Verzekerde gooit zijn telefoon minder voorzichtig in tas. "Als ie breekt, nieuwe halen."</p>
+      <div class="mh-label">▲ Zorg neemt af</div>
+    </div>
+    <div class="example-card" style="border-top-color:var(--accent2);">
+      <div class="emoji">🎓</div>
+      <h4>Studietoelage</h4>
+      <p>Student studeert minder hard als ouders sowieso bijspringen bij tekorten.</p>
+      <div class="mh-label">▲ Inspanning daalt</div>
+    </div>
+    <div class="example-card" style="border-top-color:var(--accent2);">
+      <div class="emoji">🏢</div>
+      <h4>WW-uitkering</h4>
+      <p>Werkloze zoekt minder actief naar werk als uitkering hoog genoeg is om comfortabel van te leven.</p>
+      <div class="mh-label">▲ Zoekgedrag daalt</div>
+    </div>
+    <div class="example-card" style="border-top-color:var(--accent3);">
+      <div class="emoji">🏦</div>
+      <h4>Banken (systeemrisico)</h4>
+      <p>Banken die "too big to fail" zijn weten dat de overheid hen redt — dus nemen ze grotere risico's.</p>
+      <div class="mh-label">▲ Risico escaleert</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: MAATREGELEN -->
+<div class="slide slide-dark" id="slide-4">
+  <h2>Hoe beperken verzekeraars <span>moral hazard</span>?</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Maatregel</th>
+        <th>Hoe werkt het?</th>
+        <th>Effect op gedrag</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong style="color:var(--accent2)">Eigen risico</strong></td>
+        <td style="color:rgba(255,255,255,0.7)">Jij betaalt de eerste €X zelf bij schade</td>
+        <td style="color:rgba(255,255,255,0.7)">Prikkel om voorzichtig te zijn; kleine schades niet claimen</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--accent2)">No-claimkorting</strong></td>
+        <td style="color:rgba(255,255,255,0.7)">Geen schade gemeld? Premieverlaging volgend jaar</td>
+        <td style="color:rgba(255,255,255,0.7)">Voorzichtig gedrag wordt beloond met lagere kosten</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--accent2)">Bonus-malussysteem</strong></td>
+        <td style="color:rgba(255,255,255,0.7)">Elk schadevrij jaar: premie daalt. Schade: premie stijgt</td>
+        <td style="color:rgba(255,255,255,0.7)">Lange-termijn prikkel; klanten denken twee keer na voor ze claimen</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--accent2)">Monitoring (app)</strong></td>
+        <td style="color:rgba(255,255,255,0.7)">Rijgedrag bijhouden via GPS/sensor app</td>
+        <td style="color:rgba(255,255,255,0.7)">Verzekeraar ziet gedrag → veilig rijden = korting</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top:16px;background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.3);border-radius:10px;padding:14px 18px;">
+    <p style="font-size:13px;color:rgba(255,255,255,0.75);">💡 <strong style="color:var(--accent2)">Gedragsprikkel:</strong> elk van deze maatregelen is een financieel signaal dat risicovol gedrag duurder maakt en voorzichtig gedrag goedkoper. Dat is hoe je gedrag stuurt via economische prikkels.</p>
+  </div>
+</div>
+
+<!-- SLIDE 6: REKENSOM -->
+<div class="slide slide-dark" id="slide-5" style="background:#0D1A0A;">
+  <h2 style="color:var(--white);">📊 Rekensom: <span style="color:var(--accent2);">claimen of niet claimen?</span></h2>
+  <div class="case-flow">
+    <div class="case-step">
+      <div class="step-icon">💥</div>
+      <h4>Schade</h4>
+      <p>€350 aanrijding</p>
+    </div>
+    <div class="case-arrow">→</div>
+    <div class="case-step">
+      <div class="step-icon">🤔</div>
+      <h4>Keuze</h4>
+      <p>Wel of niet claimen?</p>
+    </div>
+    <div class="case-arrow">→</div>
+    <div class="case-step" style="background:rgba(62,201,167,0.1);border-color:rgba(62,201,167,0.3);">
+      <div class="step-icon">✅</div>
+      <h4>Claimen</h4>
+      <p>€350 vergoed<br>+€280 premiestijging</p>
+    </div>
+    <div class="case-arrow">→</div>
+    <div class="case-step" style="background:rgba(200,75,75,0.1);border-color:rgba(200,75,75,0.3);">
+      <div class="step-icon">❌</div>
+      <h4>Niet claimen</h4>
+      <p>€350 zelf betalen<br>+€0 premiestijging</p>
+    </div>
+  </div>
+  <div class="cols" style="margin-top:20px;">
+    <div class="card-dark" style="background:rgba(62,201,167,0.08);border-color:rgba(62,201,167,0.25);">
+      <h3 style="color:var(--accent3);">Bij claimen</h3>
+      <p>Verzekering vergoedt: <strong style="color:var(--accent3);">+€350</strong><br>Maar premie stijgt komend jaar: <strong style="color:var(--accent);">−€280</strong><br>Netto voordeel: <strong style="color:var(--accent3);">€70</strong></p>
+    </div>
+    <div class="card-dark" style="background:rgba(200,75,75,0.08);border-color:rgba(200,75,75,0.25);">
+      <h3 style="color:var(--accent);">Niet claimen</h3>
+      <p>Jij betaalt zelf: <strong style="color:var(--accent);">−€350</strong><br>Premie blijft gelijk: <strong style="color:var(--accent3);">€0</strong><br>Netto verlies: <strong style="color:var(--accent);">€350</strong></p>
+    </div>
+    <div class="card-dark" style="background:rgba(245,166,35,0.08);border-color:rgba(245,166,35,0.3);">
+      <h3 style="color:var(--accent2);">Rationele keuze</h3>
+      <p>Claimen = netto <strong style="color:var(--accent3);">€70 voordeel</strong>. Maar: het bonus-malus systeem werkt — de prikkel vermindert moral hazard deels. De klant denkt twee keer na.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: CHECKVRAAG -->
+<div class="slide slide-interact" id="slide-6" style="background:linear-gradient(135deg,#0A1A0A,#1A2A0A);">
+  <div class="interact-badge">⚡ SNELLE CHECKVRAAG</div>
+  <h2>Test jezelf!</h2>
+  <p class="question">"Een werkgever voert volledige doorbetaling bij ziekte in (was 70%). Het ziekteverzuim stijgt. Wat is de correcte verklaring?"</p>
+  <div class="options">
+    <div class="option" onclick="checkAnswer(this,false)">
+      <div class="letter">A</div>
+      <p>Het bedrijf heeft een slechter HR-beleid gekregen</p>
+    </div>
+    <div class="option" onclick="checkAnswer(this,true)">
+      <div class="letter">B</div>
+      <p>Moral hazard: de financiële prikkel om wél te werken is verminderd</p>
+    </div>
+    <div class="option" onclick="checkAnswer(this,false)">
+      <div class="letter">C</div>
+      <p>Werknemers zijn gezonder geworden door hogere uitkering</p>
+    </div>
+    <div class="option" onclick="checkAnswer(this,false)">
+      <div class="letter">D</div>
+      <p>De werkgever heeft de ontslagprocedure versoepeld</p>
+    </div>
+  </div>
+  <div id="feedback" style="margin-top:16px;display:none;background:rgba(62,201,167,0.1);border:1px solid rgba(62,201,167,0.3);border-radius:10px;padding:14px 18px;">
+    <p style="color:var(--accent3);font-weight:700;margin-bottom:6px;">✅ Antwoord: B</p>
+    <p style="font-size:13px;color:rgba(255,255,255,0.75);">Bij 100% doorbetaling is het financiële nadeel van ziek thuis zijn weggevallen — precies de prikkel die mensen aanmoedigt te werken. Dat heet moral hazard: gedrag verandert als de gevolgen niet meer bij jou liggen.</p>
+  </div>
+</div>
+
+<!-- SLIDE 8: LAGERHUIS -->
+<div class="slide slide-lagerhuis" id="slide-7">
+  <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.35);color:var(--accent2);padding:6px 14px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;width:fit-content;">🏛️ LAGERHUIS-DISCUSSIE</div>
+  <h2 style="font-size:22px;color:var(--white);font-weight:900;margin-bottom:8px;">Stelling: <span style="color:var(--accent2)">"Verzekeraars die rijgedrag bijhouden via een app om korting te geven — dat is gewoon surveillance en dat moeten we niet willen."</span></h2>
+  <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:16px;">Kies een positie. Onderbouw met begrippen: moral hazard, gedragsprikkel, privacy.</p>
+  <div class="lagerhuis">
+    <div class="lagerhuis-side eens">
+      <h3>✅ EENS (Surveillance)</h3>
+      <ul>
+        <li>Privacy is een grondrecht — verzekeraar heeft niets te maken met jouw rijgedrag</li>
+        <li>Data kan worden misbruikt of doorverkocht</li>
+        <li>Druk op mensen die niet mee willen doen → hogere premie als 'straf'</li>
+      </ul>
+    </div>
+    <div class="lagerhuis-side oneens">
+      <h3>❌ ONEENS (Eerlijk systeem)</h3>
+      <ul>
+        <li>Goede rijders betalen nu meer door slechte rijders — niet eerlijk</li>
+        <li>Gedragsprikkel is effectiever dan eigen risico</li>
+        <li>Deelname is vrijwillig — je keuze</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: TAKEAWAYS -->
+<div class="slide slide-takeaway" id="slide-8">
+  <h2>🎯 Key <span>Takeaways</span> — Les 2</h2>
+  <div class="takeaway-grid">
+    <div class="takeaway-item">
+      <div class="takeaway-num">1</div>
+      <p><strong>Moral hazard</strong> = gedrag verandert als je de gevolgen niet meer zelf draagt. Kenmerkend voor alle soorten verzekeringen én sociale voorzieningen.</p>
+    </div>
+    <div class="takeaway-item">
+      <div class="takeaway-num">2</div>
+      <p>Oorzaak is altijd <strong>informatieasymmetrie</strong> — de verzekeraar ziet niet hoe jij je gedraagt. Dat maakt monitoren duur én omstreden.</p>
+    </div>
+    <div class="takeaway-item">
+      <div class="takeaway-num">3</div>
+      <p>Vier oplossingen: <strong>eigen risico, no-claim, bonus-malus, monitoring.</strong> Allemaal gedragsprikkels — ze maken riskant gedrag financieel nadelig.</p>
+    </div>
+    <div class="takeaway-item">
+      <div class="takeaway-num">4</div>
+      <p>Het bankensysteem toont <strong>systeembrede moral hazard</strong>: "too big to fail" creëert een prikkel voor extreme risiconame — met maatschappelijke gevolgen.</p>
+    </div>
+  </div>
+  <div style="margin-top:18px;background:rgba(200,75,75,0.08);border:1px solid rgba(200,75,75,0.2);border-radius:10px;padding:14px 22px;display:flex;align-items:center;gap:12px;">
+    <span style="font-size:22px;">➡️</span>
+    <p style="font-size:13px;color:rgba(255,255,255,0.65);">Volgende les (§ 6.3): <strong style="color:var(--accent2)">Risico en Beleggen</strong> — hoe kies je een belegging die past bij jóu?</p>
+  </div>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progress" style="width:11.1%"></div></div>
+<div class="notes-bar">
+  <div class="notes-title">📋 Notes for the teacher — slide <span id="notes-slide-num">1</span></div>
+  <div id="notes-text">Open met: "Wie kent iemand die roekelozer rijdt omdat hij verzekerd is?" (handen omhoog). Dat is de perfecte brug naar de definitie van moral hazard.</div>
+</div>
+
+<script>
+const notes = [
+  "Open met: \"Wie kent iemand die roekelozer rijdt omdat hij verzekerd is?\" (handen omhoog). Dat is de perfecte brug naar de definitie van moral hazard.",
+  "HOOK (3 min): Laat de scenario's A en B lezen. Vraag: \"Wat is het verschil in gedrag?\" Koppel daarna aan de bankencrisis 2008 als groot voorbeeld. Vraag: \"Is dat moral hazard of gewoon pech?\" (→ modal hazard, want het was bewust).",
+  "THEORIE (5 min): Nadruk op het woord informatieasymmetrie — verzekeraar ziet jou niet. Vraag: \"Hoe zou een verzekeraar kunnen zien of je voorzichtig rijdt?\" → leidt organisch naar monitoring/app op slide 5.",
+  "VOORBEELDEN (4 min): Laat leerlingen per kaartje raden welk type moral hazard het is vóórdat je de label toont. Pas daarna omdraaien. Vraag: \"Kun je zelf nog een ander voorbeeld bedenken uit het dagelijks leven?\"",
+  "MAATREGELEN (5 min): Laat de tabel doorlopen. Vraag per rij: \"Hoe stuurt dit gedrag?\" Nadruk: alle vier zijn gedragsprikkels — financieel voordeel voor voorzichtig gedrag, nadeel voor riskant gedrag.",
+  "REKENSOM (6 min): Laat leerlingen eerst zelf uitrekenen wat de rationele keuze is. Dan bespreken: \"Als de premiestijging €280 is bij schade van €350 — wanneer is claimen rationeel? Wanneer niet?\" Bespreek met concrete drempelwaarde.",
+  "CHECKVRAAG (3 min): Individueel antwoord, dan stemmen. Bespreek de foute antwoorden ook — waarom is C fout? (hogere uitkering maakt je niet gezonder).",
+  "LAGERHUIS (8 min): Zorg dat beide kanten minstens 2 argumenten noemen voordat je overgaat. Geef als moderator eventueel het tegenargument als één kant te dominant is. Sluit af: wat zou een economisch optimum zijn? (vrijwillige deelname met korting).",
+  "TAKEAWAYS (3 min): Laat leerlingen samenvatten in hun eigen woorden. Huiswerk: opdracht 6 of 8 uit het werkboek (rekensom moral hazard met twee polissen)."
+];
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const buttons = document.querySelectorAll('.nav button');
+const total = slides.length;
+function goTo(n) {
+  slides[current].classList.remove('active');
+  buttons[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+  buttons[current].classList.add('active');
+  document.getElementById('counter').textContent = (n+1) + ' / ' + total;
+  document.getElementById('progress').style.width = ((n+1)/total*100) + '%';
+  document.getElementById('notes-text').textContent = notes[n];
+  document.getElementById('notes-slide-num').textContent = n+1;
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (current < total-1) goTo(current+1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (current > 0) goTo(current-1); }
+});
+function checkAnswer(el, correct) {
+  document.querySelectorAll('.option').forEach(o => o.style.pointerEvents='none');
+  if (correct) { el.style.background='rgba(62,201,167,0.2)'; el.style.borderColor='var(--accent3)'; }
+  else { el.style.background='rgba(200,75,75,0.15)'; el.style.borderColor='var(--accent)'; }
+  document.getElementById('feedback').style.display='block';
+}
+</script>
+</body>
+</html>
