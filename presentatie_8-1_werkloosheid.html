@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§8.1 Werkloosheid — Conjunctuur & Economie</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#1a2744;--teal:#0d9488;--teal-light:#5eead4;--sand:#f5f0e8;--cream:#faf7f2;--charcoal:#2d3748;--slate:#64748b;--accent:#f59e0b;--red:#ef4444}
+body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--charcoal);overflow:hidden;height:100vh}
+.deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 80px;opacity:0;pointer-events:none;transition:opacity .6s ease,transform .6s ease;transform:translateX(40px)}
+.slide.active{opacity:1;pointer-events:auto;transform:translateX(0)}
+.slide.prev{transform:translateX(-40px)}
+
+/* Slide backgrounds */
+.slide--dark{background:linear-gradient(135deg,#1a2744 0%,#0f172a 100%);color:#fff}
+.slide--light{background:var(--cream);color:var(--charcoal)}
+.slide--teal{background:linear-gradient(135deg,#0d9488 0%,#065f46 100%);color:#fff}
+.slide--accent{background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%);color:var(--navy)}
+
+/* Typography */
+h1{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:800;line-height:1.15;margin-bottom:20px}
+h2{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:16px}
+h3{font-size:1.3rem;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:2px}
+p,.body-text{font-size:1.15rem;line-height:1.7;max-width:800px}
+.subtitle{font-size:1.3rem;font-weight:300;opacity:.85;margin-bottom:8px}
+.tag{display:inline-block;padding:6px 18px;border-radius:50px;font-size:.8rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px}
+.tag--teal{background:var(--teal);color:#fff}
+.tag--amber{background:var(--accent);color:var(--navy)}
+.tag--white{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+
+/* Cards & Containers */
+.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;width:100%;max-width:900px;margin-top:20px}
+.card-grid--4{grid-template-columns:repeat(4,1fr)}
+.card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px 24px;backdrop-filter:blur(10px);transition:transform .3s}
+.card:hover{transform:translateY(-4px)}
+.slide--light .card{background:#fff;border:1px solid #e2e8f0;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.card-icon{font-size:2rem;margin-bottom:12px}
+.card h4{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.card p{font-size:.92rem;line-height:1.6;opacity:.85}
+
+/* Table */
+.table-wrap{width:100%;max-width:880px;margin-top:20px;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.1)}
+table{width:100%;border-collapse:collapse}
+th{background:var(--navy);color:#fff;padding:16px 20px;font-size:.9rem;text-align:left;font-weight:600;letter-spacing:.5px}
+td{padding:14px 20px;font-size:.95rem;border-bottom:1px solid #e2e8f0}
+tr:nth-child(even){background:#f8fafc}
+tr:last-child td{border-bottom:0}
+
+/* Compare columns */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:32px;width:100%;max-width:900px;margin-top:20px}
+.compare-col{border-radius:16px;padding:32px;position:relative;overflow:hidden}
+.compare-col--left{background:linear-gradient(135deg,var(--accent) 0%,#d97706 100%);color:var(--navy)}
+.compare-col--right{background:linear-gradient(135deg,var(--red) 0%,#dc2626 100%);color:#fff}
+.compare-col h3{font-size:1.2rem;margin-bottom:16px;letter-spacing:1px}
+.compare-col ul{list-style:none;padding:0}
+.compare-col li{padding:8px 0;font-size:.95rem;line-height:1.5;padding-left:24px;position:relative}
+.compare-col li::before{content:'→';position:absolute;left:0;font-weight:700}
+
+/* Big number */
+.big-stat{font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;line-height:1}
+.stat-label{font-size:1rem;font-weight:500;opacity:.7;margin-top:8px}
+
+/* Navigation */
+.nav{position:fixed;bottom:30px;right:40px;display:flex;gap:12px;z-index:100}
+.nav button{width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font-size:1.2rem;cursor:pointer;transition:all .3s;backdrop-filter:blur(6px)}
+.nav button:hover{background:var(--teal);border-color:var(--teal)}
+.progress{position:fixed;top:0;left:0;height:4px;background:var(--teal);transition:width .4s ease;z-index:200}
+.slide-counter{position:fixed;bottom:36px;left:40px;font-size:.85rem;color:rgba(255,255,255,.5);z-index:100}
+.slide--light~.slide-counter,.slide--light .slide-counter-inner{color:var(--slate)}
+
+/* Lists */
+.example-list{list-style:none;padding:0;margin-top:16px;max-width:800px}
+.example-list li{padding:12px 0 12px 32px;position:relative;font-size:1.05rem;line-height:1.6;border-bottom:1px solid rgba(255,255,255,.08)}
+.slide--light .example-list li{border-bottom:1px solid #e2e8f0}
+.example-list li::before{content:'▸';position:absolute;left:0;color:var(--teal-light);font-weight:700;font-size:1.2rem}
+.slide--light .example-list li::before{color:var(--teal)}
+
+/* Diagram */
+.cycle{display:flex;align-items:center;gap:12px;margin-top:24px;flex-wrap:wrap;justify-content:center}
+.cycle-phase{padding:18px 28px;border-radius:12px;font-weight:700;font-size:1rem;text-align:center;min-width:160px}
+.cycle-arrow{font-size:1.6rem;opacity:.5}
+.phase-up{background:rgba(16,185,129,.2);border:2px solid #10b981;color:#10b981}
+.phase-peak{background:rgba(245,158,11,.2);border:2px solid #f59e0b;color:#f59e0b}
+.phase-down{background:rgba(239,68,68,.2);border:2px solid #ef4444;color:#ef4444}
+.phase-low{background:rgba(139,92,246,.2);border:2px solid #8b5cf6;color:#8b5cf6}
+
+.leerdoel-list{list-style:none;padding:0;margin-top:20px}
+.leerdoel-list li{display:flex;align-items:flex-start;gap:14px;padding:12px 0;font-size:1.1rem;line-height:1.6}
+.leerdoel-list .num{background:var(--teal);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+
+.wist-je{background:rgba(245,158,11,.1);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:24px 28px;margin-top:24px;max-width:800px}
+.wist-je h4{color:var(--accent);font-size:.9rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.wist-je p{font-size:1rem;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<!-- SLIDE 1: Title -->
+<div class="slide slide--dark active" data-slide="0">
+  <span class="tag tag--teal">Economie · 3 VWO · Hoofdstuk 8</span>
+  <h1>§8.1 Werkloosheid</h1>
+  <p class="subtitle">Conjunctuur, conjunctuurcyclus & soorten werkloosheid</p>
+  <p style="margin-top:32px;opacity:.5;font-size:.9rem">Druk op → of klik om te navigeren</p>
+</div>
+
+<!-- SLIDE 2: Leerdoelen -->
+<div class="slide slide--light" data-slide="1">
+  <span class="tag tag--teal">Leerdoelen</span>
+  <h2>Wat ga je leren?</h2>
+  <ul class="leerdoel-list">
+    <li><span class="num">1</span>Uitleggen wat conjunctuur is en de vier fasen van de conjunctuurcyclus benoemen.</li>
+    <li><span class="num">2</span>Het verschil uitleggen tussen conjuncturele en structurele werkloosheid.</li>
+    <li><span class="num">3</span>Voor een concreet voorbeeld aangeven om welk type werkloosheid het gaat.</li>
+  </ul>
+</div>
+
+<!-- SLIDE 3: Wat is conjunctuur? -->
+<div class="slide slide--dark" data-slide="2">
+  <span class="tag tag--white">Kernbegrip</span>
+  <h2>Wat is conjunctuur?</h2>
+  <p>Conjunctuur is de <strong>schommeling in de economische activiteit</strong>. Soms groeit de economie snel, soms langzaam of zelfs helemaal niet.</p>
+  <p style="margin-top:16px">Die op-en-neergaande beweging heet de <strong>conjunctuurcyclus</strong>.</p>
+</div>
+
+<!-- SLIDE 4: De vier fasen -->
+<div class="slide slide--dark" data-slide="3">
+  <span class="tag tag--teal">De conjunctuurcyclus</span>
+  <h2>Vier fasen</h2>
+  <div class="cycle">
+    <div class="cycle-phase phase-peak">📈 Hoogconjunctuur<br><small>Veel groei, lage werkloosheid</small></div>
+    <span class="cycle-arrow">→</span>
+    <div class="cycle-phase phase-down">📉 Recessie<br><small>Krimp, werkloosheid stijgt</small></div>
+    <span class="cycle-arrow">→</span>
+    <div class="cycle-phase phase-low">⬇️ Laagconjunctuur<br><small>Dal, hoge werkloosheid</small></div>
+    <span class="cycle-arrow">→</span>
+    <div class="cycle-phase phase-up">🔄 Expansie<br><small>Herstel, werkloosheid daalt</small></div>
+  </div>
+</div>
+
+<!-- SLIDE 5: Fasentabel -->
+<div class="slide slide--light" data-slide="4">
+  <span class="tag tag--teal">Overzicht</span>
+  <h2>De conjunctuurcyclus in detail</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Fase</th><th>Wat gebeurt er?</th><th>Werkloosheid</th></tr>
+      <tr><td><strong>Hoogconjunctuur</strong></td><td>Economie groeit, veel productie, veel bestedingen</td><td style="color:#10b981;font-weight:700">Laag ↓</td></tr>
+      <tr><td><strong>Recessie (neergang)</strong></td><td>Economie krimpt, minder orders, bedrijven bezuinigen</td><td style="color:#ef4444;font-weight:700">Stijgt ↑</td></tr>
+      <tr><td><strong>Laagconjunctuur (dal)</strong></td><td>Economie op zijn laagst, weinig activiteit</td><td style="color:#ef4444;font-weight:700">Hoog ↑</td></tr>
+      <tr><td><strong>Expansie (herstel)</strong></td><td>Economie trekt aan, meer productie</td><td style="color:#10b981;font-weight:700">Daalt ↓</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- SLIDE 6: Conjuncturele werkloosheid -->
+<div class="slide slide--dark" data-slide="5">
+  <span class="tag tag--amber">Type 1</span>
+  <h2>Conjuncturele werkloosheid</h2>
+  <p>Ontstaat doordat de economie <strong>tijdelijk minder goed draait</strong>. Bedrijven krijgen minder orders en ontslaan personeel.</p>
+  <p style="margin-top:12px;color:var(--teal-light);font-weight:600">⏱ Dit type werkloosheid is tijdelijk — het verdwijnt als de economie aantrekt.</p>
+  <ul class="example-list" style="margin-top:24px">
+    <li>Een horecabedrijf ontslaat medewerkers omdat mensen minder uiteten gaan door de crisis.</li>
+    <li>Een cateringbedrijf heeft minder opdrachten omdat bedrijven bezuinigen.</li>
+    <li>Een bouwbedrijf neemt minder personeel aan omdat er minder gebouwd wordt.</li>
+  </ul>
+</div>
+
+<!-- SLIDE 7: Structurele werkloosheid -->
+<div class="slide slide--dark" data-slide="6">
+  <span class="tag tag--amber">Type 2</span>
+  <h2>Structurele werkloosheid</h2>
+  <p>Ontstaat door <strong>blijvende veranderingen</strong> in de economie, zoals nieuwe technologie of verplaatsing van productie naar het buitenland.</p>
+  <p style="margin-top:12px;color:#ef4444;font-weight:600">⚠️ Dit verdwijnt NIET vanzelf als de conjunctuur verbetert.</p>
+  <ul class="example-list" style="margin-top:24px">
+    <li>Een typiste verliest haar baan doordat computers haar werk overnemen.</li>
+    <li>Een fabriekarbeider verliest zijn baan doordat robots het werk doen.</li>
+    <li>Een reisagent verliest zijn baan doordat mensen zelf online boeken.</li>
+  </ul>
+</div>
+
+<!-- SLIDE 8: Vergelijking -->
+<div class="slide slide--dark" data-slide="7">
+  <span class="tag tag--white">Vergelijking</span>
+  <h2>Conjunctureel vs. Structureel</h2>
+  <div class="compare">
+    <div class="compare-col compare-col--left">
+      <h3>⏱ Conjunctureel</h3>
+      <ul>
+        <li>Door slechte conjunctuur</li>
+        <li>Tijdelijk van aard</li>
+        <li>Verdwijnt bij herstel economie</li>
+        <li>Treft hele sectoren tegelijk</li>
+      </ul>
+    </div>
+    <div class="compare-col compare-col--right">
+      <h3>🔧 Structureel</h3>
+      <ul>
+        <li>Door technologie / concurrentie</li>
+        <li>Blijvend van aard</li>
+        <li>Verdwijnt NIET bij herstel</li>
+        <li>Treft specifieke beroepen</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: Wist je dat? -->
+<div class="slide slide--light" data-slide="8">
+  <span class="tag tag--teal">Verdieping</span>
+  <h2>🌍 Wist je dat?</h2>
+  <div class="wist-je">
+    <h4>Kredietcrisis 2008–2009</h4>
+    <p>Tijdens de kredietcrisis steeg de werkloosheid in Nederland van ongeveer <strong>4% naar ruim 7%</strong>. Het merendeel was conjunctureel: toen de economie aantrok, daalde de werkloosheid weer.</p>
+    <p style="margin-top:12px">In sommige sectoren, zoals de financiële sector, verdwenen banen door automatisering <strong>voor altijd</strong> — dat was structureel.</p>
+  </div>
+</div>
+
+<!-- SLIDE 10: Begrippen overzicht -->
+<div class="slide slide--light" data-slide="9">
+  <span class="tag tag--teal">Samenvatting</span>
+  <h2>📶 Kernbegrippen §8.1</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Begrip</th><th>Definitie</th></tr>
+      <tr><td><strong>Conjunctuur</strong></td><td>De schommeling in economische activiteit: perioden van groei en krimp.</td></tr>
+      <tr><td><strong>Conjunctuurcyclus</strong></td><td>De opeenvolging van hoogconjunctuur, recessie, laagconjunctuur en herstel.</td></tr>
+      <tr><td><strong>Hoogconjunctuur</strong></td><td>Periode van sterke groei, hoge productie en lage werkloosheid.</td></tr>
+      <tr><td><strong>Laagconjunctuur</strong></td><td>Periode van weinig economische activiteit en hoge werkloosheid.</td></tr>
+      <tr><td><strong>Recessie</strong></td><td>Periode waarin de economie krimpt (twee kwartalen achter elkaar).</td></tr>
+      <tr><td><strong>Conjuncturele werkloosheid</strong></td><td>Tijdelijke werkloosheid door een slechte conjunctuur.</td></tr>
+      <tr><td><strong>Structurele werkloosheid</strong></td><td>Blijvende werkloosheid door technologie of concurrentie.</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- SLIDE 11: Afsluiting -->
+<div class="slide slide--teal" data-slide="10">
+  <h1>Vragen?</h1>
+  <p class="subtitle" style="margin-top:16px;font-size:1.2rem">Onthoud: bij conjuncturele werkloosheid is de oorzaak de <em>conjunctuur</em>.<br>Bij structurele werkloosheid is de oorzaak een <em>blijvende verandering</em>.</p>
+  <p style="margin-top:40px;font-size:1rem;opacity:.7">§8.1 Werkloosheid — Hoofdstuk 8 Conjunctuur</p>
+</div>
+
+</div>
+
+<div class="slide-counter"><span id="counter">1 / 11</span></div>
+<div class="nav">
+  <button onclick="navigate(-1)" id="btnPrev">←</button>
+  <button onclick="navigate(1)" id="btnNext">→</button>
+</div>
+
+<script>
+let current=0;
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+function show(n){
+  slides.forEach((s,i)=>{s.classList.remove('active','prev');if(i<n)s.classList.add('prev');if(i===n)s.classList.add('active')});
+  document.getElementById('counter').textContent=`${n+1} / ${total}`;
+  document.getElementById('progress').style.width=`${((n+1)/total)*100}%`;
+}
+function navigate(d){current=Math.max(0,Math.min(total-1,current+d));show(current)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')navigate(1);if(e.key==='ArrowLeft')navigate(-1)});
+show(0);
+</script>
+</body>
+</html>

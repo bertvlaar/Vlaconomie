@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§8.3 Internationale Handel — Conjunctuur & Economie</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--forest:#2c5f2d;--moss:#97bc62;--sage:#a7beae;--cream:#f5f0e8;--sand:#e7e8d1;--charcoal:#1e293b;--slate:#64748b;--amber:#f59e0b;--red:#ef4444;--emerald:#10b981}
+body{font-family:'Inter',sans-serif;background:var(--forest);color:var(--charcoal);overflow:hidden;height:100vh}
+.deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 80px;opacity:0;pointer-events:none;transition:opacity .6s ease,transform .6s ease;transform:translateX(40px)}
+.slide.active{opacity:1;pointer-events:auto;transform:translateX(0)}
+.slide.prev{transform:translateX(-40px)}
+.slide--dark{background:linear-gradient(135deg,#2c5f2d 0%,#1a3c1b 100%);color:#fff}
+.slide--light{background:var(--cream);color:var(--charcoal)}
+.slide--forest{background:linear-gradient(135deg,#2c5f2d 0%,#065f46 100%);color:#fff}
+.slide--moss{background:linear-gradient(135deg,#97bc62 0%,#7da344 100%);color:#1a3c1b}
+h1{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:800;line-height:1.15;margin-bottom:20px}
+h2{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:16px}
+h3{font-size:1.2rem;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:2px}
+p{font-size:1.15rem;line-height:1.7;max-width:800px}
+.subtitle{font-size:1.3rem;font-weight:300;opacity:.85;margin-bottom:8px}
+.tag{display:inline-block;padding:6px 18px;border-radius:50px;font-size:.8rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px}
+.tag--green{background:var(--moss);color:#1a3c1b}
+.tag--amber{background:var(--amber);color:#1a3c1b}
+.tag--white{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+
+.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;width:100%;max-width:900px;margin-top:20px}
+.card-grid--3{grid-template-columns:repeat(3,1fr)}
+.card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px 24px;backdrop-filter:blur(10px);transition:transform .3s}
+.card:hover{transform:translateY(-4px)}
+.slide--light .card{background:#fff;border:1px solid #d1d5db;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.card-icon{font-size:2.2rem;margin-bottom:12px}
+.card h4{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.card p{font-size:.92rem;line-height:1.6;opacity:.85}
+
+.table-wrap{width:100%;max-width:880px;margin-top:20px;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.1)}
+table{width:100%;border-collapse:collapse}
+th{background:var(--forest);color:#fff;padding:16px 20px;font-size:.9rem;text-align:left;font-weight:600}
+td{padding:14px 20px;font-size:.95rem;border-bottom:1px solid #e2e8f0}
+tr:nth-child(even){background:#f8fafc}
+tr:last-child td{border-bottom:0}
+
+.formula-box{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.15);border-radius:16px;padding:32px 40px;margin-top:24px;max-width:700px;text-align:center}
+.formula{font-size:1.8rem;font-weight:700;font-family:'Inter',monospace;letter-spacing:1px;margin:16px 0}
+.formula span{color:var(--moss)}
+.slide--light .formula-box{background:#fff;border:2px solid #d1d5db;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.slide--light .formula span{color:var(--forest)}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:32px;width:100%;max-width:900px;margin-top:20px}
+.compare-col{border-radius:16px;padding:32px;position:relative}
+.compare-col--green{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
+.compare-col--red{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff}
+.compare-col h3{font-size:1.15rem;margin-bottom:16px}
+.compare-col p{font-size:.95rem;line-height:1.6}
+.compare-col ul{list-style:none;padding:0;margin-top:12px}
+.compare-col li{padding:6px 0 6px 20px;position:relative;font-size:.95rem}
+.compare-col li::before{content:'→';position:absolute;left:0;font-weight:700}
+
+.big-stat{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;line-height:1}
+.stat-label{font-size:1rem;font-weight:500;opacity:.7;margin-top:8px}
+
+.leerdoel-list{list-style:none;padding:0;margin-top:20px}
+.leerdoel-list li{display:flex;align-items:flex-start;gap:14px;padding:12px 0;font-size:1.1rem;line-height:1.6}
+.leerdoel-list .num{background:var(--forest);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+.flow-step{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:16px 20px;text-align:center;font-size:.95rem;font-weight:600;min-width:140px}
+.slide--light .flow-step{background:#fff;border:1px solid #d1d5db}
+.flow-arrow{font-size:1.4rem;opacity:.5}
+
+.wist-je{background:rgba(245,158,11,.1);border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:24px 28px;margin-top:24px;max-width:800px}
+.wist-je h4{color:var(--amber);font-size:.9rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.wist-je p{font-size:1rem;line-height:1.7}
+
+.example-box{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px;width:100%;max-width:800px}
+.ex{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:24px;text-align:center}
+.slide--light .ex{background:#fff;border:1px solid #d1d5db}
+.ex .num{font-size:2.4rem;font-weight:800;color:var(--moss);font-family:'Playfair Display',serif}
+.ex .label{font-size:.85rem;opacity:.7;margin-top:4px}
+.ex .calc{font-size:1rem;margin-top:12px;font-weight:500}
+
+.nav{position:fixed;bottom:30px;right:40px;display:flex;gap:12px;z-index:100}
+.nav button{width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font-size:1.2rem;cursor:pointer;transition:all .3s;backdrop-filter:blur(6px)}
+.nav button:hover{background:var(--forest);border-color:var(--moss)}
+.progress{position:fixed;top:0;left:0;height:4px;background:var(--moss);transition:width .4s ease;z-index:200}
+.slide-counter{position:fixed;bottom:36px;left:40px;font-size:.85rem;color:rgba(255,255,255,.5);z-index:100}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<div class="slide slide--dark active" data-slide="0">
+  <span class="tag tag--green">Economie · 3 VWO · Hoofdstuk 8</span>
+  <h1>§8.3 Internationale Handel</h1>
+  <p class="subtitle">Export, import, handelsbalans & conjunctuur</p>
+  <p style="margin-top:32px;opacity:.5;font-size:.9rem">Druk op → of klik om te navigeren</p>
+</div>
+
+<div class="slide slide--light" data-slide="1">
+  <span class="tag tag--green">Leerdoelen</span>
+  <h2>Wat ga je leren?</h2>
+  <ul class="leerdoel-list">
+    <li><span class="num">1</span>Uitleggen wat export en import zijn.</li>
+    <li><span class="num">2</span>Het verschil berekenen tussen export en import (handelsbalans).</li>
+    <li><span class="num">3</span>Beschrijven hoe meer export de conjunctuur kan verbeteren.</li>
+  </ul>
+</div>
+
+<div class="slide slide--dark" data-slide="2">
+  <span class="tag tag--white">Kernbegrippen</span>
+  <h2>Export & Import</h2>
+  <div class="compare">
+    <div class="compare-col compare-col--green">
+      <h3>📦 Export</h3>
+      <p>Goederen en diensten die Nederland <strong>verkoopt</strong> aan het buitenland.</p>
+      <ul style="margin-top:16px">
+        <li>Brengt geld <strong>binnen</strong></li>
+        <li>Meer export = meer productie</li>
+        <li>Meer export = meer werk</li>
+      </ul>
+    </div>
+    <div class="compare-col compare-col--red">
+      <h3>🛒 Import</h3>
+      <p>Goederen en diensten die Nederland <strong>koopt</strong> uit het buitenland.</p>
+      <ul style="margin-top:16px">
+        <li>Geld stroomt <strong>weg</strong></li>
+        <li>Maar: we kopen wat we zelf niet maken</li>
+        <li>Bijv. koffie, bananen</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="slide slide--light" data-slide="3">
+  <span class="tag tag--amber">Rekenen</span>
+  <h2>🔢 De Handelsbalans</h2>
+  <div class="formula-box">
+    <p style="font-weight:600;font-size:1rem;opacity:.7">Formule:</p>
+    <div class="formula">Handelsbalans <span>=</span> Export <span>−</span> Import</div>
+  </div>
+  <div class="example-box" style="margin-top:24px">
+    <div class="ex" style="background:#f0fdf4;border-color:#bbf7d0">
+      <div class="label" style="color:var(--forest);font-weight:600">Positief saldo</div>
+      <div class="num" style="color:var(--emerald)">+€50 mld</div>
+      <div class="calc">Export €300 − Import €250<br><strong>= Exportoverschot</strong></div>
+    </div>
+    <div class="ex" style="background:#fef2f2;border-color:#fecaca">
+      <div class="label" style="color:var(--red);font-weight:600">Negatief saldo</div>
+      <div class="num" style="color:var(--red)">−€30 mld</div>
+      <div class="calc">Export €200 − Import €230<br><strong>= Importoverschot</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide slide--dark" data-slide="4">
+  <span class="tag tag--green">Kernbegrippen</span>
+  <h2>Exportoverschot vs. Importoverschot</h2>
+  <div class="compare">
+    <div class="compare-col compare-col--green">
+      <h3>✅ Exportoverschot</h3>
+      <p>Export &gt; Import</p>
+      <p style="margin-top:12px">Er stroomt <strong>meer geld binnen</strong> dan er weggaat.</p>
+      <p style="margin-top:12px;opacity:.8;font-size:.9rem">→ Gunstig voor de conjunctuur: meer productie, meer werk, meer inkomen.</p>
+    </div>
+    <div class="compare-col compare-col--red">
+      <h3>⚠️ Importoverschot</h3>
+      <p>Import &gt; Export</p>
+      <p style="margin-top:12px">Er stroomt <strong>meer geld weg</strong> dan er binnenkomt.</p>
+      <p style="margin-top:12px;opacity:.8;font-size:.9rem">→ Minder gunstig voor de conjunctuur.</p>
+    </div>
+  </div>
+</div>
+
+<div class="slide slide--dark" data-slide="5">
+  <span class="tag tag--white">Verband met conjunctuur</span>
+  <h2>Hoe stimuleert export de economie?</h2>
+  <div class="flow">
+    <div class="flow-step">📦 Export stijgt</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">🏭 Meer productie</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">👷 Meer personeel nodig</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">💰 Meer inkomen</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">🛍️ Meer bestedingen</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">📈 Conjunctuur verbetert</div>
+  </div>
+</div>
+
+<div class="slide slide--light" data-slide="6">
+  <span class="tag tag--green">Overzicht</span>
+  <h2>Effect op de economie</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Situatie</th><th>Effect op de economie</th></tr>
+      <tr><td><strong>Export stijgt</strong></td><td style="color:#10b981;font-weight:600">Meer productie → meer werk → meer inkomen → conjunctuur verbetert ↑</td></tr>
+      <tr><td><strong>Import stijgt</strong></td><td style="color:#ef4444;font-weight:600">Geld stroomt weg → minder besteed in NL → conjunctuur verzwakt ↓</td></tr>
+      <tr><td><strong>Exportoverschot</strong></td><td style="color:#10b981;font-weight:600">Per saldo meer geld in NL → goed voor de conjunctuur ✓</td></tr>
+      <tr><td><strong>Importoverschot</strong></td><td style="color:#ef4444;font-weight:600">Per saldo minder geld in NL → minder gunstig ✗</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="slide slide--light" data-slide="7">
+  <span class="tag tag--amber">Verdieping</span>
+  <h2>🌍 Wist je dat?</h2>
+  <div class="wist-je">
+    <h4>Nederland als exportland</h4>
+    <p>Nederland heeft traditioneel een groot exportoverschot. Bekende exportproducten zijn: <strong>machines (ASML), bloemen, kaas, aardgas</strong> en chemische producten.</p>
+    <p style="margin-top:12px">De <strong>haven van Rotterdam</strong> is de grootste haven van Europa en heel belangrijk voor de Nederlandse export en import.</p>
+    <p style="margin-top:12px">In 2022 exporteerde Nederland voor meer dan <strong>€700 miljard</strong> aan goederen en diensten!</p>
+  </div>
+</div>
+
+<div class="slide slide--light" data-slide="8">
+  <span class="tag tag--green">Samenvatting</span>
+  <h2>📶 Kernbegrippen §8.3</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Begrip</th><th>Definitie</th></tr>
+      <tr><td><strong>Export</strong></td><td>Goederen en diensten die Nederland verkoopt aan het buitenland.</td></tr>
+      <tr><td><strong>Import</strong></td><td>Goederen en diensten die Nederland koopt uit het buitenland.</td></tr>
+      <tr><td><strong>Handelsbalans</strong></td><td>Export minus import; geeft aan of er meer geld binnenkomt dan weggaat.</td></tr>
+      <tr><td><strong>Exportoverschot</strong></td><td>Export is groter dan import; er komt meer geld binnen dan er weggaat.</td></tr>
+      <tr><td><strong>Importoverschot</strong></td><td>Import is groter dan export; er gaat meer geld weg dan er binnenkomt.</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="slide slide--forest" data-slide="9">
+  <h1>Vragen?</h1>
+  <p class="subtitle" style="margin-top:16px;font-size:1.2rem">Onthoud: Handelsbalans = Export − Import<br>Exportoverschot is gunstig · Importoverschot is minder gunstig</p>
+  <p style="margin-top:40px;font-size:1rem;opacity:.7">§8.3 Internationale Handel — Hoofdstuk 8 Conjunctuur</p>
+</div>
+
+</div>
+<div class="slide-counter"><span id="counter">1 / 10</span></div>
+<div class="nav">
+  <button onclick="navigate(-1)">←</button>
+  <button onclick="navigate(1)">→</button>
+</div>
+<script>
+let current=0;const slides=document.querySelectorAll('.slide');const total=slides.length;
+function show(n){slides.forEach((s,i)=>{s.classList.remove('active','prev');if(i<n)s.classList.add('prev');if(i===n)s.classList.add('active')});document.getElementById('counter').textContent=`${n+1} / ${total}`;document.getElementById('progress').style.width=`${((n+1)/total)*100}%`}
+function navigate(d){current=Math.max(0,Math.min(total-1,current+d));show(current)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')navigate(1);if(e.key==='ArrowLeft')navigate(-1)});show(0);
+</script>
+</body>
+</html>
