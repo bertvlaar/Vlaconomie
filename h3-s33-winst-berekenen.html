@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>§3.3 Winst berekenen — vlaconomie</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;900&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--groen2:#1a7a4a;--groen3:#2ecc71;
+  --goud:#f0c040;--wit:#f8f9f4;--donker:#12080e;
+  --pur:#7c3aed;--pur2:#a78bfa;--rood:#e53e3e;
+}
+html,body{height:100%;overflow:hidden;background:var(--donker)}
+body{font-family:'DM Sans',sans-serif;color:var(--wit)}
+
+.deck{width:100%;height:100vh;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transition:opacity .4s,transform .4s;
+  transform:scale(.97)}
+.slide.active{opacity:1;pointer-events:all;transform:scale(1)}
+.slide.exit{opacity:0;transform:scale(1.03)}
+
+.nav{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:14px;z-index:100;
+  background:rgba(18,8,14,.88);backdrop-filter:blur(12px);
+  border:1px solid rgba(167,139,250,.3);border-radius:40px;padding:10px 24px}
+.nav button{background:none;border:none;color:var(--wit);cursor:pointer;
+  padding:6px 14px;border-radius:20px;font-family:'Lexend',sans-serif;
+  font-weight:600;font-size:.8rem;transition:all .2s}
+.nav button:hover{background:var(--pur);color:#fff}
+.nav button:disabled{opacity:.3;cursor:default}
+.nav button:disabled:hover{background:none}
+.dots{display:flex;gap:8px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:all .25s}
+.dot.on{background:var(--pur2);transform:scale(1.3)}
+.slide-num{font-family:'Lexend',sans-serif;font-size:.75rem;color:rgba(255,255,255,.4);min-width:48px;text-align:center}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 28px;background:rgba(18,8,14,.88);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(167,139,250,.2)}
+.logo{font-family:'Lexend',sans-serif;font-weight:900;font-size:1rem;color:var(--goud)}
+.chapter-tag{font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:600;color:var(--pur2)}
+.progress{position:fixed;top:0;left:0;height:3px;
+  background:linear-gradient(90deg,var(--pur),var(--goud));
+  transition:width .4s ease;z-index:200}
+
+.slide-label{font-family:'Lexend',sans-serif;font-size:.68rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--pur2);
+  margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.slide-label::before{content:'';width:28px;height:2px;background:var(--pur2)}
+.slide-h{font-family:'Lexend',sans-serif;font-weight:800;font-size:2.3rem;
+  line-height:1.15;color:#fff;margin-bottom:24px}
+.slide-h em{color:var(--goud);font-style:normal}
+
+/* TITELSLIDE */
+.s-title{background:linear-gradient(145deg,#080408 0%,#1a0a14 50%,#0d0510 100%);
+  justify-content:center;align-items:center;text-align:center;padding:40px}
+.s-title::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 65% 25%, rgba(124,58,237,.18) 0%, transparent 55%),
+             radial-gradient(ellipse at 25% 75%, rgba(240,192,64,.08) 0%, transparent 50%)}
+.title-badge{font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--goud);
+  background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.35);
+  padding:6px 18px;border-radius:20px;margin-bottom:28px;display:inline-block}
+.title-badge span{opacity:.5;margin:0 8px}
+.title-main{font-family:'Lexend',sans-serif;font-weight:900;font-size:3.8rem;
+  line-height:1.05;color:#fff;margin-bottom:20px}
+.title-main em{color:var(--pur2);font-style:normal;display:block}
+.title-sub{font-size:1.05rem;color:rgba(255,255,255,.55);max-width:540px;
+  line-height:1.65;margin-bottom:36px}
+.title-tags{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tag{font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:600;
+  padding:5px 14px;border-radius:12px;
+  background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3);color:var(--pur2)}
+
+/* DIALOOG */
+.s-dialoog{background:linear-gradient(160deg,#080408 0%,#180b18 100%);
+  padding:80px 80px 100px;justify-content:center}
+.d-line{display:flex;gap:18px;margin-bottom:22px}
+.d-line.right{flex-direction:row-reverse}
+.d-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;
+  border:2px solid rgba(240,192,64,.25)}
+.d-avatar.a{background:rgba(240,192,64,.12)}
+.d-avatar.b{background:rgba(124,58,237,.18)}
+.d-bubble{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:13px 18px;max-width:540px}
+.d-line.right .d-bubble{background:rgba(124,58,237,.09);border-color:rgba(124,58,237,.25)}
+.d-name{font-family:'Lexend',sans-serif;font-size:.67rem;font-weight:700;color:var(--goud);margin-bottom:4px}
+.d-line.right .d-name{color:var(--pur2)}
+.d-text{font-size:.9rem;line-height:1.6;color:rgba(255,255,255,.82)}
+
+/* FORMULES */
+.s-formulas{background:linear-gradient(160deg,#080408 0%,#180b18 100%);
+  padding:80px 60px 100px}
+.formula-strip{background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.25);
+  border-radius:16px;padding:24px 28px;margin-bottom:14px;
+  display:flex;align-items:center;gap:20px}
+.fs-num{width:40px;height:40px;border-radius:50%;background:var(--pur);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Lexend',sans-serif;font-weight:700;font-size:.9rem;color:#fff;flex-shrink:0}
+.fs-content{flex:1}
+.fs-label{font-family:'Lexend',sans-serif;font-size:.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;color:var(--pur2);margin-bottom:5px}
+.fs-formula{font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:500;color:var(--goud)}
+.fs-ex{font-size:.8rem;color:rgba(255,255,255,.55);margin-top:4px}
+.fs-arrow{font-size:1.5rem;color:rgba(124,58,237,.5)}
+.win-ex{background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.25);
+  border-radius:14px;padding:20px 26px;margin-top:16px}
+.win-ex-label{font-family:'Lexend',sans-serif;font-size:.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;color:var(--groen3);margin-bottom:10px}
+.win-ex-row{display:flex;justify-content:space-between;padding:6px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);font-size:.88rem}
+.win-ex-row:last-child{border:none;font-weight:700;color:var(--groen3);padding-top:10px}
+
+/* BREAK-EVEN SLIDE */
+.s-breakeven{background:linear-gradient(160deg,#080408 0%,#180b18 100%);
+  padding:80px 60px 100px}
+.be-vis{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px}
+.be-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:24px}
+.be-formula{font-family:'DM Mono',monospace;font-size:1rem;font-weight:500;
+  color:var(--goud);background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.25);
+  border-radius:10px;padding:12px 16px;margin:14px 0;line-height:1.6}
+.be-zone{margin-top:14px}
+.zone-bar{display:flex;border-radius:8px;overflow:hidden;height:38px;margin-bottom:8px}
+.zone-verlies{background:rgba(229,62,62,.3);display:flex;align-items:center;
+  justify-content:center;font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;
+  color:#fc8181;flex:1}
+.zone-be{background:rgba(240,192,64,.3);display:flex;align-items:center;
+  justify-content:center;font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;
+  color:var(--goud);width:36px}
+.zone-winst{background:rgba(46,204,113,.2);display:flex;align-items:center;
+  justify-content:center;font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;
+  color:var(--groen3);flex:2}
+
+/* CALCULATOR */
+.s-calc{background:linear-gradient(160deg,#080408 0%,#180b18 100%);
+  padding:80px 60px 100px}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:12px}
+.calc-inputs{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:24px}
+.calc-inputs h4{font-family:'Lexend',sans-serif;font-size:.9rem;font-weight:700;
+  color:var(--pur2);margin-bottom:18px}
+.ci-row{display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:14px;gap:12px}
+.ci-row label{font-size:.84rem;color:rgba(255,255,255,.7);white-space:nowrap}
+.ci-row input{width:110px;padding:8px 12px;border:1px solid rgba(124,58,237,.3);
+  border-radius:8px;background:rgba(124,58,237,.08);
+  color:#fff;font-family:'DM Mono',monospace;font-size:.9rem;text-align:right;outline:none;
+  transition:border-color .2s}
+.ci-row input:focus{border-color:var(--pur2)}
+.calc-results{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.cr-row{display:flex;justify-content:space-between;align-items:center;
+  padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.03)}
+.cr-label{font-size:.85rem;color:rgba(255,255,255,.65)}
+.cr-val{font-family:'DM Mono',monospace;font-size:1rem;font-weight:500;color:var(--goud)}
+.cr-win{border:1px solid;border-radius:12px;padding:14px 18px;text-align:center;
+  margin-top:8px;transition:all .3s}
+.cr-win.positief{background:rgba(46,204,113,.1);border-color:rgba(46,204,113,.4)}
+.cr-win.negatief{background:rgba(229,62,62,.1);border-color:rgba(229,62,62,.4)}
+.cr-win-label{font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.cr-win.positief .cr-win-label{color:var(--groen3)}
+.cr-win.negatief .cr-win-label{color:#fc8181}
+.cr-win-val{font-family:'DM Mono',monospace;font-size:1.5rem;font-weight:500}
+.cr-win.positief .cr-win-val{color:var(--groen3)}
+.cr-win.negatief .cr-win-val{color:#fc8181}
+
+/* WINSTMARGE */
+.s-marge{background:linear-gradient(160deg,#080408 0%,#180b18 100%);
+  padding:80px 60px 100px;align-items:center}
+.marge-compare{display:flex;gap:20px;margin-top:16px;width:100%;max-width:720px}
+.marge-box{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:22px 24px}
+.marge-title{font-family:'Lexend',sans-serif;font-weight:700;font-size:.92rem;
+  color:var(--goud);margin-bottom:14px}
+.marge-num{font-family:'DM Mono',monospace;font-size:2rem;font-weight:500;
+  margin:10px 0}
+.marge-bar-wrap{background:rgba(255,255,255,.08);border-radius:20px;height:10px;
+  margin:10px 0;overflow:hidden}
+.marge-bar{height:100%;border-radius:20px;background:var(--pur2);transition:width .8s ease}
+.marge-note{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5;margin-top:8px}
+
+/* WIST JE DAT */
+.s-wist{background:linear-gradient(145deg,#080408 0%,#100610 100%);
+  padding:80px;align-items:center;justify-content:center;text-align:center}
+.wist-orb{width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.22),rgba(124,58,237,.02));
+  display:flex;align-items:center;justify-content:center;font-size:4.5rem;
+  margin:0 auto 24px;border:1px solid rgba(124,58,237,.25)}
+.wist-h{font-family:'Lexend',sans-serif;font-weight:800;font-size:1.5rem;
+  color:var(--pur2);margin-bottom:16px}
+.wist-txt{font-size:1rem;line-height:1.75;color:rgba(255,255,255,.8);max-width:600px}
+
+/* BEGRIPPEN */
+.s-begrippen{background:linear-gradient(160deg,#080408 0%,#180b18 100%);padding:80px 60px 100px}
+.beg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.beg-card{background:rgba(255,255,255,.04);border:1px solid rgba(124,58,237,.15);
+  border-radius:12px;padding:16px 18px;border-top:3px solid var(--pur)}
+.beg-term{font-family:'Lexend',sans-serif;font-weight:700;font-size:.9rem;color:var(--goud);margin-bottom:6px}
+.beg-def{font-size:.78rem;line-height:1.5;color:rgba(255,255,255,.65)}
+
+.s-einde{background:linear-gradient(145deg,#080408 0%,#1a0a14 100%);
+  justify-content:center;align-items:center;text-align:center}
+.einde-ring{width:180px;height:180px;border-radius:50%;border:3px solid var(--pur2);
+  display:flex;align-items:center;justify-content:center;font-size:3.5rem;
+  margin:0 auto 28px;background:rgba(124,58,237,.08)}
+.einde-h{font-family:'Lexend',sans-serif;font-weight:900;font-size:2rem;color:#fff;margin-bottom:12px}
+.einde-sub{font-size:.95rem;color:rgba(255,255,255,.6);max-width:500px}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="topbar">
+  <div class="logo">vlaconomie</div>
+  <div class="chapter-tag">§3.3 · Winst berekenen · 3 VWO</div>
+</div>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: TITEL -->
+  <div class="slide s-title active">
+    <div class="title-badge">Hoofdstuk 3 <span>·</span> De Markt <span>·</span> §3.3</div>
+    <div class="title-main">Winst<em>berekenen</em></div>
+    <div class="title-sub">Van armbandje voor €8 tot supermarktmarge van 2% — alles draait om het verschil tussen opbrengst en kosten.</div>
+    <div class="title-tags">
+      <span class="tag">Omzet</span>
+      <span class="tag">Kostprijs</span>
+      <span class="tag">Totale kosten</span>
+      <span class="tag">Winst &amp; Verlies</span>
+      <span class="tag">Break-even</span>
+      <span class="tag">Winstmarge</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: DIALOOG -->
+  <div class="slide s-dialoog">
+    <div style="margin-bottom:20px">
+      <div class="slide-label">Intro — Hoeveel moet je verkopen?</div>
+      <div class="slide-h">Armbandjes verkopen op de markt —<em>maar wanneer maak je winst?</em></div>
+    </div>
+    <div style="max-width:700px;margin:0 auto">
+      <div class="d-line">
+        <div class="d-avatar a">👦</div>
+        <div class="d-bubble"><div class="d-name">Jay</div>
+          <div class="d-text">"Mijn zus verkoopt zelfgemaakte sieraden op een markt. Een armbandje kost haar €3 om te maken en ze verkoopt het voor €8."</div></div>
+      </div>
+      <div class="d-line right">
+        <div class="d-avatar b">👩</div>
+        <div class="d-bubble"><div class="d-name">Noa</div>
+          <div class="d-text">"Dan verdient ze €5 per stuk. Maar hoeveel moet ze er verkopen om haar marktkraam te betalen?"</div></div>
+      </div>
+      <div class="d-line">
+        <div class="d-avatar a">👦</div>
+        <div class="d-bubble"><div class="d-name">Jay</div>
+          <div class="d-text">"Ze betaalt €40 huur voor de stand. Dus ze moet er minimaal… acht armbandjes verkopen."</div></div>
+      </div>
+      <div class="d-line right">
+        <div class="d-avatar b">👩</div>
+        <div class="d-bubble"><div class="d-name">Noa</div>
+          <div class="d-text">"Precies. Dat heet de break-even: het punt waarop ze geen winst maar ook geen verlies maakt."</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: FORMULES -->
+  <div class="slide s-formulas">
+    <div class="slide-label">De drie basisformules</div>
+    <div class="slide-h">Van omzet naar <em>winst</em></div>
+    <div class="formula-strip">
+      <div class="fs-num">1</div>
+      <div class="fs-content">
+        <div class="fs-label">Omzet</div>
+        <div class="fs-formula">Omzet = verkoopprijs × afzet</div>
+        <div class="fs-ex">Bijv. €12 × 200 stuks = €2.400</div>
+      </div>
+      <div class="fs-arrow">→</div>
+    </div>
+    <div class="formula-strip">
+      <div class="fs-num">2</div>
+      <div class="fs-content">
+        <div class="fs-label">Totale kosten</div>
+        <div class="fs-formula">Totale kosten = kostprijs × afzet</div>
+        <div class="fs-ex">Bijv. €7 × 200 stuks = €1.400</div>
+      </div>
+      <div class="fs-arrow">→</div>
+    </div>
+    <div class="formula-strip" style="border-color:rgba(46,204,113,.3);background:rgba(46,204,113,.06)">
+      <div class="fs-num" style="background:var(--groen2)">3</div>
+      <div class="fs-content">
+        <div class="fs-label" style="color:var(--groen3)">Winst</div>
+        <div class="fs-formula">Winst = omzet − totale kosten</div>
+        <div class="fs-ex">Bijv. €2.400 − €1.400 = <strong style="color:var(--groen3)">€1.000 winst ✓</strong></div>
+      </div>
+      <div class="fs-arrow" style="color:var(--groen3)">✓</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: BREAK-EVEN -->
+  <div class="slide s-breakeven">
+    <div class="slide-label">Break-even punt</div>
+    <div class="slide-h">Wanneer speel je <em>quitte</em>?</div>
+    <div class="be-vis">
+      <div class="be-card">
+        <div style="font-family:Lexend,sans-serif;font-weight:700;font-size:1rem;color:var(--pur2);margin-bottom:10px">📐 Break-even formule</div>
+        <div class="be-formula">Break-even =<br>vaste kosten ÷ (verkoopprijs − variabele kostprijs)</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.6);margin-top:10px;line-height:1.5">Het verschil (verkoopprijs − variabele kostprijs) noem je de <strong style="color:#fff">bijdrage per stuk</strong>.</div>
+        <div style="margin-top:14px;padding:12px 16px;background:rgba(240,192,64,.07);border-radius:10px;border:1px solid rgba(240,192,64,.2)">
+          <div style="font-family:Lexend,sans-serif;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--goud);margin-bottom:6px">Voorbeeld Jay's zus</div>
+          <div style="font-family:'DM Mono',monospace;font-size:.88rem;color:rgba(255,255,255,.85);line-height:1.8">Vaste kosten = €40<br>Bijdrage = €8 − €3 = €5<br>Break-even = €40 ÷ €5 = <strong style="color:var(--goud)">8 armbandjes</strong></div>
+        </div>
+      </div>
+      <div class="be-card">
+        <div style="font-family:Lexend,sans-serif;font-weight:700;font-size:1rem;color:var(--pur2);margin-bottom:14px">📊 Visualisatie</div>
+        <div class="be-zone">
+          <div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-bottom:6px;font-family:Lexend,sans-serif">Resultaatzone bij afzet →</div>
+          <div class="zone-bar">
+            <div class="zone-verlies">💸 VERLIES<br>(0–7 stuks)</div>
+            <div class="zone-be">BE</div>
+            <div class="zone-winst">✅ WINST<br>(9+ stuks)</div>
+          </div>
+          <div style="font-size:.78rem;color:rgba(255,255,255,.4);text-align:center">Bij precies 8: winst = 0</div>
+        </div>
+        <div style="margin-top:16px;font-size:.85rem;line-height:1.6;color:rgba(255,255,255,.7)">
+          Elke extra verkoop <em>boven</em> de break-even levert <strong style="color:var(--goud)">€5 extra winst</strong> op (de bijdrage per stuk).<br><br>
+          Elke verkoop <em>onder</em> de break-even betekent nog een stukje minder verlies.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: CALCULATOR -->
+  <div class="slide s-calc">
+    <div class="slide-label">Interactieve calculator</div>
+    <div class="slide-h">Reken het zelf <em>uit</em></div>
+    <div class="calc-grid">
+      <div class="calc-inputs">
+        <h4>⚙️ Voer je getallen in</h4>
+        <div class="ci-row"><label>Verkoopprijs per stuk</label><input type="number" id="vp" value="12" min="0" step="0.5" oninput="calcWinst()"> €</div>
+        <div class="ci-row"><label>Kostprijs per stuk</label><input type="number" id="kp" value="7" min="0" step="0.5" oninput="calcWinst()"> €</div>
+        <div class="ci-row"><label>Afzet (stuks)</label><input type="number" id="afzet" value="200" min="0" step="10" oninput="calcWinst()"></div>
+        <div class="ci-row"><label>Vaste kosten (extra)</label><input type="number" id="vk" value="0" min="0" step="50" oninput="calcWinst()"> €</div>
+      </div>
+      <div class="calc-results">
+        <div style="font-family:Lexend,sans-serif;font-size:.8rem;font-weight:700;color:var(--pur2);margin-bottom:4px">📊 Resultaten</div>
+        <div class="cr-row"><span class="cr-label">Omzet</span><span class="cr-val" id="r-omzet">€2.400</span></div>
+        <div class="cr-row"><span class="cr-label">Totale kosten</span><span class="cr-val" id="r-kosten">€1.400</span></div>
+        <div class="cr-row"><span class="cr-label">Bijdrage per stuk</span><span class="cr-val" id="r-bijdrage">€5</span></div>
+        <div class="cr-row"><span class="cr-label">Break-even (stuks)</span><span class="cr-val" id="r-be">n.v.t.</span></div>
+        <div class="cr-win positief" id="r-winst-box">
+          <div class="cr-win-label">Winst</div>
+          <div class="cr-win-val" id="r-winst">€1.000</div>
+        </div>
+        <div style="margin-top:8px">
+          <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px">
+            <span style="color:rgba(255,255,255,.5)">Winstmarge</span>
+            <span style="font-family:'DM Mono',monospace;color:var(--goud)" id="r-marge">41,7%</span>
+          </div>
+          <div style="background:rgba(255,255,255,.07);border-radius:20px;height:8px;overflow:hidden">
+            <div id="r-marge-bar" style="height:100%;border-radius:20px;background:var(--pur2);transition:width .5s ease;width:41.7%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: WINSTMARGE VERGELIJKING -->
+  <div class="slide s-marge">
+    <div class="slide-label">Winstmarge</div>
+    <div class="slide-h">Hoeveel procent van de omzet<em>is winst?</em></div>
+    <div style="font-family:'DM Mono',monospace;font-size:1rem;color:var(--goud);
+      background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.25);
+      border-radius:10px;padding:12px 18px;margin-bottom:16px;display:inline-block">
+      Winstmarge (%) = (winst ÷ omzet) × 100%
+    </div>
+    <div class="marge-compare">
+      <div class="marge-box">
+        <div class="marge-title">🛒 Grote supermarkt (AH)</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:6px">Enorme omzet, dunne marge</div>
+        <div class="marge-num" style="color:#fc8181">2–4%</div>
+        <div class="marge-bar-wrap"><div class="marge-bar" style="width:4%;background:#fc8181"></div></div>
+        <div class="marge-note">Miljarden omzet × 3% = toch honderden miljoenen winst. Schaal compenseert lage marge.</div>
+      </div>
+      <div class="marge-box">
+        <div class="marge-title">🧃 Kleine zelfstandige</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:6px">Kleine omzet, dikkere marge</div>
+        <div class="marge-num" style="color:var(--pur2)">10–20%</div>
+        <div class="marge-bar-wrap"><div class="marge-bar" style="width:20%"></div></div>
+        <div class="marge-note">Hogere marge per product, maar minder volume. Totale winst kleiner.</div>
+      </div>
+      <div class="marge-box">
+        <div class="marge-title">💻 Software / App</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:6px">Eenmalige kosten, schaalbaar</div>
+        <div class="marge-num" style="color:var(--groen3)">60–90%</div>
+        <div class="marge-bar-wrap"><div class="marge-bar" style="width:80%;background:var(--groen3)"></div></div>
+        <div class="marge-note">Extra download = bijna €0 extra kosten. Elke verkoop is bijna pure winst.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: WIST JE DAT -->
+  <div class="slide s-wist">
+    <div class="wist-orb">🏪</div>
+    <div class="wist-h">Wist je dat?</div>
+    <div class="wist-txt">Grote supermarkten zoals Albert Heijn werken met een winstmarge van slechts <strong style="color:#fff">2–4% op omzet</strong>. Dat klinkt weinig, maar door enorme volumes (miljarden euro's omzet) is de absolute winst toch aanzienlijk. Kleine zelfstandige winkels draaien vaak op 10–20% marge. <strong style="color:var(--goud)">Marge × Volume = Winst.</strong></div>
+  </div>
+
+  <!-- SLIDE 8: BEGRIPPEN -->
+  <div class="slide s-begrippen">
+    <div class="slide-label">Samenvatting begrippen</div>
+    <div class="slide-h">Alle begrippen<em>§3.3</em></div>
+    <div class="beg-grid">
+      <div class="beg-card"><div class="beg-term">Omzet</div><div class="beg-def">Totale opbrengst uit verkoop. Formule: verkoopprijs × afzet</div></div>
+      <div class="beg-card"><div class="beg-term">Afzet</div><div class="beg-def">Het aantal verkochte producten in een bepaalde periode</div></div>
+      <div class="beg-card"><div class="beg-term">Kostprijs</div><div class="beg-def">De kosten per product (productiekosten per eenheid)</div></div>
+      <div class="beg-card"><div class="beg-term">Totale kosten</div><div class="beg-def">Alle kosten samen. Formule: kostprijs × afzet (+ vaste kosten)</div></div>
+      <div class="beg-card"><div class="beg-term">Winst / Verlies</div><div class="beg-def">Winst = omzet − totale kosten. Verlies als omzet &lt; totale kosten</div></div>
+      <div class="beg-card"><div class="beg-term">Break-even</div><div class="beg-def">Het punt waarop omzet = totale kosten; winst = 0. Formule: vaste kosten ÷ bijdrage per stuk</div></div>
+      <div class="beg-card"><div class="beg-term">Winstmarge</div><div class="beg-def">Winst als percentage van de omzet. Formule: (winst ÷ omzet) × 100%</div></div>
+      <div class="beg-card" style="border-top-color:var(--goud)"><div class="beg-term" style="color:var(--goud)">Bijdrage per stuk</div><div class="beg-def">Verkoopprijs minus variabele kostprijs. Elk stuk boven de break-even = pure winst</div></div>
+      <div class="beg-card" style="border-top-color:var(--groen3)"><div class="beg-term" style="color:var(--groen3)">Verkoopprijs</div><div class="beg-def">De prijs waarvoor een product aan de klant wordt verkocht</div></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: EINDE -->
+  <div class="slide s-einde">
+    <div class="einde-ring">💰</div>
+    <div class="einde-h">§3.3 klaar!</div>
+    <div class="einde-sub">Je kunt nu omzet, kosten en winst berekenen, de break-even bepalen en winstmarges vergelijken.</div>
+    <div style="margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <span class="tag">Volgende: §3.4 Koopgedrag beïnvloeden</span>
+    </div>
+  </div>
+
+</div>
+
+<nav class="nav">
+  <button id="btnPrev" onclick="prev()" disabled>← Vorige</button>
+  <div class="dots" id="dots"></div>
+  <div class="slide-num" id="slideNum">1 / 9</div>
+  <button id="btnNext" onclick="next()">Volgende →</button>
+</nav>
+
+<script>
+let cur=0;
+const total=document.querySelectorAll('.slide').length;
+function buildDots(){
+  const c=document.getElementById('dots');
+  for(let i=0;i<total;i++){
+    const d=document.createElement('div');d.className='dot'+(i===0?' on':'');
+    d.onclick=()=>goTo(i);c.appendChild(d);
+  }
+}
+function goTo(n){
+  const slides=document.querySelectorAll('.slide');
+  slides[cur].classList.remove('active');slides[cur].classList.add('exit');
+  setTimeout(()=>slides[cur].classList.remove('exit'),400);
+  cur=n;slides[cur].classList.add('active');
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===cur));
+  document.getElementById('slideNum').textContent=(cur+1)+' / '+total;
+  document.getElementById('btnPrev').disabled=cur===0;
+  document.getElementById('btnNext').disabled=cur===total-1;
+  document.getElementById('progress').style.width=((cur+1)/total*100)+'%';
+}
+function next(){if(cur<total-1)goTo(cur+1);}
+function prev(){if(cur>0)goTo(cur-1);}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')next();
+  if(e.key==='ArrowLeft')prev();
+});
+
+function calcWinst(){
+  const vp=+document.getElementById('vp').value||0;
+  const kp=+document.getElementById('kp').value||0;
+  const afzet=+document.getElementById('afzet').value||0;
+  const vk=+document.getElementById('vk').value||0;
+  const omzet=vp*afzet;
+  const kosten=kp*afzet+vk;
+  const winst=omzet-kosten;
+  const bij=vp-kp;
+  const be=bij>0?Math.ceil(vk/bij):null;
+  const marge=omzet>0?(winst/omzet*100):0;
+  document.getElementById('r-omzet').textContent='€'+omzet.toLocaleString('nl');
+  document.getElementById('r-kosten').textContent='€'+kosten.toLocaleString('nl');
+  document.getElementById('r-bijdrage').textContent='€'+bij.toFixed(2);
+  document.getElementById('r-be').textContent=be!==null?be+' stuks':'n.v.t.';
+  document.getElementById('r-winst').textContent=(winst>=0?'€':'−€')+Math.abs(winst).toLocaleString('nl');
+  const box=document.getElementById('r-winst-box');
+  const lbl=box.querySelector('.cr-win-label');
+  box.className='cr-win '+(winst>=0?'positief':'negatief');
+  lbl.textContent=winst>=0?'Winst':'Verlies';
+  const m=Math.max(0,Math.min(100,marge));
+  document.getElementById('r-marge').textContent=marge.toFixed(1)+'%';
+  document.getElementById('r-marge-bar').style.width=m+'%';
+}
+
+buildDots();
+document.getElementById('progress').style.width=(1/total*100)+'%';
+calcWinst();
+</script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>§3.2 Wat verandert de prijs? — vlaconomie</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;900&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--groen2:#1a7a4a;--groen3:#2ecc71;
+  --goud:#f0c040;--wit:#f8f9f4;--donker:#0a1a2e;
+  --blauw:#1a4f9c;--blauw2:#4a90d9;--rood:#c0392b;
+  --oranje:#e67e22;
+}
+html,body{height:100%;overflow:hidden;background:var(--donker)}
+body{font-family:'DM Sans',sans-serif;color:var(--wit)}
+
+.deck{width:100%;height:100vh;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transition:opacity .45s ease,transform .45s ease;
+  transform:translateY(30px)}
+.slide.active{opacity:1;pointer-events:all;transform:translateY(0)}
+.slide.exit{opacity:0;transform:translateY(-30px)}
+
+.nav{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:14px;z-index:100;
+  background:rgba(10,26,46,.85);backdrop-filter:blur(12px);
+  border:1px solid rgba(74,144,217,.3);border-radius:40px;padding:10px 24px}
+.nav button{background:none;border:none;color:var(--wit);
+  cursor:pointer;padding:6px 14px;border-radius:20px;
+  font-family:'Lexend',sans-serif;font-weight:600;font-size:.8rem;
+  transition:all .2s}
+.nav button:hover{background:var(--blauw2);color:#fff}
+.nav button:disabled{opacity:.3;cursor:default}
+.nav button:disabled:hover{background:none}
+.dots{display:flex;gap:8px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);
+  cursor:pointer;transition:all .25s}
+.dot.on{background:var(--blauw2);transform:scale(1.3)}
+.slide-num{font-family:'Lexend',sans-serif;font-size:.75rem;
+  color:rgba(255,255,255,.4);min-width:48px;text-align:center}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 28px;background:rgba(10,26,46,.85);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(74,144,217,.2)}
+.logo{font-family:'Lexend',sans-serif;font-weight:900;font-size:1rem;color:var(--goud)}
+.chapter-tag{font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:600;color:var(--blauw2)}
+
+.progress{position:fixed;top:0;left:0;height:3px;
+  background:linear-gradient(90deg,var(--blauw2),var(--goud));
+  transition:width .4s ease;z-index:200}
+
+.slide-label{font-family:'Lexend',sans-serif;font-size:.68rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--blauw2);
+  margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.slide-label::before{content:'';width:28px;height:2px;background:var(--blauw2)}
+.slide-h{font-family:'Lexend',sans-serif;font-weight:800;font-size:2.3rem;
+  line-height:1.15;color:#fff;margin-bottom:28px}
+.slide-h em{color:var(--goud);font-style:normal}
+
+/* TITELSLIDE */
+.s-title{
+  background:linear-gradient(145deg,#050f1e 0%,#0a1a2e 40%,#071530 100%);
+  justify-content:center;align-items:center;text-align:center;padding:40px}
+.s-title::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 60% 20%, rgba(74,144,217,.15) 0%, transparent 60%),
+             radial-gradient(ellipse at 20% 80%, rgba(230,126,34,.08) 0%, transparent 50%)}
+.title-badge{font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--goud);
+  background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.35);
+  padding:6px 18px;border-radius:20px;margin-bottom:28px;display:inline-block}
+.title-badge span{opacity:.5;margin:0 8px}
+.title-main{font-family:'Lexend',sans-serif;font-weight:900;font-size:3.6rem;
+  line-height:1.05;color:#fff;margin-bottom:20px}
+.title-main em{color:var(--blauw2);font-style:normal;display:block}
+.title-sub{font-size:1.05rem;color:rgba(255,255,255,.55);max-width:540px;
+  line-height:1.65;margin-bottom:36px}
+.title-tags{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tag{font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:600;
+  padding:5px 14px;border-radius:12px;
+  background:rgba(74,144,217,.12);border:1px solid rgba(74,144,217,.3);color:var(--blauw2)}
+
+/* DIALOOG */
+.s-dialoog{background:linear-gradient(160deg,#050f1e 0%,#0a1e36 100%);
+  padding:80px 80px 100px;justify-content:center}
+.d-line{display:flex;gap:18px;margin-bottom:22px}
+.d-line.right{flex-direction:row-reverse}
+.d-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;
+  border:2px solid rgba(240,192,64,.25)}
+.d-avatar.a{background:rgba(240,192,64,.12)}
+.d-avatar.b{background:rgba(74,144,217,.15)}
+.d-bubble{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:13px 18px;max-width:540px}
+.d-line.right .d-bubble{background:rgba(74,144,217,.08);border-color:rgba(74,144,217,.2)}
+.d-name{font-family:'Lexend',sans-serif;font-size:.67rem;font-weight:700;
+  color:var(--goud);margin-bottom:4px}
+.d-line.right .d-name{color:var(--blauw2)}
+.d-text{font-size:.9rem;line-height:1.6;color:rgba(255,255,255,.82)}
+
+/* FACTOR CARDS */
+.s-factors{background:linear-gradient(160deg,#050f1e 0%,#0a1e36 100%);padding:80px 48px 100px}
+.factor-tabs{display:flex;gap:8px;margin-bottom:20px}
+.ftab{font-family:'Lexend',sans-serif;font-size:.78rem;font-weight:700;
+  padding:8px 20px;border-radius:20px;border:1px solid rgba(255,255,255,.15);
+  background:none;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
+.ftab.act{background:var(--blauw2);border-color:var(--blauw2);color:#fff}
+.ftab.act.demand{background:#e67e22;border-color:#e67e22}
+.factor-pane{display:none}.factor-pane.act{display:block}
+.factor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.fc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:18px 20px;border-left:3px solid var(--blauw2)}
+.fc.demand-card{border-left-color:var(--oranje)}
+.fc-factor{font-family:'Lexend',sans-serif;font-weight:700;font-size:.88rem;
+  color:var(--goud);margin-bottom:6px}
+.fc-effect{font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:6px;line-height:1.4}
+.fc-ex{font-size:.75rem;color:var(--blauw2);font-style:italic}
+.fc.demand-card .fc-ex{color:var(--oranje)}
+.fc-arrow{font-size:1rem;float:right;margin-top:-2px}
+
+/* REDENEER STAPPEN */
+.s-steps{background:linear-gradient(160deg,#050f1e 0%,#0a1e36 100%);
+  padding:80px 60px 100px;align-items:center}
+.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;width:100%;max-width:840px}
+.step-chain{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;padding:24px 26px}
+.sc-head{font-family:'Lexend',sans-serif;font-weight:700;font-size:1rem;
+  margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.sc-icon{font-size:1.4rem}
+.step{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.step:last-child{margin-bottom:0}
+.step-n{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-family:'Lexend',sans-serif;font-weight:700;
+  font-size:.78rem;flex-shrink:0;background:var(--blauw2);color:#fff}
+.step-chain.demand-chain .step-n{background:var(--oranje)}
+.step-txt{font-size:.85rem;line-height:1.55;color:rgba(255,255,255,.8)}
+.step-result{margin-top:12px;padding:10px 14px;border-radius:10px;
+  background:rgba(74,144,217,.1);border:1px solid rgba(74,144,217,.3);
+  font-family:'Lexend',sans-serif;font-size:.85rem;font-weight:700;color:var(--blauw2);
+  text-align:center}
+.step-chain.demand-chain .step-result{background:rgba(230,126,34,.1);border-color:rgba(230,126,34,.3);color:var(--oranje)}
+
+/* CASE STUDY */
+.s-case{background:linear-gradient(160deg,#050f1e 0%,#0a1e36 100%);
+  padding:80px 60px 100px}
+.case-ctx{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.25);
+  border-radius:14px;padding:18px 22px;margin-bottom:24px}
+.case-ctx-label{font-family:'Lexend',sans-serif;font-size:.65rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:1.5px;color:var(--goud);margin-bottom:6px}
+.case-ctx p{font-size:.92rem;line-height:1.65;color:rgba(255,255,255,.85);font-style:italic}
+.case-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.case-btn{font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:600;
+  padding:10px 20px;border-radius:12px;border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.7);cursor:pointer;
+  transition:all .2s}
+.case-btn:hover{border-color:var(--blauw2);color:#fff}
+.case-btn.sel{background:rgba(74,144,217,.15);border-color:var(--blauw2);color:#fff}
+.case-answer{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:20px 24px;min-height:80px;
+  display:flex;align-items:center;font-size:.9rem;line-height:1.65;
+  color:rgba(255,255,255,.55);transition:all .3s}
+.case-answer.show{background:rgba(46,204,113,.07);border-color:rgba(46,204,113,.3);
+  color:rgba(255,255,255,.9)}
+
+/* WIST JE DAT */
+.s-wist{background:linear-gradient(145deg,#050f1e 0%,#071425 100%);
+  padding:80px;align-items:center;justify-content:center;text-align:center}
+.wist-orb{width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(74,144,217,.2),rgba(74,144,217,.02));
+  display:flex;align-items:center;justify-content:center;font-size:4.5rem;
+  margin:0 auto 24px;border:1px solid rgba(74,144,217,.2)}
+.wist-h{font-family:'Lexend',sans-serif;font-weight:800;font-size:1.5rem;
+  color:var(--blauw2);margin-bottom:16px}
+.wist-txt{font-size:1rem;line-height:1.75;color:rgba(255,255,255,.8);max-width:600px}
+
+/* BEGRIPPEN */
+.s-begrippen{background:linear-gradient(160deg,#050f1e 0%,#0a1e36 100%);
+  padding:80px 60px 100px}
+.beg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.beg-card{background:rgba(255,255,255,.04);border:1px solid rgba(74,144,217,.15);
+  border-radius:12px;padding:16px 18px;border-top:3px solid var(--blauw2)}
+.beg-term{font-family:'Lexend',sans-serif;font-weight:700;font-size:.9rem;
+  color:var(--goud);margin-bottom:6px}
+.beg-def{font-size:.78rem;line-height:1.5;color:rgba(255,255,255,.65)}
+
+/* AFSLUITING */
+.s-einde{background:linear-gradient(145deg,#050f1e 0%,#0a1a2e 100%);
+  justify-content:center;align-items:center;text-align:center}
+.einde-ring{width:180px;height:180px;border-radius:50%;
+  border:3px solid var(--blauw2);display:flex;align-items:center;
+  justify-content:center;font-size:3.5rem;margin:0 auto 28px;
+  background:rgba(74,144,217,.08)}
+.einde-h{font-family:'Lexend',sans-serif;font-weight:900;font-size:2rem;
+  color:#fff;margin-bottom:12px}
+.einde-sub{font-size:.95rem;color:rgba(255,255,255,.6);max-width:500px}
+
+/* SVG */
+.schema-svg{width:100%;max-width:480px}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="topbar">
+  <div class="logo">vlaconomie</div>
+  <div class="chapter-tag">§3.2 · Wat verandert de prijs? · 3 VWO</div>
+</div>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: TITEL -->
+  <div class="slide s-title active" id="slide-0">
+    <div class="title-badge">Hoofdstuk 3 <span>·</span> De Markt <span>·</span> §3.2</div>
+    <div class="title-main">Wat verandert<em>de prijs?</em></div>
+    <div class="title-sub">Koffie was gisteren €6, nu €8,50. Slechte oogst in Brazilië. Één oorzaak — maar er zijn er veel meer.</div>
+    <div class="title-tags">
+      <span class="tag">Veranderingsfactoren vraag</span>
+      <span class="tag">Veranderingsfactoren aanbod</span>
+      <span class="tag">Verschuiving curve</span>
+      <span class="tag">Substituut</span>
+      <span class="tag">Nieuwe evenwichtsprijs</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: DIALOOG -->
+  <div class="slide s-dialoog" id="slide-1">
+    <div style="margin-bottom:20px">
+      <div class="slide-label">Intro — Herken je dit?</div>
+      <div class="slide-h">Koffie duurder, energiedrankjes<em>goedkoper</em> — hoe kan dat?</div>
+    </div>
+    <div style="max-width:720px;margin:0 auto">
+      <div class="d-line">
+        <div class="d-avatar a">👩</div>
+        <div class="d-bubble"><div class="d-name">Eva</div>
+          <div class="d-text">"Gisteren kostte een pak koffie €6, nu is het €8,50. Wat is er gebeurd?"</div></div>
+      </div>
+      <div class="d-line right">
+        <div class="d-avatar b">👦</div>
+        <div class="d-bubble"><div class="d-name">Sem</div>
+          <div class="d-text">"Slechte oogsten in Brazilië. Minder koffie beschikbaar, zelfde vraag — dus hogere prijs."</div></div>
+      </div>
+      <div class="d-line">
+        <div class="d-avatar a">👩</div>
+        <div class="d-bubble"><div class="d-name">Eva</div>
+          <div class="d-text">"Maar vorig jaar zomer werden energiedrankjes juist goedkoper?"</div></div>
+      </div>
+      <div class="d-line right">
+        <div class="d-avatar b">👦</div>
+        <div class="d-bubble"><div class="d-name">Sem</div>
+          <div class="d-text">"Toen kwamen er veel meer merken op de markt. Meer aanbod bij gelijke vraag drukt de prijs omlaag."</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: VERANDERINGSFACTOREN VRAAG & AANBOD TABS -->
+  <div class="slide s-factors" id="slide-2">
+    <div class="slide-label">Veranderingsfactoren</div>
+    <div class="slide-h">Wat <em>verschuift</em> de curve?</div>
+    <div class="factor-tabs">
+      <button class="ftab demand act" onclick="switchTab('demand',this)">📉 Vraag-factoren</button>
+      <button class="ftab" onclick="switchTab('supply',this)">📦 Aanbod-factoren</button>
+    </div>
+    <div id="demand" class="factor-pane act">
+      <div class="factor-grid">
+        <div class="fc demand-card"><div class="fc-arrow">↑</div><div class="fc-factor">Inkomen stijgt</div><div class="fc-effect">Meer te besteden → vraag stijgt</div><div class="fc-ex">Hogere lonen → meer vakantietickets</div></div>
+        <div class="fc demand-card"><div class="fc-arrow">↑</div><div class="fc-factor">Prijs substituut stijgt</div><div class="fc-effect">Mensen stappen over → vraag stijgt</div><div class="fc-ex">Benzine duurder → meer e-auto's</div></div>
+        <div class="fc demand-card"><div class="fc-arrow">↑</div><div class="fc-factor">Mode/trend</div><div class="fc-effect">Populariteit stijgt → vraag stijgt</div><div class="fc-ex">Sneaker-hype → vraag schiet omhoog</div></div>
+        <div class="fc demand-card"><div class="fc-arrow">↑</div><div class="fc-factor">Meer consumenten</div><div class="fc-effect">Grotere markt → totale vraag stijgt</div><div class="fc-ex">Bevolkingsgroei → meer woningen</div></div>
+        <div class="fc demand-card"><div class="fc-arrow">↑</div><div class="fc-factor">Verwachting hogere prijs</div><div class="fc-effect">Nu meer kopen → vraag stijgt</div><div class="fc-ex">Inflatie verwacht → hamsterkopen</div></div>
+        <div class="fc demand-card" style="border-left-color:#888"><div class="fc-arrow">↓</div><div class="fc-factor">Inkomen daalt</div><div class="fc-effect">Minder te besteden → vraag daalt</div><div class="fc-ex">Recessie → minder restaurantbezoek</div></div>
+      </div>
+    </div>
+    <div id="supply" class="factor-pane">
+      <div class="factor-grid">
+        <div class="fc"><div class="fc-arrow">↓</div><div class="fc-factor">Productiekosten stijgen</div><div class="fc-effect">Minder winstgevend → aanbod daalt</div><div class="fc-ex">Hogere lonen → minder horeca-aanbod</div></div>
+        <div class="fc"><div class="fc-arrow">↑</div><div class="fc-factor">Technologie verbetert</div><div class="fc-effect">Goedkoper produceren → aanbod stijgt</div><div class="fc-ex">Zonnepanelen efficiënter → meer aanbod</div></div>
+        <div class="fc"><div class="fc-arrow">↑</div><div class="fc-factor">Subsidie overheid</div><div class="fc-effect">Lagere kosten → aanbod stijgt</div><div class="fc-ex">Subsidie op e-auto's → meer aanbod</div></div>
+        <div class="fc"><div class="fc-arrow">↓</div><div class="fc-factor">Belasting stijgt</div><div class="fc-effect">Hogere kosten → aanbod daalt</div><div class="fc-ex">Suikertaks → minder frisdrankaanbod</div></div>
+        <div class="fc"><div class="fc-arrow">↑</div><div class="fc-factor">Meer aanbieders</div><div class="fc-effect">Totale aanbod stijgt</div><div class="fc-ex">Meer bakkers → meer brood</div></div>
+        <div class="fc"><div class="fc-arrow">↓</div><div class="fc-factor">Slechte oogst</div><div class="fc-effect">Minder productie → aanbod daalt</div><div class="fc-ex">Droogte → minder graan → hogere graanprijs</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: STAP-VOOR-STAP REDENERING -->
+  <div class="slide s-steps" id="slide-3">
+    <div class="slide-label" style="color:var(--goud)">Redeneer correct!</div>
+    <div class="slide-h" style="margin-bottom:20px;text-align:center">Vier stappen naar de <em>nieuwe evenwichtsprijs</em></div>
+    <div class="steps-grid">
+      <div class="step-chain">
+        <div class="sc-head">
+          <span class="sc-icon">📈</span>
+          <span style="font-family:Lexend,sans-serif;color:var(--blauw2)">Aanbod daalt (slechte oogst)</span>
+        </div>
+        <div class="step"><div class="step-n">1</div><div class="step-txt">De <strong>aanbodcurve verschuift naar links</strong> (minder aanbod bij elke prijs)</div></div>
+        <div class="step"><div class="step-n">2</div><div class="step-txt">Bij de oude prijs: <strong>meer vragers dan aanbieders</strong> → vraagoverschot ontstaat</div></div>
+        <div class="step"><div class="step-n">3</div><div class="step-txt">Vraagoverschot drijft de prijs <strong>omhoog</strong></div></div>
+        <div class="step"><div class="step-n">4</div><div class="step-txt">Markt beweegt naar een <strong>nieuw, hoger evenwicht</strong></div></div>
+        <div class="step-result">Aanbod ↓ → Prijs ↑</div>
+      </div>
+      <div class="step-chain demand-chain">
+        <div class="sc-head">
+          <span class="sc-icon">🛍️</span>
+          <span style="font-family:Lexend,sans-serif;color:var(--oranje)">Vraag stijgt (mode-hype)</span>
+        </div>
+        <div class="step"><div class="step-n">1</div><div class="step-txt">De <strong>vraagcurve verschuift naar rechts</strong> (meer vraag bij elke prijs)</div></div>
+        <div class="step"><div class="step-n">2</div><div class="step-txt">Bij de oude prijs: <strong>meer vragers dan aanbieders</strong> → vraagoverschot ontstaat</div></div>
+        <div class="step"><div class="step-n">3</div><div class="step-txt">Vraagoverschot drijft de prijs <strong>omhoog</strong></div></div>
+        <div class="step"><div class="step-n">4</div><div class="step-txt">Markt beweegt naar een <strong>nieuw, hoger evenwicht</strong></div></div>
+        <div class="step-result">Vraag ↑ → Prijs ↑</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: SUBSTITUUT UITLEG -->
+  <div class="slide" style="background:linear-gradient(160deg,#050f1e 0%,#0a1e36 100%);padding:80px 60px 100px" id="slide-4">
+    <div class="slide-label">Speciaal begrip</div>
+    <div class="slide-h">Wat is een <em>substituut</em>?</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <div>
+        <div style="background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.25);border-radius:16px;padding:26px 28px">
+          <div style="font-size:3rem;margin-bottom:14px">🔄</div>
+          <div style="font-family:Lexend,sans-serif;font-weight:700;font-size:1.1rem;color:var(--goud);margin-bottom:10px">Substituut</div>
+          <div style="font-size:.92rem;line-height:1.65;color:rgba(255,255,255,.8)">Een <strong style="color:#fff">vervangend product</strong> dat dezelfde behoefte bevredigt. Als de prijs van product A stijgt, stappen mensen over naar substituut B.</div>
+        </div>
+        <div style="margin-top:16px;padding:18px 22px;background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.1)">
+          <div style="font-family:Lexend,sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--blauw2);margin-bottom:8px">Mechanisme</div>
+          <div style="font-size:.88rem;line-height:1.6;color:rgba(255,255,255,.75)">Prijs A stijgt → consumenten stappen over naar B → <strong style="color:#fff">vraag naar B stijgt</strong> → prijs B stijgt ook</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:Lexend,sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);margin-bottom:2px">Voorbeelden van substituten</div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border-radius:12px;padding:14px 18px">
+          <span style="font-size:1.5rem">⛽ → ⚡</span>
+          <div><div style="font-family:Lexend,sans-serif;font-size:.88rem;font-weight:700;color:#fff">Benzine → Elektrisch rijden</div><div style="font-size:.78rem;color:rgba(255,255,255,.5)">Benzine duurder → meer e-auto's</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border-radius:12px;padding:14px 18px">
+          <span style="font-size:1.5rem">🧈 → 🌿</span>
+          <div><div style="font-family:Lexend,sans-serif;font-size:.88rem;font-weight:700;color:#fff">Boter → Margarine</div><div style="font-size:.78rem;color:rgba(255,255,255,.5)">Boter duurder → meer margarine</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border-radius:12px;padding:14px 18px">
+          <span style="font-size:1.5rem">✈️ → 🚆</span>
+          <div><div style="font-family:Lexend,sans-serif;font-size:.88rem;font-weight:700;color:#fff">Vliegen → Trein</div><div style="font-size:.78rem;color:rgba(255,255,255,.5)">Vliegticket duurder → meer treinreizigers</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border-radius:12px;padding:14px 18px">
+          <span style="font-size:1.5rem">☕ → 🍵</span>
+          <div><div style="font-family:Lexend,sans-serif;font-size:.88rem;font-weight:700;color:#fff">Koffie → Thee</div><div style="font-size:.78cm;color:rgba(255,255,255,.5)">Koffie duurder → meer thee</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: CASESTUDY INTERACTIEF -->
+  <div class="slide s-case" id="slide-5">
+    <div class="slide-label">Oefenen</div>
+    <div class="slide-h">Analyseer de situatie — <em>welk effect?</em></div>
+    <div class="case-ctx">
+      <div class="case-ctx-label">📰 Nieuwskop</div>
+      <p>"Oorlog in Oekraïne verstoort tarweaanbod — graan wordt wereldwijd duurder."</p>
+    </div>
+    <div style="font-size:.9rem;color:rgba(255,255,255,.6);margin-bottom:14px">Klik op het juiste antwoord per vraag:</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <div style="font-family:Lexend,sans-serif;font-size:.8rem;font-weight:700;color:var(--goud);margin-bottom:10px">Welke curve verschuift?</div>
+        <div class="case-btns">
+          <button class="case-btn" onclick="answerCase('curve','vraag','❌ De vraag naar tarwe verandert niet direct. Het is de <strong style=color:#fff>aanbodcurve</strong> die verschuift — door de oorlog wordt minder tarwe geproduceerd.')">Vraagcurve</button>
+          <button class="case-btn" onclick="answerCase('curve','aanbod','✅ Correct! De <strong style=color:#fff>aanbodcurve verschuift naar links</strong> — minder tarwe beschikbaar door de oorlog.')">Aanbodcurve</button>
+        </div>
+        <div id="case-curve" class="case-answer">👆 Klik een antwoord aan</div>
+      </div>
+      <div>
+        <div style="font-family:Lexend,sans-serif;font-size:.8rem;font-weight:700;color:var(--goud);margin-bottom:10px">Effect op de prijs?</div>
+        <div class="case-btns">
+          <button class="case-btn" onclick="answerCase('prijs','stijgt','✅ Juist! Minder aanbod bij gelijke vraag → vraagoverschot → prijs stijgt. Brood, pasta en pizza worden duurder.')">Prijs stijgt</button>
+          <button class="case-btn" onclick="answerCase('prijs','daalt','❌ Nee. Minder aanbod bij gelijke vraag leidt tot een <strong style=color:#fff>vraagoverschot</strong> en dus een hogere prijs, niet lager.')">Prijs daalt</button>
+        </div>
+        <div id="case-prijs" class="case-answer">👆 Klik een antwoord aan</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: WIST JE DAT -->
+  <div class="slide s-wist" id="slide-6">
+    <div class="wist-orb">☕</div>
+    <div class="wist-h">Wist je dat?</div>
+    <div class="wist-txt">Tijdens de coronacrisis sloot veel horeca. Dat betekende minder vraag naar koffie, suiker en eieren voor de groot- en voedingshandel. Tegelijk nam de vraag naar supermarktproducten toe. <strong style="color:#fff">Supermarktprijzen stegen</strong>, terwijl groothandelspartijen voor horeca hun producten moesten afgoooien. Dezelfde producten, verschillende markten, tegengestelde effecten!</div>
+  </div>
+
+  <!-- SLIDE 8: BEGRIPPEN -->
+  <div class="slide s-begrippen" id="slide-7">
+    <div class="slide-label">Samenvatting begrippen</div>
+    <div class="slide-h">Alle begrippen<em>§3.2</em></div>
+    <div class="beg-grid">
+      <div class="beg-card"><div class="beg-term">Veranderingsfactor vraag</div><div class="beg-def">Een factor die ervoor zorgt dat consumenten bij elke prijs meer of minder vragen (niet de eigen prijs)</div></div>
+      <div class="beg-card"><div class="beg-term">Veranderingsfactor aanbod</div><div class="beg-def">Een factor die ervoor zorgt dat producenten bij elke prijs meer of minder aanbieden (niet de eigen prijs)</div></div>
+      <div class="beg-card"><div class="beg-term">Substituut</div><div class="beg-def">Een vervangend product dat dezelfde behoefte bevredigt (bijv. boter en margarine)</div></div>
+      <div class="beg-card"><div class="beg-term">Verschuiving van de curve</div><div class="beg-def">Het opschuiven van de vraag- of aanbodcurve door een veranderingsfactor</div></div>
+      <div class="beg-card"><div class="beg-term">Nieuwe evenwichtsprijs</div><div class="beg-def">De prijs die ontstaat nadat vraag of aanbod is veranderd en de markt zich heeft aangepast</div></div>
+      <div class="beg-card" style="border-top-color:var(--oranje)"><div class="beg-term" style="color:var(--oranje)">Redeneerroute</div><div class="beg-def">Factor → curve verschuift → over/tekort bij oude prijs → prijs stijgt/daalt → nieuwe evenwichtsprijs</div></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: EINDE -->
+  <div class="slide s-einde" id="slide-8">
+    <div class="einde-ring">✅</div>
+    <div class="einde-h">§3.2 klaar!</div>
+    <div class="einde-sub">Je begrijpt nu hoe factoren vraag en aanbod verschuiven, en hoe je stap voor stap naar de nieuwe evenwichtsprijs redeneert.</div>
+    <div style="margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <span class="tag">Volgende: §3.3 Winst berekenen</span>
+    </div>
+  </div>
+
+</div>
+
+<nav class="nav">
+  <button id="btnPrev" onclick="prev()" disabled>← Vorige</button>
+  <div class="dots" id="dots"></div>
+  <div class="slide-num" id="slideNum">1 / 9</div>
+  <button id="btnNext" onclick="next()">Volgende →</button>
+</nav>
+
+<script>
+let cur=0;
+const total=document.querySelectorAll('.slide').length;
+function buildDots(){
+  const c=document.getElementById('dots');
+  for(let i=0;i<total;i++){
+    const d=document.createElement('div');d.className='dot'+(i===0?' on':'');
+    d.onclick=()=>goTo(i);c.appendChild(d);
+  }
+}
+function goTo(n){
+  const slides=document.querySelectorAll('.slide');
+  slides[cur].classList.remove('active');slides[cur].classList.add('exit');
+  setTimeout(()=>slides[cur].classList.remove('exit'),450);
+  cur=n;slides[cur].classList.add('active');
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===cur));
+  document.getElementById('slideNum').textContent=(cur+1)+' / '+total;
+  document.getElementById('btnPrev').disabled=cur===0;
+  document.getElementById('btnNext').disabled=cur===total-1;
+  document.getElementById('progress').style.width=((cur+1)/total*100)+'%';
+}
+function next(){if(cur<total-1)goTo(cur+1);}
+function prev(){if(cur>0)goTo(cur-1);}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')next();
+  if(e.key==='ArrowLeft')prev();
+});
+function switchTab(id,btn){
+  document.querySelectorAll('.factor-pane').forEach(p=>p.classList.remove('act'));
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  btn.classList.add('act');
+}
+function answerCase(field,val,msg){
+  const el=document.getElementById('case-'+field);
+  el.innerHTML=msg;el.classList.add('show');
+}
+buildDots();
+document.getElementById('progress').style.width=(1/total*100)+'%';
+</script>
+</body>
+</html>
