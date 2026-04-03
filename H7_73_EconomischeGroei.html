@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§ 7.3 Economische Groei – Vlaconomie H7</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap');
+  :root { --blauw:#1a2e5a; --accent:#e8a020; --licht:#f4f7fb; --wit:#ffffff; --tekst:#1c1c2e; --groen:#2e7d55; --rood:#c0392b; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Source Sans 3',sans-serif;background:#0f1a30;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;color:var(--tekst);}
+  .nav{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;justify-content:center;}
+  .nav button{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);padding:7px 16px;border-radius:20px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;transition:all .2s;}
+  .nav button:hover,.nav button.active{background:var(--accent);border-color:var(--accent);color:#000;}
+  .nav .arrow{background:var(--blauw);border-color:var(--blauw);font-size:16px;padding:7px 14px;}
+  .nav .arrow:hover{background:var(--accent);border-color:var(--accent);color:#000;}
+  .slide-wrapper{width:900px;max-width:100%;}
+  .slide{width:900px;max-width:100%;min-height:540px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);display:none;flex-direction:column;background:var(--wit);}
+  .slide.active{display:flex;}
+  .slide-counter{color:rgba(255,255,255,.5);font-family:'Outfit',sans-serif;font-size:12px;text-align:center;margin-top:12px;}
+  .brand-bar{background:var(--blauw);color:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;padding:7px 20px;display:flex;justify-content:space-between;align-items:center;}
+  .brand-bar .logo{font-size:14px;font-weight:800;color:var(--accent);}
+  .s-title{background:linear-gradient(135deg,#1a2e5a 0%,#2a4a8a 60%,#1a3060 100%);justify-content:center;align-items:center;padding:40px;text-align:center;flex:1;}
+  .par-badge{background:var(--accent);color:#000;font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;padding:4px 14px;border-radius:20px;display:inline-block;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px;}
+  .s-title h1{font-family:'Outfit',sans-serif;font-size:44px;font-weight:800;color:white;line-height:1.1;margin-bottom:16px;}
+  .s-title .sub{color:rgba(255,255,255,.75);font-size:16px;margin-bottom:30px;}
+  .keyword-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+  .kw{background:rgba(255,255,255,.12);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);padding:5px 12px;border-radius:20px;font-size:13px;font-family:'Outfit',sans-serif;}
+  .slide-header{background:var(--blauw);color:white;padding:22px 30px 18px;font-family:'Outfit',sans-serif;}
+  .slide-header .h-badge{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+  .slide-header h2{font-size:26px;font-weight:800;}
+  .slide-header .h-sub{font-size:13px;color:rgba(255,255,255,.7);margin-top:3px;}
+  .leerdoel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px 24px;flex:1;}
+  .ld-card{background:var(--licht);border-left:4px solid var(--blauw);border-radius:8px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;animation:fadeUp .3s ease both;}
+  .ld-card:nth-child(2){animation-delay:.05s} .ld-card:nth-child(3){animation-delay:.10s} .ld-card:nth-child(4){animation-delay:.15s}
+  .ld-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+  .ld-bloom{font-size:10px;font-family:'Outfit',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--blauw);margin-bottom:3px;opacity:.7;}
+  .ld-text{font-size:14px;line-height:1.5;}
+  .dialoog-body{padding:18px 24px;flex:1;}
+  .chat-bubble{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;}
+  .chat-bubble.right{flex-direction:row-reverse;}
+  .avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;}
+  .avatar.daan{background:var(--blauw);color:white;} .avatar.layla{background:var(--accent);color:#000;}
+  .bubble{background:var(--licht);border-radius:12px;padding:8px 13px;font-size:14px;max-width:78%;line-height:1.5;}
+  .chat-bubble.right .bubble{background:#e8f0fe;}
+  .bubble .name{font-weight:700;font-size:11px;color:var(--blauw);margin-bottom:2px;font-family:'Outfit',sans-serif;}
+  .chat-bubble.right .bubble .name{color:#6a4000;}
+  .theorie-body{display:grid;grid-template-columns:1fr 1fr;flex:1;}
+  .theorie-col{padding:18px 22px;}
+  .theorie-col:first-child{border-right:1px solid #e0e6f0;}
+  .theorie-col h3{font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;color:var(--blauw);margin-bottom:10px;}
+  .theorie-col p{font-size:14px;line-height:1.6;margin-bottom:8px;}
+  .theorie-col ul{padding-left:18px;}
+  .theorie-col ul li{font-size:14px;line-height:1.6;margin-bottom:5px;}
+  .formula-box{background:var(--blauw);color:white;border-radius:8px;padding:10px 14px;margin-top:8px;font-family:'Outfit',sans-serif;}
+  .formula-box .f-main{font-size:14px;font-weight:700;margin-bottom:4px;}
+  .formula-box .f-ex{font-size:12px;opacity:.85;}
+  .rekenen-body{padding:16px 24px;flex:1;}
+  .rek-stap{display:flex;gap:12px;margin-bottom:9px;align-items:flex-start;}
+  .rek-num{width:28px;height:28px;background:var(--blauw);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;flex-shrink:0;margin-top:2px;}
+  .rek-content .rek-label{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;color:var(--blauw);margin-bottom:2px;}
+  .rek-content p{font-size:14px;line-height:1.5;}
+  .rek-uitkomst{background:var(--groen);color:white;border-radius:8px;padding:9px 16px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;text-align:center;margin-top:10px;}
+  .begrip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:14px 18px;flex:1;}
+  .begrip-card{background:var(--licht);border-radius:8px;padding:9px 13px;border-top:3px solid var(--accent);animation:fadeUp .3s ease both;}
+  .begrip-card:nth-child(2){animation-delay:.05s} .begrip-card:nth-child(3){animation-delay:.10s}
+  .begrip-card:nth-child(4){animation-delay:.15s} .begrip-card:nth-child(5){animation-delay:.20s}
+  .begrip-card:nth-child(6){animation-delay:.25s} .begrip-card:nth-child(7){animation-delay:.30s}
+  .begrip-card:nth-child(8){animation-delay:.35s}
+  .b-term{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;color:var(--blauw);margin-bottom:3px;}
+  .b-def{font-size:13px;line-height:1.5;color:#333;}
+  .wist-body{padding:20px 24px;flex:1;display:flex;flex-direction:column;gap:14px;}
+  .wist-card{background:linear-gradient(135deg,#1a2e5a,#2a4a8a);color:white;border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;}
+  .wist-icon{font-size:32px;flex-shrink:0;}
+  .wist-card h4{font-family:'Outfit',sans-serif;font-weight:700;margin-bottom:6px;color:var(--accent);}
+  .wist-card p{font-size:14px;line-height:1.6;}
+  .opdracht-tip{background:#fff8e8;border:2px solid var(--accent);border-radius:12px;padding:14px 18px;display:flex;gap:12px;}
+  .tip-icon{font-size:24px;flex-shrink:0;}
+  .opdracht-tip h4{font-family:'Outfit',sans-serif;font-weight:700;color:#6a4000;margin-bottom:4px;font-size:14px;}
+  .opdracht-tip p{font-size:13px;color:#444;line-height:1.5;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="nav">
+  <button class="arrow" onclick="prevSlide()">&#8592;</button>
+  <button onclick="goTo(0)" id="btn0">1. Titel</button>
+  <button onclick="goTo(1)" id="btn1">2. Leerdoelen</button>
+  <button onclick="goTo(2)" id="btn2">3. Intro-dialoog</button>
+  <button onclick="goTo(3)" id="btn3">4. Nominaal vs Reëel</button>
+  <button onclick="goTo(4)" id="btn4">5. Groeisoorten</button>
+  <button onclick="goTo(5)" id="btn5">6. Rekenen</button>
+  <button onclick="goTo(6)" id="btn6">7. Begrippen</button>
+  <button onclick="goTo(7)" id="btn7">8. Wist je dat?</button>
+  <button class="arrow" onclick="nextSlide()">&#8594;</button>
+</div>
+<div class="slide-wrapper">
+
+<!-- SLIDE 1 -->
+<div class="slide active" id="slide0">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>Hoofdstuk 7 · Groei en Welvaart · 3 VWO</span></div>
+  <div class="s-title" style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center">
+    <div style="font-size:70px;margin-bottom:16px">📈</div>
+    <div class="par-badge">§ 7.3</div>
+    <h1>Economische Groei</h1>
+    <p class="sub">Groeit de economie echt, of is het maar schijn?</p>
+    <div class="keyword-row">
+      <span class="kw">nominale groei</span><span class="kw">reële groei</span><span class="kw">inflatie</span>
+      <span class="kw">deflator</span><span class="kw">extensieve groei</span><span class="kw">intensieve groei</span>
+      <span class="kw">recessie</span><span class="kw">conjunctuur</span>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: LEERDOELEN -->
+<div class="slide" id="slide1">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.3 Economische Groei</span></div>
+  <div class="slide-header"><div class="h-badge">Na deze les kun jij…</div><h2>🎯 Leerdoelen</h2><div class="h-sub">Koppeling aan Bloom's taxonomie</div></div>
+  <div class="leerdoel-grid">
+    <div class="ld-card"><div class="ld-icon">📊</div><div><div class="ld-bloom">Begrijpen</div><div class="ld-text">Ik kan het verschil uitleggen tussen <strong>nominale</strong> en <strong>reële</strong> economische groei.</div></div></div>
+    <div class="ld-card"><div class="ld-icon">🧮</div><div><div class="ld-bloom">Toepassen</div><div class="ld-text">Ik kan <strong>reële groei</strong> berekenen aan de hand van het bbp en de inflatie.</div></div></div>
+    <div class="ld-card"><div class="ld-icon">⚙️</div><div><div class="ld-bloom">Begrijpen / Analyseren</div><div class="ld-text">Ik kan het verschil uitleggen tussen <strong>extensieve</strong> en <strong>intensieve</strong> groei en van elk een voorbeeld geven.</div></div></div>
+    <div class="ld-card"><div class="ld-icon">🔄</div><div><div class="ld-bloom">Onthouden / Begrijpen</div><div class="ld-text">Ik kan <strong>conjunctuur</strong> en <strong>recessie</strong> omschrijven en uitleggen wanneer er officieel sprake is van een recessie.</div></div></div>
+  </div>
+</div>
+
+<!-- SLIDE 3: DIALOOG -->
+<div class="slide" id="slide2">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.3 Economische Groei</span></div>
+  <div class="slide-header"><div class="h-badge">Startgesprek</div><h2>💬 Intro-dialoog</h2><div class="h-sub">Nominale groei vs. koopkracht</div></div>
+  <div class="dialoog-body">
+    <div class="chat-bubble"><div class="avatar daan">D</div><div class="bubble"><div class="name">Daan</div>Op het nieuws zei iemand dat de economie met 3% gegroeid is. Maar mijn vader zegt dat hij er niets van merkt.</div></div>
+    <div class="chat-bubble right"><div class="avatar layla">L</div><div class="bubble"><div class="name">Layla</div>Dat komt misschien doordat de <strong>inflatie</strong> ook hoog was. Als prijzen met 4% stijgen en de economie nominaal maar 3% groeit, ga je er in koopkracht op achteruit.</div></div>
+    <div class="chat-bubble"><div class="avatar daan">D</div><div class="bubble"><div class="name">Daan</div>Dus economische groei en meer welvaart zijn niet hetzelfde?</div></div>
+    <div class="chat-bubble right"><div class="avatar layla">L</div><div class="bubble"><div class="name">Layla</div>Precies. <strong>Reële groei</strong> corrigeert voor inflatie en geeft de werkelijke productiestijging.</div></div>
+    <div class="chat-bubble"><div class="avatar daan">D</div><div class="bubble"><div class="name">Daan</div>En wat zorgt dan voor echte groei op de lange termijn?</div></div>
+    <div class="chat-bubble right"><div class="avatar layla">L</div><div class="bubble"><div class="name">Layla</div>Technologie, onderwijs, investeringen — dat zijn de echte motoren. Dat heet <strong>intensieve groei</strong>.</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 4: NOMINAAL vs REEEL -->
+<div class="slide" id="slide3">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.3 Economische Groei</span></div>
+  <div class="slide-header"><div class="h-badge">Theorie</div><h2>📊 Nominale vs. Reële Groei</h2></div>
+  <div class="theorie-body" style="flex:1">
+    <div class="theorie-col">
+      <h3>💵 Nominale groei</h3>
+      <p>Toename van het bbp uitgedrukt in <strong>lopende prijzen</strong>. Stijgen de prijzen ook (inflatie), dan overschat dit de werkelijke groei.</p>
+      <div style="background:#fff0f0;border-radius:8px;padding:10px;border-left:4px solid var(--rood);font-size:13px;margin-top:8px">
+        ⚠️ Nominale groei = productiegroei <em>plus</em> prijsstijging — niet zuiver!
+      </div>
+      <div class="formula-box" style="margin-top:10px">
+        <div class="f-main">Reële groei (%) = Nominale groei (%) − Inflatie (%)</div>
+        <div class="f-ex">Voorbeeld: 5,2% − 3,1% = 2,1% reële groei</div>
+      </div>
+    </div>
+    <div class="theorie-col">
+      <h3>📐 Reëel bbp via prijsindex</h3>
+      <p>De <strong>deflator</strong> (prijsindex) zet het nominale bbp om naar reëel bbp.</p>
+      <div class="formula-box">
+        <div class="f-main">Reëel bbp = (Nominaal bbp ÷ Prijsindex) × 100</div>
+        <div class="f-ex">Voorbeeld: (€580 mrd ÷ 115) × 100 = €504,3 mrd</div>
+      </div>
+      <div style="background:#f0fff4;border-radius:8px;padding:10px;border-left:4px solid var(--groen);font-size:13px;margin-top:10px">
+        ✅ Reëel bbp vergelijkt de werkelijke productie, <em>ongeacht</em> prijsstijgingen.
+      </div>
+      <p style="margin-top:10px;font-size:13px;color:#555">Conjunctuur: perioden van <strong>hoog-</strong> (snelle groei, lage werkloosheid) en <strong>laagconjunctuur</strong> (krimp, hogere werkloosheid). Twee kwartalen negatieve groei = <strong>recessie</strong>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: GROEISOORTEN -->
+<div class="slide" id="slide4">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.3 Economische Groei</span></div>
+  <div class="slide-header"><div class="h-badge">Theorie</div><h2>⚙️ Extensieve vs. Intensieve Groei</h2></div>
+  <div class="theorie-body" style="flex:1">
+    <div class="theorie-col">
+      <h3>➕ Extensieve groei</h3>
+      <p>Meer productiefactoren inzetten:</p>
+      <ul>
+        <li>Meer <strong>arbeid</strong> (extra werknemers)</li>
+        <li>Meer <strong>kapitaal</strong> (nieuwe machines)</li>
+        <li>Meer <strong>grond</strong> (uitbreiding landbouw)</li>
+      </ul>
+      <div style="background:var(--licht);border-radius:8px;padding:10px;margin-top:10px;font-size:13px">
+        📌 Voorbeeld: een mijn in een opkomend land zet meer arbeiders in om meer erts op te graven.
+      </div>
+      <div style="background:#fff0f0;border-radius:8px;padding:10px;margin-top:8px;font-size:13px;border-left:4px solid var(--rood)">
+        ⚠️ Beperkt houdbaar: productiefactoren raken op.
+      </div>
+    </div>
+    <div class="theorie-col">
+      <h3>🚀 Intensieve groei</h3>
+      <p>Dezelfde productiefactoren <strong>productiever</strong> maken via:</p>
+      <ul>
+        <li>Technologische <strong>innovatie</strong></li>
+        <li>Investering in <strong>menselijk kapitaal</strong> (onderwijs)</li>
+        <li>Betere organisatie en <strong>efficiëntie</strong></li>
+      </ul>
+      <div style="background:#f0fff4;border-radius:8px;padding:10px;margin-top:10px;font-size:13px;border-left:4px solid var(--groen)">
+        ✅ Voorbeeld: door robotisering produceert dezelfde fabriek 30% meer. Duurzamere groei!
+      </div>
+      <div style="background:#fff8e8;border-radius:8px;padding:10px;margin-top:8px;font-size:13px">
+        💡 Nederland groeit voornamelijk via <strong>intensieve</strong> groei.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: REKENEN -->
+<div class="slide" id="slide5">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.3 Economische Groei</span></div>
+  <div class="slide-header"><div class="h-badge">Rekenvoorbeeld</div><h2>🧮 Reële groei berekenen</h2></div>
+  <div class="rekenen-body">
+    <p style="font-size:14px;color:#555;margin-bottom:12px"><strong>Gegeven:</strong> Nominaal bbp jaar 1: €500 mrd (index 100) · Jaar 2: €545 mrd (index 108) · Bevolkingsgroei: +1,5%</p>
+    <div class="rek-stap">
+      <div class="rek-num">1</div>
+      <div class="rek-content"><div class="rek-label">Reëel bbp jaar 2</div>
+        <p>(€545 mrd ÷ 108) × 100 = <strong>€504,6 mrd</strong></p>
+      </div>
+    </div>
+    <div class="rek-stap">
+      <div class="rek-num">2</div>
+      <div class="rek-content"><div class="rek-label">Reële groei (%)</div>
+        <p>(€504,6 − €500) ÷ €500 × 100 = <strong>+0,9%</strong></p>
+      </div>
+    </div>
+    <div class="rek-stap">
+      <div class="rek-num">3</div>
+      <div class="rek-content"><div class="rek-label">Bbp per inwoner jaar 2</div>
+        <p>Bevolking groeit 1,5% → stijgt sneller dan de reële groei (0,9%)</p>
+      </div>
+    </div>
+    <div class="rek-stap">
+      <div class="rek-num">4</div>
+      <div class="rek-content"><div class="rek-label">Conclusie</div>
+        <p>Reële groei (+0,9%) &lt; bevolkingsgroei (+1,5%) → gemiddeld bbp per inwoner <strong>daalt</strong></p>
+      </div>
+    </div>
+    <div class="rek-uitkomst">✅ Nominaal +9% groei, maar reëel slechts +0,9% — en per inwoner zelfs achteruitgang!</div>
+  </div>
+</div>
+
+<!-- SLIDE 7: BEGRIPPEN -->
+<div class="slide" id="slide6">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.3 Economische Groei</span></div>
+  <div class="slide-header"><div class="h-badge">Kernbegrippen</div><h2>📖 Begrippenlijst § 7.3</h2><div class="h-sub">Leer deze begrippen — ze komen terug op toetsen én het examen</div></div>
+  <div class="begrip-grid">
+    <div class="begrip-card"><div class="b-term">Nominale groei</div><div class="b-def">Stijging van het bbp in lopende prijzen, zonder correctie voor inflatie.</div></div>
+    <div class="begrip-card"><div class="b-term">Reële groei</div><div class="b-def">Stijging van het bbp gecorrigeerd voor inflatie; de werkelijke productiestijging.</div></div>
+    <div class="begrip-card"><div class="b-term">Inflatie</div><div class="b-def">Algemene, aanhoudende stijging van het prijspeil.</div></div>
+    <div class="begrip-card"><div class="b-term">Deflator</div><div class="b-def">Prijsindex waarmee nominaal bbp wordt omgezet naar reëel bbp.</div></div>
+    <div class="begrip-card"><div class="b-term">Extensieve groei</div><div class="b-def">Groei door meer productiefactoren in te zetten (meer arbeid, kapitaal of grond).</div></div>
+    <div class="begrip-card"><div class="b-term">Intensieve groei</div><div class="b-def">Groei door productiefactoren productiever te maken via technologie of onderwijs.</div></div>
+    <div class="begrip-card"><div class="b-term">Recessie</div><div class="b-def">Twee opeenvolgende kwartalen van negatieve economische groei.</div></div>
+    <div class="begrip-card"><div class="b-term">Conjunctuur</div><div class="b-def">Periodieke schommelingen in economische activiteit (hoog- en laagconjunctuur).</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 8: WIST JE DAT -->
+<div class="slide" id="slide7">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.3 Economische Groei</span></div>
+  <div class="slide-header"><div class="h-badge">Extra</div><h2>🌍 Verdieping & Oefentip</h2></div>
+  <div class="wist-body">
+    <div class="wist-card">
+      <div class="wist-icon">💡</div>
+      <div>
+        <h4>Wist je dat?</h4>
+        <p>China groeide tussen 1990 en 2010 gemiddeld meer dan <strong>9% per jaar</strong> — grotendeels via investeringen in industrie, onderwijs en infrastructuur. Tegelijk nam de ongelijkheid sterk toe. Een voorbeeld van hoe economische groei niet automatisch voor iedereen voordelig is.</p>
+      </div>
+    </div>
+    <div class="opdracht-tip">
+      <div class="tip-icon">✏️</div>
+      <div>
+        <h4>Oefentip voor de toets</h4>
+        <p>Land X groeit nominaal met <strong>7%</strong>, maar de inflatie is <strong>9%</strong>. Bereken de reële groei. Wat betekent dit voor de koopkracht? Leg uit in twee zinnen. Hint: reëel groeit de economie met −2% → koopkracht daalt.</p>
+      </div>
+    </div>
+    <div style="background:var(--licht);border-radius:10px;padding:12px 16px;display:flex;gap:10px;align-items:center">
+      <span style="font-size:20px">🔗</span>
+      <div>
+        <div style="font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;color:var(--blauw)">Meer oefenen?</div>
+        <div style="font-size:13px;color:#555">Alle opdrachten en modelantwoorden vind je op <strong>vlaconomie.nl</strong> — hoofdstuk 7, paragraaf 3.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="slide-counter" id="counter">Dia 1 van 8</div>
+<script>
+  let current=0;const total=8;
+  function update(){document.querySelectorAll('.slide').forEach((s,i)=>s.classList.toggle('active',i===current));document.querySelectorAll('.nav button:not(.arrow)').forEach((b,i)=>b.classList.toggle('active',i===current));document.getElementById('counter').textContent=`Dia ${current+1} van ${total}`;}
+  function nextSlide(){current=(current+1)%total;update();}
+  function prevSlide(){current=(current-1+total)%total;update();}
+  function goTo(i){current=i;update();}
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')nextSlide();if(e.key==='ArrowLeft'||e.key==='ArrowUp')prevSlide();});
+  update();
+</script>
+</body>
+</html>

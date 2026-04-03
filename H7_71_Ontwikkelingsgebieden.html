@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§ 7.1 Ontwikkelingsgebieden – Vlaconomie H7</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root {
+    --blauw:    #1a2e5a;
+    --accent:   #e8a020;
+    --licht:    #f4f7fb;
+    --wit:      #ffffff;
+    --tekst:    #1c1c2e;
+    --groen:    #2e7d55;
+    --rood:     #c0392b;
+    --slide-w:  900px;
+    --slide-h:  540px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #0f1a30;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--tekst);
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nav button {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 7px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    transition: all .2s;
+  }
+  .nav button:hover, .nav button.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+  }
+  .nav .arrow {
+    background: var(--blauw);
+    border-color: var(--blauw);
+    font-size: 16px;
+    padding: 7px 14px;
+  }
+  .nav .arrow:hover { background: var(--accent); border-color: var(--accent); color:#000; }
+
+  /* ─── SLIDE WRAPPER ─── */
+  .slide-wrapper {
+    width: var(--slide-w);
+    max-width: 100%;
+    position: relative;
+  }
+
+  .slide {
+    width: var(--slide-w);
+    max-width: 100%;
+    min-height: var(--slide-h);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: none;
+    position: relative;
+    background: var(--wit);
+  }
+  .slide.active { display: flex; flex-direction: column; }
+
+  .slide-counter {
+    color: rgba(255,255,255,0.5);
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  /* ─── BRANDING BAR ─── */
+  .brand-bar {
+    background: var(--blauw);
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    letter-spacing: 0.5px;
+  }
+  .brand-bar .logo { font-size: 14px; font-weight: 800; color: var(--accent); }
+
+  /* ─── SLIDE 1: TITELDIA ─── */
+  .s-title {
+    background: linear-gradient(135deg, var(--blauw) 0%, #2a4a8a 60%, #1a3060 100%);
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+    min-height: 500px;
+  }
+  .s-title .par-badge {
+    background: var(--accent);
+    color: #000;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .s-title h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 44px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .s-title .sub {
+    color: rgba(255,255,255,0.75);
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  .keyword-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .kw {
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: 'Outfit', sans-serif;
+  }
+  .globe-deco {
+    font-size: 80px;
+    margin-bottom: 16px;
+    opacity: 0.9;
+  }
+
+  /* ─── SLIDE 2: LEERDOELEN ─── */
+  .s-leerdoelen { padding: 0; flex-direction: column; }
+  .slide-header {
+    background: var(--blauw);
+    color: white;
+    padding: 22px 30px 18px;
+    font-family: 'Outfit', sans-serif;
+  }
+  .slide-header .h-badge {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .slide-header h2 { font-size: 26px; font-weight: 800; }
+  .slide-header .h-sub { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 3px; }
+
+  .leerdoel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 20px 24px;
+    flex: 1;
+  }
+  .ld-card {
+    background: var(--licht);
+    border-left: 4px solid var(--blauw);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .ld-card .ld-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .ld-card .ld-text { font-size: 14px; line-height: 1.5; color: var(--tekst); }
+  .ld-card .ld-bloom {
+    font-size: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--blauw);
+    margin-bottom: 3px;
+    opacity: 0.7;
+  }
+
+  /* ─── SLIDE 3: THEORIE ─── */
+  .s-theorie { padding: 0; flex-direction: column; }
+  .theorie-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    flex: 1;
+  }
+  .theorie-col {
+    padding: 18px 22px;
+  }
+  .theorie-col:first-child { border-right: 1px solid #e0e6f0; }
+  .theorie-col h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--blauw);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .theorie-col p { font-size: 14px; line-height: 1.6; color: #2c2c2c; margin-bottom: 8px; }
+  .theorie-col ul { padding-left: 18px; }
+  .theorie-col ul li { font-size: 14px; line-height: 1.6; margin-bottom: 4px; }
+  .theorie-col ul li strong { color: var(--blauw); }
+
+  .formula-box {
+    background: var(--blauw);
+    color: white;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+  }
+  .formula-box .f-main { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .formula-box .f-ex { font-size: 12px; opacity: 0.85; }
+
+  .hdi-bar { margin-top: 10px; }
+  .hdi-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .hdi-label { width: 120px; flex-shrink: 0; }
+  .hdi-track {
+    flex: 1;
+    height: 8px;
+    background: #e0e6f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .hdi-fill { height: 100%; border-radius: 4px; background: var(--accent); }
+
+  /* ─── SLIDE 4: BEGRIPPEN ─── */
+  .s-begrippen { padding: 0; flex-direction: column; }
+  .begrip-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 16px 20px;
+    flex: 1;
+  }
+  .begrip-card {
+    background: var(--licht);
+    border-radius: 8px;
+    padding: 10px 14px;
+    border-top: 3px solid var(--accent);
+  }
+  .begrip-card .b-term {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--blauw);
+    margin-bottom: 4px;
+  }
+  .begrip-card .b-def { font-size: 13px; line-height: 1.5; color: #333; }
+
+  /* ─── SLIDE 5: DIALOOG ─── */
+  .s-dialoog { padding: 0; flex-direction: column; }
+  .dialoog-body { padding: 18px 24px; flex: 1; }
+  .dialoog-intro {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+  .chat-bubble {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .chat-bubble.right { flex-direction: row-reverse; }
+  .avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .avatar.daan { background: var(--blauw); color: white; }
+  .avatar.layla { background: var(--accent); color: #000; }
+  .bubble {
+    background: var(--licht);
+    border-radius: 12px;
+    padding: 8px 13px;
+    font-size: 14px;
+    max-width: 78%;
+    line-height: 1.5;
+  }
+  .chat-bubble.right .bubble { background: #e8f0fe; }
+  .bubble .name { font-weight: 700; font-size: 11px; color: var(--blauw); margin-bottom: 2px; font-family: 'Outfit', sans-serif; }
+  .chat-bubble.right .bubble .name { color: #6a4000; }
+
+  /* ─── SLIDE 6: REKENEN ─── */
+  .s-rekenen { padding: 0; flex-direction: column; }
+  .rekenen-body { padding: 18px 24px; flex: 1; }
+  .rek-stap {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .rek-num {
+    width: 28px;
+    height: 28px;
+    background: var(--blauw);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .rek-content { flex: 1; }
+  .rek-content .rek-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; color: var(--blauw); margin-bottom: 3px; }
+  .rek-content p { font-size: 14px; line-height: 1.5; }
+  .rek-uitkomst {
+    background: var(--groen);
+    color: white;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  /* ─── SLIDE 7: WIST JE DAT + OPDRACHT TIP ─── */
+  .s-wist { padding: 0; flex-direction: column; }
+  .wist-body { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  .wist-card {
+    background: linear-gradient(135deg, #1a2e5a, #2a4a8a);
+    color: white;
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .wist-card .wist-icon { font-size: 32px; flex-shrink: 0; }
+  .wist-card h4 { font-family: 'Outfit', sans-serif; font-weight: 700; margin-bottom: 6px; color: var(--accent); }
+  .wist-card p { font-size: 14px; line-height: 1.6; }
+  .opdracht-tip {
+    background: #fff8e8;
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    gap: 12px;
+  }
+  .opdracht-tip .tip-icon { font-size: 24px; flex-shrink: 0; }
+  .opdracht-tip h4 { font-family: 'Outfit', sans-serif; font-weight: 700; color: #6a4000; margin-bottom: 4px; font-size: 14px; }
+  .opdracht-tip p { font-size: 13px; color: #444; line-height: 1.5; }
+
+  /* ─── SLIDE 8: LANDENVERGELIJKING ─── */
+  .s-landen { padding: 0; flex-direction: column; }
+  .landen-body { padding: 16px 20px; flex: 1; }
+  .land-tabel { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .land-tabel th {
+    background: var(--blauw);
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 12px;
+  }
+  .land-tabel td { padding: 7px 10px; border-bottom: 1px solid #e8edf5; }
+  .land-tabel tr:last-child td { border-bottom: none; }
+  .land-tabel tr:nth-child(even) td { background: #f7faff; }
+  .catbadge {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+  }
+  .catbadge.hoog { background: #d4edda; color: #155724; }
+  .catbadge.opkomend { background: #fff3cd; color: #856404; }
+  .catbadge.ontwikkeling { background: #f8d7da; color: #721c24; }
+
+  .hdi-compare { display: flex; gap: 12px; margin-top: 14px; }
+  .hdi-country {
+    flex: 1;
+    background: var(--licht);
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .hdi-country .flag { font-size: 28px; }
+  .hdi-country .c-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 13px; color: var(--blauw); margin: 4px 0 2px; }
+  .hdi-country .c-score { font-size: 22px; font-weight: 800; font-family: 'Outfit', sans-serif; }
+  .hdi-country .c-bar { margin-top: 6px; height: 6px; background: #dde3ee; border-radius: 3px; overflow: hidden; }
+  .hdi-country .c-bar-fill { height: 100%; border-radius: 3px; }
+
+  /* ANIMATIONS */
+  .slide.active .ld-card { animation: fadeUp 0.3s ease both; }
+  .slide.active .ld-card:nth-child(2) { animation-delay: .05s; }
+  .slide.active .ld-card:nth-child(3) { animation-delay: .10s; }
+  .slide.active .ld-card:nth-child(4) { animation-delay: .15s; }
+  .slide.active .begrip-card { animation: fadeUp 0.3s ease both; }
+  .slide.active .begrip-card:nth-child(2) { animation-delay: .05s; }
+  .slide.active .begrip-card:nth-child(3) { animation-delay: .10s; }
+  .slide.active .begrip-card:nth-child(4) { animation-delay: .15s; }
+  .slide.active .begrip-card:nth-child(5) { animation-delay: .20s; }
+  .slide.active .begrip-card:nth-child(6) { animation-delay: .25s; }
+  .slide.active .begrip-card:nth-child(7) { animation-delay: .30s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <button class="arrow" onclick="prevSlide()">&#8592;</button>
+  <button onclick="goTo(0)" id="btn0">1. Titel</button>
+  <button onclick="goTo(1)" id="btn1">2. Leerdoelen</button>
+  <button onclick="goTo(2)" id="btn2">3. Intro-dialoog</button>
+  <button onclick="goTo(3)" id="btn3">4. Theorie: BBP</button>
+  <button onclick="goTo(4)" id="btn4">5. Theorie: HDI</button>
+  <button onclick="goTo(5)" id="btn5">6. Begrippen</button>
+  <button onclick="goTo(6)" id="btn6">7. Rekenen</button>
+  <button onclick="goTo(7)" id="btn7">8. Wist je dat?</button>
+  <button class="arrow" onclick="nextSlide()">&#8594;</button>
+</div>
+
+<div class="slide-wrapper">
+
+<!-- SLIDE 1: TITEL -->
+<div class="slide active" id="slide0">
+  <div class="brand-bar">
+    <span class="logo">Vlaconomie</span>
+    <span>Hoofdstuk 7 · Groei en Welvaart · 3 VWO</span>
+  </div>
+  <div class="s-title" style="flex:1">
+    <div class="globe-deco">🌍</div>
+    <div class="par-badge">§ 7.1</div>
+    <h1>Ontwikkelings&shy;gebieden</h1>
+    <p class="sub">Hoe meten we welvaart? En waarom blijven sommige landen arm?</p>
+    <div class="keyword-row">
+      <span class="kw">bbp</span>
+      <span class="kw">bbp per inwoner</span>
+      <span class="kw">HDI-index</span>
+      <span class="kw">informele sector</span>
+      <span class="kw">armoedegrens</span>
+      <span class="kw">opkomend land</span>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: LEERDOELEN -->
+<div class="slide" id="slide1">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.1 Ontwikkelingsgebieden</span></div>
+  <div class="s-leerdoelen" style="flex:1;display:flex;flex-direction:column">
+    <div class="slide-header">
+      <div class="h-badge">Na deze les kun jij…</div>
+      <h2>🎯 Leerdoelen</h2>
+      <div class="h-sub">Koppeling aan Bloom's taxonomie</div>
+    </div>
+    <div class="leerdoel-grid">
+      <div class="ld-card">
+        <div class="ld-icon">📘</div>
+        <div>
+          <div class="ld-bloom">Onthouden / Begrijpen</div>
+          <div class="ld-text">Ik kan uitleggen wat een <strong>ontwikkelingsland</strong> en een <strong>opkomend land</strong> zijn, en van elk een voorbeeld geven.</div>
+        </div>
+      </div>
+      <div class="ld-card">
+        <div class="ld-icon">🧮</div>
+        <div>
+          <div class="ld-bloom">Toepassen</div>
+          <div class="ld-text">Ik kan het <strong>bbp per inwoner</strong> berekenen en gebruiken om landen met elkaar te vergelijken.</div>
+        </div>
+      </div>
+      <div class="ld-card">
+        <div class="ld-icon">📊</div>
+        <div>
+          <div class="ld-bloom">Begrijpen</div>
+          <div class="ld-text">Ik kan de <strong>HDI-index</strong> beschrijven en uitleggen waarom die <em>meer</em> meet dan alleen inkomen.</div>
+        </div>
+      </div>
+      <div class="ld-card">
+        <div class="ld-icon">🏪</div>
+        <div>
+          <div class="ld-bloom">Analyseren</div>
+          <div class="ld-text">Ik kan de <strong>informele sector</strong> omschrijven en het effect ervan op het bbp toelichten.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: INTRO-DIALOOG -->
+<div class="slide" id="slide2">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.1 Ontwikkelingsgebieden</span></div>
+  <div class="s-dialoog" style="flex:1;display:flex;flex-direction:column">
+    <div class="slide-header">
+      <div class="h-badge">Startgesprek</div>
+      <h2>💬 Intro-dialoog</h2>
+      <div class="h-sub">Daan en Layla praten over welvaart meten</div>
+    </div>
+    <div class="dialoog-body">
+      <div class="chat-bubble">
+        <div class="avatar daan">D</div>
+        <div class="bubble">
+          <div class="name">Daan</div>
+          Mijn oom zei dat Indonesië een <strong>opkomend land</strong> is. Maar wat is het verschil met een ontwikkelingsland?
+        </div>
+      </div>
+      <div class="chat-bubble right">
+        <div class="avatar layla">L</div>
+        <div class="bubble">
+          <div class="name">Layla</div>
+          Een opkomend land groeit snel economisch, maar is nog geen rijk land. Denk aan India of Brazilië.
+        </div>
+      </div>
+      <div class="chat-bubble">
+        <div class="avatar daan">D</div>
+        <div class="bubble">
+          <div class="name">Daan</div>
+          En hoe meet je eigenlijk hoe rijk een land is?
+        </div>
+      </div>
+      <div class="chat-bubble right">
+        <div class="avatar layla">L</div>
+        <div class="bubble">
+          <div class="name">Layla</div>
+          Meestal kijk je naar het <strong>bbp per inwoner</strong>. Maar dat zegt niets over gezondheid of onderwijs.
+        </div>
+      </div>
+      <div class="chat-bubble">
+        <div class="avatar daan">D</div>
+        <div class="bubble">
+          <div class="name">Daan</div>
+          Is er dan een betere maatstaf?
+        </div>
+      </div>
+      <div class="chat-bubble right">
+        <div class="avatar layla">L</div>
+        <div class="bubble">
+          <div class="name">Layla</div>
+          Ja: de <strong>HDI-index</strong> van de VN! Die combineert inkomen, gezondheid én onderwijs in één getal.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: THEORIE BBP -->
+<div class="slide" id="slide3">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.1 Ontwikkelingsgebieden</span></div>
+  <div class="s-theorie" style="flex:1;display:flex;flex-direction:column">
+    <div class="slide-header">
+      <div class="h-badge">Theorie</div>
+      <h2>📖 BBP en Landenindeling</h2>
+    </div>
+    <div class="theorie-body" style="flex:1">
+      <div class="theorie-col">
+        <h3>💰 Bbp per inwoner</h3>
+        <p>Het <strong>bruto binnenlands product (bbp)</strong> is de totale waarde van alle goederen en diensten in een land in één jaar. Gedeeld door het aantal inwoners geeft dat de gemiddelde welvaart.</p>
+        <div class="formula-box">
+          <div class="f-main">Bbp per inwoner = Bbp ÷ Aantal inwoners</div>
+          <div class="f-ex">Voorbeeld: €900 mrd ÷ 18 mln = €50.000</div>
+        </div>
+      </div>
+      <div class="theorie-col">
+        <h3>🌐 Drie categorieën landen</h3>
+        <ul>
+          <li><strong>Hoge-inkomenslanden</strong> — bbp p.i. &gt; $13.000 (bijv. Nederland, VS)</li>
+          <li style="margin-top:8px"><strong>Opkomende landen</strong> — snelle groei, nog niet rijk (bijv. India, Brazilië, Vietnam)</li>
+          <li style="margin-top:8px"><strong>Ontwikkelingslanden</strong> — laag inkomen, grootschalige armoede (bijv. Mali, Haïti)</li>
+        </ul>
+        <div style="margin-top:12px;background:#fff8e8;border-radius:8px;padding:10px 12px;border-left:4px solid var(--accent);">
+          <strong style="font-size:13px;font-family:'Outfit',sans-serif;">⚠️ Let op!</strong>
+          <p style="font-size:13px;margin-top:4px;">Bbp per inwoner is een gemiddelde — het zegt niets over <em>ongelijkheid</em> binnen een land.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: THEORIE HDI -->
+<div class="slide" id="slide4">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.1 Ontwikkelingsgebieden</span></div>
+  <div class="s-theorie" style="flex:1;display:flex;flex-direction:column">
+    <div class="slide-header">
+      <div class="h-badge">Theorie</div>
+      <h2>📊 HDI-index en Informele sector</h2>
+    </div>
+    <div class="theorie-body" style="flex:1">
+      <div class="theorie-col">
+        <h3>🎓 De HDI-index (VN)</h3>
+        <p>De <strong>Human Development Index</strong> combineert drie dimensies:</p>
+        <div class="hdi-bar">
+          <div class="hdi-item">
+            <span class="hdi-label">❤️ Levensverwachting</span>
+            <div class="hdi-track"><div class="hdi-fill" style="width:80%"></div></div>
+          </div>
+          <div class="hdi-item">
+            <span class="hdi-label">📚 Opleidingsniveau</span>
+            <div class="hdi-track"><div class="hdi-fill" style="width:75%"></div></div>
+          </div>
+          <div class="hdi-item">
+            <span class="hdi-label">💶 Nationaal inkomen</span>
+            <div class="hdi-track"><div class="hdi-fill" style="width:70%"></div></div>
+          </div>
+        </div>
+        <p style="margin-top:10px;font-size:13px;">Schaal: 0 tot 1 · Nederland ≈ 0,94 · Niger &lt; 0,40</p>
+      </div>
+      <div class="theorie-col">
+        <h3>🏪 Informele sector</h3>
+        <p>Arbeid en handel <strong>buiten officiële registratie</strong>: straatverkopers, boerenmarkten zonder kassabon.</p>
+        <ul style="margin-top:8px">
+          <li>Telt <em>niet</em> mee in officieel bbp</li>
+          <li>Kan 40–60% van werkgelegenheid zijn</li>
+          <li>Bbp <strong>onderschat</strong> werkelijke economie</li>
+        </ul>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-main">💰 Armoedegrens (Wereldbank)</div>
+          <div class="f-ex">$2,15 per dag (koopkrachtpariteit, 2022)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: BEGRIPPEN -->
+<div class="slide" id="slide5">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.1 Ontwikkelingsgebieden</span></div>
+  <div class="s-begrippen" style="flex:1;display:flex;flex-direction:column">
+    <div class="slide-header">
+      <div class="h-badge">Kernbegrippen</div>
+      <h2>📖 Begrippenlijst § 7.1</h2>
+      <div class="h-sub">Leer deze begrippen — ze zijn de basis voor toetsen en het examen</div>
+    </div>
+    <div class="begrip-grid">
+      <div class="begrip-card">
+        <div class="b-term">Bbp</div>
+        <div class="b-def">Totale waarde van alle goederen en diensten geproduceerd in een land in één jaar.</div>
+      </div>
+      <div class="begrip-card">
+        <div class="b-term">Bbp per inwoner</div>
+        <div class="b-def">Bbp gedeeld door het aantal inwoners; maatstaf voor gemiddelde welvaart.</div>
+      </div>
+      <div class="begrip-card">
+        <div class="b-term">Ontwikkelingsland</div>
+        <div class="b-def">Land met laag inkomen, beperkte industrie en grootschalige armoede.</div>
+      </div>
+      <div class="begrip-card">
+        <div class="b-term">Opkomend land</div>
+        <div class="b-def">Land met sterke economische groei dat zich ontwikkelt van arm naar middeninkomen.</div>
+      </div>
+      <div class="begrip-card">
+        <div class="b-term">HDI-index</div>
+        <div class="b-def">Human Development Index; combineert gezondheid, onderwijs en inkomen (schaal 0–1).</div>
+      </div>
+      <div class="begrip-card">
+        <div class="b-term">Informele sector</div>
+        <div class="b-def">Niet-geregistreerde economische activiteiten die buiten het officiële bbp vallen.</div>
+      </div>
+      <div class="begrip-card">
+        <div class="b-term">Armoedegrens</div>
+        <div class="b-def">Inkomensniveau waaronder mensen onvoldoende kunnen voorzien in basisbehoeften.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: REKENEN -->
+<div class="slide" id="slide6">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.1 Ontwikkelingsgebieden</span></div>
+  <div class="s-rekenen" style="flex:1;display:flex;flex-direction:column">
+    <div class="slide-header">
+      <div class="h-badge">Rekenvoorbeeld</div>
+      <h2>🧮 Bbp per inwoner berekenen</h2>
+    </div>
+    <div class="rekenen-body">
+      <p style="margin-bottom:14px;font-size:14px;color:#555">Volg de stappen stap voor stap. Dit type berekening komt terug in opdrachten én op toetsen.</p>
+      <div class="rek-stap">
+        <div class="rek-num">1</div>
+        <div class="rek-content">
+          <div class="rek-label">Gegeven</div>
+          <p>Land A: bbp = <strong>€540 miljard</strong> · inwoners = <strong>12 miljoen</strong></p>
+        </div>
+      </div>
+      <div class="rek-stap">
+        <div class="rek-num">2</div>
+        <div class="rek-content">
+          <div class="rek-label">Formule</div>
+          <p>Bbp per inwoner = Bbp ÷ Aantal inwoners</p>
+        </div>
+      </div>
+      <div class="rek-stap">
+        <div class="rek-num">3</div>
+        <div class="rek-content">
+          <div class="rek-label">Invullen</div>
+          <p>€540.000.000.000 ÷ 12.000.000 = <strong>€45.000</strong></p>
+        </div>
+      </div>
+      <div class="rek-stap">
+        <div class="rek-num">4</div>
+        <div class="rek-content">
+          <div class="rek-label">Conclusie</div>
+          <p>Land A heeft een bbp per inwoner van <strong>€45.000</strong> → hoge-inkomensland</p>
+        </div>
+      </div>
+      <div class="rek-uitkomst">✅ BBP per inwoner land A = €45.000 → categorie: hoge-inkomensland</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: WIST JE DAT + TIP -->
+<div class="slide" id="slide7">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.1 Ontwikkelingsgebieden</span></div>
+  <div class="s-wist" style="flex:1;display:flex;flex-direction:column">
+    <div class="slide-header">
+      <div class="h-badge">Extra</div>
+      <h2>🌍 Verdieping & Oefentip</h2>
+    </div>
+    <div class="wist-body">
+      <div class="wist-card">
+        <div class="wist-icon">💡</div>
+        <div>
+          <h4>Wist je dat?</h4>
+          <p>Nederland staat vrijwel altijd in de <strong>top-10</strong> van de HDI-ranglijst. Toch leven ook in Nederland ruim <strong>één miljoen mensen</strong> onder de nationale relatieve armoedegrens. Dit verschil maakt bbp per inwoner niet zichtbaar — juist dáár schiet het als maatstaf tekort.</p>
+        </div>
+      </div>
+      <div class="opdracht-tip">
+        <div class="tip-icon">✏️</div>
+        <div>
+          <h4>Oefentip voor de toets</h4>
+          <p>Kun je <strong>twee redenen noemen</strong> waarom het bbp per inwoner als welvaartsmaatstaf tekortschiet? Denk aan: ongelijkheid, informele sector, gezondheid en onderwijs. Dit is een typische <em>Bloom-niveau Begrijpen</em>-vraag.</p>
+        </div>
+      </div>
+      <div style="background:var(--licht);border-radius:10px;padding:12px 16px;display:flex;gap:10px;align-items:center">
+        <span style="font-size:20px">🔗</span>
+        <div>
+          <div style="font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;color:var(--blauw)">Meer oefenen?</div>
+          <div style="font-size:13px;color:#555">Alle opdrachten en modelantwoorden vind je op <strong>vlaconomie.nl</strong> — hoofdstuk 7, paragraaf 1.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end slide-wrapper -->
+<div class="slide-counter" id="counter">Dia 1 van 8</div>
+
+<script>
+  let current = 0;
+  const total = 8;
+
+  function update() {
+    document.querySelectorAll('.slide').forEach((s,i) => s.classList.toggle('active', i===current));
+    document.querySelectorAll('.nav button:not(.arrow)').forEach((b,i) => b.classList.toggle('active', i===current));
+    document.getElementById('counter').textContent = `Dia ${current+1} van ${total}`;
+  }
+  function nextSlide() { current = (current+1) % total; update(); }
+  function prevSlide() { current = (current-1+total) % total; update(); }
+  function goTo(i) { current = i; update(); }
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   prevSlide();
+  });
+
+  update();
+</script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§ 7.4 Europa en de EU – Vlaconomie H7</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap');
+  :root{--blauw:#1a2e5a;--accent:#e8a020;--licht:#f4f7fb;--wit:#ffffff;--tekst:#1c1c2e;--groen:#2e7d55;--eu:#003399;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Source Sans 3',sans-serif;background:#0f1a30;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;color:var(--tekst);}
+  .nav{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;justify-content:center;}
+  .nav button{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);padding:7px 16px;border-radius:20px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;transition:all .2s;}
+  .nav button:hover,.nav button.active{background:var(--accent);border-color:var(--accent);color:#000;}
+  .nav .arrow{background:var(--blauw);border-color:var(--blauw);font-size:16px;padding:7px 14px;}
+  .nav .arrow:hover{background:var(--accent);border-color:var(--accent);color:#000;}
+  .slide-wrapper{width:900px;max-width:100%;}
+  .slide{width:900px;max-width:100%;min-height:540px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);display:none;flex-direction:column;background:var(--wit);}
+  .slide.active{display:flex;}
+  .slide-counter{color:rgba(255,255,255,.5);font-family:'Outfit',sans-serif;font-size:12px;text-align:center;margin-top:12px;}
+  .brand-bar{background:var(--blauw);color:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;padding:7px 20px;display:flex;justify-content:space-between;align-items:center;}
+  .brand-bar .logo{font-size:14px;font-weight:800;color:var(--accent);}
+  .s-title{background:linear-gradient(135deg,#1a2e5a 0%,#003399 50%,#1a2e5a 100%);justify-content:center;align-items:center;padding:40px;text-align:center;flex:1;}
+  .par-badge{background:var(--accent);color:#000;font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;padding:4px 14px;border-radius:20px;display:inline-block;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px;}
+  .s-title h1{font-family:'Outfit',sans-serif;font-size:44px;font-weight:800;color:white;line-height:1.1;margin-bottom:16px;}
+  .s-title .sub{color:rgba(255,255,255,.75);font-size:16px;margin-bottom:30px;}
+  .keyword-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+  .kw{background:rgba(255,255,255,.12);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);padding:5px 12px;border-radius:20px;font-size:13px;font-family:'Outfit',sans-serif;}
+  .slide-header{background:var(--blauw);color:white;padding:22px 30px 18px;font-family:'Outfit',sans-serif;}
+  .slide-header .h-badge{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+  .slide-header h2{font-size:26px;font-weight:800;}
+  .slide-header .h-sub{font-size:13px;color:rgba(255,255,255,.7);margin-top:3px;}
+  .leerdoel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px 24px;flex:1;}
+  .ld-card{background:var(--licht);border-left:4px solid var(--blauw);border-radius:8px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;animation:fadeUp .3s ease both;}
+  .ld-card:nth-child(2){animation-delay:.05s}.ld-card:nth-child(3){animation-delay:.10s}.ld-card:nth-child(4){animation-delay:.15s}
+  .ld-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+  .ld-bloom{font-size:10px;font-family:'Outfit',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--blauw);margin-bottom:3px;opacity:.7;}
+  .ld-text{font-size:14px;line-height:1.5;}
+  .dialoog-body{padding:18px 24px;flex:1;}
+  .chat-bubble{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;}
+  .chat-bubble.right{flex-direction:row-reverse;}
+  .avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;}
+  .avatar.daan{background:var(--blauw);color:white;}.avatar.layla{background:var(--accent);color:#000;}
+  .bubble{background:var(--licht);border-radius:12px;padding:8px 13px;font-size:14px;max-width:78%;line-height:1.5;}
+  .chat-bubble.right .bubble{background:#e8f0fe;}
+  .bubble .name{font-weight:700;font-size:11px;color:var(--blauw);margin-bottom:2px;font-family:'Outfit',sans-serif;}
+  .chat-bubble.right .bubble .name{color:#6a4000;}
+  .theorie-body{display:grid;grid-template-columns:1fr 1fr;flex:1;}
+  .theorie-col{padding:18px 22px;}
+  .theorie-col:first-child{border-right:1px solid #e0e6f0;}
+  .theorie-col h3{font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;color:var(--blauw);margin-bottom:10px;}
+  .theorie-col p{font-size:14px;line-height:1.6;margin-bottom:8px;}
+  .theorie-col ul{padding-left:18px;}
+  .theorie-col ul li{font-size:14px;line-height:1.6;margin-bottom:5px;}
+  .vrijheid-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+  .vrijheid-card{background:var(--licht);border-radius:8px;padding:9px 12px;border-left:4px solid var(--eu);}
+  .vrijheid-card .vr-num{font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;color:var(--eu);margin-bottom:2px;}
+  .vrijheid-card .vr-name{font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;color:var(--blauw);margin-bottom:3px;}
+  .vrijheid-card .vr-desc{font-size:12px;color:#555;line-height:1.4;}
+  .begrip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:14px 18px;flex:1;}
+  .begrip-card{background:var(--licht);border-radius:8px;padding:9px 13px;border-top:3px solid var(--accent);animation:fadeUp .3s ease both;}
+  .begrip-card:nth-child(2){animation-delay:.05s}.begrip-card:nth-child(3){animation-delay:.10s}
+  .begrip-card:nth-child(4){animation-delay:.15s}.begrip-card:nth-child(5){animation-delay:.20s}
+  .begrip-card:nth-child(6){animation-delay:.25s}.begrip-card:nth-child(7){animation-delay:.30s}
+  .begrip-card:nth-child(8){animation-delay:.35s}
+  .b-term{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;color:var(--blauw);margin-bottom:3px;}
+  .b-def{font-size:13px;line-height:1.5;color:#333;}
+  .uitdaging-list{display:flex;flex-direction:column;gap:8px;padding:16px 22px;flex:1;}
+  .uitdaging-item{display:flex;gap:12px;background:var(--licht);border-radius:8px;padding:10px 14px;align-items:flex-start;}
+  .uitdaging-item .u-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+  .uitdaging-item .u-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;color:var(--blauw);margin-bottom:2px;}
+  .uitdaging-item .u-desc{font-size:13px;color:#444;line-height:1.5;}
+  .wist-body{padding:20px 24px;flex:1;display:flex;flex-direction:column;gap:14px;}
+  .wist-card{background:linear-gradient(135deg,var(--eu),#1a2e5a);color:white;border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;}
+  .wist-icon{font-size:32px;flex-shrink:0;}
+  .wist-card h4{font-family:'Outfit',sans-serif;font-weight:700;margin-bottom:6px;color:var(--accent);}
+  .wist-card p{font-size:14px;line-height:1.6;}
+  .opdracht-tip{background:#fff8e8;border:2px solid var(--accent);border-radius:12px;padding:14px 18px;display:flex;gap:12px;}
+  .tip-icon{font-size:24px;flex-shrink:0;}
+  .opdracht-tip h4{font-family:'Outfit',sans-serif;font-weight:700;color:#6a4000;margin-bottom:4px;font-size:14px;}
+  .opdracht-tip p{font-size:13px;color:#444;line-height:1.5;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="nav">
+  <button class="arrow" onclick="prevSlide()">&#8592;</button>
+  <button onclick="goTo(0)" id="btn0">1. Titel</button>
+  <button onclick="goTo(1)" id="btn1">2. Leerdoelen</button>
+  <button onclick="goTo(2)" id="btn2">3. Intro-dialoog</button>
+  <button onclick="goTo(3)" id="btn3">4. Vier vrijheden</button>
+  <button onclick="goTo(4)" id="btn4">5. ECB & Handel</button>
+  <button onclick="goTo(5)" id="btn5">6. Uitdagingen</button>
+  <button onclick="goTo(6)" id="btn6">7. Begrippen</button>
+  <button onclick="goTo(7)" id="btn7">8. Wist je dat?</button>
+  <button class="arrow" onclick="nextSlide()">&#8594;</button>
+</div>
+<div class="slide-wrapper">
+
+<!-- SLIDE 1 -->
+<div class="slide active" id="slide0">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>Hoofdstuk 7 · Groei en Welvaart · 3 VWO</span></div>
+  <div class="s-title" style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center">
+    <div style="font-size:70px;margin-bottom:16px">🇪🇺</div>
+    <div class="par-badge">§ 7.4</div>
+    <h1>Europa en de EU</h1>
+    <p class="sub">Wat levert de EU ons op? En welke uitdagingen zijn er?</p>
+    <div class="keyword-row">
+      <span class="kw">interne markt</span><span class="kw">vier vrijheden</span><span class="kw">eurozone</span>
+      <span class="kw">ECB</span><span class="kw">vrijhandelsakkoord</span><span class="kw">subsidiariteitsbeginsel</span><span class="kw">Brexit</span>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: LEERDOELEN -->
+<div class="slide" id="slide1">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.4 Europa en de EU</span></div>
+  <div class="slide-header"><div class="h-badge">Na deze les kun jij…</div><h2>🎯 Leerdoelen</h2><div class="h-sub">Koppeling aan Bloom's taxonomie</div></div>
+  <div class="leerdoel-grid">
+    <div class="ld-card"><div class="ld-icon">🏛️</div><div><div class="ld-bloom">Onthouden</div><div class="ld-text">Ik kan de <strong>vier vrijheden</strong> van de interne markt benoemen en uitleggen.</div></div></div>
+    <div class="ld-card"><div class="ld-icon">🎯</div><div><div class="ld-bloom">Begrijpen</div><div class="ld-text">Ik kan de <strong>doelen van de EU</strong> beschrijven en het <strong>subsidiariteitsbeginsel</strong> uitleggen.</div></div></div>
+    <div class="ld-card"><div class="ld-icon">⚠️</div><div><div class="ld-bloom">Analyseren</div><div class="ld-text">Ik kan ten minste <strong>twee uitdagingen</strong> van de EU benoemen en toelichten.</div></div></div>
+    <div class="ld-card"><div class="ld-icon">🔍</div><div><div class="ld-bloom">Evalueren</div><div class="ld-text">Ik kan een <strong>onderbouwd oordeel</strong> geven over de voor- en nadelen van EU-lidmaatschap voor Nederland.</div></div></div>
+  </div>
+</div>
+
+<!-- SLIDE 3: DIALOOG -->
+<div class="slide" id="slide2">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.4 Europa en de EU</span></div>
+  <div class="slide-header"><div class="h-badge">Startgesprek</div><h2>💬 Intro-dialoog</h2><div class="h-sub">Daan en Layla over de EU</div></div>
+  <div class="dialoog-body">
+    <div class="chat-bubble"><div class="avatar daan">D</div><div class="bubble"><div class="name">Daan</div>Mijn oom zegt dat de EU ons alleen maar geld kost. Mijn leraar zegt dat we er juist rijker van worden. Wie heeft gelijk?</div></div>
+    <div class="chat-bubble right"><div class="avatar layla">L</div><div class="bubble"><div class="name">Layla</div>Allebei een beetje. De EU kost geld, maar levert ook veel op door <strong>vrijhandel</strong> en samenwerking.</div></div>
+    <div class="chat-bubble"><div class="avatar daan">D</div><div class="bubble"><div class="name">Daan</div>Maar waarom mogen Europeanen zomaar overal werken?</div></div>
+    <div class="chat-bubble right"><div class="avatar layla">L</div><div class="bubble"><div class="name">Layla</div>Dat is één van de <strong>vier vrijheden</strong> van de interne markt: vrij verkeer van personen. Goederen, diensten en kapitaal mogen ook vrij bewegen.</div></div>
+    <div class="chat-bubble"><div class="avatar daan">D</div><div class="bubble"><div class="name">Daan</div>En betaalt iedereen dan met de euro?</div></div>
+    <div class="chat-bubble right"><div class="avatar layla">L</div><div class="bubble"><div class="name">Layla</div>Nee, niet alle EU-landen hebben de euro. Zweden en Polen niet, bijvoorbeeld. Zij zijn geen lid van de <strong>eurozone</strong>.</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 4: VIER VRIJHEDEN -->
+<div class="slide" id="slide3">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.4 Europa en de EU</span></div>
+  <div class="slide-header"><div class="h-badge">Theorie</div><h2>🏛️ De Interne Markt: Vier Vrijheden</h2><div class="h-sub">Het hart van de Europese Unie</div></div>
+  <div style="padding:16px 22px;flex:1;display:flex;flex-direction:column;gap:10px">
+    <p style="font-size:14px;color:#555">De EU is in 1945 opgericht voor vrede, stabiliteit en welvaart. Het hart is de <strong>interne markt</strong>: geen handelsbelemmeringen tussen 27 lidstaten.</p>
+    <div class="vrijheid-grid">
+      <div class="vrijheid-card">
+        <div class="vr-num">1️⃣</div>
+        <div class="vr-name">Vrij verkeer van Goederen</div>
+        <div class="vr-desc">Geen invoertarieven of quota tussen EU-landen. Producten bewegen vrij.</div>
+      </div>
+      <div class="vrijheid-card">
+        <div class="vr-num">2️⃣</div>
+        <div class="vr-name">Vrij verkeer van Diensten</div>
+        <div class="vr-desc">Bedrijven mogen in elk EU-land diensten aanbieden.</div>
+      </div>
+      <div class="vrijheid-card">
+        <div class="vr-num">3️⃣</div>
+        <div class="vr-name">Vrij verkeer van Personen</div>
+        <div class="vr-desc">EU-burgers mogen vrij in elk EU-land wonen en werken.</div>
+      </div>
+      <div class="vrijheid-card">
+        <div class="vr-num">4️⃣</div>
+        <div class="vr-name">Vrij verkeer van Kapitaal</div>
+        <div class="vr-desc">Vrij verkeer van geld en investeringen binnen de EU.</div>
+      </div>
+    </div>
+    <div style="background:#fff8e8;border-radius:8px;padding:10px 14px;border-left:4px solid var(--accent);font-size:13px;margin-top:4px">
+      💡 <strong>Subsidiariteitsbeginsel:</strong> Beslissingen worden genomen op het <em>laagst mogelijke</em> bestuursniveau. De EU grijpt alleen in als een probleem beter Europees dan nationaal kan worden opgelost.
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: ECB & HANDEL -->
+<div class="slide" id="slide4">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.4 Europa en de EU</span></div>
+  <div class="slide-header"><div class="h-badge">Theorie</div><h2>🏦 Eurozone, ECB & Handelspolitiek</h2></div>
+  <div class="theorie-body" style="flex:1">
+    <div class="theorie-col">
+      <h3>💶 De Eurozone en ECB</h3>
+      <p>Niet alle EU-landen gebruiken de euro. De <strong>eurozone</strong> bestaat uit 20 landen (2024) met de euro als munt.</p>
+      <div style="background:var(--licht);border-radius:8px;padding:10px;margin-top:8px;font-size:13px">
+        🏦 De <strong>ECB</strong> (Europese Centrale Bank, Frankfurt) bepaalt de rente voor de eurozone. Zij voert het <em>monetaire beleid</em> uit.
+      </div>
+      <div style="background:#fff0f0;border-radius:8px;padding:10px;margin-top:8px;font-size:13px;border-left:4px solid #c0392b">
+        ⚠️ Nadeel: één rente voor alle eurolanden, ook als landen er economisch heel anders voor staan.
+      </div>
+    </div>
+    <div class="theorie-col">
+      <h3>🤝 Handelspolitiek</h3>
+      <p>De EU treedt als <strong>één blok</strong> op bij internationale handelsonderhandelingen. Dit geeft meer macht dan individuele landen.</p>
+      <ul>
+        <li><strong>Vrijhandelsakkoord:</strong> overeenkomst om handelsbelemmeringen te verminderen</li>
+        <li style="margin-top:6px">Exportkansen voor Europese bedrijven worden vergroot</li>
+        <li style="margin-top:6px">Nederland profiteert als klein, handelsafhankelijk land</li>
+      </ul>
+      <div style="background:#f0fff4;border-radius:8px;padding:10px;margin-top:10px;font-size:13px;border-left:4px solid var(--groen)">
+        ✅ De interne markt omvat <strong>450+ miljoen</strong> consumenten. Onderzoek schat dat zij de welvaart gemiddeld ~10% heeft verhoogd.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: UITDAGINGEN -->
+<div class="slide" id="slide5">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.4 Europa en de EU</span></div>
+  <div class="slide-header"><div class="h-badge">Theorie</div><h2>⚠️ Uitdagingen van de EU</h2><div class="h-sub">De EU is succesvol, maar heeft ook echte problemen</div></div>
+  <div class="uitdaging-list">
+    <div class="uitdaging-item">
+      <div class="u-icon">📊</div>
+      <div><div class="u-title">Ongelijke ontwikkeling</div><div class="u-desc">Rijke Noord-Europese landen tegenover armere Oost-Europese landen. Spanningen over herverdeling.</div></div>
+    </div>
+    <div class="uitdaging-item">
+      <div class="u-icon">🏛️</div>
+      <div><div class="u-title">Soevereiniteitsdiscussie</div><div class="u-desc">Hoeveel nationale macht geef je op aan Brussel? Spanningen over wie beslist over wat.</div></div>
+    </div>
+    <div class="uitdaging-item">
+      <div class="u-icon">🇬🇧</div>
+      <div><div class="u-title">Brexit (2020)</div><div class="u-desc">Het VK verliet de EU in 2020 — bewijs dat lidmaatschap niet vanzelfsprekend is.</div></div>
+    </div>
+    <div class="uitdaging-item">
+      <div class="u-icon">💸</div>
+      <div><div class="u-title">Schuldcrises</div><div class="u-desc">Landen als Griekenland hadden grote begrotingstekorten. De eurozone creëert risico's van schuldbesmetting.</div></div>
+    </div>
+    <div class="uitdaging-item">
+      <div class="u-icon">🌍</div>
+      <div><div class="u-title">Klimaat & Migratie</div><div class="u-desc">Grensoverschrijdende problemen vragen om Europese oplossingen — maar niet alle landen zijn het eens.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: BEGRIPPEN -->
+<div class="slide" id="slide6">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.4 Europa en de EU</span></div>
+  <div class="slide-header"><div class="h-badge">Kernbegrippen</div><h2>📖 Begrippenlijst § 7.4</h2><div class="h-sub">Leer deze begrippen — ze komen terug op toetsen én het examen</div></div>
+  <div class="begrip-grid">
+    <div class="begrip-card"><div class="b-term">Europese Unie (EU)</div><div class="b-def">Politiek en economisch samenwerkingsverband van 27 Europese landen (2024).</div></div>
+    <div class="begrip-card"><div class="b-term">Interne markt</div><div class="b-def">Gemeenschappelijke markt binnen de EU zonder handelsbelemmeringen tussen lidstaten.</div></div>
+    <div class="begrip-card"><div class="b-term">Vier vrijheden</div><div class="b-def">Vrij verkeer van goederen, diensten, personen en kapitaal binnen de EU.</div></div>
+    <div class="begrip-card"><div class="b-term">Eurozone</div><div class="b-def">De EU-landen die de euro als gemeenschappelijke munt gebruiken (20 in 2024).</div></div>
+    <div class="begrip-card"><div class="b-term">ECB</div><div class="b-def">Europese Centrale Bank; voert het monetaire beleid uit voor de eurozone.</div></div>
+    <div class="begrip-card"><div class="b-term">Vrijhandelsakkoord</div><div class="b-def">Overeenkomst waarbij landen onderling handelsbelemmeringen verminderen of afschaffen.</div></div>
+    <div class="begrip-card"><div class="b-term">Subsidiariteitsbeginsel</div><div class="b-def">Principe dat beslissingen worden genomen op het laagst mogelijke bestuursniveau.</div></div>
+    <div class="begrip-card"><div class="b-term">Brexit</div><div class="b-def">Het vertrek van het Verenigd Koninkrijk uit de EU, voltooid op 31 januari 2020.</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 8: WIST JE DAT -->
+<div class="slide" id="slide7">
+  <div class="brand-bar"><span class="logo">Vlaconomie</span><span>§ 7.4 Europa en de EU</span></div>
+  <div class="slide-header"><div class="h-badge">Extra</div><h2>🌍 Verdieping & Oefentip</h2></div>
+  <div class="wist-body">
+    <div class="wist-card">
+      <div class="wist-icon">💡</div>
+      <div>
+        <h4>Wist je dat?</h4>
+        <p>De interne markt omvat ruim <strong>450 miljoen consumenten</strong> en is samen het grootste economische blok ter wereld. Onderzoekers schatten dat de interne markt de welvaart van EU-burgers gemiddeld met circa <strong>10%</strong> heeft verhoogd ten opzichte van een situatie zonder die markt.</p>
+      </div>
+    </div>
+    <div class="opdracht-tip">
+      <div class="tip-icon">✏️</div>
+      <div>
+        <h4>Oefentip voor de toets</h4>
+        <p>Duitsland heft een extra belasting op Spaanse sinaasappelen. Welke vrijheid wordt geschonden? Leg uit. En: een Nederlands bedrijf opent een fabriek in Polen — gebruik de <strong>vier vrijheden</strong> om de voordelen te benoemen. Dit zijn typische Bloom-niveau <em>Toepassen</em>-vragen.</p>
+      </div>
+    </div>
+    <div style="background:var(--licht);border-radius:10px;padding:12px 16px;display:flex;gap:10px;align-items:center">
+      <span style="font-size:20px">🔗</span>
+      <div>
+        <div style="font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;color:var(--blauw)">Meer oefenen?</div>
+        <div style="font-size:13px;color:#555">Alle opdrachten en modelantwoorden vind je op <strong>vlaconomie.nl</strong> — hoofdstuk 7, paragraaf 4.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="slide-counter" id="counter">Dia 1 van 8</div>
+<script>
+  let current=0;const total=8;
+  function update(){document.querySelectorAll('.slide').forEach((s,i)=>s.classList.toggle('active',i===current));document.querySelectorAll('.nav button:not(.arrow)').forEach((b,i)=>b.classList.toggle('active',i===current));document.getElementById('counter').textContent=`Dia ${current+1} van ${total}`;}
+  function nextSlide(){current=(current+1)%total;update();}
+  function prevSlide(){current=(current-1+total)%total;update();}
+  function goTo(i){current=i;update();}
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')nextSlide();if(e.key==='ArrowLeft'||e.key==='ArrowUp')prevSlide();});
+  update();
+</script>
+</body>
+</html>
