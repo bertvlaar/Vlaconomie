@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§4.1 Levensfasen en financiële keuzes – Vlaconomie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:wght@700&display=swap');
+
+  :root {
+    --blauw: #1a3a5c;
+    --blauw-mid: #2a5298;
+    --oranje: #e8732a;
+    --oranje-licht: #f5a05a;
+    --geel: #f9c846;
+    --wit: #ffffff;
+    --lichtgrijs: #f4f6f9;
+    --tekstgrijs: #374151;
+    --groen: #2e7d32;
+    --groen-licht: #e8f5e9;
+    --rood: #c62828;
+    --rood-licht: #ffebee;
+    --blauw-licht: #e8edf5;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--tekstgrijs);
+  }
+
+  /* ── NAVIGATIE ── */
+  .nav {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+  .nav button {
+    background: var(--oranje);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 22px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+  }
+  .nav button:hover { background: var(--oranje-licht); transform: scale(1.03); }
+  .nav button:disabled { background: #555; cursor: default; transform: none; }
+  .slide-counter {
+    color: #ccc;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  /* ── SLIDE ── */
+  .slide {
+    display: none;
+    width: 100%;
+    max-width: 1100px;
+    min-height: 620px;
+    background: var(--wit);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    animation: fadeIn .35s ease;
+  }
+  .slide.active { display: flex; flex-direction: column; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── HEADER STRIP ── */
+  .slide-header {
+    background: var(--blauw);
+    padding: 14px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .site-label {
+    color: var(--oranje);
+    font-weight: 900;
+    font-size: 17px;
+    letter-spacing: .5px;
+  }
+  .chapter-label {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ── SLIDE BODY ── */
+  .slide-body {
+    flex: 1;
+    padding: 40px 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* ── TITELDIA ── */
+  .title-slide .slide-body {
+    background: linear-gradient(135deg, var(--blauw) 0%, var(--blauw-mid) 60%, #1a3a5c 100%);
+    align-items: flex-start;
+    justify-content: center;
+    padding: 60px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  .title-slide .slide-body::before {
+    content: '';
+    position: absolute;
+    right: -60px; bottom: -60px;
+    width: 380px; height: 380px;
+    background: rgba(232,115,42,0.15);
+    border-radius: 50%;
+  }
+  .title-slide .slide-body::after {
+    content: '';
+    position: absolute;
+    right: 80px; top: -80px;
+    width: 220px; height: 220px;
+    background: rgba(249,200,70,0.1);
+    border-radius: 50%;
+  }
+  .para-badge {
+    background: var(--oranje);
+    color: white;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    padding: 5px 16px;
+    margin-bottom: 24px;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+  .main-title {
+    font-family: 'Merriweather', serif;
+    color: white;
+    font-size: 46px;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+  }
+  .main-title span { color: var(--geel); }
+  .title-sub {
+    color: rgba(255,255,255,0.7);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 36px;
+    position: relative; z-index: 1;
+  }
+  .keywords {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .keyword-tag {
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* ── LEERDOELEN ── */
+  .leerdoel-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--lichtgrijs);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--oranje);
+  }
+  .leerdoel-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .leerdoel-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--tekstgrijs);
+    line-height: 1.5;
+  }
+  .bloom-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin-left: 8px;
+    vertical-align: middle;
+    text-transform: uppercase;
+  }
+  .bloom-1 { background: #e3f2fd; color: #1565c0; }
+  .bloom-2 { background: #e8f5e9; color: #2e7d32; }
+  .bloom-3 { background: #fff3e0; color: #e65100; }
+  .bloom-4 { background: #f3e5f5; color: #6a1b9a; }
+
+  /* ── SECTIE TITLE ── */
+  .section-title {
+    font-family: 'Merriweather', serif;
+    color: var(--blauw);
+    font-size: 30px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .section-sub {
+    color: var(--oranje);
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    letter-spacing: .5px;
+  }
+  .slide-body h2 {
+    font-family: 'Merriweather', serif;
+    color: var(--blauw);
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
+
+  /* ── DIALOOG ── */
+  .dialoog-box {
+    background: linear-gradient(135deg, #e8edf5, #dce5f0);
+    border-radius: 16px;
+    padding: 28px 32px;
+    border-left: 6px solid var(--blauw-mid);
+    margin-bottom: 20px;
+  }
+  .dialoog-label {
+    color: var(--blauw-mid);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .speech {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .speech:last-child { margin-bottom: 0; }
+  .speaker {
+    font-weight: 800;
+    color: var(--blauw);
+    font-size: 15px;
+    min-width: 56px;
+    flex-shrink: 0;
+  }
+  .said {
+    color: var(--tekstgrijs);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .said em {
+    color: var(--oranje);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* ── DEFINITIE KAARTJES ── */
+  .def-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .def-card {
+    background: var(--lichtgrijs);
+    border-radius: 14px;
+    padding: 20px 22px;
+    border-top: 4px solid var(--oranje);
+  }
+  .def-card.blauw-top { border-top-color: var(--blauw-mid); }
+  .def-card.groen-top { border-top-color: var(--groen); }
+  .def-card.geel-top { border-top-color: #d4a017; }
+  .def-term {
+    font-weight: 800;
+    color: var(--blauw);
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  .def-text {
+    color: var(--tekstgrijs);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── LEVENSFASEN TABEL ── */
+  .fase-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+  }
+  .fase-table th {
+    background: var(--blauw);
+    color: white;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: .4px;
+  }
+  .fase-table th:first-child { border-radius: 8px 0 0 8px; }
+  .fase-table th:last-child { border-radius: 0 8px 8px 0; }
+  .fase-table td {
+    padding: 11px 16px;
+    font-size: 13px;
+    background: var(--lichtgrijs);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .fase-table tr td:first-child {
+    border-radius: 8px 0 0 8px;
+    font-weight: 800;
+    color: var(--blauw);
+  }
+  .fase-table tr td:last-child { border-radius: 0 8px 8px 0; }
+  .fase-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+
+  /* ── VOORBEELD BOX ── */
+  .voorbeeld-box {
+    background: linear-gradient(135deg, #fff8e1, #fff3cd);
+    border-radius: 16px;
+    padding: 24px 28px;
+    border-left: 6px solid var(--geel);
+    margin-top: 8px;
+  }
+  .voorbeeld-label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #b8860b;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .voorbeeld-text {
+    font-size: 15px;
+    color: var(--tekstgrijs);
+    line-height: 1.7;
+  }
+  .voorbeeld-text strong { color: var(--blauw); }
+  .calc-step {
+    background: white;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blauw);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* ── WIST JE DAT ── */
+  .wist-box {
+    background: linear-gradient(135deg, var(--blauw), var(--blauw-mid));
+    border-radius: 16px;
+    padding: 24px 28px;
+    color: white;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .wist-icon { font-size: 36px; flex-shrink: 0; }
+  .wist-text { font-size: 15px; line-height: 1.7; }
+  .wist-text strong { color: var(--geel); }
+
+  /* ── QUIZ ── */
+  .quiz-slide .slide-body { background: linear-gradient(135deg, #0f2540, #1a3a5c); }
+  .quiz-badge {
+    background: var(--geel);
+    color: var(--blauw);
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    padding: 5px 16px;
+    margin-bottom: 20px;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+  .quiz-vraag {
+    color: white;
+    font-family: 'Merriweather', serif;
+    font-size: 24px;
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+  .quiz-opties {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .quiz-opt {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    padding: 16px 20px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: left;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-family: 'Nunito', sans-serif;
+  }
+  .quiz-opt:hover { background: rgba(255,255,255,0.15); border-color: var(--geel); }
+  .quiz-opt.correct { background: rgba(46,125,50,0.4); border-color: #66bb6a; }
+  .quiz-opt.fout { background: rgba(198,40,40,0.35); border-color: #ef5350; }
+  .quiz-letter {
+    background: rgba(255,255,255,0.15);
+    border-radius: 6px;
+    width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .quiz-feedback {
+    margin-top: 18px;
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.goed { background: rgba(46,125,50,0.3); color: #a5d6a7; border: 1px solid #66bb6a; }
+  .quiz-feedback.fout { background: rgba(198,40,40,0.3); color: #ef9a9a; border: 1px solid #ef5350; }
+
+  /* ── BEGRIPPEN GRID ── */
+  .begrip-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .begrip-item {
+    background: var(--lichtgrijs);
+    border-radius: 12px;
+    padding: 14px 18px;
+    border-left: 3px solid var(--oranje);
+  }
+  .begrip-term { font-weight: 800; color: var(--blauw); font-size: 14px; margin-bottom: 4px; }
+  .begrip-def { font-size: 13px; color: var(--tekstgrijs); line-height: 1.5; }
+
+  /* ── FOUTEN BOX ── */
+  .fouten-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .fout-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--rood-licht);
+    border-radius: 12px;
+    padding: 14px 18px;
+    border-left: 4px solid var(--rood);
+  }
+  .fout-icon { font-size: 22px; flex-shrink: 0; }
+  .fout-text { font-size: 15px; line-height: 1.6; color: var(--tekstgrijs); }
+  .fout-text strong { color: var(--rood); }
+
+  /* ── AFSLUITING ── */
+  .afsluiting-slide .slide-body {
+    background: linear-gradient(135deg, var(--blauw) 0%, var(--blauw-mid) 100%);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .afsluiting-titel {
+    color: white;
+    font-family: 'Merriweather', serif;
+    font-size: 34px;
+    margin-bottom: 14px;
+  }
+  .afsluiting-sub {
+    color: rgba(255,255,255,0.75);
+    font-size: 17px;
+    margin-bottom: 32px;
+  }
+  .samenvatting-punten {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+    max-width: 600px;
+    width: 100%;
+  }
+  .sam-punt {
+    display: flex;
+    gap: 14px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 14px 18px;
+    align-items: flex-start;
+  }
+  .sam-punt span { color: white; font-size: 15px; font-weight: 600; line-height: 1.5; }
+  .sam-num {
+    background: var(--oranje);
+    color: white;
+    font-weight: 900;
+    font-size: 14px;
+    border-radius: 50%;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── SLIDE PROGRESS ── */
+  .progress-bar {
+    width: 100%; max-width: 1100px;
+    height: 5px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 3px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--oranje);
+    border-radius: 3px;
+    transition: width .4s ease;
+  }
+
+  /* Utilities */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .mt { margin-top: 20px; }
+  .label-tag {
+    display: inline-block;
+    background: var(--oranje);
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    border-radius: 6px;
+    padding: 3px 10px;
+    margin-bottom: 12px;
+    letter-spacing: .5px;
+  }
+  .label-tag.blauw { background: var(--blauw); }
+  .label-tag.groen { background: var(--groen); }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:9%"></div></div>
+
+<div class="nav">
+  <button id="prevBtn" onclick="changeSlide(-1)" disabled>← Vorige</button>
+  <span class="slide-counter" id="slideCounter">Dia 1 van 11</span>
+  <button id="nextBtn" onclick="changeSlide(1)">Volgende →</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 1 – TITEL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide title-slide active" id="slide-1">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">Economie · 3 VWO · Hoofdstuk 4</span>
+  </div>
+  <div class="slide-body">
+    <div class="para-badge">§ 4.1</div>
+    <h1 class="main-title">Levensfasen en<br><span>financiële keuzes</span></h1>
+    <p class="title-sub">Ruilen over de tijd · Levensfasen · Inter-temporele ruil</p>
+    <div class="keywords">
+      <span class="keyword-tag">🔄 Inter-temporele ruil</span>
+      <span class="keyword-tag">📅 Levensfasen</span>
+      <span class="keyword-tag">💰 Vermogensopbouw</span>
+      <span class="keyword-tag">🎓 Studieschuld</span>
+      <span class="keyword-tag">🏦 Pensioen</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 2 – LEERDOELEN -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-2">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.1 · Leerdoelen</span>
+  </div>
+  <div class="slide-body">
+    <h2>🎯 Leerdoelen</h2>
+    <p class="section-sub">Na deze les kun je het volgende</p>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">📘</span>
+      <div class="leerdoel-text">
+        Ik kan uitleggen wat wordt bedoeld met <strong>'ruilen over de tijd'</strong>.
+        <span class="bloom-tag bloom-1">Onthouden</span>
+      </div>
+    </div>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">📋</span>
+      <div class="leerdoel-text">
+        Ik kan de verschillende <strong>levensfasen</strong> beschrijven en typische inkomsten en uitgaven per fase benoemen.
+        <span class="bloom-tag bloom-1">Onthouden</span>
+      </div>
+    </div>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">💬</span>
+      <div class="leerdoel-text">
+        Ik kan <strong>kritiek geven</strong> op financiële keuzes die personen en gezinnen in specifieke levensfasen maken.
+        <span class="bloom-tag bloom-4">Analyseren</span>
+      </div>
+    </div>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">🔄</span>
+      <div class="leerdoel-text">
+        Ik kan het begrip <strong>'inter-temporele ruil'</strong> toepassen op concrete situaties.
+        <span class="bloom-tag bloom-3">Toepassen</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 3 – INTRO DIALOOG -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-3">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.1 · Introductie</span>
+  </div>
+  <div class="slide-body">
+    <h2>💬 Hoe begint dit verhaal?</h2>
+    <p class="section-sub">Een gesprek om over na te denken</p>
+    <div class="dialoog-box">
+      <div class="dialoog-label">💬 Intro-dialoog</div>
+      <div class="speech">
+        <span class="speaker">Tom:</span>
+        <span class="said">"Ik ga straks studeren. Mijn ouders zeggen dat ik moet lenen en dat ik later wel terugbetaal."</span>
+      </div>
+      <div class="speech">
+        <span class="speaker">Sarah:</span>
+        <span class="said">"Maar is dat wel slim? Je betaalt toch ook rente?"</span>
+      </div>
+      <div class="speech">
+        <span class="speaker">Tom:</span>
+        <span class="said">"Ja, maar als ik nu niet studeer, verdien ik later veel minder. Dan is lenen eigenlijk <em>goedkoop</em>."</span>
+      </div>
+      <div class="speech">
+        <span class="speaker">Sarah:</span>
+        <span class="said">"Dus je ruilt eigenlijk <em>arm-nu</em> voor <em>rijk-later</em>. Dat is economie!"</span>
+      </div>
+    </div>
+    <div class="def-grid">
+      <div class="def-card">
+        <div class="def-term">🤔 Discussievraag voor de klas</div>
+        <div class="def-text">Is lenen voor een studie altijd slim? Wanneer wel, wanneer niet?</div>
+      </div>
+      <div class="def-card blauw-top">
+        <div class="def-term">📍 Kerngedachte</div>
+        <div class="def-text">Economische keuzes hebben niet alleen gevolgen <em>nu</em>, maar ook in de <em>toekomst</em>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 4 – INTER-TEMPORELE RUIL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-4">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.1 · Theorie</span>
+  </div>
+  <div class="slide-body">
+    <h2>🔄 Inter-temporele ruil</h2>
+    <p class="section-sub">Ruilen over de tijd</p>
+    <div class="def-grid">
+      <div class="def-card">
+        <div class="def-term">📖 Definitie</div>
+        <div class="def-text"><strong>Inter-temporele ruil</strong>: ruil die niet op één moment plaatsvindt, maar waarbij je <em>nu iets opgeeft</em> om later iets te ontvangen — of andersom.</div>
+      </div>
+      <div class="def-card blauw-top">
+        <div class="def-term">💡 Twee richtingen</div>
+        <div class="def-text">
+          <strong>Sparen:</strong> je geeft nu koopkracht op → je ontvangt later meer.<br><br>
+          <strong>Lenen:</strong> je ontvangt nu koopkracht → je betaalt later terug (+ rente).
+        </div>
+      </div>
+      <div class="def-card groen-top">
+        <div class="def-term">✅ Rationele keuze?</div>
+        <div class="def-text">Inter-temporele ruil is verstandig als het <em>toekomstig voordeel groter is dan de kosten</em> (inclusief rente).</div>
+      </div>
+      <div class="def-card geel-top">
+        <div class="def-term">📚 Voorbeeld studie</div>
+        <div class="def-text">Je leent geld voor een studie. Je geeft nu inkomen op, maar verdient later structureel meer. De ruil kan financieel slim zijn.</div>
+      </div>
+    </div>
+    <div style="margin-top:18px; background:var(--blauw-licht); border-radius:12px; padding:14px 20px;">
+      <strong style="color:var(--blauw);">🏦 Denkvraag:</strong>
+      <span style="color:var(--tekstgrijs); font-size:15px;"> Noem zelf een voorbeeld van inter-temporele ruil uit je eigen leven.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 5 – LEVENSFASEN OVERZICHT -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-5">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.1 · Levensfasen</span>
+  </div>
+  <div class="slide-body" style="padding: 28px 40px;">
+    <h2>📅 De vijf levensfasen</h2>
+    <p class="section-sub" style="margin-bottom:16px;">Elke fase: andere inkomsten, uitgaven en keuzes</p>
+    <table class="fase-table">
+      <thead>
+        <tr>
+          <th>Levensfase</th>
+          <th>Financiële situatie</th>
+          <th>Kenmerkende keuzes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="fase-icon">🎓</span>Jeugd & studie<br><small style="font-weight:400;color:#666">(0–25 jaar)</small></td>
+          <td>Weinig/geen inkomen; hoge onderwijskosten; afhankelijk van ouders / DUO</td>
+          <td>Studielening afsluiten; bijbaantje; zuinig leven</td>
+        </tr>
+        <tr>
+          <td><span class="fase-icon">💼</span>Startende werkende<br><small style="font-weight:400;color:#666">(25–35 jaar)</small></td>
+          <td>Stijgend inkomen; hoge vaste lasten; weinig vermogen</td>
+          <td>Hypotheek oriëntatie; beginnen met sparen; studieschuld aflossen</td>
+        </tr>
+        <tr>
+          <td><span class="fase-icon">👨‍👩‍👧</span>Gezinsfase<br><small style="font-weight:400;color:#666">(30–50 jaar)</small></td>
+          <td>Twee inkomens mogelijk; kosten kinderen + hypotheek</td>
+          <td>Vermogensopbouw via eigen huis; pensioenopbouw</td>
+        </tr>
+        <tr>
+          <td><span class="fase-icon">🌅</span>Voor-pensioen<br><small style="font-weight:400;color:#666">(50–65 jaar)</small></td>
+          <td>Inkomen op hoogtepunt; kinderen uit huis; hypotheek bijna afgelost</td>
+          <td>Extra sparen voor pensioen; schulden aflossen</td>
+        </tr>
+        <tr>
+          <td><span class="fase-icon">🧓</span>Pensioen<br><small style="font-weight:400;color:#666">(65+)</small></td>
+          <td>Geen arbeidsinkomen; AOW + aanvullend pensioen</td>
+          <td>Vermogen interen; zorgkosten; erfenis plannen</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 6 – QUIZ 1 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide quiz-slide" id="slide-6">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.1 · Quizvraag</span>
+  </div>
+  <div class="slide-body">
+    <div class="quiz-badge">🏆 Quizvraag 1</div>
+    <div class="quiz-vraag">Welke levensfase wordt gekenmerkt door een inkomen op het hoogtepunt én intensieve pensioenvoorbereiding?</div>
+    <div class="quiz-opties" id="quiz1">
+      <button class="quiz-opt" onclick="checkQuiz('quiz1', this, false)">
+        <span class="quiz-letter">A</span> Jeugd & studie (0–25 jaar)
+      </button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz1', this, false)">
+        <span class="quiz-letter">B</span> Gezinsfase (30–50 jaar)
+      </button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz1', this, true)">
+        <span class="quiz-letter">C</span> Voor-pensioen (50–65 jaar)
+      </button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz1', this, false)">
+        <span class="quiz-letter">D</span> Pensioenfase (65+)
+      </button>
+    </div>
+    <div class="quiz-feedback goed" id="quiz1-goed">✅ Correct! In de voor-pensioenfase is het inkomen op het hoogtepunt en betaalt men de hypotheek (bijna) af. Dit is de ideale fase om extra te sparen voor pensioen.</div>
+    <div class="quiz-feedback fout" id="quiz1-fout">❌ Helaas. Het juiste antwoord is C: de voor-pensioenfase (50–65 jaar). In die fase is het inkomen het hoogst en zijn de kinderkosten weggevallen.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 7 – VOORBEELD INTER-TEMPORELE RUIL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-7">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.1 · Rekenvoorbeeld</span>
+  </div>
+  <div class="slide-body">
+    <h2>📌 Rekenvoorbeeld: studieschuld als inter-temporele ruil</h2>
+    <p class="section-sub">Is lenen voor een studie financieel verstandig?</p>
+    <div class="voorbeeld-box">
+      <div class="voorbeeld-label">📌 Rekenvoorbeeld – Lena</div>
+      <div class="voorbeeld-text">
+        Lena (22) gaat studeren. Ze leent <strong>€1.050 per maand</strong> via DUO. Na 4 jaar heeft ze <strong>€50.400</strong> geleend.<br><br>
+        Ze verwacht na haar studie <strong>€500 per maand meer</strong> te verdienen dan zonder diploma.
+      </div>
+      <div class="calc-step">📐 Terugverdientijd: €50.400 ÷ €500 = 100,8 maanden ≈ <strong>8,4 jaar</strong></div>
+      <div class="voorbeeld-text" style="margin-top:12px;">
+        ✅ <strong>Conclusie:</strong> ruilen over de tijd is verstandig <em>mits het toekomstig voordeel groter is dan de kosten</em> (inclusief rente).
+      </div>
+    </div>
+    <div class="def-grid mt">
+      <div class="def-card">
+        <div class="def-term">🔑 Kernvraag bij inter-temporele ruil</div>
+        <div class="def-text">Zijn de <em>toekomstige baten</em> groter dan de <em>huidige kosten + rente</em>? Zo ja → rationele keuze.</div>
+      </div>
+      <div class="def-card blauw-top">
+        <div class="def-term">⚠️ Let op bij de berekening</div>
+        <div class="def-text">In het voorbeeld is <em>rente nog niet meegeteld</em>. De terugverdientijd wordt in werkelijkheid langer!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 8 – VEELGEMAAKTE FOUTEN -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-8">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.1 · Kritiek op keuzes</span>
+  </div>
+  <div class="slide-body">
+    <h2>⚠️ Kritiek op financiële keuzes</h2>
+    <p class="section-sub">Veelgemaakte fouten per levensfase</p>
+    <div class="fouten-list">
+      <div class="fout-item">
+        <span class="fout-icon">🎓</span>
+        <div class="fout-text"><strong>Jeugd/studie:</strong> te vroeg grote schulden aangaan (auto op afbetaling, creditcard) terwijl je al een studieschuld hebt.</div>
+      </div>
+      <div class="fout-item">
+        <span class="fout-icon">🏠</span>
+        <div class="fout-text"><strong>Startende werkende:</strong> geen noodfonds opbouwen terwijl je net begint met werken. Bij tegenslagen meteen in de problemen.</div>
+      </div>
+      <div class="fout-item">
+        <span class="fout-icon">👨‍👩‍👧</span>
+        <div class="fout-text"><strong>Gezinsfase:</strong> te laat beginnen met pensioensparen. Door samengestelde rente loopt het verschil enorm op.</div>
+      </div>
+      <div class="fout-item">
+        <span class="fout-icon">🧓</span>
+        <div class="fout-text"><strong>Pensioen:</strong> juist te vroeg en te risicovolle beleggingen — pensioengeld dat je nodig hebt, mag niet wegvallen door koersdaling.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 9 – WIST JE DAT + PENSIOENSPAREN -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-9">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.1 · Samengestelde rente & pensioen</span>
+  </div>
+  <div class="slide-body">
+    <h2>💡 Vroeg beginnen met sparen loont enorm</h2>
+    <p class="section-sub">De kracht van samengestelde rente</p>
+    <div class="wist-box" style="margin-bottom:20px;">
+      <span class="wist-icon">🌍</span>
+      <div class="wist-text">
+        <strong>Wist je dat?</strong> Nederlanders beginnen gemiddeld pas op hun <strong>37ste</strong> serieus te sparen voor pensioen. Economen adviseren al op je <strong>25ste</strong> te beginnen: door samengestelde rente is elke euro die je vroeg inlegt op pensioensleeftijd <strong>5 tot 7 keer meer waard</strong>.
+      </div>
+    </div>
+    <div class="def-grid">
+      <div class="def-card">
+        <div class="def-term">🔢 Samengestelde rente</div>
+        <div class="def-text">Rente over de hoofdsom én over eerder opgebouwde rente. Leidt tot <em>exponentiële groei</em> op lange termijn.</div>
+      </div>
+      <div class="def-card blauw-top">
+        <div class="def-term">📐 Voorbeeld</div>
+        <div class="def-text">€1.000 bij 5% samengestelde rente:<br>
+          Na 10 jaar → €1.629<br>
+          Na 20 jaar → €2.653<br>
+          Na 40 jaar → <strong>€7.040</strong>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:16px; background:var(--groen-licht); border-radius:12px; padding:14px 18px; border-left:4px solid var(--groen);">
+      <strong style="color:var(--groen);">💬 Vuistregel:</strong>
+      <span style="font-size:15px;"> Een bedrag verdubbelt ruwweg elke <em>72 ÷ rente%</em> jaar. Bij 6% dus na ±12 jaar!</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 10 – QUIZ 2 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide quiz-slide" id="slide-10">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.1 · Quizvraag</span>
+  </div>
+  <div class="slide-body">
+    <div class="quiz-badge">🏆 Quizvraag 2</div>
+    <div class="quiz-vraag">Waarom is een studieschuld aangaan voor een HBO-opleiding in sommige gevallen een rationele economische keuze?</div>
+    <div class="quiz-opties" id="quiz2">
+      <button class="quiz-opt" onclick="checkQuiz('quiz2', this, false)">
+        <span class="quiz-letter">A</span> Omdat lenen altijd goedkoper is dan werken
+      </button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz2', this, true)">
+        <span class="quiz-letter">B</span> Omdat de verwachte inkomensstijging na de opleiding groter moet zijn dan de totale kosten inclusief rente
+      </button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz2', this, false)">
+        <span class="quiz-letter">C</span> Omdat de overheid alle studieschulden uiteindelijk kwijtscheldt
+      </button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz2', this, false)">
+        <span class="quiz-letter">D</span> Omdat lenen in de studietijd altijd risicovrij is
+      </button>
+    </div>
+    <div class="quiz-feedback goed" id="quiz2-goed">✅ Correct! Inter-temporele ruil is rationeel als de toekomstige baten (hoger inkomen) groter zijn dan de huidige kosten (lening + rente). Dit moet altijd worden afgewogen.</div>
+    <div class="quiz-feedback fout" id="quiz2-fout">❌ Helaas. Het juiste antwoord is B. Lenen voor een studie is alleen rationeel als het verwachte meerinkomen na de opleiding groter is dan de totale leenkosten inclusief rente.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- DIA 11 – SAMENVATTING & AFSLUITING -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="slide afsluiting-slide" id="slide-11">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.1 · Samenvatting</span>
+  </div>
+  <div class="slide-body">
+    <div class="afsluiting-titel">📚 Dat was §4.1!</div>
+    <div class="afsluiting-sub">De kernpunten op een rij</div>
+    <div class="samenvatting-punten">
+      <div class="sam-punt">
+        <span class="sam-num">1</span>
+        <span><strong>Inter-temporele ruil</strong>: nu iets opgeven om later meer te ontvangen — of andersom.</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">2</span>
+        <span>Mensen doorlopen <strong>vijf levensfasen</strong>, elk met andere inkomsten, uitgaven en financiële behoeften.</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">3</span>
+        <span>Lenen is rationeel als het <strong>toekomstig voordeel</strong> groter is dan de kosten inclusief rente.</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">4</span>
+        <span><strong>Vroeg beginnen met sparen</strong> loont enorm door de kracht van samengestelde rente.</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">5</span>
+        <span>Veelgemaakte fouten: te vroeg grote schulden, geen noodfonds, te laat pensioensparen.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const totalSlides = 11;
+  let currentSlide = 1;
+
+  function changeSlide(dir) {
+    document.getElementById('slide-' + currentSlide).classList.remove('active');
+    currentSlide = Math.max(1, Math.min(totalSlides, currentSlide + dir));
+    document.getElementById('slide-' + currentSlide).classList.add('active');
+    document.getElementById('prevBtn').disabled = currentSlide === 1;
+    document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+    document.getElementById('slideCounter').textContent = 'Dia ' + currentSlide + ' van ' + totalSlides;
+    document.getElementById('progressFill').style.width = (currentSlide / totalSlides * 100) + '%';
+  }
+
+  function checkQuiz(id, btn, correct) {
+    const container = document.getElementById(id);
+    if (container.dataset.answered) return;
+    container.dataset.answered = '1';
+    const opts = container.querySelectorAll('.quiz-opt');
+    opts.forEach(o => o.disabled = true);
+    btn.classList.add(correct ? 'correct' : 'fout');
+    if (!correct) {
+      opts.forEach(o => {
+        if (o.onclick && o.onclick.toString().includes('true')) o.classList.add('correct');
+      });
+    }
+    const goed = document.getElementById(id + '-goed');
+    const fout = document.getElementById(id + '-fout');
+    if (correct) { goed.classList.add('show'); }
+    else { fout.classList.add('show'); }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+  });
+</script>
+</body>
+</html>

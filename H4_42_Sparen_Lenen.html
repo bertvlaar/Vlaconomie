@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§4.2 Sparen en lenen – Vlaconomie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:wght@700&display=swap');
+
+  :root {
+    --blauw: #1a3a5c;
+    --blauw-mid: #2a5298;
+    --oranje: #e8732a;
+    --oranje-licht: #f5a05a;
+    --geel: #f9c846;
+    --wit: #ffffff;
+    --lichtgrijs: #f4f6f9;
+    --tekstgrijs: #374151;
+    --groen: #2e7d32;
+    --groen-licht: #e8f5e9;
+    --rood: #c62828;
+    --rood-licht: #ffebee;
+    --blauw-licht: #e8edf5;
+    --paars: #6a1b9a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .nav {
+    width: 100%; max-width: 1100px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px; gap: 12px;
+  }
+  .nav button {
+    background: var(--oranje); color: white; border: none; border-radius: 10px;
+    padding: 10px 22px; font-family: 'Nunito', sans-serif; font-size: 15px;
+    font-weight: 700; cursor: pointer; transition: background .2s, transform .1s;
+  }
+  .nav button:hover { background: var(--oranje-licht); transform: scale(1.03); }
+  .nav button:disabled { background: #555; cursor: default; transform: none; }
+  .slide-counter { color: #ccc; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
+
+  .slide {
+    display: none; width: 100%; max-width: 1100px; min-height: 620px;
+    background: var(--wit); border-radius: 20px; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5); animation: fadeIn .35s ease;
+  }
+  .slide.active { display: flex; flex-direction: column; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+  .slide-header {
+    background: var(--blauw); padding: 14px 36px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-label { color: var(--oranje); font-weight: 900; font-size: 17px; }
+  .chapter-label { color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600; }
+
+  .slide-body { flex: 1; padding: 40px 52px; display: flex; flex-direction: column; justify-content: center; }
+
+  /* TITLE */
+  .title-slide .slide-body {
+    background: linear-gradient(135deg, #0d2b4a 0%, #1a3a5c 50%, #2a5298 100%);
+    align-items: flex-start; justify-content: center; padding: 60px 70px;
+    position: relative; overflow: hidden;
+  }
+  .title-slide .slide-body::before {
+    content: ''; position: absolute; right: -40px; bottom: -40px;
+    width: 340px; height: 340px; background: rgba(232,115,42,0.15); border-radius: 50%;
+  }
+  .para-badge {
+    background: var(--oranje); color: white; font-weight: 800; font-size: 13px;
+    letter-spacing: 1px; border-radius: 20px; padding: 5px 16px;
+    margin-bottom: 24px; display: inline-block; text-transform: uppercase;
+  }
+  .main-title {
+    font-family: 'Merriweather', serif; color: white; font-size: 46px;
+    line-height: 1.2; margin-bottom: 18px; position: relative; z-index: 1;
+  }
+  .main-title span { color: var(--geel); }
+  .title-sub { color: rgba(255,255,255,.7); font-size: 18px; font-weight: 600; margin-bottom: 36px; }
+  .keywords { display: flex; gap: 10px; flex-wrap: wrap; position: relative; z-index: 1; }
+  .keyword-tag {
+    background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85);
+    border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .slide-body h2 { font-family: 'Merriweather', serif; color: var(--blauw); font-size: 28px; margin-bottom: 6px; }
+  .section-sub { color: var(--oranje); font-size: 15px; font-weight: 700; margin-bottom: 24px; letter-spacing: .5px; }
+
+  /* LEERDOELEN */
+  .leerdoel-item {
+    display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px;
+    background: var(--lichtgrijs); border-radius: 12px; margin-bottom: 12px;
+    border-left: 4px solid var(--oranje);
+  }
+  .leerdoel-icon { font-size: 22px; flex-shrink: 0; }
+  .leerdoel-text { font-size: 16px; font-weight: 600; color: var(--tekstgrijs); line-height: 1.5; }
+  .bloom-tag {
+    display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .5px;
+    border-radius: 6px; padding: 2px 8px; margin-left: 8px; vertical-align: middle; text-transform: uppercase;
+  }
+  .bloom-1 { background: #e3f2fd; color: #1565c0; }
+  .bloom-2 { background: #e8f5e9; color: #2e7d32; }
+  .bloom-3 { background: #fff3e0; color: #e65100; }
+
+  /* DIALOOG */
+  .dialoog-box {
+    background: linear-gradient(135deg,#e8edf5,#dce5f0); border-radius: 16px;
+    padding: 28px 32px; border-left: 6px solid var(--blauw-mid); margin-bottom: 20px;
+  }
+  .dialoog-label { color: var(--blauw-mid); font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+  .speech { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .speech:last-child { margin-bottom: 0; }
+  .speaker { font-weight: 800; color: var(--blauw); font-size: 15px; min-width: 56px; flex-shrink: 0; }
+  .said { color: var(--tekstgrijs); font-size: 15px; line-height: 1.6; }
+  .said em { color: var(--oranje); font-style: normal; font-weight: 700; }
+
+  /* CARDS */
+  .def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+  .def-card { background: var(--lichtgrijs); border-radius: 14px; padding: 20px 22px; border-top: 4px solid var(--oranje); }
+  .def-card.blauw-top { border-top-color: var(--blauw-mid); }
+  .def-card.groen-top { border-top-color: var(--groen); }
+  .def-card.rood-top { border-top-color: var(--rood); }
+  .def-card.paars-top { border-top-color: var(--paars); }
+  .def-term { font-weight: 800; color: var(--blauw); font-size: 15px; margin-bottom: 6px; }
+  .def-text { color: var(--tekstgrijs); font-size: 14px; line-height: 1.6; }
+
+  /* TABEL SPAARVORMEN / LEENVORMEN */
+  .vorm-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+  .vorm-table th {
+    background: var(--blauw); color: white; padding: 10px 14px;
+    font-size: 13px; font-weight: 700; text-align: left;
+  }
+  .vorm-table th:first-child { border-radius: 8px 0 0 8px; }
+  .vorm-table th:last-child { border-radius: 0 8px 8px 0; }
+  .vorm-table td {
+    padding: 10px 14px; font-size: 13px; background: var(--lichtgrijs);
+    vertical-align: top; line-height: 1.5;
+  }
+  .vorm-table tr td:first-child { border-radius: 8px 0 0 8px; font-weight: 800; color: var(--blauw); }
+  .vorm-table tr td:last-child { border-radius: 0 8px 8px 0; }
+
+  /* BADGE RENTE KLEUR */
+  .rente-badge {
+    display: inline-block; border-radius: 6px; padding: 2px 10px;
+    font-size: 12px; font-weight: 800;
+  }
+  .rente-laag { background: var(--groen-licht); color: var(--groen); }
+  .rente-mid { background: #fff3e0; color: #e65100; }
+  .rente-hoog { background: var(--rood-licht); color: var(--rood); }
+
+  /* FORMULE BOX */
+  .formule-box {
+    background: #0f2540; border-radius: 16px; padding: 24px 28px;
+    border-left: 6px solid var(--geel); margin-bottom: 16px;
+  }
+  .formule-label { color: var(--geel); font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .formule { color: white; font-size: 18px; font-weight: 700; margin-bottom: 8px; font-family: 'Courier New', monospace; }
+  .formule-sub { color: rgba(255,255,255,0.65); font-size: 13px; line-height: 1.6; }
+  .formule-ex { color: var(--oranje-licht); font-size: 14px; margin-top: 8px; }
+
+  /* VOORBEELD */
+  .voorbeeld-box {
+    background: linear-gradient(135deg,#fff8e1,#fff3cd); border-radius: 16px;
+    padding: 22px 26px; border-left: 6px solid var(--geel); margin-bottom: 14px;
+  }
+  .voorbeeld-label { font-size: 12px; font-weight: 800; letter-spacing: 1px; color: #b8860b; text-transform: uppercase; margin-bottom: 10px; }
+  .calc-step {
+    background: white; border-radius: 8px; padding: 10px 16px; margin-top: 10px;
+    font-size: 14px; font-weight: 700; color: var(--blauw); border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* WIST JE DAT */
+  .wist-box {
+    background: linear-gradient(135deg,var(--blauw),var(--blauw-mid)); border-radius: 16px;
+    padding: 24px 28px; color: white; display: flex; gap: 18px; align-items: flex-start;
+  }
+  .wist-icon { font-size: 36px; flex-shrink: 0; }
+  .wist-text { font-size: 15px; line-height: 1.7; }
+  .wist-text strong { color: var(--geel); }
+
+  /* QUIZ */
+  .quiz-slide .slide-body { background: linear-gradient(135deg,#0f2540,#1a3a5c); }
+  .quiz-badge {
+    background: var(--geel); color: var(--blauw); font-weight: 900; font-size: 12px;
+    letter-spacing: 1px; border-radius: 20px; padding: 5px 16px;
+    margin-bottom: 20px; display: inline-block; text-transform: uppercase;
+  }
+  .quiz-vraag { color: white; font-family: 'Merriweather', serif; font-size: 22px; line-height: 1.5; margin-bottom: 26px; }
+  .quiz-opties { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .quiz-opt {
+    background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 14px; padding: 16px 20px; color: white; font-size: 15px;
+    font-weight: 600; cursor: pointer; transition: all .2s; text-align: left;
+    display: flex; gap: 12px; align-items: flex-start; font-family: 'Nunito', sans-serif;
+  }
+  .quiz-opt:hover { background: rgba(255,255,255,0.15); border-color: var(--geel); }
+  .quiz-opt.correct { background: rgba(46,125,50,0.4); border-color: #66bb6a; }
+  .quiz-opt.fout { background: rgba(198,40,40,0.35); border-color: #ef5350; }
+  .quiz-letter {
+    background: rgba(255,255,255,0.15); border-radius: 6px; width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .quiz-feedback {
+    margin-top: 18px; border-radius: 12px; padding: 16px 20px;
+    font-size: 15px; font-weight: 700; display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.goed { background: rgba(46,125,50,0.3); color: #a5d6a7; border: 1px solid #66bb6a; }
+  .quiz-feedback.fout { background: rgba(198,40,40,0.3); color: #ef9a9a; border: 1px solid #ef5350; }
+
+  /* AFSLUITING */
+  .afsluiting-slide .slide-body {
+    background: linear-gradient(135deg,var(--blauw),var(--blauw-mid));
+    align-items: center; justify-content: center; text-align: center;
+  }
+  .afsluiting-titel { color: white; font-family: 'Merriweather', serif; font-size: 34px; margin-bottom: 14px; }
+  .afsluiting-sub { color: rgba(255,255,255,.75); font-size: 17px; margin-bottom: 32px; }
+  .samenvatting-punten { display: flex; flex-direction: column; gap: 12px; text-align: left; max-width: 640px; width: 100%; }
+  .sam-punt {
+    display: flex; gap: 14px; background: rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 14px 18px; align-items: flex-start;
+  }
+  .sam-punt span { color: white; font-size: 15px; font-weight: 600; line-height: 1.5; }
+  .sam-num {
+    background: var(--oranje); color: white; font-weight: 900; font-size: 14px;
+    border-radius: 50%; width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+
+  .progress-bar { width: 100%; max-width: 1100px; height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin-bottom: 12px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--oranje); border-radius: 3px; transition: width .4s ease; }
+  .mt { margin-top: 18px; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:8%"></div></div>
+<div class="nav">
+  <button id="prevBtn" onclick="changeSlide(-1)" disabled>← Vorige</button>
+  <span class="slide-counter" id="slideCounter">Dia 1 van 13</span>
+  <button id="nextBtn" onclick="changeSlide(1)">Volgende →</button>
+</div>
+
+<!-- DIA 1 – TITEL -->
+<div class="slide title-slide active" id="slide-1">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">Economie · 3 VWO · Hoofdstuk 4</span>
+  </div>
+  <div class="slide-body">
+    <div class="para-badge">§ 4.2</div>
+    <h1 class="main-title">Sparen en <span>Lenen</span></h1>
+    <p class="title-sub">Spaarvormen · Leenvormen · Rente · Samengestelde rente</p>
+    <div class="keywords">
+      <span class="keyword-tag">🏦 Spaarrekening</span>
+      <span class="keyword-tag">📈 Beleggen</span>
+      <span class="keyword-tag">💳 Persoonlijke lening</span>
+      <span class="keyword-tag">🏠 Hypotheek</span>
+      <span class="keyword-tag">📐 Samengestelde rente</span>
+      <span class="keyword-tag">📊 Effectieve rente</span>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 2 – LEERDOELEN -->
+<div class="slide" id="slide-2">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Leerdoelen</span>
+  </div>
+  <div class="slide-body">
+    <h2>🎯 Leerdoelen</h2>
+    <p class="section-sub">Na deze les kun je het volgende</p>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">💰</span>
+      <div class="leerdoel-text">Ik kan voorbeelden geven van verschillende <strong>spaarvormen</strong> (spaarrekening, deposito, beleggen) en <strong>leenvormen</strong> (roodstand, persoonlijke lening, hypotheek).
+        <span class="bloom-tag bloom-1">Onthouden</span>
+      </div>
+    </div>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">📐</span>
+      <div class="leerdoel-text">Ik kan <strong>enkelvoudige en samengestelde rente</strong> berekenen.
+        <span class="bloom-tag bloom-3">Toepassen</span>
+      </div>
+    </div>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">💸</span>
+      <div class="leerdoel-text">Ik kan de <strong>totale kosten van een lening</strong> berekenen.
+        <span class="bloom-tag bloom-3">Toepassen</span>
+      </div>
+    </div>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">📊</span>
+      <div class="leerdoel-text">Ik kan het verschil uitleggen tussen <strong>nominale</strong> en <strong>effectieve rente</strong>.
+        <span class="bloom-tag bloom-2">Begrijpen</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 3 – INTRO DIALOOG -->
+<div class="slide" id="slide-3">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Introductie</span>
+  </div>
+  <div class="slide-body">
+    <h2>💬 Sparen of beleggen? Lenen of roodstaan?</h2>
+    <p class="section-sub">Een gesprek dat jij misschien herkent</p>
+    <div class="dialoog-box">
+      <div class="dialoog-label">💬 Intro-dialoog</div>
+      <div class="speech">
+        <span class="speaker">Nadia:</span>
+        <span class="said">"Ik ga €5.000 sparen. Moet ik dat op een spaarrekening zetten of beleggen?"</span>
+      </div>
+      <div class="speech">
+        <span class="speaker">Daan:</span>
+        <span class="said">"Sparen is veiliger. Beleggen geeft meer rendement maar ook meer risico."</span>
+      </div>
+      <div class="speech">
+        <span class="speaker">Nadia:</span>
+        <span class="said">"En als ik nu iets wil kopen en het geld heb ik niet? Kan ik dan beter roodstaan of een lening nemen?"</span>
+      </div>
+      <div class="speech">
+        <span class="speaker">Daan:</span>
+        <span class="said">"Roodstaan is vaak <em>veel duurder</em>. Een persoonlijke lening heeft een vaste rente. Vergelijk altijd de <em>effectieve rente</em>!"</span>
+      </div>
+    </div>
+    <div class="def-grid" style="margin-top:0">
+      <div class="def-card">
+        <div class="def-term">🤔 Vraag voor de klas</div>
+        <div class="def-text">Heb jij ooit geld gespaard of geleend? Wat was je overweging?</div>
+      </div>
+      <div class="def-card blauw-top">
+        <div class="def-term">📍 Kernvraag §4.2</div>
+        <div class="def-text">Welke spaarvorm of leenvorm past het beste bij jouw situatie en financiële doelen?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 4 – SPAARVORMEN -->
+<div class="slide" id="slide-4">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Spaarvormen</span>
+  </div>
+  <div class="slide-body" style="padding:28px 40px;">
+    <h2>🏦 Spaarvormen: van veilig naar risicovol</h2>
+    <p class="section-sub" style="margin-bottom:16px;">Hoe meer rendement, hoe meer risico</p>
+    <table class="vorm-table">
+      <thead>
+        <tr>
+          <th>Spaar-/beleggingsvorm</th>
+          <th>Kenmerken</th>
+          <th>Risico / rendement</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🏦 Spaarrekening</td>
+          <td>Vrij opneembaar; rente 0,5–2%; gegarandeerd tot €100.000 (depositogarantie)</td>
+          <td><span class="rente-badge rente-laag">Laag risico, laag rendement</span></td>
+        </tr>
+        <tr>
+          <td>🔒 Depositorekening</td>
+          <td>Geld vast voor bepaalde periode (1–5 jaar); hogere rente; niet vrij opneembaar</td>
+          <td><span class="rente-badge rente-laag">Laag risico, iets hoger rendement</span></td>
+        </tr>
+        <tr>
+          <td>📈 Beleggen (aandelen/fondsen)</td>
+          <td>Geld in bedrijven of fondsen; rendement onzeker; historisch 5–8% per jaar</td>
+          <td><span class="rente-badge rente-hoog">Hoger risico, hoger rendement</span></td>
+        </tr>
+        <tr>
+          <td>🧾 Pensioensparen (lijfrente)</td>
+          <td>Speciaal voor pensioen; belastingvoordeel bij inleg; pas beschikbaar op pensioensleeftijd</td>
+          <td><span class="rente-badge rente-laag">Laag-midden risico, fiscaal voordeel</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px; background:var(--groen-licht); border-radius:12px; padding:13px 18px; border-left:4px solid var(--groen);">
+      <strong style="color:var(--groen);">💡 Stelregel:</strong>
+      <span style="font-size:14px;"> Meer risico = meer kans op hoger rendement, maar ook kans op verlies. Kies altijd passend bij jouw tijdshorizon en situatie.</span>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 5 – LEENVORMEN -->
+<div class="slide" id="slide-5">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Leenvormen</span>
+  </div>
+  <div class="slide-body" style="padding:28px 40px;">
+    <h2>💳 Leenvormen: van duur naar goedkoop</h2>
+    <p class="section-sub" style="margin-bottom:14px;">Vergelijk altijd de effectieve rente!</p>
+    <table class="vorm-table">
+      <thead>
+        <tr><th>Leenvorm</th><th>Kenmerken</th><th>Typische rente</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🔴 Roodstand</td>
+          <td>Tijdelijk meer uitgeven dan je hebt; flexibel maar duur</td>
+          <td><span class="rente-badge rente-hoog">8–15% per jaar</span></td>
+        </tr>
+        <tr>
+          <td>💳 Creditcard</td>
+          <td>Betalingsuitstel tot volgende maand; bij niet volledig betalen: hoge rente</td>
+          <td><span class="rente-badge rente-hoog">10–20% per jaar</span></td>
+        </tr>
+        <tr>
+          <td>📄 Persoonlijke lening</td>
+          <td>Vast bedrag, vaste looptijd, vaste maandelijkse aflossing en rente</td>
+          <td><span class="rente-badge rente-mid">4–10% per jaar</span></td>
+        </tr>
+        <tr>
+          <td>🔄 Doorlopend krediet</td>
+          <td>Flexibele lening; opnemen en aflossen wanneer gewenst</td>
+          <td><span class="rente-badge rente-mid">5–12% per jaar</span></td>
+        </tr>
+        <tr>
+          <td>🏠 Hypotheek</td>
+          <td>Grote lening voor woning; onderpand is de woning zelf; lange looptijd</td>
+          <td><span class="rente-badge rente-laag">3–5% per jaar</span></td>
+        </tr>
+        <tr>
+          <td>🎓 Studielening (DUO)</td>
+          <td>Lening voor studie; lage rente; terugbetaling afhankelijk van inkomen</td>
+          <td><span class="rente-badge rente-laag">0–1% per jaar</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DIA 6 – QUIZ 1 -->
+<div class="slide quiz-slide" id="slide-6">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Quizvraag</span>
+  </div>
+  <div class="slide-body">
+    <div class="quiz-badge">🏆 Quizvraag 1</div>
+    <div class="quiz-vraag">Welke leenvorm heeft doorgaans de <em>hoogste</em> rente en is daarmee de duurste manier om geld te lenen?</div>
+    <div class="quiz-opties" id="quiz1">
+      <button class="quiz-opt" onclick="checkQuiz('quiz1',this,false)"><span class="quiz-letter">A</span>Studielening via DUO</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz1',this,false)"><span class="quiz-letter">B</span>Hypotheek</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz1',this,true)"><span class="quiz-letter">C</span>Creditcard (bij niet volledig betalen)</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz1',this,false)"><span class="quiz-letter">D</span>Persoonlijke lening</button>
+    </div>
+    <div class="quiz-feedback goed" id="quiz1-goed">✅ Correct! Een creditcard kan bij uitgestelde betaling 10–20% rente per jaar kosten. Dat maakt het een van de duurste leenvormen. Altijd zo snel mogelijk volledig afbetalen!</div>
+    <div class="quiz-feedback fout" id="quiz1-fout">❌ Helaas. Het juiste antwoord is C: de creditcard. Bij niet volledig terugbetalen loopt de rente op tot wel 20% per jaar — veel duurder dan een hypotheek (3–5%) of studielening (0–1%).</div>
+  </div>
+</div>
+
+<!-- DIA 7 – ENKELVOUDIGE RENTE -->
+<div class="slide" id="slide-7">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Enkelvoudige rente</span>
+  </div>
+  <div class="slide-body">
+    <h2>📐 Enkelvoudige rente</h2>
+    <p class="section-sub">Rente alleen over de hoofdsom</p>
+    <div class="formule-box">
+      <div class="formule-label">📐 Formule enkelvoudige rente</div>
+      <div class="formule">Rente = Hoofdsom × rentevoet × tijd</div>
+      <div class="formule-sub">Waarbij: rentevoet als decimaal (bijv. 3% = 0,03) · tijd in jaren</div>
+      <div class="formule-ex">Eindwaarde = Hoofdsom + Rente</div>
+    </div>
+    <div class="voorbeeld-box">
+      <div class="voorbeeld-label">📌 Voorbeeld</div>
+      <div style="font-size:15px; color:var(--tekstgrijs); line-height:1.7;">
+        Je spaart <strong>€2.000</strong> bij <strong>3%</strong> enkelvoudige rente voor <strong>2 jaar</strong>.
+      </div>
+      <div class="calc-step">Rente = €2.000 × 0,03 × 2 = <strong>€120</strong></div>
+      <div class="calc-step">Eindwaarde = €2.000 + €120 = <strong>€2.120</strong></div>
+    </div>
+    <div style="background:var(--blauw-licht); border-radius:12px; padding:14px 18px; margin-top:12px;">
+      <strong style="color:var(--blauw);">⚠️ Let op:</strong>
+      <span style="font-size:15px;"> Bij enkelvoudige rente ontvang je elk jaar hetzelfde rentebedrag (€60). De rente wordt <em>niet</em> zelf ook rentedragend.</span>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 8 – SAMENGESTELDE RENTE -->
+<div class="slide" id="slide-8">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Samengestelde rente</span>
+  </div>
+  <div class="slide-body">
+    <h2>📈 Samengestelde rente</h2>
+    <p class="section-sub">Rente over rente — het "achtste wereldwonder"</p>
+    <div class="formule-box">
+      <div class="formule-label">📐 Formule samengestelde rente</div>
+      <div class="formule">Eindwaarde = Hoofdsom × (1 + r)ⁿ</div>
+      <div class="formule-sub">Waarbij: r = jaarlijkse rente (decimaal) · n = aantal jaren</div>
+    </div>
+    <div class="voorbeeld-box">
+      <div class="voorbeeld-label">📌 Voorbeeld</div>
+      <div style="font-size:15px; color:var(--tekstgrijs); line-height:1.7;">
+        Je spaart <strong>€2.000</strong> bij <strong>3%</strong> samengestelde rente voor <strong>2 jaar</strong>.
+      </div>
+      <div class="calc-step">Eindwaarde = €2.000 × (1,03)² = €2.000 × 1,0609 = <strong>€2.121,80</strong></div>
+      <div class="calc-step">Verschil met enkelvoudige rente: €2.121,80 − €2.120 = <strong>€1,80</strong> extra (door rente op rente)</div>
+    </div>
+    <div class="wist-box mt">
+      <span class="wist-icon">🌍</span>
+      <div class="wist-text">
+        <strong>Wist je dat?</strong> Samengestelde rente wordt ook wel het <strong>'achtste wereldwonder'</strong> genoemd. Een bedrag verdubbelt ruwweg elke <strong>72 ÷ rente%</strong> jaar. Bij 6% rente dus na ±12 jaar! Dit geldt ook omgekeerd voor schulden.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 9 – VERGELIJKING ENKELVOUDIG VS SAMENGESTELD -->
+<div class="slide" id="slide-9">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Vergelijking</span>
+  </div>
+  <div class="slide-body">
+    <h2>⚖️ Enkelvoudig vs. samengestelde rente</h2>
+    <p class="section-sub">Het verschil wordt op lange termijn enorm</p>
+    <div class="def-grid">
+      <div class="def-card">
+        <div class="def-term">📊 Enkelvoudige rente (3%)</div>
+        <div class="def-text">
+          €2.000 na 1 jaar: <strong>€2.060</strong><br>
+          €2.000 na 5 jaar: <strong>€2.300</strong><br>
+          €2.000 na 10 jaar: <strong>€2.600</strong><br>
+          €2.000 na 30 jaar: <strong>€3.800</strong>
+        </div>
+      </div>
+      <div class="def-card groen-top">
+        <div class="def-term">📈 Samengestelde rente (3%)</div>
+        <div class="def-text">
+          €2.000 na 1 jaar: <strong>€2.060</strong><br>
+          €2.000 na 5 jaar: <strong>€2.319</strong><br>
+          €2.000 na 10 jaar: <strong>€2.688</strong><br>
+          €2.000 na 30 jaar: <strong>€4.854</strong> ⬆️
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:18px; background:linear-gradient(135deg,#fff3e0,#ffe0b2); border-radius:14px; padding:20px 24px; border-left:5px solid var(--oranje);">
+      <strong style="color:var(--oranje); font-size:15px;">💡 Conclusie:</strong>
+      <p style="font-size:15px; margin-top:8px; color:var(--tekstgrijs); line-height:1.6;">Op korte termijn klein verschil. Op <em>lange termijn</em> loopt het fors op: na 30 jaar €1.054 méér met samengestelde rente! Vroeg beginnen met sparen is daarom cruciaal.</p>
+    </div>
+    <div class="def-grid mt">
+      <div class="def-card blauw-top">
+        <div class="def-term">📖 Nominale rente</div>
+        <div class="def-text">De rente die <em>op papier</em> wordt afgesproken. Bijv. 5% per jaar.</div>
+      </div>
+      <div class="def-card paars-top">
+        <div class="def-term">📊 Effectieve rente (APR)</div>
+        <div class="def-text">De <em>werkelijke</em> jaarlijkse rente, inclusief alle kosten en de frequentie van renteberekening. Meest eerlijke vergelijkingsbasis!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 10 – KOSTEN VAN EEN LENING -->
+<div class="slide" id="slide-10">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Leningkosten berekenen</span>
+  </div>
+  <div class="slide-body">
+    <h2>💸 Totale kosten van een lening berekenen</h2>
+    <p class="section-sub">Hoeveel betaal je écht terug?</p>
+    <div class="formule-box">
+      <div class="formule-label">📐 Formules leningkosten</div>
+      <div class="formule">Totaal terugbetaald = maandbedrag × aantal maanden</div>
+      <div class="formule" style="margin-top:10px;">Rentekosten = Totaal terugbetaald − Hoofdsom</div>
+    </div>
+    <div class="voorbeeld-box mt">
+      <div class="voorbeeld-label">📌 Voorbeeld – Kevin</div>
+      <div style="font-size:15px; color:var(--tekstgrijs); line-height:1.7;">
+        Kevin leent <strong>€12.000</strong> voor een verbouwing. Persoonlijke lening: <strong>5,5%</strong> rente, <strong>60 maanden</strong>, vast maandbedrag: <strong>€229,60</strong>.
+      </div>
+      <div class="calc-step">Totaal terugbetaald = €229,60 × 60 = <strong>€13.776</strong></div>
+      <div class="calc-step">Rentekosten = €13.776 − €12.000 = <strong>€1.776</strong></div>
+      <div class="calc-step">Effectieve rentelast ≈ €1.776 ÷ €12.000 ÷ 5 × 100% ≈ <strong>2,96% per jaar</strong></div>
+    </div>
+    <div style="margin-top:14px; background:var(--rood-licht); border-radius:12px; padding:13px 18px; border-left:4px solid var(--rood);">
+      <strong style="color:var(--rood);">⚠️ Vergeet dit nooit:</strong>
+      <span style="font-size:14px;"> Vergelijk leningen altijd op de <em>effectieve rente (APR)</em>. De nominale rente kan misleidend zijn door bijkomende kosten!</span>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 11 – QUIZ 2 -->
+<div class="slide quiz-slide" id="slide-11">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Quizvraag</span>
+  </div>
+  <div class="slide-body">
+    <div class="quiz-badge">🏆 Quizvraag 2</div>
+    <div class="quiz-vraag">Emma spaart €3.000 bij 4% samengestelde rente. Wat is de eindwaarde na 2 jaar?<br><small style="font-size:16px; font-weight:400;">(Tip: (1,04)² = 1,0816)</small></div>
+    <div class="quiz-opties" id="quiz2">
+      <button class="quiz-opt" onclick="checkQuiz('quiz2',this,false)"><span class="quiz-letter">A</span>€3.120 (enkelvoudig, 2 jaar × 4%)</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz2',this,true)"><span class="quiz-letter">B</span>€3.244,80 (samengesteld: €3.000 × 1,0816)</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz2',this,false)"><span class="quiz-letter">C</span>€3.240 (4% per jaar, dubbel opgeteld)</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz2',this,false)"><span class="quiz-letter">D</span>€3.360 (4% × 3 jaar per ongeluk)</button>
+    </div>
+    <div class="quiz-feedback goed" id="quiz2-goed">✅ Correct! €3.000 × (1,04)² = €3.000 × 1,0816 = €3.244,80. Dat is €4,80 meer dan bij enkelvoudige rente (€3.240), dankzij rente op rente!</div>
+    <div class="quiz-feedback fout" id="quiz2-fout">❌ Helaas. Het juiste antwoord is B: €3.000 × (1,04)² = €3.000 × 1,0816 = €3.244,80. Gebruik altijd de formule Eindwaarde = Hoofdsom × (1 + r)ⁿ.</div>
+  </div>
+</div>
+
+<!-- DIA 12 – QUIZ 3 -->
+<div class="slide quiz-slide" id="slide-12">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Quizvraag</span>
+  </div>
+  <div class="slide-body">
+    <div class="quiz-badge">🏆 Quizvraag 3</div>
+    <div class="quiz-vraag">Wat is het verschil tussen <em>nominale rente</em> en <em>effectieve rente</em>?</div>
+    <div class="quiz-opties" id="quiz3">
+      <button class="quiz-opt" onclick="checkQuiz('quiz3',this,false)"><span class="quiz-letter">A</span>Nominale rente is hoger dan effectieve rente, altijd.</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz3',this,false)"><span class="quiz-letter">B</span>Ze betekenen hetzelfde, alleen een andere naam.</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz3',this,true)"><span class="quiz-letter">C</span>Effectieve rente houdt rekening met alle bijkomende kosten en is daarmee de eerlijkste vergelijkingsbasis.</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz3',this,false)"><span class="quiz-letter">D</span>Nominale rente geldt voor leningen, effectieve rente voor spaarrekeningen.</button>
+    </div>
+    <div class="quiz-feedback goed" id="quiz3-goed">✅ Correct! De effectieve rente (APR) is de werkelijke jaarlijkse rente inclusief alle bijkomende kosten. Hiermee kun je leningen eerlijk met elkaar vergelijken, ook als de nominale rente gelijk lijkt.</div>
+    <div class="quiz-feedback fout" id="quiz3-fout">❌ Helaas. Het juiste antwoord is C. De effectieve rente (APR) is de meest eerlijke vergelijkingsbasis omdat alle kosten worden meegenomen, niet alleen de op papier afgesproken rente.</div>
+  </div>
+</div>
+
+<!-- DIA 13 – SAMENVATTING -->
+<div class="slide afsluiting-slide" id="slide-13">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.2 · Samenvatting</span>
+  </div>
+  <div class="slide-body">
+    <div class="afsluiting-titel">📚 Dat was §4.2!</div>
+    <div class="afsluiting-sub">De kernpunten op een rij</div>
+    <div class="samenvatting-punten">
+      <div class="sam-punt">
+        <span class="sam-num">1</span>
+        <span><strong>Spaarvormen</strong> variëren van veilige spaarrekening (laag rendement) tot risicovoller beleggen (hoger rendement).</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">2</span>
+        <span><strong>Leenvormen</strong> variëren van dure roodstand (8–15%) tot goedkope hypotheek (3–5%). Vergelijk altijd de effectieve rente!</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">3</span>
+        <span><strong>Enkelvoudige rente</strong>: alleen over de hoofdsom. <strong>Samengestelde rente</strong>: ook over opgebouwde rente → enorm verschil op lange termijn.</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">4</span>
+        <span><strong>Effectieve rente (APR)</strong> is de eerlijkste vergelijkingsbasis voor leningen — gebruik die, niet de nominale rente.</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">5</span>
+        <span>Leningkosten: totaal terugbetaald = maandbedrag × maanden. Rentekosten = totaal − hoofdsom.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const totalSlides = 13;
+  let currentSlide = 1;
+
+  function changeSlide(dir) {
+    document.getElementById('slide-' + currentSlide).classList.remove('active');
+    currentSlide = Math.max(1, Math.min(totalSlides, currentSlide + dir));
+    document.getElementById('slide-' + currentSlide).classList.add('active');
+    document.getElementById('prevBtn').disabled = currentSlide === 1;
+    document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+    document.getElementById('slideCounter').textContent = 'Dia ' + currentSlide + ' van ' + totalSlides;
+    document.getElementById('progressFill').style.width = (currentSlide / totalSlides * 100) + '%';
+  }
+
+  function checkQuiz(id, btn, correct) {
+    const container = document.getElementById(id);
+    if (container.dataset.answered) return;
+    container.dataset.answered = '1';
+    container.querySelectorAll('.quiz-opt').forEach(o => o.disabled = true);
+    btn.classList.add(correct ? 'correct' : 'fout');
+    if (!correct) {
+      container.querySelectorAll('.quiz-opt').forEach(o => {
+        if (o.onclick && o.onclick.toString().includes('true')) o.classList.add('correct');
+      });
+    }
+    document.getElementById(id + (correct ? '-goed' : '-fout')).classList.add('show');
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+  });
+</script>
+</body>
+</html>

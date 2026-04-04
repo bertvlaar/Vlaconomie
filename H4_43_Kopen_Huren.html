@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§4.3 Kopen of huren – Vlaconomie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:wght@700&display=swap');
+
+  :root {
+    --blauw: #1a3a5c;
+    --blauw-mid: #2a5298;
+    --oranje: #e8732a;
+    --oranje-licht: #f5a05a;
+    --geel: #f9c846;
+    --wit: #ffffff;
+    --lichtgrijs: #f4f6f9;
+    --tekstgrijs: #374151;
+    --groen: #2e7d32;
+    --groen-licht: #e8f5e9;
+    --rood: #c62828;
+    --rood-licht: #ffebee;
+    --blauw-licht: #e8edf5;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #1a1a2e;
+    display: flex; flex-direction: column; align-items: center;
+    min-height: 100vh; padding: 20px;
+  }
+
+  .nav {
+    width: 100%; max-width: 1100px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px; gap: 12px;
+  }
+  .nav button {
+    background: var(--oranje); color: white; border: none; border-radius: 10px;
+    padding: 10px 22px; font-family: 'Nunito', sans-serif;
+    font-size: 15px; font-weight: 700; cursor: pointer; transition: background .2s, transform .1s;
+  }
+  .nav button:hover { background: var(--oranje-licht); transform: scale(1.03); }
+  .nav button:disabled { background: #555; cursor: default; transform: none; }
+  .slide-counter { color: #ccc; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
+
+  .slide {
+    display: none; width: 100%; max-width: 1100px; min-height: 620px;
+    background: var(--wit); border-radius: 20px; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5); animation: fadeIn .35s ease;
+  }
+  .slide.active { display: flex; flex-direction: column; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+  .slide-header {
+    background: var(--blauw); padding: 14px 36px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-label { color: var(--oranje); font-weight: 900; font-size: 17px; }
+  .chapter-label { color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600; }
+
+  .slide-body { flex: 1; padding: 40px 52px; display: flex; flex-direction: column; justify-content: center; }
+  .slide-body h2 { font-family: 'Merriweather', serif; color: var(--blauw); font-size: 28px; margin-bottom: 6px; }
+  .section-sub { color: var(--oranje); font-size: 15px; font-weight: 700; margin-bottom: 24px; letter-spacing: .5px; }
+
+  /* TITEL */
+  .title-slide .slide-body {
+    background: linear-gradient(135deg, #0d2b4a 0%, #1a3a5c 55%, #2a5298 100%);
+    align-items: flex-start; justify-content: center; padding: 60px 70px;
+    position: relative; overflow: hidden;
+  }
+  .title-slide .slide-body::before {
+    content:''; position:absolute; right:-50px; bottom:-50px;
+    width:360px; height:360px; background:rgba(232,115,42,0.15); border-radius:50%;
+  }
+  .title-slide .slide-body::after {
+    content:''; position:absolute; right:120px; top:-70px;
+    width:200px; height:200px; background:rgba(249,200,70,0.1); border-radius:50%;
+  }
+  .para-badge {
+    background: var(--oranje); color: white; font-weight: 800; font-size: 13px;
+    letter-spacing: 1px; border-radius: 20px; padding: 5px 16px;
+    margin-bottom: 24px; display: inline-block; text-transform: uppercase;
+  }
+  .main-title {
+    font-family: 'Merriweather', serif; color: white; font-size: 46px;
+    line-height: 1.2; margin-bottom: 18px; position: relative; z-index: 1;
+  }
+  .main-title span { color: var(--geel); }
+  .title-sub { color: rgba(255,255,255,.7); font-size: 18px; font-weight: 600; margin-bottom: 36px; position: relative; z-index:1; }
+  .keywords { display: flex; gap: 10px; flex-wrap: wrap; position: relative; z-index:1; }
+  .keyword-tag {
+    background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85);
+    border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* LEERDOELEN */
+  .leerdoel-item {
+    display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px;
+    background: var(--lichtgrijs); border-radius: 12px; margin-bottom: 12px;
+    border-left: 4px solid var(--oranje);
+  }
+  .leerdoel-icon { font-size: 22px; flex-shrink: 0; }
+  .leerdoel-text { font-size: 16px; font-weight: 600; color: var(--tekstgrijs); line-height: 1.5; }
+  .bloom-tag {
+    display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .5px;
+    border-radius: 6px; padding: 2px 8px; margin-left: 8px; vertical-align: middle; text-transform: uppercase;
+  }
+  .bloom-1 { background: #e3f2fd; color: #1565c0; }
+  .bloom-2 { background: #e8f5e9; color: #2e7d32; }
+  .bloom-3 { background: #fff3e0; color: #e65100; }
+
+  /* DIALOOG */
+  .dialoog-box {
+    background: linear-gradient(135deg,#e8edf5,#dce5f0); border-radius: 16px;
+    padding: 26px 32px; border-left: 6px solid var(--blauw-mid); margin-bottom: 18px;
+  }
+  .dialoog-label { color: var(--blauw-mid); font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+  .speech { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .speech:last-child { margin-bottom: 0; }
+  .speaker { font-weight: 800; color: var(--blauw); font-size: 15px; min-width: 70px; flex-shrink: 0; }
+  .said { color: var(--tekstgrijs); font-size: 15px; line-height: 1.6; }
+  .said em { color: var(--oranje); font-style: normal; font-weight: 700; }
+
+  /* KAARTJES */
+  .def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+  .def-card { background: var(--lichtgrijs); border-radius: 14px; padding: 20px 22px; border-top: 4px solid var(--oranje); }
+  .def-card.blauw-top { border-top-color: var(--blauw-mid); }
+  .def-card.groen-top { border-top-color: var(--groen); }
+  .def-card.rood-top { border-top-color: var(--rood); }
+  .def-term { font-weight: 800; color: var(--blauw); font-size: 15px; margin-bottom: 6px; }
+  .def-text { color: var(--tekstgrijs); font-size: 14px; line-height: 1.6; }
+
+  /* VOOR/NADELEN TABEL */
+  .vergelijk-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+  .vergelijk-table th { padding: 11px 18px; font-size: 13px; font-weight: 700; text-align: left; }
+  .vergelijk-table th:first-child { border-radius: 8px 0 0 8px; }
+  .vergelijk-table th:last-child { border-radius: 0 8px 8px 0; }
+  .th-koop { background: var(--blauw); color: white; }
+  .th-huur { background: #5c4a1a; color: white; }
+  .th-lbl { background: #3a3a3a; color: white; }
+  .vergelijk-table td { padding: 10px 18px; font-size: 13.5px; background: var(--lichtgrijs); vertical-align: top; line-height: 1.5; }
+  .vergelijk-table tr td:first-child { border-radius: 8px 0 0 8px; font-weight: 700; color: var(--blauw); }
+  .vergelijk-table tr td:last-child { border-radius: 0 8px 8px 0; }
+
+  /* FORMULE */
+  .formule-box { background: #0f2540; border-radius: 16px; padding: 22px 26px; border-left: 6px solid var(--geel); margin-bottom: 14px; }
+  .formule-label { color: var(--geel); font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .formule { color: white; font-size: 15px; font-weight: 700; margin-bottom: 6px; font-family: 'Courier New', monospace; line-height: 1.7; }
+  .formule-sub { color: rgba(255,255,255,0.65); font-size: 13px; line-height: 1.6; }
+  .formule-ex { color: var(--oranje-licht); font-size: 14px; margin-top: 8px; }
+
+  /* VOORBEELD */
+  .voorbeeld-box {
+    background: linear-gradient(135deg,#fff8e1,#fff3cd); border-radius: 16px;
+    padding: 22px 26px; border-left: 6px solid var(--geel); margin-bottom: 14px;
+  }
+  .voorbeeld-label { font-size: 12px; font-weight: 800; letter-spacing: 1px; color: #b8860b; text-transform: uppercase; margin-bottom: 10px; }
+  .calc-step {
+    background: white; border-radius: 8px; padding: 10px 16px; margin-top: 10px;
+    font-size: 14px; font-weight: 700; color: var(--blauw); border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* WIST JE DAT */
+  .wist-box { background: linear-gradient(135deg,var(--blauw),var(--blauw-mid)); border-radius: 16px; padding: 22px 26px; color: white; display: flex; gap: 16px; align-items: flex-start; }
+  .wist-icon { font-size: 34px; flex-shrink: 0; }
+  .wist-text { font-size: 15px; line-height: 1.7; }
+  .wist-text strong { color: var(--geel); }
+
+  /* QUIZ */
+  .quiz-slide .slide-body { background: linear-gradient(135deg,#0f2540,#1a3a5c); }
+  .quiz-badge { background: var(--geel); color: var(--blauw); font-weight: 900; font-size: 12px; letter-spacing: 1px; border-radius: 20px; padding: 5px 16px; margin-bottom: 20px; display: inline-block; text-transform: uppercase; }
+  .quiz-vraag { color: white; font-family: 'Merriweather', serif; font-size: 22px; line-height: 1.5; margin-bottom: 26px; }
+  .quiz-opties { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .quiz-opt {
+    background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 14px; padding: 15px 18px; color: white; font-size: 14px;
+    font-weight: 600; cursor: pointer; transition: all .2s; text-align: left;
+    display: flex; gap: 12px; align-items: flex-start; font-family: 'Nunito', sans-serif;
+  }
+  .quiz-opt:hover { background: rgba(255,255,255,0.15); border-color: var(--geel); }
+  .quiz-opt.correct { background: rgba(46,125,50,0.4); border-color: #66bb6a; }
+  .quiz-opt.fout { background: rgba(198,40,40,0.35); border-color: #ef5350; }
+  .quiz-letter { background: rgba(255,255,255,0.15); border-radius: 6px; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; flex-shrink: 0; }
+  .quiz-feedback { margin-top: 16px; border-radius: 12px; padding: 14px 18px; font-size: 15px; font-weight: 700; display: none; }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.goed { background: rgba(46,125,50,0.3); color: #a5d6a7; border: 1px solid #66bb6a; }
+  .quiz-feedback.fout { background: rgba(198,40,40,0.3); color: #ef9a9a; border: 1px solid #ef5350; }
+
+  /* AFSLUITING */
+  .afsluiting-slide .slide-body { background: linear-gradient(135deg,var(--blauw),var(--blauw-mid)); align-items: center; justify-content: center; text-align: center; }
+  .afsluiting-titel { color: white; font-family: 'Merriweather', serif; font-size: 34px; margin-bottom: 12px; }
+  .afsluiting-sub { color: rgba(255,255,255,.75); font-size: 17px; margin-bottom: 28px; }
+  .samenvatting-punten { display: flex; flex-direction: column; gap: 12px; text-align: left; max-width: 660px; width: 100%; }
+  .sam-punt { display: flex; gap: 14px; background: rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 18px; align-items: flex-start; }
+  .sam-punt span { color: white; font-size: 15px; font-weight: 600; line-height: 1.5; }
+  .sam-num { background: var(--oranje); color: white; font-weight: 900; font-size: 14px; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  .progress-bar { width: 100%; max-width: 1100px; height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin-bottom: 12px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--oranje); border-radius: 3px; transition: width .4s ease; }
+  .mt { margin-top: 16px; }
+
+  /* SPLITSCHERM KOOP/HUUR */
+  .split-screen { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .split-koop { background: linear-gradient(135deg,#e8edf5,#d0daea); border-radius: 16px; padding: 22px 24px; border-top: 5px solid var(--blauw-mid); }
+  .split-huur { background: linear-gradient(135deg,#fff8e1,#fff3cd); border-radius: 16px; padding: 22px 24px; border-top: 5px solid #c4961a; }
+  .split-title { font-weight: 900; font-size: 17px; margin-bottom: 14px; }
+  .split-koop .split-title { color: var(--blauw); }
+  .split-huur .split-title { color: #7d5c00; }
+  .pro-con { display: flex; flex-direction: column; gap: 8px; }
+  .pro { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; color: var(--tekstgrijs); line-height: 1.5; }
+  .pro-icon { flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:8%"></div></div>
+<div class="nav">
+  <button id="prevBtn" onclick="changeSlide(-1)" disabled>← Vorige</button>
+  <span class="slide-counter" id="slideCounter">Dia 1 van 12</span>
+  <button id="nextBtn" onclick="changeSlide(1)">Volgende →</button>
+</div>
+
+<!-- DIA 1 – TITEL -->
+<div class="slide title-slide active" id="slide-1">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">Economie · 3 VWO · Hoofdstuk 4</span>
+  </div>
+  <div class="slide-body">
+    <div class="para-badge">§ 4.3</div>
+    <h1 class="main-title">Kopen of <span>Huren?</span></h1>
+    <p class="title-sub">Hypotheek · Overwaarde · Hypotheekrenteaftrek · Woonlasten</p>
+    <div class="keywords">
+      <span class="keyword-tag">🏠 Hypotheek</span>
+      <span class="keyword-tag">📈 Overwaarde</span>
+      <span class="keyword-tag">💸 Hypotheekrenteaftrek</span>
+      <span class="keyword-tag">🏗️ Kosten koper</span>
+      <span class="keyword-tag">💧 Onder water staan</span>
+      <span class="keyword-tag">🏘️ Huursubsidie</span>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 2 – LEERDOELEN -->
+<div class="slide" id="slide-2">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Leerdoelen</span>
+  </div>
+  <div class="slide-body">
+    <h2>🎯 Leerdoelen</h2>
+    <p class="section-sub">Na deze les kun je het volgende</p>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">⚖️</span>
+      <div class="leerdoel-text">Ik kan de belangrijkste financiële <strong>voor- en nadelen</strong> van kopen versus huren benoemen.
+        <span class="bloom-tag bloom-1">Onthouden</span>
+      </div>
+    </div>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">🤔</span>
+      <div class="leerdoel-text">Ik kan uitleggen welke <strong>factoren</strong> bepalen of iemand kiest voor een koop- of huurwoning.
+        <span class="bloom-tag bloom-2">Begrijpen</span>
+      </div>
+    </div>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">📐</span>
+      <div class="leerdoel-text">Ik kan de <strong>maandlasten van een hypotheek</strong> berekenen en vergelijken met huurlasten.
+        <span class="bloom-tag bloom-3">Toepassen</span>
+      </div>
+    </div>
+    <div class="leerdoel-item">
+      <span class="leerdoel-icon">🏛️</span>
+      <div class="leerdoel-text">Ik kan de rol van de overheid (<strong>hypotheekrenteaftrek, huursubsidie</strong>) beschrijven.
+        <span class="bloom-tag bloom-2">Begrijpen</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 3 – INTRO DIALOOG -->
+<div class="slide" id="slide-3">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Introductie</span>
+  </div>
+  <div class="slide-body">
+    <h2>💬 Huren is toch weggegooid geld?</h2>
+    <p class="section-sub">Een veelgehoord misverstand…</p>
+    <div class="dialoog-box">
+      <div class="dialoog-label">💬 Intro-dialoog</div>
+      <div class="speech">
+        <span class="speaker">Fabian (29):</span>
+        <span class="said">"Ik ga een huis kopen. Huren is toch weggegooid geld?"</span>
+      </div>
+      <div class="speech">
+        <span class="speaker">Lisa (29):</span>
+        <span class="said">"Dat is een misvatting. Bij huren betaal je voor zekerheid en flexibiliteit. Bij kopen bouw je vermogen op, maar je hebt ook risico's."</span>
+      </div>
+      <div class="speech">
+        <span class="speaker">Fabian:</span>
+        <span class="said">"Risico's? Het huis stijgt toch altijd in waarde?"</span>
+      </div>
+      <div class="speech">
+        <span class="speaker">Lisa:</span>
+        <span class="said">"Niet altijd. In 2008 daalden de woningprijzen sterk en stonden veel mensen <em>'onder water'</em> — ze hadden meer hypotheek dan hun huis waard was."</span>
+      </div>
+    </div>
+    <div class="def-grid" style="margin-top:0">
+      <div class="def-card">
+        <div class="def-term">🤔 Klassikale vraag</div>
+        <div class="def-text">Wie van jullie woont in een koophuis? Wie in een huurhuis? Weet jij waarom jouw ouders die keuze maakten?</div>
+      </div>
+      <div class="def-card blauw-top">
+        <div class="def-term">📍 Kern van §4.3</div>
+        <div class="def-text">Kopen én huren hebben financiële voor- en nadelen. De juiste keuze hangt af van persoonlijke situatie en financiële doelen.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 4 – KOPEN VS HUREN VERGELIJKING -->
+<div class="slide" id="slide-4">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Kopen vs. Huren</span>
+  </div>
+  <div class="slide-body">
+    <h2>⚖️ Kopen vs. Huren: voor- en nadelen</h2>
+    <p class="section-sub">Beide opties hebben echte voordelen én nadelen</p>
+    <div class="split-screen">
+      <div class="split-koop">
+        <div class="split-title">🏠 Koopwoning</div>
+        <div class="pro-con">
+          <div class="pro"><span class="pro-icon">✅</span> Vermogensopbouw via overwaarde</div>
+          <div class="pro"><span class="pro-icon">✅</span> Hypotheekrenteaftrek (fiscaal voordeel)</div>
+          <div class="pro"><span class="pro-icon">✅</span> Vaste lasten bij vaste rente</div>
+          <div class="pro"><span class="pro-icon">✅</span> Vrijheid in verbouwen</div>
+          <div class="pro" style="margin-top:10px;"><span class="pro-icon">❌</span> Hoge instapkosten (kosten koper 2–6%)</div>
+          <div class="pro"><span class="pro-icon">❌</span> Onderhoudsrisico</div>
+          <div class="pro"><span class="pro-icon">❌</span> Waardedaling mogelijk</div>
+          <div class="pro"><span class="pro-icon">❌</span> Minder flexibel</div>
+        </div>
+      </div>
+      <div class="split-huur">
+        <div class="split-title">🏘️ Huurwoning</div>
+        <div class="pro-con">
+          <div class="pro"><span class="pro-icon">✅</span> Flexibel: makkelijk verhuizen</div>
+          <div class="pro"><span class="pro-icon">✅</span> Geen onderhoudsrisico</div>
+          <div class="pro"><span class="pro-icon">✅</span> Geen risico bij waardedaling</div>
+          <div class="pro"><span class="pro-icon">✅</span> Geen grote eigen inbreng nodig</div>
+          <div class="pro" style="margin-top:10px;"><span class="pro-icon">❌</span> Geen vermogensopbouw</div>
+          <div class="pro"><span class="pro-icon">❌</span> Afhankelijk van verhuurder</div>
+          <div class="pro"><span class="pro-icon">❌</span> Huurstijgingen mogelijk</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 5 – BEGRIPPEN -->
+<div class="slide" id="slide-5">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Kernbegrippen</span>
+  </div>
+  <div class="slide-body">
+    <h2>📖 Kernbegrippen §4.3</h2>
+    <p class="section-sub">Ken deze begrippen uit je hoofd</p>
+    <div class="def-grid">
+      <div class="def-card">
+        <div class="def-term">🏠 Hypotheek</div>
+        <div class="def-text">Een lening voor de aankoop van een woning. De woning geldt als <em>onderpand</em>: betaal je niet, kan de bank de woning verkopen. Looptijd typisch 30 jaar.</div>
+      </div>
+      <div class="def-card blauw-top">
+        <div class="def-term">💸 Hypotheekrenteaftrek</div>
+        <div class="def-text">Fiscale regeling: betaalde hypotheekrente mag van het <em>belastbaar inkomen</em> worden afgetrokken. Verlaagt de netto maandlasten.</div>
+      </div>
+      <div class="def-card groen-top">
+        <div class="def-term">📈 Overwaarde</div>
+        <div class="def-text">Positief verschil tussen <em>woningwaarde</em> en <em>resterende hypotheekschuld</em>. Dit is opgebouwd vermogen. Komt vrij bij verkoop.</div>
+      </div>
+      <div class="def-card rood-top">
+        <div class="def-term">💧 Onder water staan</div>
+        <div class="def-text">Wanneer de hypotheekschuld <em>hoger</em> is dan de woningwaarde. Trad op na de financiële crisis van 2008.</div>
+      </div>
+      <div class="def-card">
+        <div class="def-term">🏗️ Kosten koper (k.k.)</div>
+        <div class="def-text">Bijkomende aankoopkosten: overdrachtsbelasting (2%), notaris- en taxatiekosten. Totaal circa 2–6% van de koopsom. Niet te financieren via hypotheek.</div>
+      </div>
+      <div class="def-card blauw-top">
+        <div class="def-term">🏘️ Huursubsidie (huurtoeslag)</div>
+        <div class="def-text">Overheidsvergoeding voor huurders met laag inkomen en een huurwoning <em>onder</em> de huurliberalisatiegrens. Verlaagt netto huurlasten.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 6 – QUIZ 1 -->
+<div class="slide quiz-slide" id="slide-6">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Quizvraag</span>
+  </div>
+  <div class="slide-body">
+    <div class="quiz-badge">🏆 Quizvraag 1</div>
+    <div class="quiz-vraag">Waarom zeggen economen dat 'huren is weggegooid geld' een misvatting is?</div>
+    <div class="quiz-opties" id="quiz1">
+      <button class="quiz-opt" onclick="checkQuiz('quiz1',this,false)"><span class="quiz-letter">A</span>Omdat huurders via huursubsidie altijd geld terugkrijgen van de overheid</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz1',this,true)"><span class="quiz-letter">B</span>Omdat huurders flexibiliteit, zekerheid en geen risico op waardedaling krijgen — dat is geen 'weggooien' maar een dienst afnemen</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz1',this,false)"><span class="quiz-letter">C</span>Omdat de woningmarkt altijd zo stijgt dat huren goedkoper uitpakt</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz1',this,false)"><span class="quiz-letter">D</span>Omdat bij huren geen rente betaald hoeft te worden</button>
+    </div>
+    <div class="quiz-feedback goed" id="quiz1-goed">✅ Correct! Huurders kopen iets wél: flexibiliteit, geen onderhoudsrisico en zekerheid zonder risico op waardedaling. Dat is een echte dienst — geen 'weggooien'.</div>
+    <div class="quiz-feedback fout" id="quiz1-fout">❌ Helaas. Het juiste antwoord is B. Huurders 'kopen' flexibiliteit en zekerheid. Dat heeft waarde! Huren is niet altijd financieel onverstandiger dan kopen.</div>
+  </div>
+</div>
+
+<!-- DIA 7 – HYPOTHEEKLASTEN BEREKENEN -->
+<div class="slide" id="slide-7">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Berekening hypotheeklasten</span>
+  </div>
+  <div class="slide-body">
+    <h2>📐 Hypotheeklasten berekenen</h2>
+    <p class="section-sub">Stap voor stap</p>
+    <div class="formule-box">
+      <div class="formule-label">📐 Vereenvoudigde berekening (maandrente)</div>
+      <div class="formule">Maandrente = Hypotheeksom × (jaarrente ÷ 12)</div>
+      <div class="formule" style="margin-top:8px;">Netto maandrente = Bruto rente − (bruto rente × belastingschijf%)</div>
+    </div>
+    <div class="voorbeeld-box">
+      <div class="voorbeeld-label">📌 Voorbeeld – Layla & Daan</div>
+      <div style="font-size:14px; color:var(--tekstgrijs); line-height:1.8;">
+        Hypotheeksom: <strong>€315.000</strong> (huis €350.000 min €35.000 eigen inbreng)<br>
+        Jaarrente: <strong>3,8%</strong> · Belastingschijf: <strong>37%</strong>
+      </div>
+      <div class="calc-step">Maandrente (bruto) = €315.000 × (3,8% ÷ 12) = €315.000 × 0,003167 ≈ <strong>€997,50</strong></div>
+      <div class="calc-step">Hypotheekrenteaftrek = €997,50 × 37% ≈ <strong>€369</strong> voordeel per maand</div>
+      <div class="calc-step">Netto maandrente = €997,50 − €369 ≈ <strong>€628,50</strong></div>
+      <div class="calc-step">Kosten koper (4,5%) = €350.000 × 4,5% = <strong>€15.750</strong> bijkomend</div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 8 – OVERWAARDE & ONDER WATER STAAN -->
+<div class="slide" id="slide-8">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Overwaarde & risico</span>
+  </div>
+  <div class="slide-body">
+    <h2>📈 Overwaarde en het risico van waardedaling</h2>
+    <p class="section-sub">Wanneer wonen een investering is — of een last</p>
+    <div class="def-grid" style="margin-bottom:18px;">
+      <div class="def-card groen-top">
+        <div class="def-term">✅ Overwaarde (positief scenario)</div>
+        <div class="def-text">
+          Woningwaarde na 10 jaar: <strong>€430.000</strong><br>
+          Resterende hypotheek: <strong>€290.000</strong><br>
+          Overwaarde = €430.000 − €290.000 = <strong>€140.000</strong> 🎉
+        </div>
+      </div>
+      <div class="def-card rood-top">
+        <div class="def-term">❌ Onder water staan (negatief scenario)</div>
+        <div class="def-text">
+          Woningwaarde daalt naar: <strong>€200.000</strong><br>
+          Resterende hypotheek: <strong>€250.000</strong><br>
+          Schuld minus waarde = <strong>−€50.000</strong> 😨
+        </div>
+      </div>
+    </div>
+    <div class="wist-box">
+      <span class="wist-icon">🌍</span>
+      <div class="wist-text">
+        <strong>Wist je dat?</strong> In <strong>2008</strong> daalden de woningprijzen in Nederland sterk. Veel huiseigenaren stonden 'onder water'. Ze konden hun huis niet verkopen zonder restschuld, waren niet mobiel voor een nieuwe baan en banken kwamen in de problemen. Dit toont het risico van een koopwoning aan.
+      </div>
+    </div>
+    <div style="margin-top:14px; background:var(--blauw-licht); border-radius:12px; padding:14px 18px;">
+      <strong style="color:var(--blauw);">💡 Les:</strong>
+      <span style="font-size:14px;"> Koop alleen als je <em>lange termijnhorizon</em> hebt, <em>voldoende eigen vermogen</em> en een <em>stabiel inkomen</em>. Waardestijging is nooit gegarandeerd!</span>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 9 – QUIZ 2 -->
+<div class="slide quiz-slide" id="slide-9">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Quizvraag</span>
+  </div>
+  <div class="slide-body">
+    <div class="quiz-badge">🏆 Quizvraag 2</div>
+    <div class="quiz-vraag">Sanne koopt een huis van €300.000. Ze betaalt €30.000 eigen inbreng. De hypotheek heeft 3,5% rente. Wat is haar bruto maandrente in de eerste maand?</div>
+    <div class="quiz-opties" id="quiz2">
+      <button class="quiz-opt" onclick="checkQuiz('quiz2',this,false)"><span class="quiz-letter">A</span>€875 per maand (3,5% van €300.000 ÷ 12)</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz2',this,true)"><span class="quiz-letter">B</span>€787,50 per maand (3,5% van €270.000 ÷ 12)</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz2',this,false)"><span class="quiz-letter">C</span>€1.050 per maand (3,5% van €360.000 ÷ 12)</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz2',this,false)"><span class="quiz-letter">D</span>€700 per maand</button>
+    </div>
+    <div class="quiz-feedback goed" id="quiz2-goed">✅ Correct! De hypotheeksom is €300.000 − €30.000 = €270.000. Maandrente = €270.000 × 3,5% ÷ 12 = €270.000 × 0,002917 = €787,50.</div>
+    <div class="quiz-feedback fout" id="quiz2-fout">❌ Helaas. Het juiste antwoord is B. De hypotheeksom is €270.000 (niet €300.000). Maandrente = €270.000 × 3,5% ÷ 12 = €787,50. De eigen inbreng wordt altijd eerst afgetrokken!</div>
+  </div>
+</div>
+
+<!-- DIA 10 – ROL VAN DE OVERHEID -->
+<div class="slide" id="slide-10">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Overheidsbeleid</span>
+  </div>
+  <div class="slide-body">
+    <h2>🏛️ De rol van de overheid op de woningmarkt</h2>
+    <p class="section-sub">Beleid voor zowel kopers als huurders</p>
+    <div class="def-grid" style="margin-bottom:18px;">
+      <div class="def-card">
+        <div class="def-term">💸 Hypotheekrenteaftrek</div>
+        <div class="def-text">
+          Kopers mogen betaalde rente van belastbaar inkomen aftrekken. Voordeel = rente × belastingschijf%.<br><br>
+          ⚠️ <strong>Kritiek:</strong> hogere inkomens profiteren relatief méér (hogere belastingschijf). De regeling kan woningprijzen opdrijven.
+        </div>
+      </div>
+      <div class="def-card blauw-top">
+        <div class="def-term">🏘️ Huursubsidie (huurtoeslag)</div>
+        <div class="def-text">
+          Voor huurders met laag inkomen, huurwoning onder de liberalisatiegrens. Verlaagt de netto huurlasten.<br><br>
+          ✅ Gericht op lagere inkomens · ❌ Niet beschikbaar in vrije sector.
+        </div>
+      </div>
+    </div>
+    <div class="wist-box">
+      <span class="wist-icon">🌍</span>
+      <div class="wist-text">
+        <strong>Wist je dat?</strong> In Nederland was het koopwoningaandeel in 2024 ruim <strong>60%</strong>. Maar voor starters wordt het steeds moeilijker: een mediane koopwoning kost nu meer dan <strong>8 keer het mediane jaarinkomen</strong>. In de jaren negentig was dat nog 3 à 4 keer. De overheid probeert te helpen met o.a. de <strong>startersvrijstelling overdrachtsbelasting</strong>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 11 – QUIZ 3 -->
+<div class="slide quiz-slide" id="slide-11">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Quizvraag</span>
+  </div>
+  <div class="slide-body">
+    <div class="quiz-badge">🏆 Quizvraag 3</div>
+    <div class="quiz-vraag">Wanneer is een huurwoning economisch rationeler dan een koopwoning?</div>
+    <div class="quiz-opties" id="quiz3">
+      <button class="quiz-opt" onclick="checkQuiz('quiz3',this,false)"><span class="quiz-letter">A</span>Altijd, omdat huurders geen onderhoudskosten hebben</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz3',this,true)"><span class="quiz-letter">B</span>Wanneer iemand een korte tijdshorizon heeft, een laag of wisselend inkomen, of onvoldoende eigen vermogen voor de aankoop</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz3',this,false)"><span class="quiz-letter">C</span>Nooit, want een koopwoning is altijd een goede investering</button>
+      <button class="quiz-opt" onclick="checkQuiz('quiz3',this,false)"><span class="quiz-letter">D</span>Alleen wanneer de huurprijs lager is dan de hypotheeklast</button>
+    </div>
+    <div class="quiz-feedback goed" id="quiz3-goed">✅ Correct! Huren is rationeler bij een korte tijdshorizon (bijv. je gaat over 2 jaar verhuizen), een wisselend inkomen of onvoldoende spaargeld voor eigen inbreng en kosten koper.</div>
+    <div class="quiz-feedback fout" id="quiz3-fout">❌ Helaas. Het juiste antwoord is B. Noch altijd huren, noch altijd kopen is rationeel. Het hangt af van tijdshorizon, inkomensstabiliteit en beschikbaar eigen vermogen.</div>
+  </div>
+</div>
+
+<!-- DIA 12 – SAMENVATTING -->
+<div class="slide afsluiting-slide" id="slide-12">
+  <div class="slide-header">
+    <span class="site-label">Vlaconomie.nl</span>
+    <span class="chapter-label">§4.3 · Samenvatting</span>
+  </div>
+  <div class="slide-body">
+    <div class="afsluiting-titel">📚 Dat was §4.3!</div>
+    <div class="afsluiting-sub">De kernpunten op een rij</div>
+    <div class="samenvatting-punten">
+      <div class="sam-punt">
+        <span class="sam-num">1</span>
+        <span><strong>Kopen</strong>: vermogensopbouw via overwaarde + fiscaal voordeel, maar risico op waardedaling en hoge instapkosten.</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">2</span>
+        <span><strong>Huren</strong>: flexibiliteit en geen onderhoudsrisico, maar geen vermogensopbouw en afhankelijk van verhuurder.</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">3</span>
+        <span><strong>Hypotheekrenteaftrek</strong> verlaagt netto woonlasten voor kopers. Hogere inkomens profiteren relatief meer.</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">4</span>
+        <span><strong>Overwaarde</strong> = woningwaarde − hypotheekschuld. <strong>Onder water staan</strong> = schuld > waarde (risico bij verkoop).</span>
+      </div>
+      <div class="sam-punt">
+        <span class="sam-num">5</span>
+        <span>Keuze hangt af van: <strong>inkomensstabiliteit, tijdshorizon, eigen vermogen</strong> en persoonlijke woonwensen.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const totalSlides = 12;
+  let currentSlide = 1;
+
+  function changeSlide(dir) {
+    document.getElementById('slide-' + currentSlide).classList.remove('active');
+    currentSlide = Math.max(1, Math.min(totalSlides, currentSlide + dir));
+    document.getElementById('slide-' + currentSlide).classList.add('active');
+    document.getElementById('prevBtn').disabled = currentSlide === 1;
+    document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+    document.getElementById('slideCounter').textContent = 'Dia ' + currentSlide + ' van ' + totalSlides;
+    document.getElementById('progressFill').style.width = (currentSlide / totalSlides * 100) + '%';
+  }
+
+  function checkQuiz(id, btn, correct) {
+    const container = document.getElementById(id);
+    if (container.dataset.answered) return;
+    container.dataset.answered = '1';
+    container.querySelectorAll('.quiz-opt').forEach(o => o.disabled = true);
+    btn.classList.add(correct ? 'correct' : 'fout');
+    if (!correct) {
+      container.querySelectorAll('.quiz-opt').forEach(o => {
+        if (o.onclick && o.onclick.toString().includes('true')) o.classList.add('correct');
+      });
+    }
+    document.getElementById(id + (correct ? '-goed' : '-fout')).classList.add('show');
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+  });
+</script>
+</body>
+</html>
