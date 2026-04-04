@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vlaconomie — H5 Samenwerken en Onderhandelen</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--gd:#1a7a4a;--gl:#2ecc71;--glicht:#e8faf0;--gzl:#f0fdf4;
+  --goud:#f0c040;--goudd:#d4a012;
+  --rood:#b30000;--roodl:#e53e3e;
+  --blauw:#1a2e4a;--blauwl:#2d4a6e;
+  --donker:#1a1a2e;--donkerp:#2d1b4e;
+  --grijs:#6b7280;--lichtgrijs:#f7f9fc;--rand:#e0e8f4;
+  --sh:0 2px 10px rgba(0,0,0,.1);
+  --sh2:0 4px 20px rgba(0,0,0,.12);
+  --bg:#f4f7f4
+}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--bg);color:#1a1a2e;font-size:15px}
+header{background:linear-gradient(135deg,var(--groen),var(--gd));position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(15,77,46,.4)}
+.hdr-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.logo{font-family:'Lexend',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.5px;color:#fff}
+.logo em{color:var(--goud);font-style:normal}
+.logo-sub{font-size:.7rem;color:rgba(255,255,255,.7);font-family:'DM Sans',sans-serif}
+nav{display:flex;overflow-x:auto;background:rgba(0,0,0,.2);padding:0 14px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{padding:9px 12px;border:none;background:none;color:rgba(255,255,255,.75);font-family:'Lexend',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+nav button:hover,nav button.act{color:#fff;border-bottom-color:var(--goud);background:rgba(255,255,255,.1)}
+main{max-width:900px;margin:0 auto;padding:20px 14px 60px}
+.sec{display:none;animation:fu .3s ease}.sec.act{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.phdr{background:linear-gradient(135deg,var(--groen),var(--gd));color:#fff;padding:22px 26px;border-radius:12px 12px 0 0}
+.phdr .pn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--goud);color:var(--groen);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;font-weight:700}
+.phdr h2{font-family:'Lexend',sans-serif;font-size:1.4rem;margin-bottom:4px;font-weight:800}
+.phdr p{color:rgba(255,255,255,.8);font-size:.87rem}
+.phdr-presentatie{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:var(--goud);color:var(--groen);font-family:'Lexend',sans-serif;font-size:.85rem;font-weight:700;padding:9px 20px;border-radius:30px;text-decoration:none;transition:background .2s,transform .15s;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.phdr-presentatie:hover{background:#f5d060;transform:translateY(-1px)}
+.nk{padding:18px 22px;margin-bottom:2px;border-left:6px solid var(--gd)}
+.nk-groen{background:linear-gradient(135deg,#e8faf0,#c8efd8);border-color:var(--gd)}
+.nk-rood{background:linear-gradient(135deg,#fdecea,#f9d0cd);border-color:var(--roodl)}
+.nk-goud{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-color:var(--goudd)}
+.nk-blauw{background:linear-gradient(135deg,#e8f0fb,#d0e2f7);border-color:var(--blauwl)}
+.nk-tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grijs);margin-bottom:5px}
+.nk-kop{font-family:'Lexend',sans-serif;font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:3px;line-height:1.35}
+.nk-meta{font-size:.73rem;color:var(--grijs);margin-bottom:10px}
+.nk-body{font-size:.87rem;line-height:1.55;color:#333;margin-bottom:12px}
+.nk-stats{display:flex;margin-bottom:12px;background:rgba(255,255,255,.55);border-radius:8px;overflow:hidden}
+.nk-stat{flex:1;padding:9px 12px;text-align:center;border-right:1px solid rgba(255,255,255,.6)}
+.nk-stat:last-child{border-right:none}
+.nk-sv{font-family:'Lexend',sans-serif;font-size:1.1rem;font-weight:700;color:#1a1a2e;margin-bottom:2px}
+.nk-sl{font-size:.68rem;color:var(--grijs);line-height:1.3}
+.blok{background:#fff;padding:22px;box-shadow:var(--sh);margin-bottom:2px}
+.blok:last-child{border-radius:0 0 12px 12px;margin-bottom:18px}
+.bttl{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gd);margin-bottom:14px;display:flex;align-items:center;gap:8px;font-family:'Lexend',sans-serif}
+.bttl::before{content:'';display:inline-block;width:3px;height:15px;background:var(--gd);border-radius:2px}
+.dhdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--glicht)}
+.dav{font-size:1.5rem;background:var(--glicht);width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.dbody{font-size:.91rem;line-height:1.85;color:#222}
+.dbody p{margin-bottom:14px}.dbody p:last-child{margin-bottom:0}
+.dbody strong{color:var(--groen);font-weight:700}
+.dsep{border:none;border-top:2px dashed rgba(26,122,74,.2);margin:18px 0}
+.dex{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:11px 15px;margin:12px 0 4px;font-size:.86rem;color:#333;line-height:1.55}
+.dex::before{content:'Voorbeeld: ';font-weight:700;color:var(--gd)}
+.fml{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:10px 15px;margin:10px 0;font-size:.88rem;font-family:'Courier New',monospace;color:var(--groen);font-weight:700}
+.dialoog{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border:2px solid rgba(26,122,74,.2);border-radius:10px;padding:16px;margin-bottom:14px}
+.dialoog-rij{margin-bottom:8px;font-size:.87rem;line-height:1.55}
+.dialoog-rij:last-child{margin-bottom:0}
+.dialoog-naam{font-weight:700;color:var(--gd)}
+.dialoog-naam2{font-weight:700;color:var(--groen)}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.tbl th{background:var(--gd);color:#fff;padding:9px 12px;text-align:left;font-family:'Lexend',sans-serif;font-weight:600;font-size:.78rem}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--rand)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even){background:#f9fdf9}
+.wjd{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-left:4px solid var(--goud);border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#4a3b00}
+.wjd::before{content:'🌍 Wist je dat? ';font-weight:700;color:var(--goudd)}
+.waarsch{background:linear-gradient(135deg,#fff8e1,#fff3cd);border-left:4px solid #ff9800;border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#5d4037}
+.onthoud{background:linear-gradient(135deg,#e8f0fb,#d0e2f7);border-left:4px solid var(--blauwl);border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#1a2e4a}
+.onthoud::before{content:'📐 Onthoud dit! ';font-weight:700;color:var(--blauwl)}
+.bgrp-blok{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border-radius:8px;padding:14px;margin:10px 0}
+.bgrp-blok h4{font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--gd);margin-bottom:10px;letter-spacing:.4px}
+.qbox{background:#fffbe6;border:2px solid rgba(240,192,64,.5);border-radius:10px;padding:16px;margin-bottom:12px}
+.ql{font-size:.7rem;color:var(--goudd);font-weight:700;text-transform:uppercase;margin-bottom:8px;font-family:'Lexend',sans-serif}
+.qt{font-weight:600;margin-bottom:10px;font-size:.9rem;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{padding:9px 12px;border:2px solid #ddd;border-radius:7px;cursor:pointer;font-size:.87rem;background:#fff;text-align:left;transition:all .2s;font-family:'DM Sans',sans-serif}
+.opt:hover:not([disabled]){border-color:var(--gd);background:var(--glicht)}
+.opt.ok{border-color:var(--gd)!important;background:var(--glicht);color:var(--groen);font-weight:600}
+.opt.fout{border-color:var(--roodl)!important;background:#fdecea;color:var(--roodl)}
+.qfb{margin-top:8px;font-size:.87rem;font-weight:600;display:none;padding:8px 12px;border-radius:6px}
+.qfb.ok{display:block;color:var(--groen);background:var(--glicht)}
+.qfb.fout{display:block;color:var(--roodl);background:#fdecea}
+.bleg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;font-size:.72rem}
+.bleg span{padding:3px 9px;border-radius:10px;color:#fff;font-weight:700;font-family:'Lexend',sans-serif}
+.b1{background:#0f4d2e}.b2{background:#1a7a4a}.b3{background:#d4a012}
+.b4{background:#b85c00}.b5{background:#b30000}.b6{background:#2d1b4e}
+.bi{border-left:3px solid var(--rand);padding:13px 0 13px 15px;margin-bottom:10px}
+.brow{display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
+.bbadge{font-family:'Lexend',sans-serif;font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:9px;color:#fff;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:3px}
+.bq{font-size:.89rem;line-height:1.65;color:#222;margin-bottom:6px}
+.bq em{font-style:italic;font-weight:700;color:var(--groen)}
+.antw-input{width:100%;margin-top:8px;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.88rem;font-family:'DM Sans',inherit;resize:vertical;min-height:65px;outline:none;transition:border-color .2s;line-height:1.55}
+.antw-input:focus{border-color:var(--gd)}
+.antw-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.abtn{background:none;border:2px solid var(--gd);color:var(--gd);padding:7px 13px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Lexend',sans-serif}
+.abtn:hover{background:var(--gd);color:#fff}
+.abox{display:none;background:var(--glicht);border-left:4px solid var(--gd);padding:11px 14px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.86rem;line-height:1.65}
+.abox.show{display:block}
+.bl-tabs{display:flex;margin-bottom:18px;border-bottom:2px solid var(--rand)}
+.bl-tab{padding:9px 18px;border:none;background:none;font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--grijs);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s}
+.bl-tab.act{color:var(--gd);border-bottom-color:var(--gd)}
+.bl-pane{display:none}.bl-pane.act{display:block}
+.bsrch{width:100%;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.9rem;margin-bottom:16px;outline:none;font-family:'DM Sans',sans-serif}
+.bsrch:focus{border-color:var(--gd)}
+.bgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.bcard{background:#fff;border-radius:8px;padding:12px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-top:3px solid var(--gd);transition:transform .15s}
+.bcard:hover{transform:translateY(-2px)}
+.bcard.p2{border-top-color:var(--roodl)}.bcard.p3{border-top-color:var(--goudd)}.bcard.p4{border-top-color:var(--blauwl)}
+.bcard .bt{font-family:'Lexend',sans-serif;font-weight:700;color:var(--gd);font-size:.88rem}
+.bcard.p2 .bt{color:var(--roodl)}.bcard.p3 .bt{color:var(--goudd)}.bcard.p4 .bt{color:var(--blauwl)}
+.bcard .bd{font-size:.8rem;color:#555;margin-top:4px;line-height:1.35}
+.card{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh)}
+.card h3{font-family:'Lexend',sans-serif;font-size:1rem;margin-bottom:10px}
+.sblok{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.sblok.p2{border-left-color:var(--roodl)}.sblok.p3{border-left-color:var(--goudd)}.sblok.p4{border-left-color:var(--blauwl)}
+.sblok h3{font-family:'Lexend',sans-serif;font-size:.97rem;margin-bottom:8px}
+.sblok p{font-size:.89rem;line-height:1.65;color:#333}
+.hrbox{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:5px solid var(--gd)}
+.hrbox.p2{border-left-color:var(--roodl)}.hrbox.p3{border-left-color:var(--goudd)}.hrbox.p4{border-left-color:var(--blauwl)}
+.hrn{font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--gd);margin-bottom:8px}
+.hrbox.p2 .hrn{color:var(--roodl)}.hrbox.p3 .hrn{color:var(--goudd)}.hrbox.p4 .hrn{color:var(--blauwl)}
+.hrq{font-size:.9rem;line-height:1.6;font-weight:600;margin-bottom:8px}
+.rsom{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.rsom .rn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--gd);color:#fff;padding:2px 9px;border-radius:12px;display:inline-block;margin-bottom:7px;font-weight:700}
+.rsom p{font-size:.89rem;line-height:1.65;margin-bottom:4px}
+.rsom .rsub{font-size:.83rem;color:#555;margin-top:4px}
+.rode-draad{background:linear-gradient(135deg,var(--groen),var(--gd));border-radius:10px;padding:18px 22px;color:#fff;margin:14px 0}
+.rode-draad h4{font-family:'Lexend',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--goud)}
+.rode-draad p{font-size:.87rem;line-height:1.8;color:rgba(255,255,255,.9)}
+@media(max-width:600px){.phdr h2{font-size:1.15rem}nav button{font-size:.68rem;padding:8px 9px}.bgrd{grid-template-columns:1fr 1fr}.tbl{font-size:.78rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-top">
+    <a href="index.html" style="text-decoration:none">
+      <div class="logo">vla<em>conomie</em>.nl</div>
+      <div class="logo-sub">Economie · 3 HAVO/VWO · Hoofdstuk 5 — Samenwerken en Onderhandelen</div>
+    </a>
+  </div>
+  <nav>
+    <button class="act" onclick="S('s51',this)">§5.1 De overheid</button>
+    <button onclick="S('s52',this)">§5.2 Samenwerken</button>
+    <button onclick="S('s53',this)">§5.3 Rijksbegroting</button>
+    <button onclick="S('ssamenv',this)">📋 Samenvatting</button>
+    <button onclick="S('sbegrippen',this)">📖 Begrippen</button>
+    <button onclick="S('sherhaling',this)">🔁 Herhaling</button>
+    <button onclick="S('srekensommen',this)">🔢 Rekensommen</button>
+  </nav>
+</header>
+<main>
+
+<!-- ===== §5.1 ===== -->
+<div id="s51" class="sec act">
+  <div class="phdr">
+    <div class="pn">§ 5.1</div>
+    <h2>De overheid</h2>
+    <p>Collectieve sector · Publieke goederen · Private goederen · Niet-uitsluitbaar · Niet-rivaliserend · Marktfalen</p>
+    <a class="phdr-presentatie" href="paragraaf_5_1_de_overheid.html" target="_blank">▶ Presentatie</a>
+  </div>
+
+  <div class="nk nk-groen">
+    <div class="nk-tag">🏛️ De overheid</div>
+    <div class="nk-kop">Publieke goederen en marktfalen: waarom de overheid ingrijpt</div>
+    <div class="nk-meta">2025 · Economie havo/vwo</div>
+    <div class="nk-body">De markt werkt goed voor private goederen, maar faalt bij <strong>publieke goederen</strong>. Dijken, defensie en straatverlichting worden niet aangeboden door bedrijven, omdat niemand kan worden buitengesloten van het gebruik. De overheid neemt deze taak over — via belasting betaalt iedereen mee.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">publiek goed</div><div class="nk-sl">niet-uitsluitbaar + niet-rivaliserend</div></div>
+      <div class="nk-stat"><div class="nk-sv">privaat goed</div><div class="nk-sl">uitsluitbaar + rivaliserend</div></div>
+      <div class="nk-stat"><div class="nk-sv">marktfalen</div><div class="nk-sl">→ overheid grijpt in</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Waarom betalen we eigenlijk belasting? Ik wil zelf bepalen waar mijn geld naartoe gaat."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Maar wie betaalt er dan voor het leger, de dijken en de politie? Jij alleen?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Goed punt… Maar mijn buurman profiteert ook van de dijk zonder te betalen!"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Precies! Dáárom heft de overheid belasting. Zo betaalt iedereen mee aan wat we samen nodig hebben."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--gd);font-family:'Lexend',sans-serif">§5.1 — De overheid</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>De collectieve sector</strong> omvat alle overheidsinstellingen samen: de rijksoverheid, gemeenten, provincies, waterschappen, politie, defensie en het onderwijs. Zij voeren taken uit die de markt niet (goed) kan of wil leveren.</p>
+      <p>Het tegenovergestelde is de <strong>particuliere sector</strong>: bedrijven en huishoudens die handelen op basis van vrijwillige ruil en winstmotief.</p>
+      <p><strong>Drie taken van de overheid</strong></p>
+      <table class="tbl">
+        <tr><th>Taak</th><th>Uitleg</th><th>Voorbeeld</th></tr>
+        <tr><td><strong>1. Zorgen voor publieke goederen</strong></td><td>De overheid levert goederen en diensten die de markt niet aanbiedt.</td><td>Dijken, straatverlichting, defensie</td></tr>
+        <tr><td><strong>2. Herverdelen van inkomen</strong></td><td>Via belasting en uitkeringen zorgt de overheid dat inkomen eerlijker verdeeld wordt.</td><td>Bijstand, kinderbijslag, toeslagen</td></tr>
+        <tr><td><strong>3. Stabiliseren van de economie</strong></td><td>Bij een economische crisis kan de overheid extra geld uitgeven om de economie te stimuleren.</td><td>Coronasteunpakketten 2020</td></tr>
+      </table>
+      <hr class="dsep">
+      <p><strong>Niet-uitsluitbaar</strong>: je kunt niemand verbieden om van het goed gebruik te maken, ook als hij er niet voor betaald heeft. Straatverlichting schijnt voor iedereen die langs loopt — ook voor degene die nooit belasting betaalde.</p>
+      <p><strong>Niet-rivaliserend</strong>: gebruik door de één vermindert het voor de ander niet. Als jij van de dijkbeveiliging profiteert, hoeft de buurman er niet minder bescherming door te hebben.</p>
+      <p><strong>Een publiek goed</strong> is niet-uitsluitbaar én niet-rivaliserend. De markt biedt dit niet aan: bedrijven kunnen niemand laten betalen, dus ze verdienen er niets aan.</p>
+      <p><strong>Een privaat goed</strong> is wél uitsluitbaar én rivaliserend. Wie niet betaalt, krijgt het niet. De markt werkt hier prima.</p>
+      <table class="tbl">
+        <tr><th>Kenmerk</th><th>Publiek goed</th><th>Privaat goed</th></tr>
+        <tr><td>Uitsluitbaar?</td><td>Nee — iedereen profiteert</td><td>Ja — alleen als je betaalt</td></tr>
+        <tr><td>Rivaliserend?</td><td>Nee — gebruik vermindert het voor anderen niet</td><td>Ja — als jij het hebt, heeft een ander het niet</td></tr>
+        <tr><td>Wie biedt aan?</td><td>De overheid (via belasting)</td><td>De markt (via prijs)</td></tr>
+        <tr><td>Voorbeelden</td><td>Defensie, dijken, straatverlichting</td><td>Brood, auto, kleding</td></tr>
+      </table>
+      <p><strong>Marktfalen</strong>: de situatie waarbij de markt een goed niet (of te weinig) aanbiedt, terwijl dat maatschappelijk wel wenselijk zou zijn. Bij publieke goederen is dit structureel: geen enkel bedrijf bouwt vrijwillig een dijk als iedereen er gratis van profiteert.</p>
+      <p><strong>Collectieve lasten</strong> zijn de belastingen en premies die burgers en bedrijven aan de overheid afdragen. Denk aan inkomstenbelasting, btw en zorgpremie.</p>
+      <p><strong>Collectieve uitgaven</strong> zijn wat de overheid uitgeeft aan zorg, onderwijs, defensie, uitkeringen en infrastructuur.</p>
+      <div class="onthoud">Publiek goed = NIET-uitsluitbaar + NIET-rivaliserend → overheid biedt aan<br>Privaat goed = WEL uitsluitbaar + WEL rivaliserend → markt biedt aan<br>Als de markt faalt → spreken we van <strong>marktfalen</strong> → overheid grijpt in</div>
+      <div class="wjd">Nederland geeft jaarlijks ruim €400 miljard uit via de collectieve sector. Dat is bijna de helft van alles wat Nederland verdient (het bbp). De grootste posten zijn zorg, sociale zekerheid en onderwijs. Elke dag worden er miljarden euro's verdeeld — pure economie!</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat is een publiek goed?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q51a')">A. Een goed dat door de overheid wordt verkocht.</button><button class="opt" data-c="1" onclick="cQ(this,'q51a')">B. Een goed dat niet-uitsluitbaar en niet-rivaliserend is.</button><button class="opt" data-c="0" onclick="cQ(this,'q51a')">C. Een goed dat door iedereen gratis wordt gebruikt.</button><button class="opt" data-c="0" onclick="cQ(this,'q51a')">D. Een goed waarvoor je belasting betaalt.</button></div><div id="q51a" class="qfb">✅ Antwoord B — Een publiek goed is niet-uitsluitbaar én niet-rivaliserend. De overheid biedt het aan omdat de markt er niet in kan voorzien.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Onthouden</div><div class="qt">Welk van de volgende goederen is een publiek goed?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q51b')">A. Een bioscooplicentie.</button><button class="opt" data-c="0" onclick="cQ(this,'q51b')">B. Een broodje bij de bakker.</button><button class="opt" data-c="1" onclick="cQ(this,'q51b')">C. De nationale defensie.</button><button class="opt" data-c="0" onclick="cQ(this,'q51b')">D. Een treinabonnement.</button></div><div id="q51b" class="qfb">✅ Antwoord C — Defensie is niet-uitsluitbaar (beschermt iedereen) en niet-rivaliserend. Bioscoop, brood en treinabonnement zijn uitsluitbaar: wie niet betaalt krijgt geen toegang.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Analyseren</div><div class="qt">Waarom bieden bedrijven geen dijken aan, ook al hebben miljoenen mensen er baat bij?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q51c')">A. Omdat dijken te duur zijn om te bouwen.</button><button class="opt" data-c="0" onclick="cQ(this,'q51c')">B. Omdat de overheid dit wettelijk verbiedt.</button><button class="opt" data-c="1" onclick="cQ(this,'q51c')">C. Omdat dijken niet-uitsluitbaar zijn: bedrijven kunnen niemand buitensluiten, dus ze verdienen er niets aan.</button><button class="opt" data-c="0" onclick="cQ(this,'q51c')">D. Omdat niemand een dijk wil bouwen.</button></div><div id="q51c" class="qfb">✅ Antwoord C — Niet-uitsluitbaarheid betekent dat niemand kan worden geweerd van bescherming. Geen winstmotief → marktfalen → overheid grijpt in.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 4 — Analyseren</div><div class="qt">Welke stelling over marktfalen is juist?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q51d')">A. Marktfalen treedt alleen op bij dure goederen.</button><button class="opt" data-c="1" onclick="cQ(this,'q51d')">B. Marktfalen is de situatie waarbij de markt een goed niet of te weinig aanbiedt, terwijl dat maatschappelijk wenselijk is.</button><button class="opt" data-c="0" onclick="cQ(this,'q51d')">C. Marktfalen betekent dat de overheid altijd beter presteert dan de markt.</button><button class="opt" data-c="0" onclick="cQ(this,'q51d')">D. Marktfalen kan nooit worden opgelost.</button></div><div id="q51d" class="qfb">✅ Antwoord B — Bij publieke goederen faalt de markt structureel, waarna de overheid ingrijpt via belastingfinanciering.</div></div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem de drie taken van de overheid in een gemengde economie en geef bij elk een concreet voorbeeld.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">1. Zorgen voor publieke goederen — voorbeeld: defensie, dijken, straatverlichting.<br>2. Herverdelen van inkomen — voorbeeld: bijstand, kinderbijslag, toeslagen.<br>3. Stabiliseren van de economie — voorbeeld: coronasteunpakketten 2020, conjunctuurbeleid.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit wat het verschil is tussen collectieve lasten en collectieve uitgaven. Geef bij elk één voorbeeld.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Collectieve lasten zijn de verplichte belastingen en premies die burgers en bedrijven aan de overheid betalen (voorbeeld: inkomstenbelasting, btw, zorgpremie).<br>Collectieve uitgaven zijn wat de overheid uitgeeft aan publieke voorzieningen (voorbeeld: zorg, onderwijs, uitkeringen, infrastructuur).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq"><strong>Casus:</strong> De gemeente wil een nieuw speelpark aanleggen. Een projectontwikkelaar wil dat niet betalen. Leg uit waarom de gemeente — en niet de markt — dit speelpark zou moeten aanleggen. Gebruik de begrippen 'niet-uitsluitbaar' en 'niet-rivaliserend'.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Het speelpark is niet-uitsluitbaar: iedereen die er langs loopt kan er gebruik van maken, ook zonder te betalen. Het is niet-rivaliserend: als één kind speelt, heeft een ander er niets minder aan. Een private ontwikkelaar kan niemand weren, dus verdient er niets aan → marktfalen. De gemeente financiert het via belasting zodat iedereen meebetaalt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq"><strong>Casus:</strong> Een streamingdienst vraagt €12 per maand. Iemand deelt zijn wachtwoord met vrienden.<br>a) Is een streamingdienst een publiek of een privaat goed? Leg uit.<br>b) Wat verandert er als de dienst wachtwoorddeling technisch blokkeert?</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Een streamingdienst is een privaat goed: wie niet betaalt, krijgt geen toegang (uitsluitbaar). Bovendien: als de server overbelast raakt, gaat de kwaliteit achteruit (in beperkte mate rivaliserend).<br>b) Door wachtwoorddeling te blokkeren wordt uitsluitbaarheid hersteld: alleen betalende abonnees kunnen inloggen. Het goed behoudt zijn karakter als privaat goed.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Bekijk de volgende vier voorbeelden. Geef bij elk aan of het een publiek goed of een privaat goed is, en leg uit waarom:<br>a) Straatverlichting in een woonwijk.<br>b) Een pak melk in de supermarkt.<br>c) De politie die een buurt patrouilles uitvoert.<br>d) Een muziekfestivalticket.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Straatverlichting: PUBLIEK — niet-uitsluitbaar (schijnt voor iedereen) + niet-rivaliserend (gebruik door de één vermindert het voor een ander niet).<br>b) Pak melk: PRIVAAT — uitsluitbaar (wie niet betaalt krijgt het niet) + rivaliserend (als jij het hebt, heeft een ander het niet).<br>c) Politiepatrouille: PUBLIEK — niet-uitsluitbaar (beschermt de hele buurt) + niet-rivaliserend.<br>d) Muziekfestivalticket: PRIVAAT — uitsluitbaar (geen ticket = geen toegang) + rivaliserend (bij uitverkoop).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Analyseer: wat zouden de negatieve effecten zijn van hoge collectieve lasten? Noem minimaal twee economische argumenten en licht ze toe.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">• Hoge belastingen verlagen het nettoloon, wat de prikkel om te werken vermindert (arbeidsaanbod daalt).<br>• Hoge vennootschapsbelasting maakt Nederland minder aantrekkelijk voor buitenlandse investeerders.<br>• Veel overheidsuitgaven kunnen leiden tot inefficiëntie en bureaucratie.<br>Accepteer ook: lagere koopkracht, crowding out, vermindering ondernemerszin.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Stelling: 'De overheid moet zich beperken tot het leveren van publieke goederen.' Geef twee argumenten vóór en twee argumenten tegen. Wat is jouw eigen onderbouwde standpunt?</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Vóór: (1) De markt werkt efficiënt bij private goederen; overheidsingrijpen verstoort die werking onnodig. (2) Beperkte overheid houdt de collectieve lasten laag, wat ondernemerszin en groei stimuleert.<br>Tegen: (1) De overheid heeft ook een herverdelingstaak (bijstand, kinderbijslag) die niet puur om publieke goederen gaat. (2) Marktfalen kan ook bij andere goederen optreden (externe effecten, informatieproblemen).<br>Eigen standpunt: beoordeel of leerlingen vóór- en tegenargumenten benoemen en een eigen standpunt geven.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">In Nederland betalen mensen met een hoog inkomen meer belasting dan mensen met een laag inkomen (progressieve belasting). Is dat eerlijk? Geef twee economische argumenten voor dit systeem en twee argumenten ertegen.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Vóór progressief: (1) Rijkere mensen kunnen meer missen; marginale euro heeft minder waarde (afnemend grensnut). (2) Draagt bij aan herverdeling en sociale cohesie.<br>Tegen progressief: (1) Hoge marginale tarieven ontmoedigen werken en ondernemen. (2) Vermogenden wijken uit naar het buitenland (kapitaalvlucht).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Stel: jij bent wethouder van een kleine gemeente met €5 miljoen extra budget. Ontwerp een bestedingsplan. Kies minimaal drie uitgaven, leg per uitgave uit of het een publiek goed betreft of marktfalen, en verantwoord jouw keuzes.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beoordelingscriteria: (1) minimaal drie uitgaven benoemd; (2) per uitgave correct gekoppeld aan publiek goed of marktfalen; (3) beargumenteerde keuze. Voorbeeldantwoord: dijkversterkingen (publiek goed, niet-uitsluitbaar), schoolgebouw (herverdelingstaak/marktfalen bij lage inkomens), subsidie voor groene energie (externe effecten = marktfalen).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Schrijf een overtuigende column van minimaal 120 woorden voor de schoolkrant over de stelling: 'Zonder overheid zou onze samenleving niet werken.' Gebruik minstens drie concrete voorbeelden van publieke goederen of overheidstaken.</div><textarea class="antw-input" rows="7" placeholder="Typ hier je column…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Beoordelingscriteria: ✓ Minstens drie concrete voorbeelden van publieke goederen of overheidstaken. ✓ Correct gebruik van begrippen niet-uitsluitbaar, niet-rivaliserend, marktfalen. ✓ Overtuigende opbouw met eigen standpunt. ✓ Minimaal 120 woorden.</div></div>
+  </div>
+</div>
+
+<!-- ===== §5.2 ===== -->
+<div id="s52" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 5.2</div>
+    <h2>Samenwerken</h2>
+    <p>Eigenbelang · Algemeen belang · Gevangenendilemma · Meeliftersgedrag · Samenwerking · Belangenverstrengeling</p>
+    <a class="phdr-presentatie" href="paragraaf_5_2_samenwerken.html" target="_blank">▶ Presentatie</a>
+  </div>
+
+  <div class="nk nk-rood">
+    <div class="nk-tag">🤝 Samenwerken</div>
+    <div class="nk-kop">Eigenbelang versus algemeen belang: wanneer loont samenwerking?</div>
+    <div class="nk-meta">2025 · Economie havo/vwo</div>
+    <div class="nk-body">Mensen handelen uit <strong>eigenbelang</strong> — dat is de motor van de markt. Maar soms leidt eigenbelang tot een slechtere uitkomst voor iedereen, zoals in het <strong>gevangenendilemma</strong>. En als één partij profiteert zonder bij te dragen, spreken we van <strong>meeliftersgedrag</strong>. De overheid kan ingrijpen om samenwerking af te dwingen.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">eigenbelang</div><div class="nk-sl">motor van de markt</div></div>
+      <div class="nk-stat"><div class="nk-sv">dilemma</div><div class="nk-sl">rationeel, maar iedereen verliest</div></div>
+      <div class="nk-stat"><div class="nk-sv">meeliften</div><div class="nk-sl">free-rider probleem</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Stel: jij en ik worden allebei verdacht van iets. Als we allebei zwijgen, krijgen we elk 1 jaar straf. Als jij mij verraadt en ik zwijg, ga jij vrij en ik 5 jaar."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"En als we allebei verklappen?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Dan krijgen we allebei 3 jaar."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dan verraad ik jou toch gewoon. Want als jij zwijgt ga ik vrij. En als jij ook verraadt, krijg ik 3 jaar in plaats van 5."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Maar als we allebei zo denken, krijgen we allebei 3 jaar! Terwijl allebei zwijgen maar 1 jaar zou zijn…"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dat is echt bizar. Eigenbelang maakt het voor iedereen slechter!"</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--roodl);font-family:'Lexend',sans-serif">§5.2 — Samenwerken</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Eigenbelang</strong> is de drang van mensen en organisaties om hun eigen voordeel te maximaliseren. In de economie is eigenbelang een krachtige motor: de bakker bakt brood niet uit liefde, maar om geld te verdienen. Dat is prima — zolang het niet ten koste gaat van anderen.</p>
+      <p><strong>Algemeen belang</strong> is het belang van de samenleving als geheel. Soms botst eigenbelang met het algemeen belang: wat goed is voor de individuele speler, is slecht voor de groep.</p>
+      <p><strong>Het gevangenendilemma</strong> illustreert dit probleem. Twee partijen beslissen onafhankelijk van elkaar. Elk kiest vanuit eigenbelang voor de 'veilige' optie — maar samen leiden ze tot de slechtst mogelijke uitkomst. De drie kenmerken van het gevangenendilemma:</p>
+      <table class="tbl">
+        <tr><th>Kenmerk</th><th>Uitleg</th></tr>
+        <tr><td><strong>Onafhankelijke beslissing</strong></td><td>Partijen communiceren niet (of vertrouwen elkaar niet)</td></tr>
+        <tr><td><strong>Eigenbelang domineert</strong></td><td>Elk kiest voor de beste uitkomst voor zichzelf</td></tr>
+        <tr><td><strong>Suboptimale uitkomst</strong></td><td>De gezamenlijke uitkomst is slechter dan bij samenwerking</td></tr>
+      </table>
+      <div class="dex">Twee superstores openen allebei op zondag, ook al kost het extra. Als één het doet en de ander niet, verliest de ander klanten. Als beide het doen, lopen de kosten op maar verandert het marktaandeel nauwelijks. Geen van beiden heeft belang bij unilateraal stoppen — klassiek gevangenendilemma.</div>
+      <hr class="dsep">
+      <p><strong>Meeliftersgedrag (free-rider gedrag)</strong>: iemand profiteert van een collectief goed zonder er zelf aan bij te dragen. Dit is mogelijk doordat collectieve goederen niet-uitsluitbaar zijn. Als iedereen meeliftt, wordt het goed helemaal niet geleverd.</p>
+      <p><strong>Samenwerking</strong> levert meer op dan puur eigenbelang wanneer partijen regelmatig contact hebben, elkaars gedrag kunnen controleren, en er sancties zijn bij afwijken. Zonder handhaving kiest ieder voor eigenbelang; met handhaving loont samenwerken.</p>
+      <p><strong>Belangenverstrengeling</strong> treedt op wanneer iemands persoonlijk belang zijn professionele of publieke taak beïnvloedt. Voorbeeld: een wethouder die een bouwvergunning verleent aan het bedrijf van zijn zwager. Dit ondermijnt het vertrouwen in de overheid.</p>
+      <p><strong>Kartel</strong>: geheime samenwerking tussen bedrijven om prijzen hoog te houden. Dit is een voorbeeld van samenwerken dat ten koste gaat van consumenten — en daarom verboden in de EU.</p>
+      <div class="onthoud">Eigenbelang → gevangenendilemma → iedereen verliest<br>Meeliftersgedrag → free-rider probleem → verplichte bijdragen/afspraken<br>Samenwerken loont als: herhaald contact + controle + sancties</div>
+      <div class="wjd">In 2016 ontdekte de Autoriteit Consument &amp; Markt (ACM) een kartel waarbij truckers jarenlang de prijzen hadden afgesproken. Ze kregen gezamenlijk een boete van bijna €3 miljard. Een perfect voorbeeld van hoe samenwerking (in dit geval illegaal) eigenbelang overtreft — maar ten koste van de samenleving.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Wat is het gevangenendilemma?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q52a')">A. Een situatie waarbij twee gevangenen samenwerken om te ontsnappen.</button><button class="opt" data-c="0" onclick="cQ(this,'q52a')">B. Een situatie waarbij de overheid inbrekers bestraft.</button><button class="opt" data-c="1" onclick="cQ(this,'q52a')">C. Een situatie waarbij rationeel eigenbelang van twee partijen leidt tot een slechtere uitkomst dan samenwerking.</button><button class="opt" data-c="0" onclick="cQ(this,'q52a')">D. Een situatie waarbij samenwerking altijd beter uitpakt dan eigenbelang.</button></div><div id="q52a" class="qfb">✅ Antwoord C — Het dilemma toont dat wat individueel rationeel is, collectief irrationeel kan zijn.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Onthouden</div><div class="qt">Wat is meeliftersgedrag?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q52b')">A. Samenwerken zonder de ander te kennen.</button><button class="opt" data-c="1" onclick="cQ(this,'q52b')">B. Profiteren van een collectief goed zonder er zelf aan bij te dragen.</button><button class="opt" data-c="0" onclick="cQ(this,'q52b')">C. Gratis in de bus meerijden met een ander ticket.</button><button class="opt" data-c="0" onclick="cQ(this,'q52b')">D. Het ontvangen van belastingteruggave.</button></div><div id="q52b" class="qfb">✅ Antwoord B — Synoniem: free-rider gedrag. Mogelijk doordat collectieve goederen niet-uitsluitbaar zijn.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Toepassen</div><div class="qt">Twee buurlanden onderhandelen over CO₂-reductie. Land A denkt: als ik reduceer en land B niet, betaal ik de kosten maar profiteer ik niet volledig. Welk begrip beschrijft deze situatie het best?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q52c')">A. Meeliftersgedrag</button><button class="opt" data-c="1" onclick="cQ(this,'q52c')">B. Gevangenendilemma</button><button class="opt" data-c="0" onclick="cQ(this,'q52c')">C. Kartel</button><button class="opt" data-c="0" onclick="cQ(this,'q52c')">D. Belangenverstrengeling</button></div><div id="q52c" class="qfb">✅ Antwoord B — Dit is een gevangenendilemma: beide landen kiezen puur uit eigenbelang voor 'niet reduceren', terwijl samenwerken voor beide beter zou zijn geweest.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 4 — Analyseren</div><div class="qt">Wanneer is samenwerking stabiel?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q52d')">A. Altijd, want samenwerking is altijd beter dan eigenbelang.</button><button class="opt" data-c="0" onclick="cQ(this,'q52d')">B. Nooit, want eigenbelang wint altijd.</button><button class="opt" data-c="1" onclick="cQ(this,'q52d')">C. Als partijen regelmatig contact hebben, elkaars gedrag kunnen controleren en er sancties zijn bij afwijken.</button><button class="opt" data-c="0" onclick="cQ(this,'q52d')">D. Als de overheid alle beslissingen neemt.</button></div><div id="q52d" class="qfb">✅ Antwoord C — Bij eenmalig contact is verraad aantrekkelijker. Herhaald contact + handhaving maken samenwerken de rationele keuze.</div></div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem drie kenmerken van het gevangenendilemma.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">1. Twee (of meer) partijen nemen een beslissing onafhankelijk van elkaar.<br>2. Elke partij handelt vanuit eigenbelang.<br>3. De uitkomst van eigenbelang is voor beide partijen slechter dan wanneer ze hadden samengewerkt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit waarom de markt het meeliftersprobleem niet oplost en welke rol de overheid hierbij speelt.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Bij niet-uitsluitbare goederen kan niemand worden buitengesloten van gebruik, ook al heeft die persoon niet betaald. Bedrijven kunnen geen prijs vragen, want meelifters profiteren gratis. Daardoor verdient het bedrijf er niets aan en biedt het het goed niet aan (marktfalen). De overheid lost dit op via verplichte bijdragen (belasting).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq"><strong>Casus:</strong> Twee landen onderhandelen over een klimaatakkoord. Als beide reduceren, wint iedereen. Als één land het alleen doet, verliest dat land. Leg uit waarom dit een gevangenendilemma is en beschrijf een oplossing. Gebruik de begrippen <em>eigenbelang</em>, <em>gevangenendilemma</em> en <em>samenwerking</em>.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Dit is een gevangenendilemma. Elk land denkt: 'Als ik reduceer en de ander niet, betaal ik de kosten maar krijg ik niet alle baten.' Puur eigenbelang leidt ertoe dat beide landen niet reduceren, terwijl samenwerking voor allebei beter zou zijn. Oplossing: een bindend internationaal verdrag met sancties, zodat niet-meewerken wordt bestraft.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq"><strong>Casus:</strong> Twee supermarkten in dezelfde wijk overwegen allebei reclame te maken. Als één stopt en de andere doorgaat, verliest de stopper klanten. Als beide stoppen, besparen ze kosten. Herken en beschrijf het gevangenendilemma in deze situatie.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Elk van de twee supermarkten denkt: als de concurrent reclame maakt en ik niet, verlies ik klanten; als ik ook reclame maak, houd ik mijn aandeel. Dus maakt iedereen reclame, ook al kost dat geld en verandert het marktaandeel nauwelijks. Dit is een gevangenendilemma: beide winkels geven meer uit, terwijl stoppen voor beiden goedkoper zou zijn.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Analyseer drie oplossingen voor meeliftersgedrag. Beschrijf per oplossing hoe het werkt en waarom het effectief kan zijn.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">1. Verplichte bijdragen (belasting): de overheid dwingt iedereen mee te betalen, ook meelifters. Effectief omdat niemand zich kan onttrekken.<br>2. Bindende internationale verdragen: landen verplichten zich contractueel, met boetes bij overtreding. Effectief als sancties geloofwaardig zijn.<br>3. Herhaald contact en reputatie: wie steeds meeliftt, verliest vertrouwen en wordt in de toekomst uitgesloten. Let op: leerlingen moeten bij elk de werking uitleggen, niet alleen noemen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Wat is belangenverstrengeling en waarom is het een probleem voor de democratie en het vertrouwen in de overheid? Geef een concreet voorbeeld.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Belangenverstrengeling treedt op wanneer iemands persoonlijk belang zijn professionele of publieke taak beïnvloedt. Voorbeeld: een wethouder die een bouwvergunning verleent aan het bedrijf van zijn zwager. Het is een probleem omdat publieke beslissingen dan niet meer het algemeen belang dienen maar het eigenbelang van de beslisser. Dit ondermijnt het vertrouwen in de overheid.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Stelling: 'Eigenbelang is altijd slecht voor de samenleving.' Geef twee argumenten vóór en twee argumenten tegen. Onderbouw je conclusie.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Vóór (eigenbelang is slecht): (1) Bij publieke goederen leidt eigenbelang tot meeliftersgedrag en onderaanbod. (2) Het gevangenendilemma toont dat eigenbelang tot een suboptimale uitkomst kan leiden.<br>Tegen (eigenbelang is niet altijd slecht): (1) Volgens Adam Smith leidt eigenbelang via de markt tot welvaart voor iedereen (onzichtbare hand). (2) Eigenbelang drijft innovatie en ondernemerschap, wat de economische groei stimuleert.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Bedenk een eigen voorbeeld van het gevangenendilemma uit het dagelijks leven (niet de gevangenis, niet klimaat). Beschrijf: a) de twee partijen; b) waarom eigenbelang voor beiden tot een slechter resultaat leidt; c) hoe samenwerking beter zou zijn.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je eigen voorbeeld…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Accepteer elk voorbeeld waarbij: (1) twee partijen onafhankelijk beslissen; (2) eigenbelang voor beiden leidt tot een slechtere uitkomst; (3) samenwerking beter zou zijn, maar niet spontaan tot stand komt.<br>Voorbeeldantwoord: Twee buurlanden pompen allebei zo veel mogelijk olie op uit een gedeeld olieveld. Elk denkt: als ik wacht en de ander niet, win ik niets. Resultaat: het veld raakt uitgeput; hadden ze samengewerkt, hadden ze meer verdiend.</div></div>
+  </div>
+</div>
+
+<!-- ===== §5.3 ===== -->
+<div id="s53" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 5.3</div>
+    <h2>De rijksbegroting</h2>
+    <p>Rijksbegroting · Begrotingstekort · Staatsschuld · EMU-saldo · Schuldquote · Automatische stabilisatoren · Prinsjesdag</p>
+    <a class="phdr-presentatie" href="paragraaf_5_3_de_rijksbegroting.html" target="_blank">▶ Presentatie</a>
+  </div>
+
+  <div class="nk nk-blauw">
+    <div class="nk-tag">💰 Rijksbegroting</div>
+    <div class="nk-kop">Prinsjesdag, tekort en schuld: hoe beheert de overheid haar financiën?</div>
+    <div class="nk-meta">2025 · Economie havo/vwo</div>
+    <div class="nk-body">Elke derde dinsdag van september presenteert de overheid haar <strong>rijksbegroting</strong> op Prinsjesdag. Als de overheid meer uitgeeft dan ze ontvangt, ontstaat een <strong>begrotingstekort</strong> en loopt de <strong>staatsschuld</strong> op. De EU stelt normen: het tekort mag maximaal 3% van het bbp zijn, de schuld maximaal 60%.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">EMU-norm tekort</div><div class="nk-sl">max. −3% bbp</div></div>
+      <div class="nk-stat"><div class="nk-sv">EU-norm schuld</div><div class="nk-sl">max. 60% bbp</div></div>
+      <div class="nk-stat"><div class="nk-sv">Prinsjesdag</div><div class="nk-sl">3e dinsdag september</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Ik zag op het nieuws dat de overheid meer uitgeeft dan ze ontvangt. Hoe kan dat?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dat heet een begrotingstekort. De overheid leent dan geld, en de schuld loopt op."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Maar mag dat zomaar? Er zijn toch Europese regels?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Klopt — het tekort mag maximaal 3% van het bbp zijn. Als je dat overschrijdt, krijg je een tik op de vingers van Brussel."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--blauwl);font-family:'Lexend',sans-serif">§5.3 — De rijksbegroting</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>De rijksbegroting</strong> is het financiële jaarplan van de nationale overheid: een overzicht van verwachte inkomsten en uitgaven voor het komende jaar. Op <strong>Prinsjesdag</strong> (de derde dinsdag van september) biedt de minister van Financiën de <strong>Miljoenennota</strong> aan de Tweede Kamer aan. Tegelijk leest de koning de <strong>Troonrede</strong> voor in de Ridderzaal.</p>
+      <p><strong>Begrotingstekort</strong>: de overheidsinkomsten zijn lager dan de overheidsuitgaven dat jaar. De overheid moet lenen → de staatsschuld stijgt.<br><strong>Begrotingsoverschot</strong>: de overheidsinkomsten zijn hoger dan de uitgaven → de overheid kan schulden aflossen.</p>
+      <div class="fml">EMU-saldo = (overheidsinkomsten − overheidsuitgaven) / bbp × 100%</div>
+      <table class="tbl">
+        <tr><th>Begrip</th><th>Definitie</th><th>EU-norm</th></tr>
+        <tr><td><strong>EMU-saldo</strong></td><td>Begrotingssaldo van de overheid als % van het bbp</td><td>Max. −3%</td></tr>
+        <tr><td><strong>Schuldquote</strong></td><td>Staatsschuld als % van het bbp</td><td>Max. 60%</td></tr>
+        <tr><td><strong>Staatsschuld</strong></td><td>Totale schuld: optelsom van alle vroegere begrotingstekorten min afgeloste schulden</td><td>—</td></tr>
+      </table>
+      <hr class="dsep">
+      <p><strong>Automatische stabilisatoren</strong> zijn mechanismen die zonder nieuw overheidsbesluit de economie stabiliseren:</p>
+      <p><em>Bij een recessie:</em> meer werkloosheid → WW-uitkeringen stijgen automatisch (hogere uitgaven). Tegelijk dalen lonen en winsten → belastingopbrengsten dalen. Samen dempen ze de economische neergang.</p>
+      <p><em>Bij hoogconjunctuur:</em> meer werk → minder uitkeringen. Hogere lonen → meer belasting. Automatisch remmen ze oververhitting af.</p>
+      <div class="dex">Stel: overheidsinkomsten €380 mrd, overheidsuitgaven €395 mrd, staatsschuld €450 mrd, bbp €1.000 mrd. Begrotingstekort = €15 mrd. Nieuwe staatsschuld = €465 mrd. Schuldquote = 46,5%. EMU-saldo = −1,5%. Beide binnen EU-normen ✓</div>
+      <p><strong>Keynesiaans beleid</strong>: de overheid geeft extra uit tijdens een recessie om de economie te stimuleren (vraagstimulering). <strong>Klassiek begrotingsbeleid</strong>: de overheid houdt de begroting in balans, ook tijdens een recessie, om het vertrouwen van de markt te bewaren.</p>
+      <div class="wjd">In 2020 liep het Nederlandse begrotingstekort door de coronacrisis op tot bijna 4% bbp — voor het eerst in jaren boven de EU-norm van 3%. De staatsschuld steeg van 48% naar 55% bbp. Dankzij automatische stabilisatoren (WW, toeslagen) én bewuste steunmaatregelen (NOW, TVL) werd de ergste economische schade afgewend.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Tussenvragen</div>
+    <div class="qbox"><div class="ql">✏️ Vraag 1 — Onthouden</div><div class="qt">Op welke dag wordt de Miljoenennota gepresenteerd?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q53a')">A. De eerste maandag van september.</button><button class="opt" data-c="1" onclick="cQ(this,'q53a')">B. De derde dinsdag van september.</button><button class="opt" data-c="0" onclick="cQ(this,'q53a')">C. De eerste dinsdag van oktober.</button><button class="opt" data-c="0" onclick="cQ(this,'q53a')">D. De laatste vrijdag van augustus.</button></div><div id="q53a" class="qfb">✅ Antwoord B — Dit is Prinsjesdag. De Troonrede, de Miljoenennota en de start van het parlementaire begrotingsdebat vallen op dezelfde dag.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 2 — Onthouden</div><div class="qt">Wat is de staatsschuld?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q53b')">A. Het jaarlijkse begrotingstekort van de overheid.</button><button class="opt" data-c="1" onclick="cQ(this,'q53b')">B. De totale schuld van de nationale overheid, opgebouwd uit vroegere begrotingstekorten.</button><button class="opt" data-c="0" onclick="cQ(this,'q53b')">C. De rente die de overheid betaalt over leningen.</button><button class="opt" data-c="0" onclick="cQ(this,'q53b')">D. Het bedrag dat de overheid dit jaar leent.</button></div><div id="q53b" class="qfb">✅ Antwoord B — De staatsschuld is de cumulatieve optelsom van alle eerdere tekorten minus afgeloste schulden. Niet hetzelfde als het jaarlijkse tekort.</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 3 — Toepassen</div><div class="qt">De overheid heeft inkomsten van €370 mrd en uitgaven van €390 mrd. Het bbp is €900 mrd. Wat is het EMU-saldo?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q53c')">A. +2,2%</button><button class="opt" data-c="0" onclick="cQ(this,'q53c')">B. −20 mrd</button><button class="opt" data-c="1" onclick="cQ(this,'q53c')">C. −2,2%</button><button class="opt" data-c="0" onclick="cQ(this,'q53c')">D. −3,0%</button></div><div id="q53c" class="qfb">✅ Antwoord C — EMU-saldo = (370 − 390) / 900 × 100% = −20/900 × 100% ≈ −2,2%. Binnen de EU-norm van −3% ✓</div></div>
+    <div class="qbox"><div class="ql">✏️ Vraag 4 — Analyseren</div><div class="qt">Hoe werken automatische stabilisatoren tijdens een recessie?</div><div class="opts"><button class="opt" data-c="0" onclick="cQ(this,'q53d')">A. De overheid stopt met investeren om de begroting in balans te houden.</button><button class="opt" data-c="0" onclick="cQ(this,'q53d')">B. De centrale bank verlaagt de rente automatisch.</button><button class="opt" data-c="1" onclick="cQ(this,'q53d')">C. WW-uitkeringen stijgen automatisch en belastingopbrengsten dalen, waardoor de koopkracht deels op peil blijft zonder nieuw politiek besluit.</button><button class="opt" data-c="0" onclick="cQ(this,'q53d')">D. De overheid vraagt de Tweede Kamer om noodwetgeving.</button></div><div id="q53d" class="qfb">✅ Antwoord C — Automatische stabilisatoren werken zonder nieuw overheidsbesluit en dempen de economische neergang automatisch.</div></div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Opdrachten — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem de drie dingen die op Prinsjesdag plaatsvinden.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">1. De koning leest de Troonrede voor in de Ridderzaal.<br>2. De minister van Financiën biedt de Miljoenennota aan de Tweede Kamer aan.<br>3. De rijksbegroting (het financiële jaarplan) wordt gepresenteerd.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg het verschil uit tussen een begrotingstekort en de staatsschuld. Gebruik een concreet voorbeeld.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Een begrotingstekort is het jáárlijkse verschil: de overheidsuitgaven zijn dat jaar hoger dan de inkomsten. De staatsschuld is de optelsom van álle vroegere begrotingstekorten verminderd met afgeloste schulden.<br>Voorbeeld: stel dat de overheid vijf jaar lang elk jaar €10 mrd tekort heeft. Na vijf jaar is de staatsschuld €50 mrd (als er niets is afgelost). Het tekort van dit jaar is €10 mrd.<br>Vergelijking: het tekort is de jaarlijkse schuld op je creditcard; de staatsschuld is het totale openstaande saldo.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq"><strong>Casus:</strong> Overheidsinkomsten €380 mrd, overheidsuitgaven €395 mrd, vorige staatsschuld €450 mrd, bbp €1.000 mrd.<br>a) Bereken het begrotingstekort.<br>b) Bereken de nieuwe staatsschuld.<br>c) Bereken de schuldquote.<br>d) Voldoet Nederland aan beide EU-normen? Licht toe.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je berekening…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Begrotingstekort: €395 mrd − €380 mrd = <strong>€15 mrd tekort</strong>.<br>b) Nieuwe staatsschuld: €450 mrd + €15 mrd = <strong>€465 mrd</strong>.<br>c) Schuldquote: €465 mrd / €1.000 mrd × 100% = <strong>46,5%</strong>.<br>d) Schuldquote 46,5% ≤ 60% ✓. EMU-saldo: −15/1.000 × 100% = −1,5% → ook binnen norm (−3%) ✓. Nederland voldoet aan beide EU-normen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">De minister van Financiën neemt drie maatregelen: (1) extra geld voor de zorg, (2) verlaging inkomstenbelasting, (3) hogere uitkeringen. Wat is het effect van elke maatregel op het begrotingstekort en de staatsschuld?</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Maatregel 1 — Extra geld voor de zorg: hogere uitgaven → tekort wordt groter → staatsschuld stijgt.<br>Maatregel 2 — Verlaging inkomstenbelasting: lagere inkomsten → tekort wordt groter → staatsschuld stijgt.<br>Maatregel 3 — Hogere uitkeringen: hogere uitgaven → tekort wordt groter → staatsschuld stijgt.<br>Alle drie vergroten het tekort. Combinatie van hogere uitgaven én lagere inkomsten = dubbele druk op de begroting.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Analyseer de coronacrisis van 2020 en het begrotingstekort:<br>a) Hoe werkten automatische stabilisatoren in 2020?<br>b) Welke bewuste overheidsmaatregelen werden genomen naast de automatische stabilisatoren?<br>c) Wat zouden Keynesianen en klassieke economen hierover zeggen?</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">a) Massale werkloosheid → WW-uitkeringen explodeerden (hogere uitgaven). Tegelijk daalden lonen en winsten → belastingopbrengsten daalden. Beide effecten tegelijk → enorm tekort.<br>b) Bewuste maatregelen: NOW-regeling (loonsubsidie), TVL (tegemoetkoming vaste lasten), directe subsidies aan sectoren als horeca en luchtvaart.<br>c) Keynesianen: extra uitgaven houden economie en werkgelegenheid op peil — nu bezuinigen maakt crisis erger. Klassieke economen: extra schulden zijn gevaarlijk; snel terugkeren naar begrotingsdiscipline beschermt het marktvertrouwen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Stelling: 'Een hogere staatsschuld is altijd slecht.' Geef twee argumenten vóór en twee argumenten tegen. Neem een beredeneerd standpunt in.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Vóór (hogere schuld is slecht): (1) Rentebetaling op schuld kost geld dat niet aan onderwijs of zorg besteed kan worden. (2) Hoge schuld maakt een land kwetsbaar bij economische schokken.<br>Tegen (hogere schuld hoeft niet slecht te zijn): (1) Lenen kan slim zijn als de rente laag is en de investering de economie laat groeien. (2) Tijdens een crisis is extra schuld soms noodzakelijk om recessie en massawerkloosheid te voorkomen (Keynesiaans argument).<br>Beoordeel of leerlingen een eigen standpunt innemen én dat onderbouwen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Stel: jij bent minister van Financiën bij een begrotingstekort van 4% bbp. Schrijf een kort plan (minimaal 120 woorden) met: (a) de oorzaak van het tekort, (b) welke maatregelen je neemt, (c) hoe je omgaat met de EU-normen, en (d) welke automatische stabilisatoren een rol spelen. Gebruik de begrippen <em>rijksbegroting, staatsschuld, EMU-saldo</em> en <em>automatische stabilisatoren</em>.</div><textarea class="antw-input" rows="7" placeholder="Typ hier je plan…"></textarea><div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="abox">Minimumeisen: ✓ begrippen rijksbegroting, staatsschuld, EMU-saldo, automatische stabilisatoren correct gebruikt. ✓ Oorzaak tekort uitgelegd (bijv. recessie → automatische stabilisatoren actief, plus bewuste crisismaatregelen). ✓ Maatregelen: mix van bezuinigingen en/of belastingverhoging; tijdpad (niet alles in één jaar). ✓ Verantwoording: EU-norm als streefdoel, maar geleidelijk om economisch herstel niet te schaden. ✓ Minimaal 120 woorden.</div></div>
+  </div>
+</div>
+
+<!-- ===== SAMENVATTING ===== -->
+<div id="ssamenv" class="sec">
+  <div class="phdr">
+    <div class="pn">📋</div>
+    <h2>Samenvatting Hoofdstuk 5</h2>
+    <p>Samenwerken en Onderhandelen — De rode draad</p>
+  </div>
+
+  <div class="blok" style="border-radius:12px;margin-bottom:18px">
+    <div class="bttl">De kern van Hoofdstuk 5</div>
+    <p style="font-size:.9rem;line-height:1.75;margin-bottom:14px">Dit hoofdstuk laat zien waarom samenwerken meer oplevert dan ieder voor zich — en wanneer de overheid moet ingrijpen om dat af te dwingen.</p>
+
+    <div class="rode-draad">
+      <h4>🔴 De rode draad van Hoofdstuk 5</h4>
+      <p>Publieke goederen → marktfalen → overheid biedt aan via belasting<br>→ Eigenbelang vs. algemeen belang → gevangenendilemma → iedereen verliest<br>→ Meeliftersgedrag → free-rider probleem → verplichte bijdragen/afspraken<br>→ Rijksbegroting → tekort → staatsschuld → EU-normen<br>→ Conclusie: samenwerken levert meer op dan ieder voor zich!</p>
+    </div>
+
+    <div class="sblok" style="margin-top:14px">
+      <h3>§ 5.1 De overheid</h3>
+      <p>De overheid heeft drie taken: zorgen voor publieke goederen, herverdelen van inkomen en stabiliseren van de economie. Publieke goederen zijn niet-uitsluitbaar én niet-rivaliserend — de markt faalt hier structureel. De overheid financiert dit via collectieve lasten (belastingen en premies) en besteedt het via collectieve uitgaven.</p>
+    </div>
+
+    <div class="sblok p2" style="margin-top:14px">
+      <h3>§ 5.2 Samenwerken</h3>
+      <p>Eigenbelang botst soms met het algemeen belang. In het gevangenendilemma leidt rationeel eigenbelang van twee partijen tot een slechtere uitkomst dan samenwerking. Meeliftersgedrag (free-rider probleem) treedt op wanneer iemand profiteert van een collectief goed zonder bij te dragen. Samenwerking is stabiel bij herhaald contact, transparantie en sancties.</p>
+    </div>
+
+    <div class="sblok p3" style="margin-top:14px">
+      <h3>§ 5.3 De rijksbegroting</h3>
+      <p>De rijksbegroting is het financiële jaarplan van de overheid, gepresenteerd op Prinsjesdag. Een begrotingstekort vergroot de staatsschuld. EU-normen: EMU-saldo maximaal −3%, schuldquote maximaal 60%. Automatische stabilisatoren — WW-uitkeringen en belastingopbrengsten — dempen automatisch de economische conjunctuur.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BEGRIPPEN ===== -->
+<div id="sbegrippen" class="sec">
+  <div class="phdr">
+    <div class="pn">📖</div>
+    <h2>Begrippenlijst — Alfabetisch</h2>
+    <p>Alle kernbegrippen van Hoofdstuk 5</p>
+  </div>
+
+  <div class="blok" style="border-radius:12px;margin-bottom:18px">
+    <input class="bsrch" placeholder="🔍 Zoek een begrip…" oninput="filtB(this.value)">
+    <div class="bl-tabs">
+      <button class="bl-tab act" onclick="filtParaB('all',this)">Alle</button>
+      <button class="bl-tab" onclick="filtParaB('p1',this)">§5.1</button>
+      <button class="bl-tab" onclick="filtParaB('p2',this)">§5.2</button>
+      <button class="bl-tab" onclick="filtParaB('p3',this)">§5.3</button>
+    </div>
+    <div class="bgrd" id="bgrd">
+      <!-- §5.1 begrippen -->
+      <div class="bcard" data-p="p1"><div class="bt">Collectieve sector</div><div class="bd">Alle overheidsinstellingen samen die publieke taken uitvoeren.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Particuliere sector</div><div class="bd">Het deel van de economie dat bestaat uit bedrijven en huishoudens.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Publiek goed</div><div class="bd">Goed dat niet-uitsluitbaar en niet-rivaliserend is; de overheid biedt het aan.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Privaat goed</div><div class="bd">Goed dat uitsluitbaar en rivaliserend is; de markt biedt het aan.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Niet-uitsluitbaar</div><div class="bd">Niemand kan worden buitengesloten van gebruik, ook al betaalt hij niet mee.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Niet-rivaliserend</div><div class="bd">Gebruik door de één vermindert de beschikbaarheid voor een ander niet.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Marktfalen</div><div class="bd">Situatie waarbij de markt een goed niet of te weinig aanbiedt, terwijl dat maatschappelijk wenselijk is.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Collectieve lasten</div><div class="bd">Verplichte belastingen en premies die burgers en bedrijven afdragen aan de overheid.</div></div>
+      <div class="bcard" data-p="p1"><div class="bt">Collectieve uitgaven</div><div class="bd">Bestedingen van de overheid aan publieke taken en voorzieningen.</div></div>
+      <!-- §5.2 begrippen -->
+      <div class="bcard p2" data-p="p2"><div class="bt">Eigenbelang</div><div class="bd">De drang van mensen of organisaties om hun eigen voordeel te maximaliseren.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Algemeen belang</div><div class="bd">Het belang van de gehele samenleving, niet van individuen afzonderlijk.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Gevangenendilemma</div><div class="bd">Situatie waarbij rationeel eigenbelang van twee partijen leidt tot een slechtere uitkomst dan samenwerking.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Meeliftersgedrag</div><div class="bd">Profiteren van een collectief goed zonder er zelf aan bij te dragen.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Free-rider probleem</div><div class="bd">Probleem dat niet-uitsluitbaarheid leidt tot meeliften, waardoor het goed niet geleverd wordt.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Samenwerking</div><div class="bd">Afspraken tussen partijen om samen een betere uitkomst te bereiken dan bij puur eigenbelang.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Belangenverstrengeling</div><div class="bd">Situatie waarbij iemands persoonlijk belang zijn professionele of publieke taak beïnvloedt.</div></div>
+      <div class="bcard p2" data-p="p2"><div class="bt">Kartel</div><div class="bd">Geheime samenwerking tussen bedrijven om prijzen hoog te houden; verboden in de EU.</div></div>
+      <!-- §5.3 begrippen -->
+      <div class="bcard p3" data-p="p3"><div class="bt">Rijksbegroting</div><div class="bd">Het financiële jaarplan van de nationale overheid: overzicht van verwachte inkomsten en uitgaven.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Prinsjesdag</div><div class="bd">De derde dinsdag van september: dag waarop de Troonrede wordt uitgesproken en de Miljoenennota gepresenteerd.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Miljoenennota</div><div class="bd">Het document waarmee de minister van Financiën op Prinsjesdag de rijksbegroting aanbiedt aan de Tweede Kamer.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Troonrede</div><div class="bd">De speech die de koning op Prinsjesdag in de Ridderzaal voorleest; bevat de hoofdlijnen van het regeringsbeleid.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Begrotingstekort</div><div class="bd">Situatie waarbij de overheidsuitgaven hoger zijn dan de overheidsinkomsten; overheid moet lenen.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Begrotingsoverschot</div><div class="bd">Situatie waarbij de overheidsinkomsten hoger zijn dan de uitgaven; overheid kan schulden aflossen.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Staatsschuld</div><div class="bd">De totale schuld van de nationale overheid: optelsom van alle vroegere begrotingstekorten minus afgeloste schulden.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Staatsobligatie</div><div class="bd">Een schuldbewijs waarmee de overheid geld leent van beleggers; overheid betaalt rente en lost later af.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">EMU-saldo</div><div class="bd">Het begrotingssaldo van de overheid uitgedrukt als percentage van het bbp; EU-norm is maximaal −3%.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Schuldquote</div><div class="bd">De staatsschuld uitgedrukt als percentage van het bbp; EU-norm is maximaal 60%.</div></div>
+      <div class="bcard p3" data-p="p3"><div class="bt">Automatische stabilisatoren</div><div class="bd">Mechanismen die automatisch de economie stabiliseren zonder extra overheidsbesluit, zoals WW en belastingen.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERHALING ===== -->
+<div id="sherhaling" class="sec">
+  <div class="phdr">
+    <div class="pn">🔁</div>
+    <h2>Herhalingsopdrachten</h2>
+    <p>Beantwoord de volgende vragen ter herhaling van de gehele theorie van hoofdstuk 5</p>
+  </div>
+
+  <div class="hrbox">
+    <div class="hrn">§5.1 — Vraag H1 | Open</div>
+    <div class="hrq">Leg het verschil uit tussen een publiek goed en een privaat goed. Geef bij elk twee voorbeelden en leg uit waarom de overheid publieke goederen aanbiedt.</div>
+    <textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">Publiek goed: niet-uitsluitbaar + niet-rivaliserend → overheid biedt aan. Voorbeelden: defensie, dijken.<br>Privaat goed: uitsluitbaar + rivaliserend → markt biedt aan. Voorbeelden: brood, auto.<br>De overheid biedt publieke goederen aan omdat bedrijven er niet aan kunnen verdienen (niemand kan worden buitengesloten → geen opbrengsten → marktfalen).</div>
+  </div>
+
+  <div class="hrbox p2">
+    <div class="hrn">§5.2 — Vraag H2 | Open</div>
+    <div class="hrq">Beschrijf het gevangenendilemma in eigen woorden. Geef daarna een voorbeeld uit het dagelijks leven (dus niet de gevangenis) en leg uit waarom eigenbelang tot een slechter resultaat voor iedereen leidt.</div>
+    <textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">Twee partijen beslissen onafhankelijk. Elk kiest voor eigenbelang. Uitkomst: beiden slechter af dan bij samenwerking.<br>Eigen voorbeeld (accepteer elke situatie die aan bovenstaande criteria voldoet). Standaard voorbeeld: twee concurrenten die allebei reclame maken, terwijl stoppen voor beiden goedkoper zou zijn.</div>
+  </div>
+
+  <div class="hrbox">
+    <div class="hrn">§5.2 — Vraag H3 | Open</div>
+    <div class="hrq">Waarom lost de markt het meeliftersprobleem niet op? Welke rol speelt de overheid hierbij, en welke nadelen kleven er aan overheidsingrijpen?</div>
+    <textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">Markt lost het niet op: niet-uitsluitbaarheid maakt het onmogelijk een prijs te vragen → geen winst → bedrijven bieden het niet aan.<br>Overheidsrol: verplichte belasting zorgt dat iedereen meebetaalt.<br>Nadelen: overheid kan te veel of te weinig produceren (efficiëntieprobleem), en belasting verlaagt koopkracht.</div>
+  </div>
+
+  <div class="hrbox">
+    <div class="hrn">§5.1 — Vraag H4 | Open + Actueel</div>
+    <div class="hrq">Verbind elk van de drie taken van de overheid aan een concreet voorbeeld uit het nieuws of de actualiteit. Leg per koppeling uit waarom het bij die taak past.</div>
+    <textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">1. Publieke goederen: bijv. coronavaccins gratis beschikbaar stellen (niet-uitsluitbaar, iedereen profiteert).<br>2. Herverdeling: bijv. verhoging minimumloon of toeslag energierekening (inkomensverschillen verkleinen).<br>3. Stabiliseren: bijv. coronasteunpakket 2020 (overheid gaf extra uit om economische crisis te dempen).</div>
+  </div>
+
+  <div class="hrbox p2">
+    <div class="hrn">§5.1/§5.2 — Vraag H5 | Koppelvraag</div>
+    <div class="hrq">'Mensen zijn van nature te egoïstisch om samen te werken. Daarom hebben we een overheid nodig.' Bespreek deze stelling. Gebruik minimaal zes begrippen uit de begrippenlijst en geef je eigen onderbouwde mening.</div>
+    <textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">Beoordelingscriterium: minimaal 6 begrippen correct gebruikt + eigen mening onderbouwd.<br>Te gebruiken begrippen: eigenbelang, algemeen belang, gevangenendilemma, meeliftersgedrag, collectieve goederen, overheid, marktfalen, samenwerking, belangenverstrengeling.<br>Strekking goede beantwoording: eigenbelang kan tot problemen leiden (gevangenendilemma, meeliften), maar hoeft niet altijd slecht te zijn (marktwerking, innovatie). De overheid is noodzakelijk om samenwerking af te dwingen waar de markt faalt.</div>
+  </div>
+
+  <div class="hrbox p3">
+    <div class="hrn">§5.3 — Vraag H6 | Rekenen + Uitleg</div>
+    <div class="hrq">Op Prinsjesdag 2024 presenteerde de minister van Financiën een begroting met een verwacht tekort van 2,8% bbp en een staatsschuld van circa 47% bbp.<br>a) Leg uit wat op Prinsjesdag gebeurt en welke drie documenten/gebeurtenissen daarbij horen.<br>b) Is er sprake van een begrotingstekort of -overschot? Licht toe.<br>c) Voldoet Nederland aan de EU-normen voor het EMU-saldo en de schuldquote? Verklaar.<br>d) Beschrijf hoe automatische stabilisatoren de begroting kunnen beïnvloeden als de economische groei afzwakt.</div>
+    <textarea class="antw-input" rows="7" placeholder="Typ hier je antwoord…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) Op Prinsjesdag: Troonrede (koning, Ridderzaal), Miljoenennota (minister Financiën aan Tweede Kamer), start begrotingsdebat.<br>b) Tekort van 2,8% bbp → begrotingstekort (uitgaven &gt; inkomsten); overheid moet lenen, staatsschuld stijgt.<br>c) EMU-saldo: −2,8% ≤ −3% norm ✓. Schuldquote: 47% ≤ 60% norm ✓. Nederland voldoet aan beide EU-normen.<br>d) Bij afzwakkende groei: belastingopbrengsten dalen automatisch + uitkeringsuitgaven stijgen (meer werkloosheid) → automatische stabilisatoren laten het tekort toenemen zonder nieuw politiek besluit → staatsschuld stijgt verder.</div>
+  </div>
+</div>
+
+<!-- ===== REKENSOMMEN ===== -->
+<div id="srekensommen" class="sec">
+  <div class="phdr">
+    <div class="pn">🔢</div>
+    <h2>Rekensommen</h2>
+    <p>Laat altijd je berekening zien. De sommen zijn stapsgewijs opgebouwd.</p>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 1 — Collectieve lasten en uitgaven</div>
+    <p>De overheid van een fictief land int de volgende inkomsten per jaar: inkomstenbelasting €80 mrd, vennootschapsbelasting €20 mrd, btw €40 mrd, overige belastingen €15 mrd. De uitgaven zijn: zorg €60 mrd, onderwijs €30 mrd, defensie €10 mrd, uitkeringen €50 mrd, infrastructuur €12 mrd.</p>
+    <p class="rsub">a) Bereken de totale collectieve inkomsten.<br>b) Bereken de totale collectieve uitgaven.<br>c) Is er sprake van een begrotingsoverschot of een begrotingstekort? Hoe groot?<br>d) De overheid wil extra €5 mrd uitgeven aan onderwijs. Hoeveel procent stijgen de onderwijsuitgaven dan?</p>
+    <textarea class="antw-input" rows="6" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) Totale inkomsten: 80 + 20 + 40 + 15 = <strong>€155 mrd</strong>.<br>b) Totale uitgaven: 60 + 30 + 10 + 50 + 12 = <strong>€162 mrd</strong>.<br>c) Begrotingstekort: 162 − 155 = <strong>€7 mrd tekort</strong>.<br>d) Stijging onderwijsuitgaven: 5/30 × 100% = <strong>16,7%</strong>.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 2 — Meeliftersgedrag in cijfers</div>
+    <p>In een buurt van 400 huishoudens wil men een gezamenlijk speelpark aanleggen. Bouwkosten: €200.000. Elk huishouden heeft er €600 baat bij.</p>
+    <p class="rsub">a) Bereken de totale maatschappelijke waarde van het speelpark.<br>b) Is het bouwen van het speelpark vanuit maatschappelijk oogpunt zinvol? Verklaar.<br>c) Stel dat 150 huishoudens meeliften (niets betalen) en de rest de kosten gelijk verdeelt. Hoeveel betaalt elk betalend huishouden?<br>d) Als de gemeente besluit iedereen verplicht te laten meebetalen, hoeveel betaalt elk huishouden dan?<br>e) Hoeveel goedkoper is de verplichte oplossing voor elk betalend huishouden ten opzichte van situatie c?</p>
+    <textarea class="antw-input" rows="7" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) Maatschappelijke waarde: 400 × €600 = <strong>€240.000</strong>.<br>b) Zinvol: ja, baten (€240.000) &gt; kosten (€200.000). Netto: +€40.000 maatschappelijke winst.<br>c) 150 huishoudens liften mee; 250 betalen. Kosten per betalend huishouden: €200.000 / 250 = <strong>€800</strong>.<br>d) Gemeente verplicht iedereen: €200.000 / 400 = <strong>€500 per huishouden</strong>.<br>e) Verschil: €800 − €500 = <strong>€300 goedkoper</strong> bij verplichte bijdrage.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 3 — Collectieve lastendruk</div>
+    <p>Land A: bbp = €500 mrd, collectieve uitgaven = €200 mrd. Land B: bbp = €800 mrd, collectieve uitgaven = €280 mrd.</p>
+    <p class="rsub">a) Bereken de collectieve lastendruk (= collectieve uitgaven als % van het bbp) voor beide landen.<br>b) In welk land is de overheid relatief groter?<br>c) Land A verhoogt de collectieve uitgaven met 4%-punt. Hoeveel euro is dat?<br>d) Noem één voordeel en één nadeel van een hogere collectieve lastendruk.</p>
+    <textarea class="antw-input" rows="6" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) Land A: 200/500 × 100% = <strong>40%</strong>. Land B: 280/800 × 100% = <strong>35%</strong>.<br>b) Land A heeft de relatief grotere overheid (40% &gt; 35%).<br>c) 4%-punt stijging voor Land A: 0,04 × €500 mrd = <strong>€20 mrd extra uitgaven</strong>.<br>d) Voordeel: meer collectieve voorzieningen (zorg, onderwijs). Nadeel: hogere belastingdruk remt arbeidsaanbod/investeringen.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 4 — Gevangenendilemma in bedragen</div>
+    <p>Twee buurlanden onderhandelen over CO₂-reductie: Beide reduceren → elk €30 mrd kosten, elk €70 mrd baten. Netto: elk +€40 mrd. Alleen land A reduceert → A: −€10 mrd netto. Land B: +€55 mrd. Alleen land B reduceert → B: −€10 mrd netto. Land A: +€55 mrd. Geen enkel land reduceert → beiden €0.</p>
+    <p class="rsub">a) Welke uitkomst is het beste voor beide landen samen?<br>b) Wat is voor elk land de aantrekkelijkste strategie als ze elkaar niet vertrouwen? Leg uit.<br>c) Hoeveel nettobaten laten de landen liggen als ze allebei niet reduceren?<br>d) Stel dat een internationale instantie een boete van €60 mrd oplegt aan een land dat niet reduceert. Wat is dan de netto-uitkomst van 'niet reduceren' als het andere land wél reduceert?<br>e) Verandert de boete de keuze van de landen? Verklaar.</p>
+    <textarea class="antw-input" rows="8" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) Beste uitkomst gezamenlijk: beiden reduceren → elk +€40 mrd netto = <strong>€80 mrd gezamenlijk</strong>.<br>b) Aantrekkelijkste strategie zonder vertrouwen: NIET reduceren. Als de ander wél reduceert: +€55 mrd. Als de ander ook niet: €0. Dominante strategie = niet reduceren.<br>c) Gemiste nettobaten: bij samenwerking €80 mrd gezamenlijk, bij geen reductie €0. Gemis: <strong>€80 mrd</strong>.<br>d) Met boete: netto = +€55 mrd − €60 mrd = <strong>−€5 mrd</strong>.<br>e) Ja, de boete verandert de afweging. Niet reduceren levert nu −€5 mrd op (i.p.v. +€55 mrd). Reduceren levert +€40 mrd op. Nu is reduceren de rationele keuze → gevangenendilemma opgelost.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">Som 5 — Vergelijkingsom overheid</div>
+    <p>Gemeente X geeft per inwoner uit: zorg €800, onderwijs €600, wegen €300, uitkeringen €500, overige €200. De gemeente heeft 80.000 inwoners.</p>
+    <p class="rsub">a) Bereken de totale jaarlijkse uitgaven van de gemeente.<br>b) De gemeente wil bezuinigen. Ze snijden 10% op de wegenuitgaven en 5% op de overige uitgaven. Hoeveel besparen ze in totaal?<br>c) Welke van de vijf uitgavenposten zijn publieke goederen? Verklaar.<br>d) De gemeente verhoogt de gemeentelijke belasting van €350 naar €420 per inwoner. Bereken de extra inkomsten.</p>
+    <textarea class="antw-input" rows="7" placeholder="Typ hier je berekening…"></textarea>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div>
+    <div class="abox">a) Per inwoner: 800+600+300+500+200 = €2.400. Totaal: €2.400 × 80.000 = <strong>€192 mln</strong>.<br>b) Wegen: 10% × €300 × 80.000 = €2,4 mln. Overige: 5% × €200 × 80.000 = €0,8 mln. Totaal bespaard: <strong>€3,2 mln</strong>.<br>c) Publieke goederen: wegen (niet-uitsluitbaar, niet-rivaliserend voor lokale infrastructuur). Zorg en uitkeringen zijn deels een herverdelingstaak; strikt genomen zijn ze geen puur publiek goed.<br>d) Extra inkomsten: (€420 − €350) × 80.000 = €70 × 80.000 = <strong>€5,6 mln</strong>.</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function S(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  btn.classList.add('act');
+  window.scrollTo(0,0);
+}
+function cQ(btn,fbId){
+  const box=btn.closest('.qbox');
+  if(box.querySelector('.opt.ok,.opt.fout'))return;
+  const opts=box.querySelectorAll('.opt');
+  opts.forEach(o=>o.disabled=true);
+  const fb=document.getElementById(fbId);
+  if(btn.dataset.c==='1'){btn.classList.add('ok');fb.classList.add('ok');}
+  else{btn.classList.add('fout');fb.classList.add('fout');opts.forEach(o=>{if(o.dataset.c==='1')o.classList.add('ok');});}
+}
+function tog(btn){
+  const target=btn.parentElement.nextElementSibling;
+  target.classList.toggle('show');
+  btn.textContent=target.classList.contains('show')?'🙈 Verberg antwoord':'💡 Modelantwoord';
+}
+function filtB(q){
+  const cards=document.querySelectorAll('.bcard');
+  cards.forEach(c=>{
+    const t=c.querySelector('.bt').textContent.toLowerCase()+c.querySelector('.bd').textContent.toLowerCase();
+    c.style.display=t.includes(q.toLowerCase())?'':'none';
+  });
+}
+function filtParaB(p,btn){
+  document.querySelectorAll('.bl-tab').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act');
+  document.querySelectorAll('.bcard').forEach(c=>{
+    c.style.display=(p==='all'||c.dataset.p===p)?'':'none';
+  });
+  document.querySelector('.bsrch').value='';
+}
+</script>
+</body>
+</html>

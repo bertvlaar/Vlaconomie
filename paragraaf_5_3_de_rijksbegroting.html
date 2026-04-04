@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§ 5.3 De rijksbegroting — Vlaconomie.nl</title>
+<meta name="description" content="Presentatie over de rijksbegroting, Prinsjesdag, begrotingstekort en staatsschuld voor VWO leerjaar 3.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #7B2D26;
+    --primary-light: #9B3C34;
+    --accent: #C0392B;
+    --accent-light: #E57373;
+    --bg: #FDF8F7;
+    --bg-warm: #FDECEA;
+    --text: #1A1A2E;
+    --white: #FFFFFF;
+    --gold: #B7950B;
+    --gold-light: #FFF8E1;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    background: #111;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .presentation { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 80px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .slide.active { opacity: 1; pointer-events: auto; }
+
+  .slide-title {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent) 100%);
+    color: white; text-align: center; align-items: center;
+  }
+  .slide-title .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 8px 24px; border-radius: 50px;
+    font-size: 16px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .slide-title h1 { font-size: 72px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
+  .slide-title .subtitle { font-size: 22px; font-weight: 400; opacity: 0.85; max-width: 700px; margin: 0 auto; line-height: 1.6; }
+  .slide-title .brand { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 14px; opacity: 0.5; letter-spacing: 3px; text-transform: uppercase; }
+
+  .slide-content { background: var(--bg); color: var(--text); }
+  .slide-content .slide-header { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+  .slide-content .slide-header .num {
+    width: 48px; height: 48px; min-width: 48px;
+    background: var(--primary); color: white; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 20px;
+  }
+  .slide-content .slide-header h2 { font-size: 38px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+
+  .content-body { display: flex; gap: 48px; flex: 1; align-items: flex-start; }
+  .content-main { flex: 1; }
+  .content-main p, .content-main li { font-size: 19px; line-height: 1.75; color: #333; }
+  .content-main ul, .content-main ol { padding-left: 24px; margin-top: 16px; }
+  .content-main li { margin-bottom: 12px; }
+  .content-side { width: 380px; min-width: 380px; }
+
+  .info-box {
+    background: var(--white); border-left: 5px solid var(--accent);
+    border-radius: 0 16px 16px 0; padding: 28px 32px; margin-bottom: 20px;
+  }
+  .info-box.gold { border-left-color: var(--gold); background: var(--gold-light); }
+  .info-box h3 { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+  .info-box p, .info-box li { font-size: 16px; line-height: 1.65; color: #444; }
+
+  .slide-goals { background: var(--bg); color: var(--text); }
+  .slide-goals .header-bar { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
+  .slide-goals .header-bar .icon-circle {
+    width: 56px; height: 56px; background: var(--primary); border-radius: 16px;
+    display: flex; align-items: center; justify-content: center; font-size: 28px; color: white;
+  }
+  .slide-goals .header-bar h2 { font-size: 42px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+
+  .goals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1100px; }
+  .goal-card {
+    background: var(--white); border: 1px solid #EADAD8; border-radius: 16px;
+    padding: 28px 32px; display: flex; align-items: flex-start; gap: 16px;
+  }
+  .goal-num {
+    width: 36px; height: 36px; min-width: 36px; background: var(--accent-light);
+    color: var(--primary); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px;
+  }
+  .goal-card p { font-size: 17px; line-height: 1.6; color: var(--text); }
+
+  .highlight-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: 20px; padding: 40px 48px; color: white; margin-top: 24px;
+  }
+  .highlight-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 16px; }
+  .highlight-card p, .highlight-card li { font-size: 18px; line-height: 1.7; opacity: 0.95; }
+
+  .begrip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .begrip-item { background: white; border-radius: 14px; padding: 20px 24px; border: 1px solid #EADAD8; }
+  .begrip-item strong { color: var(--primary); font-size: 17px; display: block; margin-bottom: 6px; }
+  .begrip-item span { font-size: 15px; line-height: 1.55; color: #555; }
+
+  .keyword { background: var(--bg-warm); padding: 2px 8px; border-radius: 6px; font-weight: 600; color: var(--primary); }
+
+  .styled-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    margin-top: 16px;
+  }
+  .styled-table thead th { background: var(--primary); color: white; font-size: 17px; font-weight: 700; padding: 18px 24px; text-align: left; }
+  .styled-table tbody td { padding: 16px 24px; font-size: 17px; line-height: 1.6; border-bottom: 1px solid #EDE0DE; background: white; }
+  .styled-table tbody tr:last-child td { border-bottom: none; }
+  .styled-table tbody tr:nth-child(even) td { background: #FBF4F3; }
+
+  .nav-bar {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(123,45,38,0.9); backdrop-filter: blur(12px);
+    padding: 10px 20px; border-radius: 50px; z-index: 100;
+  }
+  .nav-bar button {
+    background: none; border: none; color: white; font-size: 22px; cursor: pointer;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+  }
+  .nav-bar button:hover { background: rgba(255,255,255,0.15); }
+  .nav-bar .counter { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 600; min-width: 60px; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- Slide 1: Titel -->
+  <div class="slide slide-title active" data-slide="0">
+    <div class="tag">Hoofdstuk 5 · Paragraaf 5.3</div>
+    <h1>De rijksbegroting</h1>
+    <p class="subtitle">Rijksbegroting · Miljoenennota · Prinsjesdag · Begrotingstekort · Staatsschuld · EMU-saldo</p>
+    <div class="brand">vlaconomie.nl · VWO 3</div>
+  </div>
+
+  <!-- Slide 2: Leerdoelen -->
+  <div class="slide slide-goals" data-slide="1">
+    <div class="header-bar">
+      <div class="icon-circle">🎯</div>
+      <h2>Leerdoelen</h2>
+    </div>
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-num">1</div>
+        <p>Ik kan uitleggen wat de <strong>rijksbegroting</strong> is en wat de <strong>Miljoenennota</strong> bevat.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">2</div>
+        <p>Ik kan beschrijven wat er op <strong>Prinsjesdag</strong> gebeurt en waarom dit belangrijk is.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">3</div>
+        <p>Ik kan het verschil uitleggen tussen een <strong>begrotingstekort</strong> en een <strong>begrotingsoverschot</strong>.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">4</div>
+        <p>Ik kan uitleggen wat de <strong>staatsschuld</strong> is en hoe het <strong>EMU-saldo</strong> werkt.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">5</div>
+        <p>Ik kan uitleggen hoe <strong>automatische stabilisatoren</strong> de economie beïnvloeden.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">6</div>
+        <p>Ik kan het verschil tussen <strong>Keynesiaans</strong> en <strong>klassiek</strong> begrotingsbeleid beschrijven.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: De rijksbegroting -->
+  <div class="slide slide-content" data-slide="2">
+    <div class="slide-header">
+      <div class="num">1</div>
+      <h2>De rijksbegroting</h2>
+    </div>
+    <div class="content-body">
+      <div class="content-main">
+        <p>De <span class="keyword">rijksbegroting</span> is het financiële jaarplan van de nationale overheid (het Rijk).</p>
+        <div style="display:flex;gap:24px;margin-top:28px;">
+          <div style="flex:1;background:white;border-radius:16px;padding:28px;border:1px solid #EADAD8;text-align:center;">
+            <div style="font-size:36px;margin-bottom:12px;">📥</div>
+            <h3 style="font-size:20px;color:var(--primary);margin-bottom:8px;">Inkomsten</h3>
+            <p style="font-size:16px;color:#555;">Hoeveel geld de overheid verwacht te <strong>ontvangen</strong> via belastingen en premies.</p>
+          </div>
+          <div style="flex:1;background:white;border-radius:16px;padding:28px;border:1px solid #EADAD8;text-align:center;">
+            <div style="font-size:36px;margin-bottom:12px;">📤</div>
+            <h3 style="font-size:20px;color:var(--primary);margin-bottom:8px;">Uitgaven</h3>
+            <p style="font-size:16px;color:#555;">Hoeveel de overheid verwacht uit te <strong>geven</strong> aan zorg, onderwijs, defensie, enz.</p>
+          </div>
+        </div>
+      </div>
+      <div class="content-side">
+        <div class="info-box">
+          <h3>💡 Belangrijk</h3>
+          <p>De begroting is een <strong>prognose</strong> voor het komende jaar en moet worden goedgekeurd door de Tweede en Eerste Kamer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Prinsjesdag -->
+  <div class="slide slide-content" data-slide="3">
+    <div class="slide-header">
+      <div class="num">2</div>
+      <h2>Prinsjesdag & de Miljoenennota</h2>
+    </div>
+    <div class="content-body">
+      <div style="flex:1;">
+        <p style="font-size:19px;line-height:1.7;color:#333;margin-bottom:28px;">Elk jaar op de <strong>derde dinsdag van september</strong> is het <span class="keyword">Prinsjesdag</span>. Er gebeuren drie dingen:</p>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="background:white;border-radius:16px;padding:24px 28px;border:1px solid #EADAD8;display:flex;align-items:flex-start;gap:16px;">
+            <div style="font-size:28px;">👑</div>
+            <div>
+              <h3 style="font-size:20px;color:var(--primary);margin-bottom:6px;">1. De Troonrede</h3>
+              <p style="font-size:17px;line-height:1.6;color:#555;">De koning leest in de Ridderzaal namens de regering de belangrijkste plannen voor het komende jaar voor.</p>
+            </div>
+          </div>
+          <div style="background:white;border-radius:16px;padding:24px 28px;border:1px solid #EADAD8;display:flex;align-items:flex-start;gap:16px;">
+            <div style="font-size:28px;">💼</div>
+            <div>
+              <h3 style="font-size:20px;color:var(--primary);margin-bottom:6px;">2. De Miljoenennota</h3>
+              <p style="font-size:17px;line-height:1.6;color:#555;">De minister van Financiën biedt de rijksbegroting aan in een koffer — de beroemde "koffertjesceremonie".</p>
+            </div>
+          </div>
+          <div style="background:white;border-radius:16px;padding:24px 28px;border:1px solid #EADAD8;display:flex;align-items:flex-start;gap:16px;">
+            <div style="font-size:28px;">📜</div>
+            <div>
+              <h3 style="font-size:20px;color:var(--primary);margin-bottom:6px;">3. Begrotingswetten</h3>
+              <p style="font-size:17px;line-height:1.6;color:#555;">Afzonderlijke begrotingen per ministerie worden als wetsvoorstellen ingediend bij het parlement.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Tekort vs Overschot -->
+  <div class="slide slide-content" data-slide="4">
+    <div class="slide-header">
+      <div class="num">3</div>
+      <h2>Begrotingstekort & -overschot</h2>
+    </div>
+    <div class="content-body">
+      <div style="flex:1;display:flex;gap:32px;">
+        <div style="flex:1;background:#FFF5F5;border-radius:20px;padding:40px;border:2px solid #FEB2B2;">
+          <div style="font-size:36px;margin-bottom:16px;">📉</div>
+          <h3 style="font-size:26px;color:#9B2C2C;margin-bottom:16px;">Begrotingstekort</h3>
+          <p style="font-size:18px;line-height:1.7;color:#444;">Uitgaven <strong>&gt;</strong> Inkomsten</p>
+          <p style="font-size:17px;line-height:1.7;color:#555;margin-top:12px;">De overheid moet het tekort financieren door te <strong>lenen</strong> (staatsobligaties uitgeven).</p>
+          <p style="font-size:17px;line-height:1.7;color:#9B2C2C;margin-top:12px;">→ Staatsschuld stijgt</p>
+        </div>
+        <div style="flex:1;background:#F0FFF4;border-radius:20px;padding:40px;border:2px solid #9AE6B4;">
+          <div style="font-size:36px;margin-bottom:16px;">📈</div>
+          <h3 style="font-size:26px;color:#22543D;margin-bottom:16px;">Begrotingsoverschot</h3>
+          <p style="font-size:18px;line-height:1.7;color:#444;">Inkomsten <strong>&gt;</strong> Uitgaven</p>
+          <p style="font-size:17px;line-height:1.7;color:#555;margin-top:12px;">Het overschot kan worden gebruikt om <strong>schulden af te lossen</strong>.</p>
+          <p style="font-size:17px;line-height:1.7;color:#22543D;margin-top:12px;">→ Staatsschuld daalt</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: EMU-saldo & EU-normen -->
+  <div class="slide slide-content" data-slide="5">
+    <div class="slide-header">
+      <div class="num">4</div>
+      <h2>EMU-saldo & EU-normen</h2>
+    </div>
+    <div class="content-body">
+      <div class="content-main">
+        <p>Het <span class="keyword">EMU-saldo</span> is het begrotingssaldo uitgedrukt als <strong>percentage van het bbp</strong>.</p>
+        <div class="highlight-card" style="margin-top:28px;">
+          <h3>📐 EU-normen (Stabiliteits- en Groeipact)</h3>
+          <ul style="list-style:none;padding:0;">
+            <li style="margin-bottom:12px;font-size:20px;">📊 Begrotingstekort: maximaal <strong>3%</strong> van het bbp</li>
+            <li style="font-size:20px;">💰 Staatsschuld: maximaal <strong>60%</strong> van het bbp</li>
+          </ul>
+          <p style="margin-top:16px;font-size:16px;opacity:0.8;">Landen die de grens overschrijden kunnen worden beboet.</p>
+        </div>
+      </div>
+      <div class="content-side">
+        <div class="info-box gold">
+          <h3>🌍 Wist je dat?</h3>
+          <p>De Nederlandse staatsschuld lag eind 2023 op ruim <strong>€470 miljard</strong> (circa 47% bbp) — ruim onder de EU-norm. Tijdens corona liep het tekort op tot meer dan <strong>4% bbp</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Staatsschuld -->
+  <div class="slide slide-content" data-slide="6">
+    <div class="slide-header">
+      <div class="num">5</div>
+      <h2>De staatsschuld</h2>
+    </div>
+    <div class="content-body">
+      <div class="content-main">
+        <p>De <span class="keyword">staatsschuld</span> is de <strong>totale schuld</strong> van de nationale overheid: de optelsom van alle begrotingstekorten uit het verleden.</p>
+        <p style="margin-top:16px;">Nederland leent geld door <span class="keyword">staatsobligaties</span> uit te geven: schuldbewijzen waarbij beleggers geld uitlenen aan de staat en rente ontvangen.</p>
+        <div style="display:flex;gap:24px;margin-top:28px;">
+          <div style="flex:1;background:#FFF5F5;border-radius:14px;padding:24px;border:1px solid #FEB2B2;">
+            <h3 style="font-size:18px;color:#9B2C2C;margin-bottom:8px;">⚠️ Nadelen hoge schuld</h3>
+            <ul style="font-size:16px;line-height:1.7;color:#555;padding-left:20px;">
+              <li>Elk jaar rente betalen</li>
+              <li>Minder geld voor zorg/onderwijs</li>
+              <li>Bij crisis: beperkte ruimte</li>
+            </ul>
+          </div>
+          <div style="flex:1;background:white;border-radius:14px;padding:24px;border:1px solid #EADAD8;">
+            <h3 style="font-size:18px;color:var(--primary);margin-bottom:8px;">📊 Schuldquote</h3>
+            <p style="font-size:16px;line-height:1.7;color:#555;">Staatsschuld als % van het bbp. EU-norm: max <strong>60%</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 8: Automatische stabilisatoren -->
+  <div class="slide slide-content" data-slide="7">
+    <div class="slide-header">
+      <div class="num">6</div>
+      <h2>Automatische stabilisatoren</h2>
+    </div>
+    <div class="content-body">
+      <div class="content-main">
+        <p><span class="keyword">Automatische stabilisatoren</span> zijn mechanismen die <strong>automatisch</strong> de economie dempen bij neergang en stimuleren bij groei — zonder extra overheidsbesluit.</p>
+        <div style="display:flex;gap:32px;margin-top:28px;">
+          <div style="flex:1;background:#FFF5F5;border-radius:16px;padding:28px;border:1px solid #FEB2B2;">
+            <h3 style="font-size:20px;color:#9B2C2C;margin-bottom:12px;">📉 Bij een recessie</h3>
+            <ul style="font-size:17px;line-height:1.7;color:#555;padding-left:20px;">
+              <li>Uitkeringsuitgaven stijgen automatisch (meer werklozen)</li>
+              <li>Belastinginkomsten dalen (lagere lonen/winsten)</li>
+              <li>→ Overheid pompt automatisch meer geld in de economie</li>
+            </ul>
+          </div>
+          <div style="flex:1;background:#F0FFF4;border-radius:16px;padding:28px;border:1px solid #9AE6B4;">
+            <h3 style="font-size:20px;color:#22543D;margin-bottom:12px;">📈 Bij hoogconjunctuur</h3>
+            <ul style="font-size:17px;line-height:1.7;color:#555;padding-left:20px;">
+              <li>Meer belastinginkomsten</li>
+              <li>Minder uitkeringen</li>
+              <li>→ Remt de economie automatisch af</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Keynesiaans vs Klassiek -->
+  <div class="slide slide-content" data-slide="8">
+    <div class="slide-header">
+      <div class="num">7</div>
+      <h2>Bezuinigen of investeren?</h2>
+    </div>
+    <div class="content-body">
+      <div style="flex:1;display:flex;gap:32px;">
+        <div style="flex:1;background:white;border-radius:20px;padding:40px;border:2px solid var(--accent-light);">
+          <div style="font-size:36px;margin-bottom:16px;">💡</div>
+          <h3 style="font-size:26px;color:var(--primary);margin-bottom:16px;">Keynesiaans beleid</h3>
+          <p style="font-size:18px;line-height:1.7;color:#444;">Bij een crisis: <strong>extra uitgaven</strong> doen (ook al stijgt de schuld) om de economie te stimuleren en werkgelegenheid te beschermen.</p>
+          <div style="margin-top:20px;background:var(--bg-warm);padding:16px 20px;border-radius:12px;">
+            <p style="font-size:16px;color:#555;">🔑 "De overheid moet juist in slechte tijden investeren."</p>
+          </div>
+        </div>
+        <div style="flex:1;background:white;border-radius:20px;padding:40px;border:2px solid var(--accent-light);">
+          <div style="font-size:36px;margin-bottom:16px;">✂️</div>
+          <h3 style="font-size:26px;color:var(--primary);margin-bottom:16px;">Klassiek beleid</h3>
+          <p style="font-size:18px;line-height:1.7;color:#444;">De overheid moet altijd voor een <strong>sluitende begroting</strong> zorgen en bij een tekort direct bezuinigen.</p>
+          <div style="margin-top:20px;background:var(--bg-warm);padding:16px 20px;border-radius:12px;">
+            <p style="font-size:16px;color:#555;">🔑 "Vertrouwen van de markt behouden is prioriteit."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 10: Begrippen -->
+  <div class="slide slide-content" data-slide="9">
+    <div class="slide-header">
+      <div class="num">📖</div>
+      <h2>Begrippen § 5.3</h2>
+    </div>
+    <div class="begrip-grid">
+      <div class="begrip-item">
+        <strong>Rijksbegroting</strong>
+        <span>Het financiële jaarplan van de nationale overheid met verwachte inkomsten en uitgaven.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Miljoenennota</strong>
+        <span>Het document waarmee de minister van Financiën op Prinsjesdag de begroting aanbiedt.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Prinsjesdag</strong>
+        <span>Derde dinsdag van september: Troonrede en Miljoenennota.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Begrotingstekort</strong>
+        <span>Uitgaven hoger dan inkomsten; de overheid moet lenen.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Begrotingsoverschot</strong>
+        <span>Inkomsten hoger dan uitgaven; de overheid kan schulden aflossen.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Staatsschuld</strong>
+        <span>Totale schuld van de overheid: optelsom van alle vroegere tekorten.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>EMU-saldo</strong>
+        <span>Begrotingssaldo als % van bbp; EU-norm: max -3%.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Automatische stabilisatoren</strong>
+        <span>Mechanismen die automatisch de economie stabiliseren zonder extra overheidsbesluit.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 11: Samenvatting -->
+  <div class="slide slide-title" data-slide="10" style="background: linear-gradient(135deg, var(--primary) 0%, #4A1612 100%);">
+    <div class="tag">Samenvatting § 5.3</div>
+    <h1 style="font-size:46px;">De overheid plant, leent<br>en stabiliseert</h1>
+    <p class="subtitle">Op Prinsjesdag presenteert de overheid haar begroting. Een tekort leidt tot lenen en een stijgende staatsschuld. Automatische stabilisatoren dempen schommelingen. Over bezuinigen of investeren zijn economen het niet eens.</p>
+    <div class="brand">vlaconomie.nl · VWO 3</div>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <button onclick="prevSlide()">◀</button>
+  <div class="counter"><span id="current">1</span> / <span id="total">11</span></div>
+  <button onclick="nextSlide()">▶</button>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  document.getElementById('total').textContent = total;
+
+  function showSlide(n) {
+    slides.forEach(s => s.classList.remove('active'));
+    current = ((n % total) + total) % total;
+    slides[current].classList.add('active');
+    document.getElementById('current').textContent = current + 1;
+  }
+
+  function nextSlide() { showSlide(current + 1); }
+  function prevSlide() { showSlide(current - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  });
+</script>
+
+</body>
+</html>

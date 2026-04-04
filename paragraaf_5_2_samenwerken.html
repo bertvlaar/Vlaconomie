@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§ 5.2 Samenwerken — Vlaconomie.nl</title>
+<meta name="description" content="Presentatie over samenwerken, het gevangenendilemma en meeliftersgedrag voor VWO leerjaar 3.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1E3A5F;
+    --primary-light: #2C5282;
+    --accent: #3182CE;
+    --accent-light: #63B3ED;
+    --bg: #F7FAFC;
+    --bg-warm: #EBF4FF;
+    --text: #1A202C;
+    --text-muted: #555;
+    --white: #FFFFFF;
+    --orange: #DD6B20;
+    --orange-light: #FEEBC8;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    background: #111;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .presentation { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 80px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .slide.active { opacity: 1; pointer-events: auto; }
+
+  .slide-title {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent) 100%);
+    color: white; text-align: center; align-items: center;
+  }
+  .slide-title .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 8px 24px; border-radius: 50px;
+    font-size: 16px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .slide-title h1 { font-size: 72px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
+  .slide-title .subtitle { font-size: 22px; font-weight: 400; opacity: 0.85; max-width: 700px; margin: 0 auto; line-height: 1.6; }
+  .slide-title .brand { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 14px; opacity: 0.5; letter-spacing: 3px; text-transform: uppercase; }
+
+  .slide-content { background: var(--bg); color: var(--text); }
+  .slide-content .slide-header { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+  .slide-content .slide-header .num {
+    width: 48px; height: 48px; min-width: 48px;
+    background: var(--primary); color: white; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 20px;
+  }
+  .slide-content .slide-header h2 { font-size: 38px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+
+  .content-body { display: flex; gap: 48px; flex: 1; align-items: flex-start; }
+  .content-main { flex: 1; }
+  .content-main p, .content-main li { font-size: 19px; line-height: 1.75; color: #333; }
+  .content-main ul, .content-main ol { padding-left: 24px; margin-top: 16px; }
+  .content-main li { margin-bottom: 12px; }
+  .content-side { width: 380px; min-width: 380px; }
+
+  .info-box {
+    background: var(--white); border-left: 5px solid var(--accent);
+    border-radius: 0 16px 16px 0; padding: 28px 32px; margin-bottom: 20px;
+  }
+  .info-box.orange { border-left-color: var(--orange); background: #FFFAF0; }
+  .info-box h3 { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+  .info-box p, .info-box li { font-size: 16px; line-height: 1.65; color: #444; }
+
+  .slide-goals { background: var(--bg); color: var(--text); }
+  .slide-goals .header-bar { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
+  .slide-goals .header-bar .icon-circle {
+    width: 56px; height: 56px; background: var(--primary); border-radius: 16px;
+    display: flex; align-items: center; justify-content: center; font-size: 28px; color: white;
+  }
+  .slide-goals .header-bar h2 { font-size: 42px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+
+  .goals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1100px; }
+  .goal-card {
+    background: var(--white); border: 1px solid #D2E0F0; border-radius: 16px;
+    padding: 28px 32px; display: flex; align-items: flex-start; gap: 16px;
+  }
+  .goal-num {
+    width: 36px; height: 36px; min-width: 36px; background: var(--accent-light);
+    color: var(--primary); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px;
+  }
+  .goal-card p { font-size: 17px; line-height: 1.6; color: var(--text); }
+
+  /* Dilemma table */
+  .dilemma-table {
+    width: 100%; max-width: 800px; border-collapse: separate; border-spacing: 0;
+    border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    margin: 24px auto 0;
+  }
+  .dilemma-table th, .dilemma-table td {
+    padding: 20px 24px; text-align: center; font-size: 17px;
+  }
+  .dilemma-table thead th { background: var(--primary); color: white; font-weight: 700; }
+  .dilemma-table tbody td { background: white; border-bottom: 1px solid #E2EAF4; }
+  .dilemma-table tbody tr:last-child td { border-bottom: none; }
+  .cell-best { background: #E6FFED !important; color: #22543D; font-weight: 700; }
+  .cell-worst { background: #FFF5F5 !important; color: #9B2C2C; font-weight: 700; }
+  .cell-mid { background: #FFFAF0 !important; color: #975A16; font-weight: 600; }
+
+  .highlight-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: 20px; padding: 40px 48px; color: white; margin-top: 24px;
+  }
+  .highlight-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 16px; }
+  .highlight-card p, .highlight-card li { font-size: 18px; line-height: 1.7; opacity: 0.95; }
+
+  .begrip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .begrip-item { background: white; border-radius: 14px; padding: 20px 24px; border: 1px solid #D2E0F0; }
+  .begrip-item strong { color: var(--primary); font-size: 17px; display: block; margin-bottom: 6px; }
+  .begrip-item span { font-size: 15px; line-height: 1.55; color: #555; }
+
+  .keyword { background: var(--bg-warm); padding: 2px 8px; border-radius: 6px; font-weight: 600; color: var(--primary); }
+
+  .nav-bar {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(30,58,95,0.9); backdrop-filter: blur(12px);
+    padding: 10px 20px; border-radius: 50px; z-index: 100;
+  }
+  .nav-bar button {
+    background: none; border: none; color: white; font-size: 22px; cursor: pointer;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+  }
+  .nav-bar button:hover { background: rgba(255,255,255,0.15); }
+  .nav-bar .counter { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 600; min-width: 60px; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- Slide 1: Titel -->
+  <div class="slide slide-title active" data-slide="0">
+    <div class="tag">Hoofdstuk 5 · Paragraaf 5.2</div>
+    <h1>Samenwerken</h1>
+    <p class="subtitle">Eigenbelang · Algemeen belang · Gevangenendilemma · Meeliftersgedrag · Belangenverstrengeling</p>
+    <div class="brand">vlaconomie.nl · VWO 3</div>
+  </div>
+
+  <!-- Slide 2: Leerdoelen -->
+  <div class="slide slide-goals" data-slide="1">
+    <div class="header-bar">
+      <div class="icon-circle">🎯</div>
+      <h2>Leerdoelen</h2>
+    </div>
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-num">1</div>
+        <p>Ik kan het verschil uitleggen tussen <strong>eigenbelang</strong> en <strong>algemeen belang</strong>.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">2</div>
+        <p>Ik kan het <strong>gevangenendilemma</strong> uitleggen met een concreet voorbeeld.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">3</div>
+        <p>Ik kan het <strong>meeliftersprobleem</strong> herkennen en verklaren.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">4</div>
+        <p>Ik kan uitleggen waarom <strong>samenwerking</strong> soms beter uitpakt dan ieder voor zich.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">5</div>
+        <p>Ik kan het begrip <strong>belangenverstrengeling</strong> herkennen en uitleggen.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Eigenbelang vs. Algemeen belang -->
+  <div class="slide slide-content" data-slide="2">
+    <div class="slide-header">
+      <div class="num">1</div>
+      <h2>Eigenbelang vs. Algemeen belang</h2>
+    </div>
+    <div class="content-body">
+      <div style="flex:1;display:flex;gap:32px;">
+        <div style="flex:1;background:white;border-radius:20px;padding:40px;border:2px solid var(--accent-light);">
+          <div style="font-size:36px;margin-bottom:16px;">🧑</div>
+          <h3 style="font-size:26px;color:var(--primary);margin-bottom:16px;">Eigenbelang</h3>
+          <p style="font-size:18px;line-height:1.7;color:#444;">De drang om je <strong>eigen voordeel</strong> te maximaliseren. De bakker bakt brood niet uit liefde, maar om geld te verdienen.</p>
+          <div style="margin-top:20px;background:var(--bg-warm);padding:16px 20px;border-radius:12px;">
+            <p style="font-size:16px;color:#555;">Prima — zolang het niet ten koste gaat van anderen.</p>
+          </div>
+        </div>
+        <div style="flex:1;background:white;border-radius:20px;padding:40px;border:2px solid var(--accent-light);">
+          <div style="font-size:36px;margin-bottom:16px;">🌍</div>
+          <h3 style="font-size:26px;color:var(--primary);margin-bottom:16px;">Algemeen belang</h3>
+          <p style="font-size:18px;line-height:1.7;color:#444;">Het belang van de <strong>samenleving als geheel</strong>. Soms botst dit met eigenbelang.</p>
+          <div style="margin-top:20px;background:#FFF5F5;padding:16px 20px;border-radius:12px;">
+            <p style="font-size:16px;color:#9B2C2C;">⚠️ Elk bedrijf wil goedkoop produceren → samen veroorzaken ze te veel CO₂.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Het gevangenendilemma - uitleg -->
+  <div class="slide slide-content" data-slide="3">
+    <div class="slide-header">
+      <div class="num">2</div>
+      <h2>Het gevangenendilemma</h2>
+    </div>
+    <div class="content-body">
+      <div class="content-main">
+        <p>Twee partijen die elk rationeel hun <span class="keyword">eigenbelang</span> nastreven, komen samen tot een <strong>slechtere uitkomst</strong> dan wanneer ze hadden samengewerkt.</p>
+        <table class="dilemma-table" style="margin-top:32px;">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Layla zwijgt</th>
+              <th>Layla verraadt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="background:var(--primary);color:white;font-weight:700;">Daan zwijgt</td>
+              <td class="cell-best">Elk 1 jaar ✅</td>
+              <td class="cell-mid">Daan 5 jr / Layla vrij</td>
+            </tr>
+            <tr>
+              <td style="background:var(--primary);color:white;font-weight:700;">Daan verraadt</td>
+              <td class="cell-mid">Daan vrij / Layla 5 jr</td>
+              <td class="cell-worst">Elk 3 jaar ❌</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="content-side">
+        <div class="info-box">
+          <h3>🔑 Conclusie</h3>
+          <p>Elk individu kiest rationeel voor verraden, maar samen leidt dat tot <strong>3 jaar</strong> — terwijl samenwerken maar <strong>1 jaar</strong> zou zijn!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Voorbeelden gevangenendilemma -->
+  <div class="slide slide-content" data-slide="4">
+    <div class="slide-header">
+      <div class="num">3</div>
+      <h2>Voorbeelden in de echte wereld</h2>
+    </div>
+    <div class="content-body">
+      <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;">
+        <div style="background:white;border-radius:16px;padding:32px 28px;border:1px solid #D2E0F0;text-align:center;">
+          <div style="font-size:40px;margin-bottom:12px;">🌡️</div>
+          <h3 style="font-size:20px;color:var(--primary);margin-bottom:12px;">Klimaatakkoorden</h3>
+          <p style="font-size:16px;line-height:1.6;color:#555;">Elk land wil dat anderen CO₂ verminderen, terwijl zij zelf goedkoop uitstoten. Als iedereen zo denkt, doet niemand iets.</p>
+        </div>
+        <div style="background:white;border-radius:16px;padding:32px 28px;border:1px solid #D2E0F0;text-align:center;">
+          <div style="font-size:40px;margin-bottom:12px;">📺</div>
+          <h3 style="font-size:20px;color:var(--primary);margin-bottom:12px;">Reclame-uitgaven</h3>
+          <p style="font-size:16px;line-height:1.6;color:#555;">Coca-Cola en Pepsi blijven adverteren, ook al zouden ze samen geld besparen door te stoppen.</p>
+        </div>
+        <div style="background:white;border-radius:16px;padding:32px 28px;border:1px solid #D2E0F0;text-align:center;">
+          <div style="font-size:40px;margin-bottom:12px;">🐟</div>
+          <h3 style="font-size:20px;color:var(--primary);margin-bottom:12px;">Overvisserij</h3>
+          <p style="font-size:16px;line-height:1.6;color:#555;">Elke visser wil zoveel mogelijk vangen. Samen vissen ze de zee leeg, terwijl afspraken beter zouden zijn.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Meeliftersgedrag -->
+  <div class="slide slide-content" data-slide="5">
+    <div class="slide-header">
+      <div class="num">4</div>
+      <h2>Meeliftersgedrag</h2>
+    </div>
+    <div class="content-body">
+      <div class="content-main">
+        <p><span class="keyword">Meeliftersgedrag</span> (free-rider probleem): iemand die profiteert van een collectief goed <strong>zonder er zelf aan bij te dragen</strong>.</p>
+        <p style="margin-top:16px;">Dit kan omdat het goed <strong>niet-uitsluitbaar</strong> is: je kunt de meelifter er niet van weerhouden te profiteren.</p>
+        <div style="background:white;border-radius:16px;padding:28px 32px;border:1px solid #D2E0F0;margin-top:28px;">
+          <h3 style="font-size:20px;color:var(--primary);margin-bottom:12px;">📐 Voorbeeld</h3>
+          <p style="font-size:17px;line-height:1.7;">Een straat van <strong>20 huishoudens</strong> wil camera's ophangen. Kosten: <strong>€2.000</strong>. Elk huishouden heeft €150 baat.</p>
+          <p style="margin-top:12px;font-size:17px;line-height:1.7;color:#9B2C2C;">❌ Elk huishouden denkt: "Als de rest betaalt, profiteer ik toch mee." → Niemand betaalt → Camera's komen er niet.</p>
+          <p style="margin-top:12px;font-size:17px;line-height:1.7;color:#22543D;">✅ Oplossing: de gemeente legt een verplichte buurtbijdrage op.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Oplossingen -->
+  <div class="slide slide-content" data-slide="6">
+    <div class="slide-header">
+      <div class="num">5</div>
+      <h2>Hoe lossen we dit op?</h2>
+    </div>
+    <div class="content-body">
+      <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div style="background:white;border-radius:16px;padding:32px;border:1px solid #D2E0F0;display:flex;align-items:flex-start;gap:16px;">
+          <div style="font-size:28px;">💰</div>
+          <div>
+            <h3 style="font-size:20px;color:var(--primary);margin-bottom:8px;">Verplichte bijdragen</h3>
+            <p style="font-size:17px;line-height:1.6;color:#555;">Belasting, contributie — iedereen betaalt mee.</p>
+          </div>
+        </div>
+        <div style="background:white;border-radius:16px;padding:32px;border:1px solid #D2E0F0;display:flex;align-items:flex-start;gap:16px;">
+          <div style="font-size:28px;">📝</div>
+          <div>
+            <h3 style="font-size:20px;color:var(--primary);margin-bottom:8px;">Bindende afspraken</h3>
+            <p style="font-size:17px;line-height:1.6;color:#555;">Contracten die afdwingbaar zijn.</p>
+          </div>
+        </div>
+        <div style="background:white;border-radius:16px;padding:32px;border:1px solid #D2E0F0;display:flex;align-items:flex-start;gap:16px;">
+          <div style="font-size:28px;">👁️</div>
+          <div>
+            <h3 style="font-size:20px;color:var(--primary);margin-bottom:8px;">Toezichthouder</h3>
+            <p style="font-size:17px;line-height:1.6;color:#555;">Overheid, rechter, internationale organisatie.</p>
+          </div>
+        </div>
+        <div style="background:white;border-radius:16px;padding:32px;border:1px solid #D2E0F0;display:flex;align-items:flex-start;gap:16px;">
+          <div style="font-size:28px;">🔄</div>
+          <div>
+            <h3 style="font-size:20px;color:var(--primary);margin-bottom:8px;">Herhaald samenwerken</h3>
+            <p style="font-size:17px;line-height:1.6;color:#555;">Als je morgen weer met iemand te maken hebt, gedraag je je eerder netjes vandaag.</p>
+          </div>
+        </div>
+      </div>
+      <div class="content-side" style="width:320px;min-width:320px;">
+        <div class="info-box orange">
+          <h3>🌍 Wist je dat?</h3>
+          <p style="font-size:15px;">De slimste strategie voor langetermijnsamenwerking is <strong>"tit-for-tat"</strong>: doe eerst aardig, en doe daarna precies wat de ander deed. Ontdekt in 1984 door Robert Axelrod.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 8: Belangenverstrengeling -->
+  <div class="slide slide-content" data-slide="7">
+    <div class="slide-header">
+      <div class="num">6</div>
+      <h2>Belangenverstrengeling</h2>
+    </div>
+    <div class="content-body">
+      <div class="content-main">
+        <p><span class="keyword">Belangenverstrengeling</span> doet zich voor wanneer iemand <strong>twee rollen</strong> heeft die tegenstrijdige belangen geven.</p>
+        <div style="display:flex;gap:24px;margin-top:32px;">
+          <div style="flex:1;background:white;border-radius:16px;padding:28px;border:1px solid #D2E0F0;">
+            <div style="font-size:28px;margin-bottom:12px;">🏛️</div>
+            <h3 style="font-size:18px;color:var(--primary);margin-bottom:8px;">Voorbeeld 1</h3>
+            <p style="font-size:16px;line-height:1.6;color:#555;">Een wethouder beslist over een bouwproject terwijl zijn familielid het bouwbedrijf leidt.</p>
+          </div>
+          <div style="flex:1;background:white;border-radius:16px;padding:28px;border:1px solid #D2E0F0;">
+            <div style="font-size:28px;margin-bottom:12px;">📊</div>
+            <h3 style="font-size:18px;color:var(--primary);margin-bottom:8px;">Voorbeeld 2</h3>
+            <p style="font-size:16px;line-height:1.6;color:#555;">Een accountant controleert de boekhouding van een bedrijf waarvoor hij ook advieswerk doet.</p>
+          </div>
+        </div>
+        <div class="highlight-card" style="margin-top:28px;">
+          <h3>⚠️ Waarom problematisch?</h3>
+          <p>Persoonlijke belangen kunnen het professionele oordeel beïnvloeden — dat ondermijnt de integriteit van publieke beslissingen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Begrippen -->
+  <div class="slide slide-content" data-slide="8">
+    <div class="slide-header">
+      <div class="num">📖</div>
+      <h2>Begrippen § 5.2</h2>
+    </div>
+    <div class="begrip-grid">
+      <div class="begrip-item">
+        <strong>Eigenbelang</strong>
+        <span>De drang van mensen of organisaties om hun eigen voordeel te maximaliseren.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Algemeen belang</strong>
+        <span>Het belang van de gehele samenleving.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Gevangenendilemma</strong>
+        <span>Rationeel eigenbelang leidt tot een slechtere uitkomst dan samenwerking.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Meeliftersgedrag</strong>
+        <span>Profiteren van een collectief goed zonder er zelf aan bij te dragen.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Free-rider probleem</strong>
+        <span>Niet-uitsluitbaarheid leidt tot meeliften, waardoor het goed niet geleverd wordt.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Samenwerking</strong>
+        <span>Afspraken om samen een betere uitkomst te bereiken dan bij puur eigenbelang.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Belangenverstrengeling</strong>
+        <span>Iemands persoonlijk belang kan zijn professionele of publieke taak beïnvloeden.</span>
+      </div>
+      <div class="begrip-item">
+        <strong>Kartel</strong>
+        <span>Geheime samenwerking tussen bedrijven om prijzen hoog te houden; verboden in de EU.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 10: Samenvatting -->
+  <div class="slide slide-title" data-slide="9" style="background: linear-gradient(135deg, var(--primary) 0%, #0F2744 100%);">
+    <div class="tag">Samenvatting § 5.2</div>
+    <h1 style="font-size:48px;">Samenwerken levert<br>meer op dan ieder voor zich</h1>
+    <p class="subtitle">Het gevangenendilemma toont dat eigenbelang tot slechtere uitkomsten leidt. Meeliftersgedrag ondermijnt collectieve goederen. Oplossingen: verplichte bijdragen, bindende afspraken en toezicht.</p>
+    <div class="brand">vlaconomie.nl · VWO 3</div>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <button onclick="prevSlide()">◀</button>
+  <div class="counter"><span id="current">1</span> / <span id="total">10</span></div>
+  <button onclick="nextSlide()">▶</button>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  document.getElementById('total').textContent = total;
+
+  function showSlide(n) {
+    slides.forEach(s => s.classList.remove('active'));
+    current = ((n % total) + total) % total;
+    slides[current].classList.add('active');
+    document.getElementById('current').textContent = current + 1;
+  }
+
+  function nextSlide() { showSlide(current + 1); }
+  function prevSlide() { showSlide(current - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  });
+</script>
+
+</body>
+</html>
