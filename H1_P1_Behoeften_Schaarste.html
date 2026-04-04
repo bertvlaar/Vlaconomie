@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>§1.1 Behoeften & Schaarste — Vlaconomie</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--gd:#1a7a4a;--gl:#2ecc71;
+  --goud:#f0c040;--goudd:#d4a012;--goudl:#fef9e4;
+  --donker:#0d1b12;--donkerp:#111c16;
+  --rood:#e53e3e;--blauw:#2d4a6e;
+  --wit:#ffffff;--licht:rgba(255,255,255,0.08);
+  --licht2:rgba(255,255,255,0.15);
+  --tekst:rgba(255,255,255,0.88);
+  --subtekst:rgba(255,255,255,0.55);
+}
+
+html,body{width:100%;height:100%;overflow:hidden;background:var(--donker)}
+body{font-family:'DM Sans',sans-serif;color:var(--wit)}
+
+/* ===== LAYOUT ===== */
+.presentatie{width:100vw;height:100vh;position:relative}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s ease, transform .5s ease;
+  transform:translateX(60px);
+}
+.slide.actief{opacity:1;pointer-events:auto;transform:translateX(0)}
+.slide.uit{opacity:0;transform:translateX(-60px)}
+
+/* ===== NAVIGATIE ===== */
+.nav-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:rgba(13,27,18,0.95);backdrop-filter:blur(12px);
+  border-top:1px solid rgba(240,192,64,0.2);
+  padding:12px 24px;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-btn{
+  background:none;border:2px solid rgba(240,192,64,0.4);color:var(--goud);
+  padding:8px 20px;border-radius:6px;cursor:pointer;font-family:'Lexend',sans-serif;
+  font-size:.8rem;font-weight:600;transition:all .2s;
+}
+.nav-btn:hover{background:var(--goud);color:var(--donker)}
+.nav-btn:disabled{opacity:.3;cursor:default}
+.slide-teller{font-family:'Lexend',sans-serif;font-size:.8rem;color:var(--subtekst);letter-spacing:1px}
+.voortgang{
+  position:fixed;top:0;left:0;right:0;height:3px;
+  background:rgba(255,255,255,0.1);z-index:100;
+}
+.voortgang-balk{height:100%;background:linear-gradient(90deg,var(--goud),var(--gl));transition:width .4s ease}
+
+/* ===== DECORATIEVE ELEMENTEN ===== */
+.bg-pattern{
+  position:absolute;inset:0;
+  background-image:radial-gradient(ellipse at 20% 20%, rgba(26,122,74,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(240,192,64,0.08) 0%, transparent 50%);
+  pointer-events:none;
+}
+.logo-badge{
+  position:absolute;top:20px;right:28px;
+  font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:700;
+  color:rgba(255,255,255,0.35);letter-spacing:1px;
+}
+.logo-badge em{color:var(--goud);font-style:normal}
+.par-badge{
+  display:inline-block;background:var(--goud);color:var(--donker);
+  font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:800;
+  padding:4px 14px;border-radius:20px;letter-spacing:.5px;margin-bottom:16px;
+}
+
+/* ===== TITELSLIDE ===== */
+.slide-titel{
+  background:linear-gradient(145deg,var(--donker) 0%,#0a2e1a 40%,#0d3520 100%);
+  justify-content:center;align-items:center;text-align:center;padding:60px 80px 80px;
+}
+.slide-titel .decorlijn{
+  width:80px;height:4px;background:linear-gradient(90deg,var(--goud),var(--gl));
+  border-radius:2px;margin:0 auto 40px;
+}
+.slide-titel h1{
+  font-family:'Lexend',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;
+  line-height:1.1;color:var(--wit);margin-bottom:16px;letter-spacing:-1px;
+}
+.slide-titel h1 em{color:var(--goud);font-style:normal}
+.slide-titel .subtitel{
+  font-size:clamp(1rem,2vw,1.3rem);color:var(--subtekst);font-weight:300;
+  line-height:1.6;max-width:680px;margin:0 auto 40px;
+}
+.slide-titel .begrippen-rij{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:32px;
+}
+.begrip-pill{
+  background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.7);padding:6px 14px;border-radius:20px;
+  font-size:.78rem;font-family:'Lexend',sans-serif;font-weight:500;
+}
+.grote-decorring{
+  position:absolute;width:500px;height:500px;border-radius:50%;
+  border:1px solid rgba(240,192,64,0.06);top:-100px;right:-100px;pointer-events:none;
+}
+.grote-decorring2{
+  position:absolute;width:700px;height:700px;border-radius:50%;
+  border:1px solid rgba(26,122,74,0.08);bottom:-200px;left:-200px;pointer-events:none;
+}
+
+/* ===== LEERDOELENSLIDE ===== */
+.slide-leerdoelen{
+  background:var(--donkerp);padding:60px 80px 80px;
+}
+.slide-leerdoelen .hdr{margin-bottom:40px}
+.slide-leerdoelen h2{
+  font-family:'Lexend',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:800;color:var(--wit);margin-bottom:8px;
+}
+.slide-leerdoelen .walt{
+  display:inline-block;background:var(--goud);color:var(--donker);
+  font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:800;
+  padding:3px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:20px;
+}
+.ld-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.ld-item{
+  background:var(--licht);border:1px solid rgba(255,255,255,0.1);
+  border-left:4px solid var(--goud);border-radius:0 8px 8px 0;
+  padding:16px 20px;display:flex;align-items:flex-start;gap:14px;
+}
+.ld-nr{
+  font-family:'Lexend',sans-serif;font-size:1.1rem;font-weight:800;
+  color:var(--goud);flex-shrink:0;line-height:1;margin-top:2px;
+}
+.ld-tekst{font-size:.92rem;line-height:1.6;color:var(--tekst)}
+.ld-tekst strong{color:var(--goud)}
+
+/* ===== INHOUDSSLIDE BASISSTIJL ===== */
+.slide-inhoud{
+  background:var(--donker);padding:48px 80px 80px;
+}
+.slide-inhoud .s-hdr{margin-bottom:32px}
+.slide-inhoud .s-hdr h2{
+  font-family:'Lexend',sans-serif;font-size:clamp(1.5rem,3vw,2.1rem);
+  font-weight:800;color:var(--wit);letter-spacing:-.5px;
+}
+.slide-inhoud .s-hdr .onderschrift{
+  font-size:.9rem;color:var(--subtekst);margin-top:6px;
+}
+.slide-inhoud .lijn{
+  width:50px;height:3px;background:linear-gradient(90deg,var(--goud),var(--gl));
+  border-radius:2px;margin:12px 0;
+}
+
+/* Twee-kolom layout */
+.kolommen{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.kolommen.breed{grid-template-columns:1.2fr 1fr}
+.kolommen.smal{grid-template-columns:1fr 1fr 1fr}
+
+/* Content blokken */
+.c-blok{
+  background:var(--licht);border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;padding:20px 22px;
+}
+.c-blok.goud{border-top:3px solid var(--goud)}
+.c-blok.groen{border-top:3px solid var(--gl)}
+.c-blok.rood{border-top:3px solid var(--rood)}
+.c-blok.blauw{border-top:3px solid #5b8dd9}
+.c-blok h3{
+  font-family:'Lexend',sans-serif;font-size:1rem;font-weight:700;
+  color:var(--goud);margin-bottom:12px;
+}
+.c-blok.groen h3{color:var(--gl)}
+.c-blok.rood h3{color:var(--rood)}
+.c-blok.blauw h3{color:#5b8dd9}
+.c-blok p,.c-blok li{font-size:.9rem;line-height:1.7;color:var(--tekst)}
+.c-blok ul{list-style:none;padding:0}
+.c-blok ul li{padding:4px 0;padding-left:16px;position:relative}
+.c-blok ul li::before{content:'→';position:absolute;left:0;color:var(--goud);font-weight:700}
+.c-blok.groen ul li::before{color:var(--gl)}
+.c-blok strong{color:var(--goud)}
+
+/* Grote definitiebox */
+.def-blok{
+  background:linear-gradient(135deg,rgba(240,192,64,0.12),rgba(240,192,64,0.05));
+  border:1px solid rgba(240,192,64,0.3);border-radius:12px;padding:22px 26px;
+  margin-bottom:20px;
+}
+.def-blok .def-label{
+  font-family:'Lexend',sans-serif;font-size:.68rem;font-weight:800;
+  color:var(--goud);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;
+}
+.def-blok .def-tekst{font-size:1rem;line-height:1.8;color:var(--tekst)}
+.def-blok strong{color:var(--goud)}
+
+/* Vergelijkingstabel-stijl */
+.vs-rij{display:flex;gap:16px;margin-bottom:16px}
+.vs-kant{
+  flex:1;background:var(--licht);border-radius:10px;padding:16px;
+  border-top:3px solid var(--gl);
+}
+.vs-kant.rood-top{border-top-color:var(--rood)}
+.vs-kant h4{font-family:'Lexend',sans-serif;font-size:.85rem;font-weight:700;color:var(--gl);margin-bottom:10px}
+.vs-kant.rood-top h4{color:var(--rood)}
+.vs-kant ul{list-style:none;font-size:.85rem;line-height:1.8;color:var(--tekst)}
+
+/* Statistiek-bar */
+.stat-rij{display:flex;gap:12px;margin-top:16px}
+.stat{
+  flex:1;background:var(--licht);border:1px solid rgba(255,255,255,0.08);
+  border-radius:10px;padding:16px;text-align:center;
+}
+.stat-getal{font-family:'Lexend',sans-serif;font-size:1.8rem;font-weight:900;color:var(--goud)}
+.stat-label{font-size:.72rem;color:var(--subtekst);margin-top:4px;line-height:1.4}
+
+/* Voorbeeld/quote blok */
+.vc-blok{
+  background:rgba(240,192,64,0.06);border-left:4px solid var(--goud);
+  border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0;
+}
+.vc-blok .vc-label{font-size:.68rem;font-weight:700;color:var(--goud);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.vc-blok p{font-size:.88rem;line-height:1.65;color:var(--tekst)}
+
+/* Piramide */
+.piramide-wrap{display:flex;flex-direction:column;gap:6px;margin:12px 0}
+.pir-laag{
+  border-radius:6px;color:var(--donker);font-family:'Lexend',sans-serif;
+  font-weight:700;font-size:.85rem;padding:12px 16px;text-align:center;
+}
+.pir-sec{background:var(--goudd);width:90%;margin:0 auto}
+.pir-pri{background:var(--gd);width:100%}
+.pir-sub{font-size:.7rem;font-weight:400;margin-top:3px;opacity:.85}
+
+/* Schema schaarste */
+.schaarste-schema{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin-top:12px}
+.ss-box{border-radius:10px;padding:16px;text-align:center}
+.ss-box h4{font-family:'Lexend',sans-serif;font-size:.8rem;font-weight:700;margin-bottom:10px}
+.ss-box ul{list-style:none;font-size:.8rem;line-height:1.9;color:var(--tekst)}
+.ss-links{background:rgba(229,62,62,0.12);border:1px solid rgba(229,62,62,0.3)}
+.ss-links h4{color:var(--rood)}
+.ss-rechts{background:rgba(93,148,219,0.12);border:1px solid rgba(93,148,219,0.3)}
+.ss-rechts h4{color:#5b8dd9}
+.ss-midden{
+  background:rgba(240,192,64,0.1);border:1px solid rgba(240,192,64,0.3);
+  border-radius:8px;padding:12px 10px;text-align:center;
+  font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:800;color:var(--goud);
+}
+
+/* Goederen/Diensten kaarten */
+.gd-kaarten{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.gd-k{border-radius:10px;padding:16px}
+.gd-k-g{background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.25)}
+.gd-k-d{background:rgba(93,148,219,0.08);border:1px solid rgba(93,148,219,0.25)}
+.gd-k h4{font-family:'Lexend',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:10px}
+.gd-k-g h4{color:var(--gl)}
+.gd-k-d h4{color:#5b8dd9}
+.gd-k ul{list-style:none;font-size:.83rem;line-height:1.9;color:var(--tekst)}
+.gd-k .tip{font-size:.72rem;margin-top:8px;padding:6px 10px;border-radius:5px;font-style:italic;color:rgba(255,255,255,0.6)}
+.gd-k-g .tip{background:rgba(46,204,113,0.1)}
+.gd-k-d .tip{background:rgba(93,148,219,0.1)}
+
+/* Afsluiterslide */
+.slide-afsluiter{
+  background:linear-gradient(145deg,var(--donker),#0a2e1a 60%,#0d3520);
+  justify-content:center;align-items:center;text-align:center;padding:60px 80px 80px;
+}
+.slide-afsluiter h2{
+  font-family:'Lexend',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-weight:900;color:var(--wit);margin-bottom:16px;
+}
+.samenvatting-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:32px 0;text-align:left;
+}
+.sam-item{
+  background:var(--licht);border:1px solid rgba(255,255,255,0.1);
+  border-top:3px solid var(--goud);border-radius:8px;padding:14px;
+}
+.sam-item h4{font-family:'Lexend',sans-serif;font-size:.78rem;font-weight:700;color:var(--goud);margin-bottom:8px}
+.sam-item p{font-size:.75rem;line-height:1.5;color:var(--tekst)}
+.check-tekst{font-size:.95rem;color:var(--subtekst);max-width:600px;margin:0 auto}
+
+/* ===== KEYFRAME ANIMATIES ===== */
+@keyframes inschuiven{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.slide.actief .animate-in{animation:inschuiven .5s ease both}
+.slide.actief .animate-in:nth-child(1){animation-delay:.1s}
+.slide.actief .animate-in:nth-child(2){animation-delay:.2s}
+.slide.actief .animate-in:nth-child(3){animation-delay:.3s}
+.slide.actief .animate-in:nth-child(4){animation-delay:.4s}
+.slide.actief .animate-in:nth-child(5){animation-delay:.5s}
+</style>
+</head>
+<body>
+<div class="voortgang"><div class="voortgang-balk" id="vBalk" style="width:12.5%"></div></div>
+
+<div class="presentatie" id="pres">
+
+<!-- ===== SLIDE 1: TITEL ===== -->
+<div class="slide slide-titel actief" id="s0">
+  <div class="bg-pattern"></div>
+  <div class="grote-decorring"></div>
+  <div class="grote-decorring2"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div style="z-index:1;width:100%;max-width:800px">
+    <div class="par-badge">§ 1.1 · Hoofdstuk 1</div>
+    <div class="decorlijn" style="width:80px;height:4px;background:linear-gradient(90deg,var(--goud),var(--gl));border-radius:2px;margin:0 0 32px"></div>
+    <h1>Behoeften,<br><em>schaarste</em> &amp;<br>keuzes</h1>
+    <p class="subtitel">Economie als wetenschap van het kiezen — waarom iedereen, rijk of arm, keuzes moet maken.</p>
+    <div class="begrippen-rij">
+      <span class="begrip-pill">Behoeften</span>
+      <span class="begrip-pill">Schaarste</span>
+      <span class="begrip-pill">Primair &amp; secundair</span>
+      <span class="begrip-pill">Goederen &amp; diensten</span>
+      <span class="begrip-pill">Consumeren</span>
+      <span class="begrip-pill">Alternatief aanwendbaar</span>
+    </div>
+    <div style="margin-top:40px;font-size:.78rem;color:var(--subtekst);font-family:'Lexend',sans-serif;letter-spacing:.5px">3 VWO · Economie · Vlaconomie.nl</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: LEERDOELEN ===== -->
+<div class="slide slide-leerdoelen" id="s1">
+  <div class="bg-pattern"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="hdr animate-in">
+    <div class="par-badge">§ 1.1 · Leerdoelen</div>
+    <div class="walt">WALT — WE ARE LEARNING TO</div>
+    <h2>Wat ga je leren?</h2>
+    <p style="color:var(--subtekst);font-size:.9rem;margin-top:8px">Aan het einde van de les kun je het volgende:</p>
+  </div>
+  <div class="ld-grid animate-in">
+    <div class="ld-item">
+      <div class="ld-nr">01</div>
+      <div class="ld-tekst">Ik kan <strong>behoeften omschrijven</strong> en onderscheid maken tussen primaire en secundaire behoeften, met voorbeelden.</div>
+    </div>
+    <div class="ld-item">
+      <div class="ld-nr">02</div>
+      <div class="ld-tekst">Ik kan <strong>schaarste uitleggen</strong> als het kernprobleem van economie en begrijp waarom het voor iedereen geldt.</div>
+    </div>
+    <div class="ld-item">
+      <div class="ld-nr">03</div>
+      <div class="ld-tekst">Ik kan <strong>goederen en diensten</strong> onderscheiden en concrete voorbeelden correct classificeren.</div>
+    </div>
+    <div class="ld-item">
+      <div class="ld-nr">04</div>
+      <div class="ld-tekst">Ik kan <strong>consumeren</strong> en <strong>alternatief aanwendbaar</strong> uitleggen en toepassen in een eigen voorbeeld.</div>
+    </div>
+  </div>
+  <div style="margin-top:20px;padding:14px 20px;background:rgba(240,192,64,0.08);border:1px solid rgba(240,192,64,0.2);border-radius:8px;font-size:.83rem;color:var(--subtekst)" class="animate-in">
+    🎯 <strong style="color:var(--goud)">Centrale vraag:</strong> Waarom moeten mensen, hoe rijk ook, altijd keuzes maken?
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: BEHOEFTEN ===== -->
+<div class="slide slide-inhoud" id="s2">
+  <div class="bg-pattern"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="s-hdr animate-in">
+    <div class="par-badge">§ 1.1</div>
+    <h2>Behoeften — onbeperkt en oneindig</h2>
+    <div class="lijn"></div>
+  </div>
+  <div class="kolommen animate-in">
+    <div>
+      <div class="def-blok">
+        <div class="def-label">definitie</div>
+        <div class="def-tekst"><strong>Behoeften</strong> zijn alles wat mensen willen of nodig hebben. Ze zijn <strong>onbeperkt</strong> — zodra één behoefte is bevredigd, duiken er nieuwe op.</div>
+      </div>
+      <div class="piramide-wrap">
+        <div class="pir-laag pir-sec">Secundaire behoeften
+          <div class="pir-sub">Smartphone · vakantie · entertainment · status</div>
+        </div>
+        <div class="pir-laag pir-pri">Primaire behoeften
+          <div class="pir-sub">Eten · drinken · onderdak · kleding · veiligheid</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="c-blok goud" style="margin-bottom:14px">
+        <h3>🔴 Primaire behoeften</h3>
+        <ul>
+          <li>Noodzakelijk voor <strong>overleven</strong></li>
+          <li>Eten, drinken, onderdak</li>
+          <li>Kleding, veiligheid, slaap</li>
+        </ul>
+      </div>
+      <div class="c-blok groen">
+        <h3>🟡 Secundaire behoeften</h3>
+        <ul>
+          <li>Alles <strong>boven het overleven</strong></li>
+          <li>Luxe, status, comfort</li>
+          <li>Smartphone, vakantie, sport</li>
+        </ul>
+      </div>
+      <div class="vc-blok" style="margin-top:14px">
+        <div class="vc-label">Let op!</div>
+        <p>Wat primair is kan per context verschillen. Het onderscheid gaat over <strong>noodzaak vs. wens</strong>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: SCHAARSTE ===== -->
+<div class="slide slide-inhoud" id="s3">
+  <div class="bg-pattern"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="s-hdr animate-in">
+    <div class="par-badge">§ 1.1</div>
+    <h2>Schaarste — het kernprobleem van economie</h2>
+    <div class="lijn"></div>
+  </div>
+  <div class="animate-in">
+    <div class="def-blok">
+      <div class="def-label">definitie</div>
+      <div class="def-tekst"><strong>Schaarste</strong> ontstaat doordat behoeften altijd <strong>groter zijn</strong> dan de beschikbare middelen (geld, tijd, grondstoffen, ruimte). Dit is het centrale probleem van economie — het dwingt iedereen tot keuzes.</div>
+    </div>
+    <div class="schaarste-schema">
+      <div class="ss-box ss-links">
+        <h4>🔴 Behoeften (onbeperkt)</h4>
+        <ul>
+          <li>Nieuwe sneakers</li>
+          <li>Hockeykamp</li>
+          <li>Nieuwe telefoon</li>
+          <li>Festivalkaartje</li>
+          <li>Nieuwe fiets…</li>
+        </ul>
+      </div>
+      <div class="ss-midden">VS<br><br>⬆<br>SCHAARSTE<br>⬇<br><br>Dus: KIEZEN</div>
+      <div class="ss-box ss-rechts">
+        <h4>🔵 Middelen (beperkt)</h4>
+        <ul>
+          <li>€150 zakgeld/mnd</li>
+          <li>24 uur per dag</li>
+          <li>Beperkte energie</li>
+          <li>Beperkte ruimte</li>
+          <li>Beperkt talent</li>
+        </ul>
+      </div>
+    </div>
+    <div class="stat-rij" style="margin-top:16px">
+      <div class="stat"><div class="stat-getal">∞</div><div class="stat-label">Behoeften — altijd onbeperkt</div></div>
+      <div class="stat"><div class="stat-getal">24 u</div><div class="stat-label">Iedereen heeft dezelfde tijdsgrens</div></div>
+      <div class="stat"><div class="stat-getal">€150</div><div class="stat-label">Voorbeeld zakgeld — beperkt budget</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: GOEDEREN & DIENSTEN ===== -->
+<div class="slide slide-inhoud" id="s4">
+  <div class="bg-pattern"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="s-hdr animate-in">
+    <div class="par-badge">§ 1.1</div>
+    <h2>Goederen &amp; diensten — consumeren</h2>
+    <div class="lijn"></div>
+  </div>
+  <div class="animate-in">
+    <div class="def-blok">
+      <div class="def-label">definitie</div>
+      <div class="def-tekst"><strong>Consumeren</strong> = het gebruik van goederen en diensten om in behoeften te voorzien. We kopen <strong>goederen</strong> (tastbaar) of <strong>diensten</strong> (niet-tastbaar).</div>
+    </div>
+    <div class="gd-kaarten">
+      <div class="gd-k gd-k-g">
+        <h4>📦 Goederen (tastbaar)</h4>
+        <ul>
+          <li>Brood uit de bakkerij</li>
+          <li>Laptop / smartphone</li>
+          <li>Fles frisdrank</li>
+          <li>Voetbalschoenen</li>
+        </ul>
+        <div class="tip">Kun je het in een tas stoppen? → Goed ✓</div>
+      </div>
+      <div class="gd-k gd-k-d">
+        <h4>🤝 Diensten (niet-tastbaar)</h4>
+        <ul>
+          <li>Knipbeurt bij de kapper</li>
+          <li>Busrit / vlucht</li>
+          <li>Muziekles / bijles</li>
+          <li>Bioscoop</li>
+        </ul>
+        <div class="tip">Is het een handeling ter plekke? → Dienst ✓</div>
+      </div>
+    </div>
+    <div class="vc-blok" style="margin-top:12px">
+      <div class="vc-label">Truc om te onthouden</div>
+      <p>Een <strong>goed</strong> kun je meenemen na aankoop. Een <strong>dienst</strong> wordt ter plekke geproduceerd én geconsumeerd. Een liveconcert = dienst. De CD achteraf kopen = goed.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: ALTERNATIEF AANWENDBAAR ===== -->
+<div class="slide slide-inhoud" id="s5">
+  <div class="bg-pattern"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="s-hdr animate-in">
+    <div class="par-badge">§ 1.1</div>
+    <h2>Alternatief aanwendbaar</h2>
+    <div class="lijn"></div>
+  </div>
+  <div class="kolommen animate-in">
+    <div>
+      <div class="def-blok">
+        <div class="def-label">definitie</div>
+        <div class="def-tekst">Middelen zijn <strong>alternatief aanwendbaar</strong>: ze kunnen voor meerdere doeleinden worden ingezet. Kiezen voor A betekent <strong>afzien van B</strong>.</div>
+      </div>
+      <div class="c-blok goud" style="margin-top:16px">
+        <h3>📌 Voorbeeld — Lotte heeft €200</h3>
+        <ul>
+          <li>Optie A: Voetbalschoenen €120</li>
+          <li>Optie B: Weekendje weg €160</li>
+          <li>Optie C: Fotografie cursus €80</li>
+          <li style="margin-top:8px;color:rgba(255,255,255,0.6)">Kiest ze A+C (€200) → B vervalt</li>
+          <li style="color:rgba(255,255,255,0.6)">Geld is alternatief aanwendbaar!</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="c-blok groen">
+        <h3>⏰ Tijd als schaars middel</h3>
+        <ul>
+          <li>Bijbaan ↔ studie</li>
+          <li>Sport ↔ vrienden</li>
+          <li>Slapen ↔ gamen</li>
+          <li>24 uur is het maximum</li>
+        </ul>
+      </div>
+      <div class="vc-blok" style="margin-top:16px">
+        <div class="vc-label">Verbinding met schaarste</div>
+        <p>Alternatief aanwendbaar <strong>maakt schaarste voelbaar</strong>: elke keuze voor het één is een keuze tégen iets anders. Dat is waarom kiezen moeilijk is.</p>
+      </div>
+      <div style="margin-top:14px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:8px;padding:13px;font-size:.83rem;color:var(--tekst)">
+        💡 <strong style="color:var(--gl)">Wist je dat?</strong> Adam Smith schreef al in 1776 dat schaarste universeel is. Zelfs de VS — de grootste economie ter wereld — heeft een enorme staatsschuld.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: RODE DRAAD ===== -->
+<div class="slide slide-inhoud" id="s6">
+  <div class="bg-pattern"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="s-hdr animate-in">
+    <div class="par-badge">§ 1.1</div>
+    <h2>De rode draad van §1.1</h2>
+    <div class="lijn"></div>
+  </div>
+  <div class="animate-in" style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="background:rgba(229,62,62,0.15);border:1px solid rgba(229,62,62,0.3);border-radius:8px;padding:12px 16px;flex:1;font-size:.9rem;color:var(--tekst)">
+        <strong style="color:var(--rood)">Behoeften</strong> zijn onbeperkt — primair (overleven) én secundair (alles daarboven)
+      </div>
+      <div style="color:var(--goud);font-size:1.4rem;font-weight:700">→</div>
+      <div style="background:rgba(240,192,64,0.1);border:1px solid rgba(240,192,64,0.3);border-radius:8px;padding:12px 16px;flex:1;font-size:.9rem;color:var(--tekst)">
+        <strong style="color:var(--goud)">Schaarste</strong> ontstaat: middelen (geld, tijd) zijn altijd beperkt
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.25);border-radius:8px;padding:12px 16px;flex:1;font-size:.9rem;color:var(--tekst)">
+        <strong style="color:var(--gl)">Consumeren</strong> = goederen (tastbaar) en diensten (niet-tastbaar) gebruiken
+      </div>
+      <div style="color:var(--goud);font-size:1.4rem;font-weight:700">→</div>
+      <div style="background:rgba(93,148,219,0.08);border:1px solid rgba(93,148,219,0.25);border-radius:8px;padding:12px 16px;flex:1;font-size:.9rem;color:var(--tekst)">
+        <strong style="color:#5b8dd9">Alternatief aanwendbaar</strong>: kiezen voor A = afzien van B
+      </div>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,rgba(15,77,46,0.4),rgba(26,122,74,0.2));border:1px solid rgba(26,122,74,0.4);border-radius:12px;padding:20px 24px" class="animate-in">
+    <div style="font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:800;color:var(--goud);letter-spacing:1.5px;margin-bottom:10px">🔴 CENTRALE GEDACHTE §1.1</div>
+    <p style="font-size:1rem;line-height:1.8;color:var(--tekst)">Schaarste is het <strong style="color:var(--goud)">centrale probleem van economie</strong>. Behoeften zijn altijd groter dan middelen — dit dwingt iedereen (arm én rijk) tot keuzes. Elke keuze voor het één is een keuze tégen iets anders. Dit noemen we alternatief aanwendbaar.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: AFSLUITER ===== -->
+<div class="slide slide-afsluiter" id="s7">
+  <div class="bg-pattern"></div>
+  <div class="grote-decorring"></div>
+  <div class="grote-decorring2"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div style="z-index:1;width:100%;max-width:900px" class="animate-in">
+    <div class="par-badge">§ 1.1 · Samenvatting</div>
+    <h2>Wat heb je geleerd?</h2>
+    <p style="color:var(--subtekst);font-size:.9rem;margin-bottom:24px">Check jezelf — ken je deze begrippen?</p>
+    <div class="samenvatting-grid">
+      <div class="sam-item">
+        <h4>Behoeften</h4>
+        <p>Dingen die mensen willen of nodig hebben; zijn onbeperkt.</p>
+      </div>
+      <div class="sam-item">
+        <h4>Schaarste</h4>
+        <p>Behoeften zijn groter dan beschikbare middelen; dwingt tot keuzes.</p>
+      </div>
+      <div class="sam-item">
+        <h4>Goederen &amp; diensten</h4>
+        <p>Goederen = tastbaar. Diensten = niet-tastbaar, ter plekke.</p>
+      </div>
+      <div class="sam-item">
+        <h4>Alternatief aanwendbaar</h4>
+        <p>Middelen hebben meerdere bestemmingen; kiezen voor A = afzien van B.</p>
+      </div>
+    </div>
+    <p class="check-tekst">📚 Meer oefenen? Ga naar <strong style="color:var(--goud)">vlaconomie.nl → §1.1</strong> voor interactieve opdrachten en herhaling.</p>
+  </div>
+</div>
+
+</div><!-- /presentatie -->
+
+<!-- ===== NAVIGATIE ===== -->
+<div class="nav-bar">
+  <button class="nav-btn" id="btnVorig" onclick="navigeer(-1)" disabled>← Vorige</button>
+  <span class="slide-teller" id="teller">1 / 8</span>
+  <button class="nav-btn" id="btnVolgende" onclick="navigeer(1)">Volgende →</button>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+let huidig=0;
+
+function navigeer(richting){
+  const oud=huidig;
+  huidig=Math.max(0,Math.min(slides.length-1,huidig+richting));
+  if(huidig===oud)return;
+  slides[oud].classList.remove('actief');
+  slides[oud].classList.add('uit');
+  setTimeout(()=>slides[oud].classList.remove('uit'),500);
+  slides[huidig].classList.add('actief');
+  update();
+}
+
+function update(){
+  document.getElementById('teller').textContent=(huidig+1)+' / '+slides.length;
+  document.getElementById('btnVorig').disabled=huidig===0;
+  document.getElementById('btnVolgende').disabled=huidig===slides.length-1;
+  document.getElementById('vBalk').style.width=((huidig+1)/slides.length*100)+'%';
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')navigeer(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')navigeer(-1);
+});
+
+update();
+</script>
+</body>
+</html>

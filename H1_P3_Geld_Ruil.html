@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>§1.3 Geld & Ruil — Vlaconomie</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --goud:#f0c040;--goudd:#d4a012;--goudl:rgba(240,192,64,0.12);
+  --groen:#1a7a4a;--gl:#2ecc71;
+  --donker:#1a1200;--donkerp:#201800;
+  --rood:#e53e3e;--blauw:#5b8dd9;
+  --wit:#ffffff;--licht:rgba(255,255,255,0.07);
+  --tekst:rgba(255,255,255,0.88);--subtekst:rgba(255,255,255,0.5);
+}
+html,body{width:100%;height:100%;overflow:hidden;background:#14100a}
+body{font-family:'DM Sans',sans-serif;color:var(--wit)}
+
+.presentatie{width:100vw;height:100vh;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .5s ease,transform .5s ease;transform:translateX(60px)}
+.slide.actief{opacity:1;pointer-events:auto;transform:translateX(0)}
+.slide.uit{opacity:0;transform:translateX(-60px)}
+
+.nav-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(20,16,10,0.96);backdrop-filter:blur(12px);border-top:1px solid rgba(240,192,64,0.2);padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.nav-btn{background:none;border:2px solid rgba(240,192,64,0.4);color:var(--goud);padding:8px 20px;border-radius:6px;cursor:pointer;font-family:'Lexend',sans-serif;font-size:.8rem;font-weight:600;transition:all .2s}
+.nav-btn:hover{background:var(--goud);color:#14100a}
+.nav-btn:disabled{opacity:.3;cursor:default}
+.slide-teller{font-family:'Lexend',sans-serif;font-size:.8rem;color:var(--subtekst);letter-spacing:1px}
+.voortgang{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,0.1);z-index:100}
+.voortgang-balk{height:100%;background:linear-gradient(90deg,var(--goudd),var(--goud));transition:width .4s ease}
+
+.bg-gold{position:absolute;inset:0;background-image:radial-gradient(ellipse at 10% 20%,rgba(240,192,64,0.08) 0%,transparent 50%),radial-gradient(ellipse at 90% 85%,rgba(212,160,18,0.06) 0%,transparent 50%);pointer-events:none}
+.logo-badge{position:absolute;top:20px;right:28px;font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:1px}
+.logo-badge em{color:var(--goud);font-style:normal}
+.par-badge{display:inline-block;background:var(--goud);color:#14100a;font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:800;padding:4px 14px;border-radius:20px;letter-spacing:.5px;margin-bottom:16px}
+
+.slide-titel{background:linear-gradient(145deg,#14100a 0%,#1e1500 40%,#241a00 100%);justify-content:center;align-items:center;text-align:center;padding:60px 80px 80px}
+.slide-titel h1{font-family:'Lexend',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.1;color:var(--wit);margin-bottom:16px;letter-spacing:-1px}
+.slide-titel h1 em{color:var(--goud);font-style:normal}
+.slide-titel .subtitel{font-size:clamp(1rem,2vw,1.3rem);color:var(--subtekst);font-weight:300;line-height:1.6;max-width:680px;margin:0 auto 40px}
+.begrippen-rij{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:32px}
+.begrip-pill{background:rgba(240,192,64,0.1);border:1px solid rgba(240,192,64,0.2);color:rgba(240,192,64,0.8);padding:6px 14px;border-radius:20px;font-size:.78rem;font-family:'Lexend',sans-serif;font-weight:500}
+.grote-ring{position:absolute;width:600px;height:600px;border-radius:50%;border:1px solid rgba(240,192,64,0.07);top:-150px;right:-150px;pointer-events:none}
+
+.slide-leerdoelen{background:#14100a;padding:60px 80px 80px}
+.slide-leerdoelen h2{font-family:'Lexend',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--wit);margin-bottom:8px}
+.walt{display:inline-block;background:var(--goud);color:#14100a;font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:800;padding:3px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:20px}
+.ld-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.ld-item{background:var(--licht);border:1px solid rgba(255,255,255,0.1);border-left:4px solid var(--goud);border-radius:0 8px 8px 0;padding:16px 20px;display:flex;align-items:flex-start;gap:14px}
+.ld-nr{font-family:'Lexend',sans-serif;font-size:1.1rem;font-weight:800;color:var(--goud);flex-shrink:0;line-height:1;margin-top:2px}
+.ld-tekst{font-size:.92rem;line-height:1.6;color:var(--tekst)}
+.ld-tekst strong{color:var(--goud)}
+
+.slide-inhoud{background:#14100a;padding:48px 80px 80px}
+.s-hdr{margin-bottom:28px}
+.s-hdr h2{font-family:'Lexend',sans-serif;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;color:var(--wit);letter-spacing:-.5px}
+.lijn{width:50px;height:3px;background:linear-gradient(90deg,var(--goud),var(--goudd));border-radius:2px;margin:12px 0}
+.kolommen{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.drie-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+.def-blok{background:var(--goudl);border:1px solid rgba(240,192,64,0.25);border-radius:12px;padding:20px 24px;margin-bottom:16px}
+.def-label{font-family:'Lexend',sans-serif;font-size:.68rem;font-weight:800;color:var(--goud);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.def-tekst{font-size:.95rem;line-height:1.8;color:var(--tekst)}
+.def-tekst strong{color:var(--goud)}
+
+.c-blok{background:var(--licht);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 20px}
+.c-blok.goud{border-top:3px solid var(--goud)}
+.c-blok.groen{border-top:3px solid var(--gl)}
+.c-blok.rood{border-top:3px solid var(--rood)}
+.c-blok.blauw{border-top:3px solid var(--blauw)}
+.c-blok h3{font-family:'Lexend',sans-serif;font-size:.95rem;font-weight:700;color:var(--goud);margin-bottom:10px}
+.c-blok.groen h3{color:var(--gl)}
+.c-blok.rood h3{color:var(--rood)}
+.c-blok.blauw h3{color:var(--blauw)}
+.c-blok p,.c-blok li{font-size:.88rem;line-height:1.7;color:var(--tekst)}
+.c-blok ul{list-style:none}
+.c-blok ul li{padding:4px 0;padding-left:18px;position:relative}
+.c-blok ul li::before{content:'→';position:absolute;left:0;color:var(--goud);font-weight:700}
+.c-blok strong{color:var(--goud)}
+
+.fml-blok{background:rgba(240,192,64,0.07);border-left:4px solid var(--goud);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:.9rem;color:var(--goud);font-weight:700}
+.vc-blok{background:rgba(240,192,64,0.05);border-left:4px solid var(--goudd);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0}
+.vc-label{font-size:.68rem;font-weight:700;color:var(--goud);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.vc-blok p{font-size:.86rem;line-height:1.65;color:var(--tekst)}
+
+/* Directe vs indirecte ruil */
+.vs-kaarten{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:12px}
+.vs-k{border-radius:10px;padding:16px;text-align:center}
+.vs-links{background:rgba(229,62,62,0.08);border:1px solid rgba(229,62,62,0.2)}
+.vs-rechts{background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.2)}
+.vs-k h4{font-family:'Lexend',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:8px}
+.vs-links h4{color:var(--rood)}
+.vs-rechts h4{color:var(--gl)}
+.vs-k p{font-size:.8rem;line-height:1.6;color:var(--tekst)}
+.vs-midden{font-family:'Lexend',sans-serif;font-size:.85rem;font-weight:700;color:var(--goud);text-align:center}
+
+/* Functies geld */
+.gf-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:12px}
+.gf-item{border-radius:10px;padding:18px;text-align:center}
+.gf1{background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.2)}
+.gf2{background:rgba(91,141,217,0.08);border:1px solid rgba(91,141,217,0.2)}
+.gf3{background:rgba(240,192,64,0.08);border:1px solid rgba(240,192,64,0.2)}
+.gf-icon{font-size:2rem;margin-bottom:8px}
+.gf-item h4{font-family:'Lexend',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:6px}
+.gf1 h4{color:var(--gl)}
+.gf2 h4{color:var(--blauw)}
+.gf3 h4{color:var(--goud)}
+.gf-item p{font-size:.78rem;line-height:1.5;color:var(--tekst)}
+
+/* Geldsoorten */
+.gs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.gs-item{border-radius:10px;padding:14px;text-align:center}
+.gs-chartaal{background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2)}
+.gs-giraal{background:rgba(91,141,217,0.07);border:1px solid rgba(91,141,217,0.2)}
+.gs-crypto{background:rgba(240,192,64,0.07);border:1px solid rgba(240,192,64,0.2)}
+.gs-item .gs-icon{font-size:1.6rem;margin-bottom:6px}
+.gs-item h4{font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:700;margin-bottom:4px}
+.gs-chartaal h4{color:var(--gl)}
+.gs-giraal h4{color:var(--blauw)}
+.gs-crypto h4{color:var(--goud)}
+.gs-item p{font-size:.76rem;line-height:1.4;color:var(--subtekst)}
+
+/* Inflatie visueel */
+.inf-vis{display:flex;align-items:center;gap:0;border-radius:10px;overflow:hidden;margin:12px 0}
+.inf-jaar{flex:1;padding:16px;text-align:center}
+.ij-basis{background:rgba(91,141,217,0.12);border:1px solid rgba(91,141,217,0.2)}
+.ij-meet{background:rgba(229,62,62,0.1);border:1px solid rgba(229,62,62,0.2)}
+.ij-jaar-label{font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:700;color:rgba(255,255,255,0.5);margin-bottom:4px;letter-spacing:.5px}
+.ij-prijs{font-family:'Lexend',sans-serif;font-size:1.8rem;font-weight:900;color:var(--wit)}
+.ij-basis .ij-prijs{color:var(--blauw)}
+.ij-meet .ij-prijs{color:var(--rood)}
+.ij-sub{font-size:.72rem;color:rgba(255,255,255,0.5);margin-top:4px}
+.inf-pijl{padding:0 16px;font-size:2rem;color:var(--goud)}
+
+.stat-rij{display:flex;gap:12px;margin-top:14px}
+.stat{flex:1;background:var(--licht);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px;text-align:center}
+.stat-getal{font-family:'Lexend',sans-serif;font-size:1.6rem;font-weight:900;color:var(--goud)}
+.stat-label{font-size:.7rem;color:var(--subtekst);margin-top:4px;line-height:1.4}
+
+/* Afsluiter */
+.slide-afsluiter{background:linear-gradient(145deg,#14100a,#1e1500 60%,#241a00);justify-content:center;align-items:center;text-align:center;padding:60px 80px 80px}
+.slide-afsluiter h2{font-family:'Lexend',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:var(--wit);margin-bottom:16px}
+.samenvatting-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0;text-align:left}
+.sam-item{background:var(--licht);border:1px solid rgba(255,255,255,0.1);border-top:3px solid var(--goud);border-radius:8px;padding:14px}
+.sam-item h4{font-family:'Lexend',sans-serif;font-size:.78rem;font-weight:700;color:var(--goud);margin-bottom:8px}
+.sam-item p{font-size:.75rem;line-height:1.5;color:var(--tekst)}
+
+@keyframes inschuiven{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.slide.actief .animate-in{animation:inschuiven .5s ease both}
+.slide.actief .animate-in:nth-child(1){animation-delay:.1s}
+.slide.actief .animate-in:nth-child(2){animation-delay:.2s}
+.slide.actief .animate-in:nth-child(3){animation-delay:.3s}
+.slide.actief .animate-in:nth-child(4){animation-delay:.4s}
+</style>
+</head>
+<body>
+<div class="voortgang"><div class="voortgang-balk" id="vBalk" style="width:11.1%"></div></div>
+<div class="presentatie">
+
+<!-- SLIDE 1: TITEL -->
+<div class="slide slide-titel actief" id="s0">
+  <div class="bg-gold"></div>
+  <div class="grote-ring"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div style="z-index:1;width:100%;max-width:800px">
+    <div class="par-badge">§ 1.3 · Hoofdstuk 1</div>
+    <div style="width:80px;height:4px;background:linear-gradient(90deg,var(--goud),var(--gl));border-radius:2px;margin:0 0 32px"></div>
+    <h1>Geld &amp;<br><em>ruil</em></h1>
+    <p class="subtitel">Waarom is geld uitgevonden? Hoe werkt inflatie? En wat doet geld eigenlijk voor ons?</p>
+    <div class="begrippen-rij">
+      <span class="begrip-pill">Directe ruil</span>
+      <span class="begrip-pill">Indirecte ruil</span>
+      <span class="begrip-pill">Ruilmiddel · Rekeneenheid · Oppotmiddel</span>
+      <span class="begrip-pill">Chartaal &amp; giraal</span>
+      <span class="begrip-pill">Inflatie &amp; koopkracht</span>
+      <span class="begrip-pill">Indexcijfer</span>
+    </div>
+    <div style="margin-top:40px;font-size:.78rem;color:var(--subtekst);font-family:'Lexend',sans-serif;letter-spacing:.5px">3 VWO · Economie · Vlaconomie.nl</div>
+  </div>
+</div>
+
+<!-- SLIDE 2: LEERDOELEN -->
+<div class="slide slide-leerdoelen" id="s1">
+  <div class="bg-gold"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="animate-in" style="margin-bottom:32px">
+    <div class="par-badge">§ 1.3 · Leerdoelen</div>
+    <div class="walt">WALT — WE ARE LEARNING TO</div>
+    <h2>Wat ga je leren?</h2>
+    <p style="color:var(--subtekst);font-size:.9rem;margin-top:8px">Aan het einde van de les kun je het volgende:</p>
+  </div>
+  <div class="ld-grid animate-in">
+    <div class="ld-item">
+      <div class="ld-nr">01</div>
+      <div class="ld-tekst">Ik kan <strong>directe en indirecte ruil</strong> onderscheiden en uitleggen waarom directe ruil problemen geeft.</div>
+    </div>
+    <div class="ld-item">
+      <div class="ld-nr">02</div>
+      <div class="ld-tekst">Ik kan de <strong>drie functies van geld</strong> (ruilmiddel, rekeneenheid, oppotmiddel) benoemen en toelichten met voorbeelden.</div>
+    </div>
+    <div class="ld-item">
+      <div class="ld-nr">03</div>
+      <div class="ld-tekst">Ik kan <strong>chartaal geld, giraal geld en cryptocurrency</strong> onderscheiden en kenmerken noemen.</div>
+    </div>
+    <div class="ld-item">
+      <div class="ld-nr">04</div>
+      <div class="ld-tekst">Ik kan <strong>inflatie, koopkracht en het indexcijfer</strong> berekenen en het verband uitleggen.</div>
+    </div>
+  </div>
+  <div style="margin-top:18px;padding:12px 18px;background:var(--goudl);border:1px solid rgba(240,192,64,0.2);border-radius:8px;font-size:.83rem;color:var(--subtekst)" class="animate-in">
+    🎯 <strong style="color:var(--goud)">Centrale vraag:</strong> Waarom is geld één van de handige uitvindingen van de mensheid?
+  </div>
+</div>
+
+<!-- SLIDE 3: DIRECTE VS INDIRECTE RUIL -->
+<div class="slide slide-inhoud" id="s2">
+  <div class="bg-gold"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="s-hdr animate-in">
+    <div class="par-badge">§ 1.3</div>
+    <h2>Directe vs. indirecte ruil</h2>
+    <div class="lijn"></div>
+  </div>
+  <div class="animate-in">
+    <div class="vs-kaarten">
+      <div class="vs-k vs-links">
+        <h4>🔄 Directe ruil (barter)</h4>
+        <p>Product direct ruilen voor product — zonder geld.</p>
+        <div style="margin-top:10px;font-size:.78rem;background:rgba(229,62,62,0.1);border-radius:6px;padding:8px;color:var(--tekst)">
+          <strong>Probleem: dubbele samenloop van behoeften</strong><br>
+          Jij wil A → Ander heeft A<br>
+          Ander wil B → Jij moet B hebben<br>
+          → Tegelijk + op hetzelfde moment!
+        </div>
+      </div>
+      <div class="vs-midden">VS<br>⬇<br>Geld<br>als<br>oplossing</div>
+      <div class="vs-k vs-rechts">
+        <h4>💰 Indirecte ruil</h4>
+        <p>Ruilen <em>via geld</em> als tussenstap — geen directe ruilpartner nodig.</p>
+        <div style="margin-top:10px;font-size:.78rem;background:rgba(46,204,113,0.1);border-radius:6px;padding:8px;color:var(--tekst)">
+          Jij verkoopt dienst → ontvangt geld ✓<br>
+          Geld gebruiken om iets anders te kopen ✓<br>
+          → Geen ruilprobleem meer!
+        </div>
+      </div>
+    </div>
+    <div class="vc-blok" style="margin-top:14px">
+      <div class="vc-label">Voorbeeld uit de les</div>
+      <p>Yusuf: "Stel geld bestaat niet meer. Hoe betaal je je lunch?" → Je moet iets meenemen dat de kantinemevrouw wil, op het moment dat zij ook heeft wat jij wil. Dit is de <strong style="color:var(--goud)">dubbele samenloop van behoeften</strong> — en het maakt directe ruil bijna onmogelijk in een moderne samenleving.</p>
+    </div>
+    <div class="stat-rij">
+      <div class="stat"><div class="stat-getal">600 v.Chr.</div><div class="stat-label">Eerste munten geslagen in Lydië (Turkije)</div></div>
+      <div class="stat"><div class="stat-getal">Zout</div><div class="stat-label">Betaalmiddel voor Romeinse soldaten → 'salaris'</div></div>
+      <div class="stat"><div class="stat-getal">Geld</div><div class="stat-label">Maakt ruilen eenvoudig, snel en overal mogelijk</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: FUNCTIES VAN GELD -->
+<div class="slide slide-inhoud" id="s3">
+  <div class="bg-gold"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="s-hdr animate-in">
+    <div class="par-badge">§ 1.3</div>
+    <h2>De drie functies van geld</h2>
+    <div class="lijn"></div>
+  </div>
+  <div class="animate-in">
+    <div class="def-blok">
+      <div class="def-label">kernidee</div>
+      <div class="def-tekst">Goed geld vervult drie functies tegelijk. Verliest het één van deze functies (bijv. door hoge inflatie), dan werkt geld niet meer goed.</div>
+    </div>
+    <div class="gf-grid">
+      <div class="gf-item gf1">
+        <div class="gf-icon">🔄</div>
+        <h4>Ruilmiddel</h4>
+        <p>Iedereen accepteert geld als betaalmiddel. Je hoeft geen geschikte ruilpartner te zoeken.</p>
+        <div style="margin-top:10px;font-size:.74rem;background:rgba(46,204,113,0.1);border-radius:5px;padding:6px;color:rgba(255,255,255,0.6)">Voorbeeld: €3 betalen voor een brood</div>
+      </div>
+      <div class="gf-item gf2">
+        <div class="gf-icon">⚖️</div>
+        <h4>Rekeneenheid</h4>
+        <p>Gemeenschappelijke maatstaf. Alles is uitgedrukt in euro's — waarden zijn direct vergelijkbaar.</p>
+        <div style="margin-top:10px;font-size:.74rem;background:rgba(91,141,217,0.1);border-radius:5px;padding:6px;color:rgba(255,255,255,0.6)">Voorbeeld: Fiets €400 vs. boek €15</div>
+      </div>
+      <div class="gf-item gf3">
+        <div class="gf-icon">🏦</div>
+        <h4>Oppotmiddel</h4>
+        <p>Waarde bewaren voor later. Werkt goed bij lage inflatie — bij hoge inflatie verliest geld snel waarde.</p>
+        <div style="margin-top:10px;font-size:.74rem;background:rgba(240,192,64,0.1);border-radius:5px;padding:6px;color:rgba(255,255,255,0.6)">Voorbeeld: €1.000 sparen voor vakantie</div>
+      </div>
+    </div>
+    <div class="vc-blok" style="margin-top:14px">
+      <div class="vc-label">Toepassing — Argentinië (inflatie &gt;100%)</div>
+      <p>Bij hyperinflatie lijdt het <strong style="color:var(--goud)">oppotmiddel</strong> het meest: geld bewaren heeft geen zin als de waarde dagelijks verdampt. Mensen vluchten dan naar dollars of fysieke goederen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: GELDSOORTEN -->
+<div class="slide slide-inhoud" id="s4">
+  <div class="bg-gold"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="s-hdr animate-in">
+    <div class="par-badge">§ 1.3</div>
+    <h2>Drie vormen van geld</h2>
+    <div class="lijn"></div>
+  </div>
+  <div class="animate-in">
+    <div class="gs-grid">
+      <div class="gs-item gs-chartaal">
+        <div class="gs-icon">💵</div>
+        <h4>Chartaal geld</h4>
+        <p>Munten en bankbiljetten. Fysiek geld dat je in je hand kunt houden.</p>
+        <div style="margin-top:10px;font-size:.72rem;background:rgba(46,204,113,0.1);border-radius:5px;padding:6px;color:rgba(255,255,255,0.55)">Munt € | Biljet €10, €20, €50...</div>
+      </div>
+      <div class="gs-item gs-giraal">
+        <div class="gs-icon">💳</div>
+        <h4>Giraal geld</h4>
+        <p>Digitaal tegoed op je bankrekening. Betalen via pin, iDEAL of overschrijving.</p>
+        <div style="margin-top:10px;font-size:.72rem;background:rgba(91,141,217,0.1);border-radius:5px;padding:6px;color:rgba(255,255,255,0.55)">iDEAL · Pinnen · Tikkie</div>
+      </div>
+      <div class="gs-item gs-crypto">
+        <div class="gs-icon">₿</div>
+        <h4>Cryptocurrency</h4>
+        <p>Digitale, gedecentraliseerde valuta op een blockchain. Geen centrale bank.</p>
+        <div style="margin-top:10px;font-size:.72rem;background:rgba(240,192,64,0.1);border-radius:5px;padding:6px;color:rgba(255,255,255,0.55)">Bitcoin · Ethereum · Geen garantie</div>
+      </div>
+    </div>
+    <div class="kolommen" style="margin-top:16px">
+      <div class="c-blok goud">
+        <h3>📌 Verschil chartaal vs. giraal</h3>
+        <ul>
+          <li><strong>Chartaal:</strong> kun je aanraken, fysiek</li>
+          <li><strong>Giraal:</strong> bestaat alleen digitaal in database bank</li>
+          <li>Beide zijn wettig betaalmiddel in NL</li>
+          <li>In NL is 95%+ van alle betalingen giraal</li>
+        </ul>
+      </div>
+      <div class="c-blok blauw">
+        <h3>⚠️ Crypto: speciale kenmerken</h3>
+        <ul>
+          <li>Geen centrale bank of overheid achter</li>
+          <li>Waarde zeer wisselvallig (speculatief)</li>
+          <li>Voldoet slecht aan <strong>oppotmiddel-functie</strong></li>
+          <li>12% Nederlanders bezit crypto (2025)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: INFLATIE & KOOPKRACHT -->
+<div class="slide slide-inhoud" id="s5">
+  <div class="bg-gold"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="s-hdr animate-in">
+    <div class="par-badge">§ 1.3</div>
+    <h2>Inflatie, koopkracht &amp; indexcijfer</h2>
+    <div class="lijn"></div>
+  </div>
+  <div class="kolommen animate-in">
+    <div>
+      <div class="def-blok" style="margin-bottom:12px">
+        <div class="def-label">definities</div>
+        <div class="def-tekst"><strong>Inflatie</strong>: algemene stijging van het prijspeil — geld wordt minder waard.<br><strong>Koopkracht</strong>: hoeveel je kunt kopen voor een bepaald geldbedrag. Daalt als inflatie stijgt.</div>
+      </div>
+      <div class="fml-blok">Indexcijfer = (waarde meetjaar ÷ waarde basisjaar) × 100<br>Inflatie = indexcijfer − 100 (%)</div>
+      <div class="vc-blok">
+        <div class="vc-label">Berekening</div>
+        <p>Mandje 2020: €200 (basisjaar = index 100)<br>Mandje 2025: €236<br>Indexcijfer = (236÷200)×100 = <strong style="color:var(--goud)">118</strong><br>Inflatie = 118 − 100 = <strong style="color:var(--goud)">18%</strong></p>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:.7rem;font-weight:700;color:var(--subtekst);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;font-family:'Lexend',sans-serif">Inflatie in beeld — boodschappenmandje</div>
+      <div class="inf-vis">
+        <div class="inf-jaar ij-basis">
+          <div class="ij-jaar-label">BASISJAAR 2020</div>
+          <div class="ij-prijs">€200</div>
+          <div class="ij-sub">Indexcijfer = 100</div>
+        </div>
+        <div class="inf-pijl">→</div>
+        <div class="inf-jaar ij-meet">
+          <div class="ij-jaar-label">MEETJAAR 2025</div>
+          <div class="ij-prijs">€236</div>
+          <div class="ij-sub">Indexcijfer = 118</div>
+        </div>
+      </div>
+      <div style="background:rgba(229,62,62,0.08);border:1px solid rgba(229,62,62,0.2);border-radius:8px;padding:14px;margin-top:10px">
+        <div style="font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;color:var(--rood);margin-bottom:8px;letter-spacing:.5px">GEVOLG VOOR KOOPKRACHT</div>
+        <p style="font-size:.84rem;line-height:1.6;color:var(--tekst)">Voor hetzelfde mandje betaal je nu <strong style="color:var(--rood)">€36 meer</strong>. Als je salaris niet ook met 18% stijgt, is je koopkracht <strong style="color:var(--rood)">gedaald</strong>.</p>
+      </div>
+      <div class="stat-rij" style="margin-top:10px">
+        <div class="stat"><div class="stat-getal">2,8%</div><div class="stat-label">Inflatie NL 2025 (DNB)</div></div>
+        <div class="stat"><div class="stat-getal">−4%</div><div class="stat-label">Koopkrachtverlies 2021–2024</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: RODE DRAAD -->
+<div class="slide slide-inhoud" id="s6">
+  <div class="bg-gold"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div class="s-hdr animate-in">
+    <div class="par-badge">§ 1.3</div>
+    <h2>De rode draad van §1.3</h2>
+    <div class="lijn"></div>
+  </div>
+  <div class="animate-in" style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="background:rgba(229,62,62,0.1);border:1px solid rgba(229,62,62,0.2);border-radius:8px;padding:12px 16px;flex:1;font-size:.88rem;color:var(--tekst)"><strong style="color:var(--rood)">Directe ruil</strong> = problemen (dubbele samenloop van behoeften)</div>
+      <div style="color:var(--goud);font-size:1.4rem">→</div>
+      <div style="background:rgba(240,192,64,0.08);border:1px solid rgba(240,192,64,0.2);border-radius:8px;padding:12px 16px;flex:1;font-size:.88rem;color:var(--tekst)"><strong style="color:var(--goud)">Indirecte ruil</strong> via geld = oplossing</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="background:rgba(240,192,64,0.06);border:1px solid rgba(240,192,64,0.15);border-radius:8px;padding:12px 16px;flex:1;font-size:.88rem;color:var(--tekst)"><strong style="color:var(--goud)">3 functies geld:</strong> ruilmiddel · rekeneenheid · oppotmiddel</div>
+      <div style="color:var(--goud);font-size:1.4rem">→</div>
+      <div style="background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.15);border-radius:8px;padding:12px 16px;flex:1;font-size:.88rem;color:var(--tekst)"><strong style="color:var(--gl)">Inflatie</strong> tast oppotfunctie aan → koopkracht daalt</div>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,rgba(212,160,18,0.2),rgba(240,192,64,0.08));border:1px solid rgba(240,192,64,0.35);border-radius:12px;padding:18px 24px" class="animate-in">
+    <div style="font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:800;color:var(--goud);letter-spacing:1.5px;margin-bottom:10px">🔑 KERNBEGRIP §1.3</div>
+    <p style="font-size:.95rem;line-height:1.8;color:var(--tekst)">Geld is uitgevonden om de problemen van <strong style="color:var(--goud)">directe ruil</strong> op te lossen. Het vervult drie functies: <strong style="color:var(--gl)">ruilmiddel</strong> (iedereen accepteert het), <strong style="color:var(--blauw)">rekeneenheid</strong> (alles vergelijkbaar in euro's) en <strong style="color:var(--goud)">oppotmiddel</strong> (waarde bewaren). <strong style="color:var(--rood)">Inflatie</strong> ondermijnt de oppotfunctie en verlaagt je koopkracht.</p>
+  </div>
+</div>
+
+<!-- SLIDE 8: AFSLUITER -->
+<div class="slide slide-afsluiter" id="s7">
+  <div class="bg-gold"></div>
+  <div class="grote-ring"></div>
+  <div class="logo-badge">vla<em>conomie</em>.nl</div>
+  <div style="z-index:1;width:100%;max-width:900px" class="animate-in">
+    <div class="par-badge">§ 1.3 · Samenvatting</div>
+    <h2>Wat heb je geleerd?</h2>
+    <p style="color:var(--subtekst);font-size:.9rem;margin-bottom:22px">Check jezelf — ken je deze begrippen?</p>
+    <div class="samenvatting-grid">
+      <div class="sam-item">
+        <h4>Indirecte ruil</h4>
+        <p>Ruilen via geld als tussenstap — geen directe ruilpartner nodig.</p>
+      </div>
+      <div class="sam-item">
+        <h4>3 functies geld</h4>
+        <p>Ruilmiddel · Rekeneenheid · Oppotmiddel.</p>
+      </div>
+      <div class="sam-item">
+        <h4>Inflatie</h4>
+        <p>Algemene prijsstijging. Indexcijfer = (meetjaar ÷ basisjaar) × 100.</p>
+      </div>
+      <div class="sam-item">
+        <h4>Koopkracht</h4>
+        <p>Hoeveel je kunt kopen voor een geldbedrag. Daalt bij inflatie.</p>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--subtekst);max-width:600px;margin:0 auto">📚 Meer oefenen? Ga naar <strong style="color:var(--goud)">vlaconomie.nl → §1.3</strong> voor inflatie-berekeningen en herhaling.</p>
+  </div>
+</div>
+
+</div>
+
+<div class="nav-bar">
+  <button class="nav-btn" id="btnVorig" onclick="navigeer(-1)" disabled>← Vorige</button>
+  <span class="slide-teller" id="teller">1 / 8</span>
+  <button class="nav-btn" id="btnVolgende" onclick="navigeer(1)">Volgende →</button>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+let huidig=0;
+function navigeer(r){
+  const oud=huidig;
+  huidig=Math.max(0,Math.min(slides.length-1,huidig+r));
+  if(huidig===oud)return;
+  slides[oud].classList.remove('actief');slides[oud].classList.add('uit');
+  setTimeout(()=>slides[oud].classList.remove('uit'),500);
+  slides[huidig].classList.add('actief');update();
+}
+function update(){
+  document.getElementById('teller').textContent=(huidig+1)+' / '+slides.length;
+  document.getElementById('btnVorig').disabled=huidig===0;
+  document.getElementById('btnVolgende').disabled=huidig===slides.length-1;
+  document.getElementById('vBalk').style.width=((huidig+1)/slides.length*100)+'%';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')navigeer(1);
+  if(e.key==='ArrowLeft')navigeer(-1);
+});
+update();
+</script>
+</body>
+</html>
