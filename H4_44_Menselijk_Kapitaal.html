@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>§4.4 Menselijk Kapitaal — Vlaconomie</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blauw:#1a2e4a;--blauwl:#2d4a6e;--blauwll:#3a5f8a;
+  --goud:#f0c040;--goudd:#d4a012;--goudl:#fef3c7;
+  --wit:#ffffff;--lichtgrijs:#f4f7f4;
+  --groen:#1a7a4a;--groenl:#e8faf0;
+}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'DM Sans',Arial,sans-serif;background:#0d1b2e}
+
+/* ── Slideshow wrapper ── */
+.deck{width:100vw;height:100vh;position:relative}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:48px 60px;
+  opacity:0;pointer-events:none;
+  transition:opacity .4s ease;
+}
+.slide.act{opacity:1;pointer-events:all}
+
+/* ── Navigation ── */
+.nav{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:16px;z-index:100;
+  background:rgba(255,255,255,.08);backdrop-filter:blur(8px);
+  padding:10px 22px;border-radius:40px;border:1px solid rgba(255,255,255,.15);
+}
+.nav button{
+  background:none;border:none;color:rgba(255,255,255,.6);
+  font-size:1.3rem;cursor:pointer;padding:4px 10px;border-radius:6px;
+  transition:all .2s;font-family:'Lexend',sans-serif;
+}
+.nav button:hover{color:#fff;background:rgba(255,255,255,.12)}
+.nav button:disabled{opacity:.25;cursor:default}
+.nav .pgr{font-family:'Lexend',sans-serif;font-size:.8rem;color:rgba(255,255,255,.5);min-width:52px;text-align:center}
+
+/* ── Progress dots ── */
+.dots{
+  position:fixed;top:22px;left:50%;transform:translateX(-50%);
+  display:flex;gap:7px;z-index:100;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .3s;cursor:pointer}
+.dot.act{background:var(--goud);transform:scale(1.3)}
+
+/* ── Back link ── */
+.back{
+  position:fixed;top:18px;left:22px;z-index:100;
+  font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:700;
+  color:rgba(255,255,255,.45);text-decoration:none;
+  padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);
+  transition:all .2s;
+}
+.back:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+
+/* ── Slide number badge ── */
+.snr{
+  position:fixed;top:18px;right:22px;z-index:100;
+  font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;
+  color:rgba(255,255,255,.35);
+}
+
+/* ══════════════════════════════════════
+   SLIDE-SPECIFIC STYLES
+══════════════════════════════════════ */
+
+/* Slide 1 — Titeldia */
+.s1{background:linear-gradient(135deg,var(--blauw) 0%,#0d1b2e 100%)}
+.s1-inner{text-align:center;max-width:780px}
+.s1-hoofdstuk{font-family:'Lexend',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--goud);margin-bottom:18px;opacity:.9}
+.s1-titel{font-family:'Lexend',sans-serif;font-size:3rem;font-weight:800;color:#fff;line-height:1.15;margin-bottom:16px}
+.s1-titel em{color:var(--goud);font-style:normal}
+.s1-sub{font-size:1rem;color:rgba(255,255,255,.55);margin-bottom:36px;line-height:1.6}
+.s1-tags{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
+.s1-tag{background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.3);color:var(--goud);font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:.3px}
+.s1-dialoog{margin-top:36px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px 24px;max-width:620px;text-align:left}
+.s1-regel{font-size:.88rem;color:rgba(255,255,255,.8);line-height:1.65;margin-bottom:6px}
+.s1-regel:last-child{margin-bottom:0}
+.s1-naam{font-weight:700;color:var(--goud)}
+.s1-naam2{font-weight:700;color:#7ecba1}
+
+/* Slide 2 — Leerdoelen */
+.s2{background:linear-gradient(135deg,#0d1b2e 0%,var(--blauw) 100%)}
+.s2-inner{max-width:820px;width:100%}
+.slide-kop{font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--goud);margin-bottom:10px}
+.slide-titel{font-family:'Lexend',sans-serif;font-size:2rem;font-weight:800;color:#fff;margin-bottom:30px;line-height:1.2}
+.ld-lijst{display:flex;flex-direction:column;gap:13px}
+.ld{display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 18px}
+.ld-nr{font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:800;color:var(--blauw);background:var(--goud);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ld-txt{font-size:.92rem;color:rgba(255,255,255,.85);line-height:1.55}
+.ld-txt strong{color:var(--goud);font-weight:700}
+.ld-bloom{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:4px;opacity:.55;color:#fff;font-family:'Lexend',sans-serif}
+
+/* Slide 3 — Definitie */
+.s3{background:linear-gradient(160deg,#0d1b2e 0%,#1a2e4a 60%,#1a3a2e 100%)}
+.definitie-kaart{background:rgba(240,192,64,.08);border:2px solid rgba(240,192,64,.25);border-radius:16px;padding:28px 34px;max-width:760px;width:100%;margin-bottom:24px}
+.definitie-label{font-family:'Lexend',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--goud);margin-bottom:10px}
+.definitie-term{font-family:'Lexend',sans-serif;font-size:1.7rem;font-weight:800;color:#fff;margin-bottom:8px}
+.definitie-body{font-size:.95rem;color:rgba(255,255,255,.8);line-height:1.7}
+.definitie-body strong{color:var(--goud)}
+.analogie{display:flex;gap:16px;max-width:760px;width:100%}
+.ana-blok{flex:1;background:rgba(255,255,255,.05);border-radius:10px;padding:16px 18px;border-top:3px solid}
+.ana-blok.links{border-color:var(--blauwll)}
+.ana-blok.rechts{border-color:var(--goud)}
+.ana-label{font-family:'Lexend',sans-serif;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;opacity:.6;color:#fff}
+.ana-titel{font-family:'Lexend',sans-serif;font-size:.95rem;font-weight:700;color:#fff;margin-bottom:5px}
+.ana-body{font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.5}
+
+/* Slide 4 — Inter-temporele ruil */
+.s4{background:linear-gradient(135deg,#0d1b2e,#1c1a35)}
+.ruil-tabel{width:100%;max-width:820px;border-collapse:collapse;margin-top:8px}
+.ruil-tabel th{font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:13px 20px;text-align:left}
+.ruil-tabel th.nu{background:rgba(180,80,80,.25);color:#f8a0a0}
+.ruil-tabel th.later{background:rgba(46,160,90,.2);color:#7ecba1}
+.ruil-tabel td{padding:12px 20px;font-size:.89rem;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.07);line-height:1.5}
+.ruil-tabel td.nu{background:rgba(180,80,80,.07)}
+.ruil-tabel td.later{background:rgba(46,160,90,.06)}
+.ruil-tabel tr:last-child td{border-bottom:none}
+.pijl-midden{text-align:center;font-size:1.6rem;padding:0 10px;vertical-align:middle;color:var(--goud);opacity:.7}
+.ruil-intro{max-width:820px;font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.65;margin-bottom:22px}
+.ruil-intro strong{color:var(--goud)}
+
+/* Slide 5 — Opportuniteitskosten rekenvoorbeeld */
+.s5{background:linear-gradient(135deg,#0d1b2e,#1a2439)}
+.reken-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:840px;width:100%;margin-top:8px}
+.reken-kaart{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 22px}
+.reken-kaart.highlight{background:rgba(240,192,64,.1);border-color:rgba(240,192,64,.3)}
+.reken-label{font-family:'Lexend',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.reken-kaart.highlight .reken-label{color:var(--goud)}
+.reken-waarde{font-family:'Lexend',sans-serif;font-size:1.9rem;font-weight:800;color:#fff;margin-bottom:4px}
+.reken-kaart.highlight .reken-waarde{color:var(--goud)}
+.reken-toel{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.45}
+.reken-stap{max-width:840px;width:100%;background:rgba(255,255,255,.04);border-left:3px solid var(--goud);border-radius:0 8px 8px 0;padding:13px 18px;margin-top:16px;font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.6}
+.reken-stap strong{color:var(--goud)}
+
+/* Slide 6 — Scholingsloon / arbeidsmarkt */
+.s6{background:linear-gradient(160deg,#0d1b2e,#1a2e1a)}
+.bar-sectie{max-width:820px;width:100%;margin-top:10px}
+.bar-rij{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.bar-label{font-family:'Lexend',sans-serif;font-size:.78rem;font-weight:700;color:rgba(255,255,255,.7);width:95px;flex-shrink:0;text-align:right}
+.bar-track{flex:1;background:rgba(255,255,255,.08);border-radius:20px;height:34px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:20px;display:flex;align-items:center;padding-left:14px;font-family:'Lexend',sans-serif;font-size:.78rem;font-weight:700;color:#fff;transition:width 1s ease}
+.bar-fill.vmbo{background:linear-gradient(90deg,#3a5f8a,#2d4a6e);width:42%}
+.bar-fill.mbo{background:linear-gradient(90deg,#2d7a5a,#1a5a40);width:58%}
+.bar-fill.hbo{background:linear-gradient(90deg,#c08000,#a06000);width:75%}
+.bar-fill.wo{background:linear-gradient(90deg,var(--goudd),#c08000);width:100%}
+.bar-euro{font-family:'Lexend',sans-serif;font-size:.85rem;font-weight:700;color:rgba(255,255,255,.55);width:80px;flex-shrink:0}
+.scholing-noot{max-width:820px;width:100%;background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.2);border-radius:10px;padding:13px 18px;margin-top:18px;font-size:.83rem;color:rgba(255,255,255,.65);line-height:1.55}
+.scholing-noot strong{color:var(--goud)}
+
+/* Slide 7 — Gary Becker / theorie */
+.s7{background:linear-gradient(135deg,#1a1a35,#0d1b2e)}
+.theorie-layout{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:840px;width:100%;margin-top:12px}
+.theorie-kaart{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:20px 22px}
+.theorie-ico{font-size:1.8rem;margin-bottom:10px}
+.theorie-kop{font-family:'Lexend',sans-serif;font-size:.88rem;font-weight:700;color:#fff;margin-bottom:7px}
+.theorie-body{font-size:.82rem;color:rgba(255,255,255,.62);line-height:1.55}
+.theorie-body strong{color:var(--goud)}
+.becker-citaat{max-width:840px;width:100%;background:rgba(240,192,64,.08);border-left:4px solid var(--goud);border-radius:0 10px 10px 0;padding:16px 22px;margin-top:18px}
+.becker-tekst{font-size:.9rem;color:rgba(255,255,255,.75);line-height:1.6;font-style:italic;margin-bottom:6px}
+.becker-naam{font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;color:var(--goud);opacity:.8}
+
+/* Slide 8 — Checkvragen */
+.s8{background:linear-gradient(135deg,#0d1b2e,#1c1535)}
+.quiz-grid{display:flex;flex-direction:column;gap:12px;max-width:820px;width:100%;margin-top:10px}
+.quiz-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:15px 20px;display:flex;gap:14px;align-items:flex-start}
+.quiz-nr{font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:800;color:var(--blauw);background:var(--goud);min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.quiz-vraag{font-size:.9rem;color:rgba(255,255,255,.8);line-height:1.55}
+.quiz-hint{font-size:.75rem;color:rgba(255,255,255,.35);margin-top:4px;font-style:italic}
+
+/* Slide 9 — Afsluiting */
+.s9{background:linear-gradient(135deg,var(--blauw) 0%,#0d1b2e 100%)}
+.s9-inner{text-align:center;max-width:700px}
+.s9-check{font-size:3rem;margin-bottom:18px}
+.s9-kop{font-family:'Lexend',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;line-height:1.25}
+.s9-sub{font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:30px}
+.begrippen-rij{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:28px}
+.begrip-tag{background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.3);color:var(--goud);font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;padding:5px 14px;border-radius:20px}
+.s9-terug{display:inline-block;margin-top:4px;font-family:'Lexend',sans-serif;font-size:.85rem;font-weight:700;color:var(--blauw);background:var(--goud);padding:11px 28px;border-radius:30px;text-decoration:none;transition:all .2s}
+.s9-terug:hover{background:#f5d060;transform:translateY(-1px)}
+</style>
+</head>
+<body>
+
+<a class="back" href="H4_Ruilen_over_de_tijd.html">← Terug</a>
+<div class="snr" id="snr">1 / 9</div>
+
+<div class="dots" id="dots"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ══ DIA 1 — TITEL ══ -->
+  <div class="slide s1 act" data-nr="1">
+    <div class="s1-inner">
+      <div class="s1-hoofdstuk">Hoofdstuk 4 · Ruilen over de tijd · § 4.4</div>
+      <div class="s1-titel">Menselijk<br><em>Kapitaal</em></div>
+      <div class="s1-sub">Investeren in jezelf: de slimste belegging die je kunt doen</div>
+      <div class="s1-tags">
+        <span class="s1-tag">Human Capital</span>
+        <span class="s1-tag">Inter-temporele ruil</span>
+        <span class="s1-tag">Opportuniteitskosten</span>
+        <span class="s1-tag">Scholingsloon</span>
+        <span class="s1-tag">Productiviteit</span>
+      </div>
+      <div class="s1-dialoog">
+        <div class="s1-regel"><span class="s1-naam">Daan:</span> "Waarom ga ik eigenlijk naar school? Ik wil gewoon geld verdienen."</div>
+        <div class="s1-regel"><span class="s1-naam2">Layla:</span> "Dat <em>is</em> precies waarom je naar school gaat. Jij bent je eigen beste belegging."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIA 2 — LEERDOELEN ══ -->
+  <div class="slide s2" data-nr="2">
+    <div class="s2-inner">
+      <div class="slide-kop">Leerdoelen</div>
+      <div class="slide-titel">Na deze les kun je…</div>
+      <div class="ld-lijst">
+        <div class="ld">
+          <div class="ld-nr">1</div>
+          <div>
+            <div class="ld-txt">uitleggen wat <strong>menselijk kapitaal</strong> is en hoe het verschilt van fysiek kapitaal</div>
+            <div class="ld-bloom">Bloom 1 — Onthouden</div>
+          </div>
+        </div>
+        <div class="ld">
+          <div class="ld-nr">2</div>
+          <div>
+            <div class="ld-txt">in eigen woorden beschrijven waarom studeren een vorm van <strong>inter-temporele ruil</strong> is</div>
+            <div class="ld-bloom">Bloom 2 — Begrijpen</div>
+          </div>
+        </div>
+        <div class="ld">
+          <div class="ld-nr">3</div>
+          <div>
+            <div class="ld-txt">de <strong>opportuniteitskosten</strong> van een studie berekenen en afzetten tegen het verwachte <strong>scholingsloon</strong></div>
+            <div class="ld-bloom">Bloom 3 — Toepassen</div>
+          </div>
+        </div>
+        <div class="ld">
+          <div class="ld-nr">4</div>
+          <div>
+            <div class="ld-txt">het rendement van twee verschillende opleidingen <strong>vergelijken en beoordelen</strong>, inclusief niet-financiële factoren</div>
+            <div class="ld-bloom">Bloom 4 &amp; 5 — Analyseren · Evalueren</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIA 3 — WAT IS MENSELIJK KAPITAAL? ══ -->
+  <div class="slide s3" data-nr="3">
+    <div class="definitie-kaart">
+      <div class="definitie-label">Kernbegrip</div>
+      <div class="definitie-term">Menselijk kapitaal</div>
+      <div class="definitie-body">De <strong>kennis, vaardigheden, ervaring en gezondheid</strong> die iemand heeft opgebouwd en die zijn productiviteit — en daarmee zijn inkomen — verhogen.<br><br>Net als een machine productiever maakt, maakt menselijk kapitaal <em>jou</em> productiever.</div>
+    </div>
+    <div class="analogie">
+      <div class="ana-blok links">
+        <div class="ana-label">Fysiek kapitaal</div>
+        <div class="ana-titel">🏭 Machines &amp; gebouwen</div>
+        <div class="ana-body">Een bedrijf investeert in apparatuur om meer en beter te produceren. De investering kost nu geld maar levert later meer op.</div>
+      </div>
+      <div class="ana-blok rechts">
+        <div class="ana-label">Menselijk kapitaal</div>
+        <div class="ana-titel">🎓 Kennis &amp; vaardigheden</div>
+        <div class="ana-body">Jij investeert in opleiding om meer en beter te werken. De investering kost nu tijd en geld, maar levert later meer inkomen op.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIA 4 — INTER-TEMPORELE RUIL ══ -->
+  <div class="slide s4" data-nr="4">
+    <div class="slide-kop" style="color:var(--goud);font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Inter-temporele ruil</div>
+    <div class="slide-titel" style="font-family:'Lexend',sans-serif;font-size:1.9rem;font-weight:800;color:#fff;margin-bottom:14px">Studeren = ruilen over de tijd</div>
+    <div class="ruil-intro">Je offert nu iets op in ruil voor een voordeel <strong>later</strong>. Dit heet inter-temporele ruil. Bij studeren zie je dat heel concreet:</div>
+    <table class="ruil-tabel">
+      <tr>
+        <th class="nu">😓 Wat je NÚ opgeeft</th>
+        <th class="pijl-midden" style="background:none"></th>
+        <th class="later">🚀 Wat je LATER krijgt</th>
+      </tr>
+      <tr>
+        <td class="nu">Vrije tijd &amp; sociale activiteiten</td>
+        <td class="pijl-midden">→</td>
+        <td class="later">Hogere productiviteit &amp; loopbaankansen</td>
+      </tr>
+      <tr>
+        <td class="nu">Lesgeld / collegegeld (~€2.400/jr)</td>
+        <td class="pijl-midden">→</td>
+        <td class="later">Hoger bruto inkomen (scholingsloon)</td>
+      </tr>
+      <tr>
+        <td class="nu">Inkomen dat je nú had kunnen verdienen</td>
+        <td class="pijl-midden">→</td>
+        <td class="later">Meer zekerheid op de arbeidsmarkt</td>
+      </tr>
+      <tr>
+        <td class="nu">Energie &amp; inspanning</td>
+        <td class="pijl-midden">→</td>
+        <td class="later">Netwerk, zelfvertrouwen &amp; ontwikkeling</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ══ DIA 5 — OPPORTUNITEITSKOSTEN BEREKENEN ══ -->
+  <div class="slide s5" data-nr="5">
+    <div class="slide-kop" style="color:var(--goud);font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Rekenvoorbeeld</div>
+    <div class="slide-titel" style="font-family:'Lexend',sans-serif;font-size:1.9rem;font-weight:800;color:#fff;margin-bottom:14px">Wat kost studeren écht?</div>
+    <div class="reken-grid">
+      <div class="reken-kaart">
+        <div class="reken-label">Gemist inkomen (4 jaar × €1.800/mnd)</div>
+        <div class="reken-waarde">€86.400</div>
+        <div class="reken-toel">Het inkomen dat je had kunnen verdienen als je direct was gaan werken</div>
+      </div>
+      <div class="reken-kaart">
+        <div class="reken-label">Collegegeld (4 jaar × €2.400)</div>
+        <div class="reken-waarde">€9.600</div>
+        <div class="reken-toel">Directe studiekosten, exclusief boeken, kamerhuur en levensonderhoud</div>
+      </div>
+      <div class="reken-kaart">
+        <div class="reken-label">Extra maandinkomen na studie</div>
+        <div class="reken-waarde">+€800/mnd</div>
+        <div class="reken-toel">Gemiddeld verschil bruto maandloon wo-diploma vs. geen diploma</div>
+      </div>
+      <div class="reken-kaart highlight">
+        <div class="reken-label">Terugverdientijd</div>
+        <div class="reken-waarde">~9 jaar</div>
+        <div class="reken-toel">€96.000 ÷ €800 = 120 maanden. Daarna: 30+ jaar extra inkomen!</div>
+      </div>
+    </div>
+    <div class="reken-stap">
+      💡 <strong>Conclusie:</strong> op je ~31ste heb je de investering terugverdiend — en tot je 67ste profiteer je van een hoger inkomen. Dat is ruim <strong>€350.000 extra</strong> over je werkzame leven.
+    </div>
+  </div>
+
+  <!-- ══ DIA 6 — SCHOLINGSLOON ══ -->
+  <div class="slide s6" data-nr="6">
+    <div class="slide-kop" style="color:var(--goud);font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Scholingsloon</div>
+    <div class="slide-titel" style="font-family:'Lexend',sans-serif;font-size:1.9rem;font-weight:800;color:#fff;margin-bottom:16px">Hoger opleidingsniveau = hoger loon</div>
+    <div class="bar-sectie">
+      <div class="bar-rij">
+        <div class="bar-label">VMBO / MBO-1</div>
+        <div class="bar-track"><div class="bar-fill vmbo">~€2.100</div></div>
+        <div class="bar-euro">bruto/mnd</div>
+      </div>
+      <div class="bar-rij">
+        <div class="bar-label">MBO-4</div>
+        <div class="bar-track"><div class="bar-fill mbo">~€2.700</div></div>
+        <div class="bar-euro">bruto/mnd</div>
+      </div>
+      <div class="bar-rij">
+        <div class="bar-label">HBO</div>
+        <div class="bar-track"><div class="bar-fill hbo">~€3.400</div></div>
+        <div class="bar-euro">bruto/mnd</div>
+      </div>
+      <div class="bar-rij">
+        <div class="bar-label">WO</div>
+        <div class="bar-track"><div class="bar-fill wo">~€4.200+</div></div>
+        <div class="bar-euro">bruto/mnd</div>
+      </div>
+    </div>
+    <div class="scholing-noot">
+      ⚠️ <strong>Let op:</strong> dit zijn gemiddelden. Het inkomen hangt ook af van de sector, het beroep, de arbeidsmarkt en persoonlijke factoren. Een populaire mbo-opleiding kan soms meer opleveren dan een overvolle wo-richting. Rendement varieert.
+    </div>
+  </div>
+
+  <!-- ══ DIA 7 — THEORIE: GARY BECKER ══ -->
+  <div class="slide s7" data-nr="7">
+    <div class="slide-kop" style="color:var(--goud);font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Achtergrond</div>
+    <div class="slide-titel" style="font-family:'Lexend',sans-serif;font-size:1.9rem;font-weight:800;color:#fff;margin-bottom:16px">Wie bedacht menselijk kapitaal?</div>
+    <div class="theorie-layout">
+      <div class="theorie-kaart">
+        <div class="theorie-ico">🏆</div>
+        <div class="theorie-kop">Gary Becker (1930–2014)</div>
+        <div class="theorie-body">Amerikaanse econoom, Nobelprijswinnaar <strong>1992</strong>. Hij legde als eerste systematisch uit dat investeringen in mensen net zo rationeel zijn als investeringen in machines.</div>
+      </div>
+      <div class="theorie-kaart">
+        <div class="theorie-ico">📚</div>
+        <div class="theorie-kop">Human Capital (1964)</div>
+        <div class="theorie-body">Zijn invloedrijke boek toonde aan dat <strong>onderwijs en gezondheid</strong> de productiviteit van werknemers verhogen — en daarmee de welvaart van hele landen.</div>
+      </div>
+      <div class="theorie-kaart">
+        <div class="theorie-ico">🌍</div>
+        <div class="theorie-kop">Macro-effect</div>
+        <div class="theorie-body">Landen met een <strong>hoog opgeleide beroepsbevolking</strong> groeien sneller economisch. Dit verklaart mede het succes van landen als Finland, Zuid-Korea en Nederland.</div>
+      </div>
+      <div class="theorie-kaart">
+        <div class="theorie-ico">🔗</div>
+        <div class="theorie-kop">Link met H7</div>
+        <div class="theorie-body">In hoofdstuk 7 (Groei &amp; Welvaart) kom je menselijk kapitaal opnieuw tegen als <strong>motor van economische groei</strong> op nationaal niveau.</div>
+      </div>
+    </div>
+    <div class="becker-citaat">
+      <div class="becker-tekst">"Het meest waardevolle kapitaal dat wij kennen, is het kapitaal dat in mensen is geïnvesteerd."</div>
+      <div class="becker-naam">— vrij naar Gary S. Becker, Human Capital (1964)</div>
+    </div>
+  </div>
+
+  <!-- ══ DIA 8 — CHECKVRAGEN ══ -->
+  <div class="slide s8" data-nr="8">
+    <div class="slide-kop" style="color:var(--goud);font-family:'Lexend',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Check jezelf</div>
+    <div class="slide-titel" style="font-family:'Lexend',sans-serif;font-size:1.9rem;font-weight:800;color:#fff;margin-bottom:12px">Snap jij het al?</div>
+    <div class="quiz-grid">
+      <div class="quiz-item">
+        <div class="quiz-nr">1</div>
+        <div>
+          <div class="quiz-vraag">Wat is het verschil tussen <em>fysiek kapitaal</em> en <em>menselijk kapitaal</em>? Geef een voorbeeld van elk.</div>
+          <div class="quiz-hint">Denk aan: machines vs. diploma's</div>
+        </div>
+      </div>
+      <div class="quiz-item">
+        <div class="quiz-nr">2</div>
+        <div>
+          <div class="quiz-vraag">Iemand kiest voor een 3-jarige opleiding en geeft daarmee €54.000 aan inkomen op. Na de studie verdient hij €600/maand meer. Bereken de terugverdientijd.</div>
+          <div class="quiz-hint">Terugverdientijd = totale kosten ÷ maandelijks voordeel</div>
+        </div>
+      </div>
+      <div class="quiz-item">
+        <div class="quiz-nr">3</div>
+        <div>
+          <div class="quiz-vraag">Noem twee <em>niet-financiële</em> redenen om te investeren in menselijk kapitaal.</div>
+          <div class="quiz-hint">Denk verder dan alleen je salaris</div>
+        </div>
+      </div>
+      <div class="quiz-item">
+        <div class="quiz-nr">4</div>
+        <div>
+          <div class="quiz-vraag">Waarom is een hoog opgeleid land economisch gezien sterker? Koppel dit aan het begrip <em>productiviteit</em>.</div>
+          <div class="quiz-hint">Denk aan het macro-niveau</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIA 9 — AFSLUITING ══ -->
+  <div class="slide s9" data-nr="9">
+    <div class="s9-inner">
+      <div class="s9-check">🎓</div>
+      <div class="s9-kop">Jij bent je eigen<br>beste belegging</div>
+      <div class="s9-sub">Elke euro en elk uur dat je nu investeert in je opleiding, betaalt zich over je hele werkzame leven terug. Dat is geen verplichting — dat is economisch inzicht in actie.</div>
+      <div class="begrippen-rij">
+        <span class="begrip-tag">Menselijk kapitaal</span>
+        <span class="begrip-tag">Human capital</span>
+        <span class="begrip-tag">Inter-temporele ruil</span>
+        <span class="begrip-tag">Opportuniteitskosten</span>
+        <span class="begrip-tag">Scholingsloon</span>
+        <span class="begrip-tag">Productiviteit</span>
+      </div>
+      <a class="s9-terug" href="H4_Ruilen_over_de_tijd.html">← Terug naar §4.4</a>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<nav class="nav">
+  <button id="prev" onclick="ga(-1)" disabled>&#8592;</button>
+  <span class="pgr" id="pgr">1 / 9</span>
+  <button id="next" onclick="ga(1)">&#8594;</button>
+</nav>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let cur = 0;
+
+// Build dots
+const dotsEl = document.getElementById('dots');
+slides.forEach((_,i)=>{
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' act':'');
+  d.onclick = ()=>goTo(i);
+  dotsEl.appendChild(d);
+});
+
+function goTo(n){
+  slides[cur].classList.remove('act');
+  dotsEl.children[cur].classList.remove('act');
+  cur = Math.max(0, Math.min(total-1, n));
+  slides[cur].classList.add('act');
+  dotsEl.children[cur].classList.add('act');
+  document.getElementById('pgr').textContent = (cur+1)+' / '+total;
+  document.getElementById('snr').textContent = (cur+1)+' / '+total;
+  document.getElementById('prev').disabled = cur===0;
+  document.getElementById('next').disabled = cur===total-1;
+}
+
+function ga(d){ goTo(cur+d); }
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'||e.key===' ') ga(1);
+  if(e.key==='ArrowLeft') ga(-1);
+});
+</script>
+</body>
+</html>
