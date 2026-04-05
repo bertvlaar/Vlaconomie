@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vlaconomie — Adaptieve Rekentrainer 2F</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--gd:#1a7a4a;--gl:#2ecc71;--glicht:#e8faf0;--gzl:#f0fdf4;
+  --goud:#f0c040;--goudd:#d4a012;
+  --rood:#b30000;--roodl:#e53e3e;
+  --rand:#e0e8f4;--bg:#f4f7f4
+}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--bg);color:#1a1a2e;font-size:15px;min-height:100vh}
+
+/* ── Header ── */
+header{background:linear-gradient(135deg,var(--groen),var(--gd));position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(15,77,46,.4)}
+.hdr-top{padding:10px 20px;display:flex;align-items:center;gap:12px}
+.logo{font-family:'Lexend',sans-serif;font-size:1.3rem;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-.5px}
+.logo em{color:var(--goud);font-style:normal}
+.logo-sub{font-size:.68rem;color:rgba(255,255,255,.65);font-family:'DM Sans',sans-serif;margin-top:1px}
+.hdr-terug{margin-left:auto;background:rgba(255,255,255,.15);border:none;color:#fff;font-family:'Lexend',sans-serif;font-size:.78rem;font-weight:600;padding:7px 14px;border-radius:20px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background .2s}
+.hdr-terug:hover{background:rgba(255,255,255,.25)}
+
+/* ── Main ── */
+main{max-width:820px;margin:0 auto;padding:20px 14px 60px}
+
+/* ── Kaart-header ── */
+.rt-header{background:linear-gradient(135deg,var(--groen),var(--gd));color:#fff;padding:22px 26px;border-radius:12px 12px 0 0}
+.rt-header .pn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--goud);color:var(--groen);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;font-weight:700}
+.rt-header h1{font-family:'Lexend',sans-serif;font-size:1.4rem;margin-bottom:4px;font-weight:800}
+.rt-header p{color:rgba(255,255,255,.8);font-size:.87rem}
+
+/* ── Niveau-balk ── */
+.rt-meter-wrap{background:#fff;padding:13px 22px;border:1px solid var(--rand);border-top:none;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.rt-meter-label{font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:700;color:var(--gd);white-space:nowrap}
+.rt-meter-bar-bg{flex:1;height:10px;background:#e0e8f0;border-radius:10px;min-width:80px}
+.rt-meter-bar{height:10px;border-radius:10px;background:linear-gradient(90deg,var(--gd),var(--gl));transition:width .6s ease;width:0%}
+.rt-meter-val{font-family:'Lexend',sans-serif;font-size:.8rem;font-weight:700;color:var(--groen);min-width:72px;text-align:right}
+.rt-streak{font-size:.75rem;color:var(--goudd);font-weight:700;font-family:'Lexend',sans-serif}
+.rt-btn-reset{background:none;border:2px solid #ccc;color:#999;font-size:.72rem;padding:5px 11px;margin-left:auto;font-family:'Lexend',sans-serif;border-radius:8px;cursor:pointer;transition:all .2s}
+.rt-btn-reset:hover{border-color:var(--roodl);color:var(--roodl)}
+
+/* ── Vraag-body ── */
+.rt-body{background:#fff;padding:22px 24px 26px;border:1px solid var(--rand);border-top:none;border-radius:0 0 12px 12px;margin-bottom:18px}
+
+/* ── Stats-pills ── */
+.rt-stats-row{display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap}
+.rt-stat-pill{background:#f4f7f4;border:1px solid var(--rand);border-radius:20px;padding:4px 12px;font-size:.76rem;font-family:'Lexend',sans-serif;display:flex;align-items:center;gap:5px}
+.rt-stat-pill span{font-weight:700;color:var(--gd)}
+
+/* ── Badges ── */
+.rt-badge-row{margin-bottom:11px}
+.rt-cat-badge{display:inline-block;font-family:'Lexend',sans-serif;font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 10px;border-radius:12px;background:var(--glicht);color:var(--gd)}
+.rt-lvl-badge{display:inline-block;font-family:'Lexend',sans-serif;font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 10px;border-radius:12px;margin-left:6px}
+.rt-lvl-badge.easy{background:#d1fae5;color:#065f46}
+.rt-lvl-badge.med{background:#fef3c7;color:#92400e}
+.rt-lvl-badge.hard{background:#fee2e2;color:#991b1b}
+
+/* ── Context + vraag ── */
+.rt-context{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:10px 14px;font-size:.87rem;color:#333;line-height:1.6;margin-bottom:13px}
+.rt-vraag{font-weight:700;font-size:.95rem;line-height:1.6;color:#1a1a2e;margin-bottom:16px}
+
+/* ── Open invoer ── */
+.rt-inp-wrap{margin-bottom:8px}
+.rt-inp-label{font-size:.76rem;color:var(--grijs,#6b7280);margin-bottom:5px;font-weight:600}
+.rt-inp{width:100%;padding:11px 14px;border:2px solid var(--rand);border-radius:9px;font-size:.95rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s,background .2s;line-height:1.4}
+.rt-inp:focus{border-color:var(--gd);background:#fff}
+.rt-inp.ok{border-color:var(--gd);background:var(--glicht)}
+.rt-inp.fout{border-color:var(--roodl);background:#fdecea}
+.rt-inp:disabled{cursor:default}
+.rt-eenheid-hint{font-size:.76rem;color:var(--goudd);margin-top:4px;font-style:italic}
+
+/* ── Feedback-balk (goed/fout) ── */
+.rt-feedback{display:none;margin-top:10px;padding:12px 15px;border-radius:9px;font-size:.88rem;line-height:1.6;font-weight:600}
+.rt-feedback.ok{display:block;background:var(--glicht);color:var(--groen);border-left:4px solid var(--gd)}
+.rt-feedback.fout{display:block;background:#fdecea;color:#c0392b;border-left:4px solid var(--roodl)}
+.rt-feedback-sub{font-weight:400;font-style:italic;margin-top:5px;color:#555;font-size:.84rem}
+
+/* ── Modelantwoord-blok ── */
+.rt-model{display:none;margin-top:14px;border:2px solid var(--goud);border-radius:10px;overflow:hidden}
+.rt-model-header{background:linear-gradient(135deg,#fffbe6,#fef3c7);padding:10px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.rt-model-header-tekst{font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:700;color:var(--goudd)}
+.rt-model-header-icon{font-size:1rem;transition:transform .25s}
+.rt-model-body{display:none;padding:14px 16px;background:#fffdf0}
+.rt-model-body.open{display:block}
+.rt-model-header-icon.open{transform:rotate(90deg)}
+
+/* Stappen in modelantwoord */
+.rt-stap{display:flex;gap:11px;margin-bottom:12px;align-items:flex-start}
+.rt-stap:last-child{margin-bottom:0}
+.rt-stap-nr{flex-shrink:0;width:26px;height:26px;background:var(--goudd);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Lexend',sans-serif;font-size:.75rem;font-weight:800;margin-top:1px}
+.rt-stap-tekst{font-size:.88rem;line-height:1.65;color:#333}
+.rt-stap-tekst strong{color:var(--groen)}
+.rt-stap-tekst .rt-formule{display:inline-block;background:#fff;border:1px solid var(--goud);border-radius:5px;padding:2px 8px;font-family:'Courier New',monospace;font-size:.84rem;color:var(--groen);font-weight:700;margin:2px 0}
+.rt-antwoord-box{margin-top:10px;background:var(--glicht);border-left:4px solid var(--gd);padding:9px 13px;border-radius:0 7px 7px 0;font-family:'Lexend',sans-serif;font-size:.9rem;font-weight:700;color:var(--groen)}
+.rt-coach{margin-top:10px;font-size:.82rem;font-style:italic;color:#666;border-top:1px dashed #e0e0c0;padding-top:8px}
+.rt-coach strong{color:var(--gd);font-style:normal}
+
+/* ── Knoppen ── */
+.rt-btn-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.rt-btn{font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:700;padding:9px 20px;border-radius:8px;cursor:pointer;transition:all .2s;border:2px solid transparent}
+.rt-btn-check{background:var(--gd);color:#fff;border-color:var(--gd)}
+.rt-btn-check:hover{background:var(--groen);border-color:var(--groen)}
+.rt-btn-check:disabled{background:#ccc;border-color:#ccc;cursor:default}
+
+/* Zelfbeoordeling na modelantwoord */
+.rt-zelfoordeel{display:none;margin-top:14px;padding:13px 15px;background:#f8f8f8;border-radius:9px;border:1px solid var(--rand)}
+.rt-zelfoordeel-vraag{font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:700;color:#444;margin-bottom:10px}
+.rt-zelfoordeel-knoppen{display:flex;gap:8px;flex-wrap:wrap}
+.rt-zk{font-family:'Lexend',sans-serif;font-size:.8rem;font-weight:700;padding:8px 16px;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.rt-zk-goed{background:var(--glicht);color:var(--groen);border-color:var(--gd)}
+.rt-zk-goed:hover{background:var(--gd);color:#fff}
+.rt-zk-fout{background:#fdecea;color:#c0392b;border-color:var(--roodl)}
+.rt-zk-fout:hover{background:var(--roodl);color:#fff}
+.rt-zk-deels{background:#fff8e1;color:#92400e;border-color:var(--goudd)}
+.rt-zk-deels:hover{background:var(--goudd);color:#fff}
+
+.rt-btn-volgende{background:var(--goud);color:var(--groen);border-color:var(--goud);display:none}
+.rt-btn-volgende:hover{background:var(--goudd);color:#fff;border-color:var(--goudd)}
+
+@media(max-width:600px){
+  .rt-header h1{font-size:1.15rem}
+  .hdr-top{padding:8px 14px}
+  .rt-zelfoordeel-knoppen{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-top">
+    <a href="index.html" style="text-decoration:none">
+      <div class="logo">vla<em>conomie</em>.nl</div>
+      <div class="logo-sub">Economie · 2F Rekentrainer</div>
+    </a>
+    <a href="index.html" class="hdr-terug">← Terug naar home</a>
+  </div>
+</header>
+
+<main>
+  <div class="rt-header">
+    <div class="pn">🧮 Rekentrainer 2F</div>
+    <h1>Adaptieve Rekentrainer</h1>
+    <p>Getallen · Verhoudingen · Procenten · Meten — schrijf je antwoord op en bekijk daarna de stapsgewijze uitleg</p>
+  </div>
+
+  <div class="rt-meter-wrap">
+    <div class="rt-meter-label">Jouw niveau</div>
+    <div class="rt-meter-bar-bg"><div class="rt-meter-bar" id="rt-bar"></div></div>
+    <div class="rt-meter-val" id="rt-mval">Starter</div>
+    <div class="rt-streak" id="rt-streak">🔥 0 op rij</div>
+    <button class="rt-btn-reset" onclick="rtReset()">↺ Reset</button>
+  </div>
+
+  <div class="rt-body">
+    <div class="rt-stats-row">
+      <div class="rt-stat-pill">✅ Goed: <span id="rt-goed">0</span></div>
+      <div class="rt-stat-pill">🔶 Deels: <span id="rt-deels">0</span></div>
+      <div class="rt-stat-pill">❌ Fout: <span id="rt-fout">0</span></div>
+      <div class="rt-stat-pill">📋 Totaal: <span id="rt-tot">0</span></div>
+    </div>
+    <div id="rt-kaart"></div>
+  </div>
+</main>
+
+<script>
+(function(){
+'use strict';
+
+/* ─── HULPFUNCTIES ─────────────────────────────────────────────────────── */
+function ri(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+function kies(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function af(n,d){return parseFloat(n.toFixed(d===undefined?2:d));}
+function fmt(n,d){
+  d=d===undefined?0:d;
+  return af(n,d).toLocaleString('nl-NL',{minimumFractionDigits:d,maximumFractionDigits:d});
+}
+function shu(arr){
+  var a=arr.slice();
+  for(var i=a.length-1;i>0;i--){var j=ri(0,i);var t=a[i];a[i]=a[j];a[j]=t;}
+  return a;
+}
+var NAMEN=['Daan','Layla','Mo','Sara','Tim','Fenna','Jayden','Noor','Liam','Zara'];
+var COACHES=['Daan','Layla'];
+function naam(){return kies(NAMEN);}
+function coach(){return kies(COACHES);}
+
+/*
+  Elke vraag heeft:
+  - niveau: 1 | 2 | 3
+  - categorie: string
+  - context: string (situatieschets)
+  - vraag: string
+  - eenheid: string  (bijv. '€', '%', 'km', 'minuten')
+  - stappen: array van strings — elke stap = één rekenregel
+  - antwoord: string — het eindantwoord dat getoond wordt
+  - coachTip: string — tip van Daan of Layla
+*/
+
+/* ─── SJABLONEN ────────────────────────────────────────────────────────── */
+var S=[
+
+  /* ══ NIVEAU 1 — GETALLEN ══ */
+
+  function(){
+    var n=naam(), u=ri(8,16)+kies([0,.25,.5,.75]), h=ri(2,9);
+    var tot=af(u*h,2);
+    return{niveau:1,categorie:'Getallen',
+      context:n+' heeft een bijbaan en verdient €'+fmt(u,2)+' per uur.',
+      vraag:''+n+' werkt '+h+' uur deze week. Hoeveel verdient '+n+' in totaal?',
+      eenheid:'€',
+      stappen:[
+        'Schrijf de berekening op: uurloon × aantal uren',
+        '<span class="rt-formule">€'+fmt(u,2)+' × '+h+'</span>',
+        '= <strong>€'+fmt(tot,2)+'</strong>'
+      ],
+      antwoord:'€'+fmt(tot,2),
+      coachTip:coach()+': "Uurloon × uren gewerkt = totaal verdiend. Controleer altijd of de komma klopt bij bedragen."'};},
+
+  function(){
+    var n=naam(), betaal=kies([5,10,20,50]);
+    var p1=af(ri(1,3)+ri(1,9)*0.1,2), p2=af(ri(1,4)+ri(1,9)*0.1,2), p3=af(ri(1,2)+ri(1,9)*0.1,2);
+    var som=af(p1+p2+p3,2), wissel=af(betaal-som,2);
+    if(wissel<0.5||wissel>=betaal)return null;
+    return{niveau:1,categorie:'Getallen',
+      context:n+' betaalt met een briefje van €'+betaal+' in de supermarkt.',
+      vraag:n+' koopt drie producten: €'+fmt(p1,2)+', €'+fmt(p2,2)+' en €'+fmt(p3,2)+'. Hoeveel wisselgeld krijgt '+n+' terug?',
+      eenheid:'€',
+      stappen:[
+        'Stap 1 — Tel de drie bedragen op:',
+        '<span class="rt-formule">€'+fmt(p1,2)+' + €'+fmt(p2,2)+' + €'+fmt(p3,2)+' = €'+fmt(som,2)+'</span>',
+        'Stap 2 — Trek het totaal af van het betaalde bedrag:',
+        '<span class="rt-formule">€'+betaal+' − €'+fmt(som,2)+' = <strong>€'+fmt(wissel,2)+'</strong></span>'
+      ],
+      antwoord:'€'+fmt(wissel,2),
+      coachTip:coach()+': "Eerst optellen, dan aftrekken. Let op de kommagetallen!"'};},
+
+  function(){
+    var n=naam(), prijs=ri(2,15)+kies([0,.5]), aantal=ri(3,20);
+    var tot=af(prijs*aantal,2);
+    var prod=kies(['appels','peren','sinaasappels','bananen','tomaten','aardbeien']);
+    return{niveau:1,categorie:'Getallen',
+      context:n+' koopt '+prod+' op de markt. De prijs is €'+fmt(prijs,2)+' per kilo.',
+      vraag:''+n+' koopt '+aantal+' kilo. Wat betaalt '+n+' in totaal?',
+      eenheid:'€',
+      stappen:[
+        'Berekening: prijs per kilo × aantal kilo',
+        '<span class="rt-formule">€'+fmt(prijs,2)+' × '+aantal+' = <strong>€'+fmt(tot,2)+'</strong></span>'
+      ],
+      antwoord:'€'+fmt(tot,2),
+      coachTip:coach()+': "Prijs per eenheid × aantal eenheden geeft het totaalbedrag."'};},
+
+  function(){
+    var n=naam(), begin=ri(50,500), verkocht=ri(10,begin-10);
+    var over=begin-verkocht;
+    return{niveau:1,categorie:'Getallen',
+      context:n+' beheert de voorraad van een winkel.',
+      vraag:'Beginvoorraad: '+begin+' stuks. Er worden '+verkocht+' stuks verkocht. Hoeveel stuks zijn er nog over?',
+      eenheid:'stuks',
+      stappen:[
+        'Berekening: beginvoorraad − verkochte stuks',
+        '<span class="rt-formule">'+begin+' − '+verkocht+' = <strong>'+over+'</strong></span>'
+      ],
+      antwoord:''+over+' stuks',
+      coachTip:coach()+': "Wat er over is = wat je had min wat je kwijt bent."'};},
+
+  function(){
+    var n=naam(), a=ri(150,4000), b=ri(150,4000), som=a+b;
+    return{niveau:1,categorie:'Getallen',
+      context:n+' analyseert de bezoekersaantallen van de schoolwebsite.',
+      vraag:'Maandag waren er '+fmt(a)+' bezoekers, dinsdag '+fmt(b)+'. Hoeveel bezoekers waren er in totaal?',
+      eenheid:'bezoekers',
+      stappen:[
+        'Berekening: dag 1 + dag 2',
+        '<span class="rt-formule">'+fmt(a)+' + '+fmt(b)+' = <strong>'+fmt(som)+'</strong></span>'
+      ],
+      antwoord:fmt(som)+' bezoekers',
+      coachTip:coach()+': "Simpel optellen — controleer of je de getallen goed overneemt."'};},
+
+  function(){
+    var n=naam(), pak=kies([3,4,5,6,8,10,12]), gr=ri(2,8);
+    var doos=pak*gr+ri(0,pak-1), vol=Math.floor(doos/pak), rest=doos%pak;
+    return{niveau:1,categorie:'Getallen',
+      context:n+' werkt in een magazijn en verpakt producten.',
+      vraag:'Er zijn '+doos+' producten. Per doos gaan er '+pak+' stuks. Hoeveel volle dozen kan '+n+' vullen?',
+      eenheid:'dozen',
+      stappen:[
+        'Berekening: totaal ÷ stuks per doos',
+        '<span class="rt-formule">'+doos+' ÷ '+pak+' = '+vol+(rest?' met rest '+rest:''+'</span>'),
+        rest?'De rest ('+rest+' stuks) vormt geen volledige doos.':'Precies op — geen rest.',
+        'Antwoord: <strong>'+vol+' volle dozen</strong>'
+      ],
+      antwoord:''+vol+' dozen',
+      coachTip:coach()+': "Bij deelsommen met rest let je op het woord \'vol\' — een halve doos telt niet."'};},
+
+  /* ══ NIVEAU 1 — VERHOUDINGEN ══ */
+
+  function(){
+    var n=naam(), a=ri(1,5), b=ri(1,5);
+    while(a===b)b=ri(1,5);
+    var deel=ri(2,8), totaal=(a+b)*deel, deelA=a*deel;
+    var obj=kies(['jongens en meisjes','auto\'s en fietsen','vaste en variabele kosten','brood en zoet']);
+    var delen=obj.split(' en ');
+    return{niveau:1,categorie:'Verhoudingen',
+      context:'In een groep van '+totaal+' mensen is de verhouding '+delen[0]+' : '+delen[1]+' = '+a+' : '+b+'.',
+      vraag:'Hoeveel '+delen[0]+' zijn er in de groep?',
+      eenheid:'personen',
+      stappen:[
+        'Stap 1 — Tel de verhoudingsgetallen op: '+a+' + '+b+' = '+(a+b)+' delen totaal',
+        'Stap 2 — Bereken de waarde van één deel:',
+        '<span class="rt-formule">'+totaal+' ÷ '+(a+b)+' = '+deel+' per deel</span>',
+        'Stap 3 — '+delen[0]+' heeft '+a+' deel'+(a>1?'en':'')+':',
+        '<span class="rt-formule">'+a+' × '+deel+' = <strong>'+deelA+'</strong></span>'
+      ],
+      antwoord:''+deelA+' '+delen[0],
+      coachTip:coach()+': "Altijd drie stappen: (1) tel de verhoudingsgetallen op, (2) bereken één deel, (3) vermenigvuldig."'};},
+
+  function(){
+    var n=naam(), schaal=kies([1000,2000,5000,10000,25000,50000]);
+    var cm=ri(2,20), echt_m=cm*schaal, echt_km=af(echt_m/1000,1);
+    return{niveau:1,categorie:'Verhoudingen',
+      context:n+' werkt met een kaart met schaal 1 : '+fmt(schaal)+'.',
+      vraag:'Een weg is op de kaart '+cm+' cm lang. Hoe lang is de weg in werkelijkheid? Geef je antwoord in km.',
+      eenheid:'km',
+      stappen:[
+        'Stap 1 — Vermenigvuldig de kaartafstand met de schaalfactor:',
+        '<span class="rt-formule">'+cm+' cm × '+fmt(schaal)+' = '+fmt(echt_m)+' cm</span>',
+        'Stap 2 — Zet cm om naar km (÷ 100.000):',
+        '<span class="rt-formule">'+fmt(echt_m)+' ÷ 100.000 = <strong>'+fmt(echt_km,1)+' km</strong></span>'
+      ],
+      antwoord:fmt(echt_km,1)+' km',
+      coachTip:coach()+': "Schaal 1:'+fmt(schaal)+' betekent: 1 cm op de kaart = '+fmt(schaal)+' cm in het echt. Deel daarna door 100.000 voor km."'};},
+
+  function(){
+    var n=naam(), pb=kies([2,4,6]), pw=ri(2,10);
+    while(pw===pb)pw=ri(2,10);
+    var gram=ri(1,8)*50, gramW=Math.round(gram/pb*pw);
+    return{niveau:1,categorie:'Verhoudingen',
+      context:n+' bakt koekjes. Het recept is voor '+pb+' personen en vraagt '+gram+' gram bloem.',
+      vraag:n+' wil koekjes bakken voor '+pw+' personen. Hoeveel gram bloem heeft '+n+' nodig?',
+      eenheid:'gram',
+      stappen:[
+        'Stap 1 — Bereken hoeveel gram bloem per persoon:',
+        '<span class="rt-formule">'+gram+' g ÷ '+pb+' = '+af(gram/pb,1)+' g per persoon</span>',
+        'Stap 2 — Vermenigvuldig voor '+pw+' personen:',
+        '<span class="rt-formule">'+af(gram/pb,1)+' × '+pw+' = <strong>'+gramW+' g</strong></span>'
+      ],
+      antwoord:gramW+' gram',
+      coachTip:coach()+': "Recept schalen: deel door het oorspronkelijke aantal, vermenigvuldig met het nieuwe aantal."'};},
+
+  /* ══ NIVEAU 1 — PROCENTEN ══ */
+
+  function(){
+    var n=naam(), prijs=ri(2,20)*10, pct=kies([5,10,15,20,25,50]);
+    var korting=af(prijs*pct/100,2);
+    return{niveau:1,categorie:'Procenten',
+      context:n+' gaat shoppen tijdens de uitverkoop.',
+      vraag:'Een artikel kost €'+prijs+'. Er is '+pct+'% korting. Hoeveel euro is de korting?',
+      eenheid:'€',
+      stappen:[
+        'Zet het percentage om naar een decimaal:',
+        '<span class="rt-formule">'+pct+'% = '+pct+' ÷ 100 = '+pct/100+'</span>',
+        'Bereken de korting:',
+        '<span class="rt-formule">'+pct/100+' × €'+prijs+' = <strong>€'+fmt(korting,2)+'</strong></span>'
+      ],
+      antwoord:'€'+fmt(korting,2),
+      coachTip:coach()+': "% omzetten: deel door 100. '+pct+'% van €'+prijs+' = '+pct/100+' × '+prijs+' = €'+fmt(korting,2)+'."'};},
+
+  function(){
+    var n=naam(), prijs=ri(2,20)*10, pct=kies([5,10,20,25,30]);
+    var korting=af(prijs*pct/100,2), nieuw=af(prijs-korting,2);
+    return{niveau:1,categorie:'Procenten',
+      context:n+' ziet een aanbieding in de winkel.',
+      vraag:'De originele prijs is €'+prijs+'. Er is '+pct+'% korting. Wat is de nieuwe prijs?',
+      eenheid:'€',
+      stappen:[
+        'Methode 1 — Bereken de korting en trek die af:',
+        '<span class="rt-formule">'+pct+'% van €'+prijs+' = €'+fmt(korting,2)+'</span>',
+        '<span class="rt-formule">€'+prijs+' − €'+fmt(korting,2)+' = <strong>€'+fmt(nieuw,2)+'</strong></span>',
+        'Methode 2 (sneller) — Vermenigvuldig direct:',
+        '<span class="rt-formule">€'+prijs+' × '+af(1-pct/100,2)+' = <strong>€'+fmt(nieuw,2)+'</strong></span>'
+      ],
+      antwoord:'€'+fmt(nieuw,2),
+      coachTip:coach()+': "De snelste methode: '+pct+'% korting → je betaalt '+(100-pct)+'%. Dus: prijs × '+af(1-pct/100,2)+'."'};},
+
+  function(){
+    var n=naam(), totaal=ri(2,10)*100, deel=ri(1,9)*10;
+    while(deel>=totaal)deel=ri(1,9)*10;
+    var pct=Math.round(deel/totaal*100);
+    return{niveau:1,categorie:'Procenten',
+      context:n+' analyseert de uitslag van een schoolstemming.',
+      vraag:'Van de '+totaal+' leerlingen stemden '+deel+' leerlingen "ja". Welk percentage is dat?',
+      eenheid:'%',
+      stappen:[
+        'Formule: (deel ÷ geheel) × 100',
+        '<span class="rt-formule">'+deel+' ÷ '+totaal+' = '+af(deel/totaal,4)+'</span>',
+        '<span class="rt-formule">'+af(deel/totaal,4)+' × 100 = <strong>'+pct+'%</strong></span>'
+      ],
+      antwoord:''+pct+'%',
+      coachTip:coach()+': "Percentage berekenen: deel ÷ geheel × 100. Denk aan de volgorde!"'};},
+
+  /* ══ NIVEAU 1 — METEN ══ */
+
+  function(){
+    var n=naam(), km=ri(1,20);
+    if(Math.random()<0.5){
+      var m=km*1000;
+      return{niveau:1,categorie:'Meten',
+        context:n+' traint voor een hardloopwedstrijd.',
+        vraag:'De trainingsroute is '+km+' km lang. Hoeveel meter is dat?',
+        eenheid:'m',
+        stappen:[
+          'Omrekeningsregel: 1 km = 1.000 m',
+          '<span class="rt-formule">'+km+' km × 1.000 = <strong>'+fmt(m)+' m</strong></span>'
+        ],
+        antwoord:fmt(m)+' m',
+        coachTip:coach()+': "Van km naar m: vermenigvuldig met 1.000. Van m naar km: deel door 1.000."'};
+    }else{
+      var m2=ri(1,20)*1000, km2=m2/1000;
+      return{niveau:1,categorie:'Meten',
+        context:n+' leest een routebeschrijving.',
+        vraag:'De afstand is '+fmt(m2)+' meter. Hoeveel kilometer is dat?',
+        eenheid:'km',
+        stappen:[
+          'Omrekeningsregel: 1.000 m = 1 km',
+          '<span class="rt-formule">'+fmt(m2)+' m ÷ 1.000 = <strong>'+km2+' km</strong></span>'
+        ],
+        antwoord:km2+' km',
+        coachTip:coach()+': "Van m naar km: deel door 1.000."'};}},
+
+  function(){
+    var n=naam(), l=ri(4,20), b=ri(2,12);
+    while(b>=l)b=ri(2,10);
+    var opp=l*b;
+    return{niveau:1,categorie:'Meten',
+      context:n+' wil nieuwe vloertegels kopen voor de woonkamer.',
+      vraag:'De kamer is '+l+' m lang en '+b+' m breed. Hoeveel vierkante meter vloer is er?',
+      eenheid:'m²',
+      stappen:[
+        'Formule oppervlakte rechthoek: lengte × breedte',
+        '<span class="rt-formule">'+l+' m × '+b+' m = <strong>'+opp+' m²</strong></span>'
+      ],
+      antwoord:''+opp+' m²',
+      coachTip:coach()+': "Oppervlakte = l × b. Denk eraan: het antwoord is in m², niet in m."'};},
+
+  function(){
+    var n=naam(), uren=ri(1,5), min=kies([0,15,30,45]), totMin=uren*60+min;
+    return{niveau:1,categorie:'Meten',
+      context:n+' wil weten hoe lang een evenement duurt.',
+      vraag:'Het evenement duurt '+uren+' uur en '+min+' minuten. Hoeveel minuten is dat in totaal?',
+      eenheid:'minuten',
+      stappen:[
+        'Zet de uren om naar minuten:',
+        '<span class="rt-formule">'+uren+' uur × 60 = '+uren*60+' minuten</span>',
+        'Tel de losse minuten erbij:',
+        '<span class="rt-formule">'+uren*60+' + '+min+' = <strong>'+totMin+' minuten</strong></span>'
+      ],
+      antwoord:''+totMin+' minuten',
+      coachTip:coach()+': "1 uur = 60 minuten. Altijd eerst de uren omzetten, dan optellen."'};},
+
+  function(){
+    var n=naam(), afstand=ri(1,15)+kies([0,.5]), keer=ri(2,5);
+    var tot=af(afstand*2*keer,1);
+    return{niveau:1,categorie:'Meten',
+      context:n+' fietst elke dag van huis naar school en terug.',
+      vraag:'De school is '+fmt(af(afstand,1),1)+' km van huis. '+n+' doet dit '+keer+' keer (heen én terug). Hoeveel km fietst '+n+' in totaal?',
+      eenheid:'km',
+      stappen:[
+        'Stap 1 — Heen én terug is dubbele afstand:',
+        '<span class="rt-formule">'+fmt(af(afstand,1),1)+' km × 2 = '+fmt(af(afstand*2,1),1)+' km per dag</span>',
+        'Stap 2 — Vermenigvuldig met het aantal keer:',
+        '<span class="rt-formule">'+fmt(af(afstand*2,1),1)+' km × '+keer+' = <strong>'+fmt(tot,1)+' km</strong></span>'
+      ],
+      antwoord:fmt(tot,1)+' km',
+      coachTip:coach()+': "Heen én terug = 2×. Dan × het aantal dagen."'};},
+
+  /* ══ NIVEAU 2 — PROCENTEN ══ */
+
+  function(){
+    var n=naam(), bruto=ri(3,12)*100, pct=kies([10,15,20,25,30,37]);
+    var aftrek=af(bruto*pct/100,2), netto=af(bruto-aftrek,2);
+    return{niveau:2,categorie:'Procenten',
+      context:n+' heeft een bijbaan en verdient €'+fmt(bruto)+' bruto per maand.',
+      vraag:'Er wordt '+pct+'% loonheffing ingehouden. Hoeveel ontvangt '+n+' netto per maand?',
+      eenheid:'€',
+      stappen:[
+        'Stap 1 — Bereken de loonheffing:',
+        '<span class="rt-formule">'+pct+'% van €'+fmt(bruto)+' = '+pct/100+' × '+fmt(bruto)+' = €'+fmt(aftrek,2)+'</span>',
+        'Stap 2 — Trek de heffing af van het brutoloon:',
+        '<span class="rt-formule">€'+fmt(bruto)+' − €'+fmt(aftrek,2)+' = <strong>€'+fmt(netto,2)+'</strong></span>',
+        'Of direct: €'+fmt(bruto)+' × '+af(1-pct/100,2)+' = €'+fmt(netto,2)
+      ],
+      antwoord:'€'+fmt(netto,2),
+      coachTip:coach()+': "Nettoloon = brutoloon × (1 − heffingspercentage). Je ziet dit ook op een echte loonstrook!"'};},
+
+  function(){
+    var n=naam(), bruto=ri(4,15)*100, p=kies([10,15,20,25]);
+    var netto=Math.round(bruto*(1-p/100)), pctN=Math.round(netto/bruto*100);
+    return{niveau:2,categorie:'Procenten',
+      context:'Op de loonstrook van '+n+' staat: bruto €'+fmt(bruto)+', netto €'+fmt(netto)+'.',
+      vraag:'Welk percentage van het brutoloon is het nettoloon?',
+      eenheid:'%',
+      stappen:[
+        'Formule: (netto ÷ bruto) × 100',
+        '<span class="rt-formule">'+fmt(netto)+' ÷ '+fmt(bruto)+' = '+af(netto/bruto,4)+'</span>',
+        '<span class="rt-formule">'+af(netto/bruto,4)+' × 100 = <strong>'+pctN+'%</strong></span>'
+      ],
+      antwoord:''+pctN+'%',
+      coachTip:coach()+': "Netto als % van bruto: netto ÷ bruto × 100. Controleer: bruto − '+p+'% = netto."'};},
+
+  function(){
+    var n=naam(), inkoop=ri(2,20)*25, mpct=kies([10,20,25,30,40,50]);
+    var winst=af(inkoop*mpct/100,2), vk=af(inkoop+winst,2);
+    return{niveau:2,categorie:'Procenten',
+      context:n+' drijft een webwinkel. Inkoopprijs: €'+fmt(inkoop,2)+'. Verkoopprijs: €'+fmt(vk,2)+'.',
+      vraag:'Bereken de winstmarge als percentage van de inkoopprijs.',
+      eenheid:'%',
+      stappen:[
+        'Stap 1 — Bereken de winst:',
+        '<span class="rt-formule">€'+fmt(vk,2)+' − €'+fmt(inkoop,2)+' = €'+fmt(winst,2)+'</span>',
+        'Stap 2 — Winstmarge = (winst ÷ inkoopprijs) × 100:',
+        '<span class="rt-formule">€'+fmt(winst,2)+' ÷ €'+fmt(inkoop,2)+' × 100 = <strong>'+mpct+'%</strong></span>'
+      ],
+      antwoord:''+mpct+'%',
+      coachTip:coach()+': "Let op: winstmarge bereken je op de inkoopprijs, niet op de verkoopprijs!"'};},
+
+  function(){
+    var n=naam(), oud=ri(3,20)*100, pct=kies([5,10,15,20,25,50]);
+    var nieuw=Math.round(oud*(1+pct/100));
+    return{niveau:2,categorie:'Procenten',
+      context:n+' bestudeert prijsontwikkelingen van producten.',
+      vraag:'Een product kost nu €'+fmt(oud)+'. De prijs stijgt met '+pct+'%. Wat is de nieuwe prijs?',
+      eenheid:'€',
+      stappen:[
+        'Stap 1 — Bereken de stijging:',
+        '<span class="rt-formule">'+pct+'% van €'+fmt(oud)+' = €'+Math.round(oud*pct/100)+'</span>',
+        'Stap 2 — Tel de stijging erbij op:',
+        '<span class="rt-formule">€'+fmt(oud)+' + €'+Math.round(oud*pct/100)+' = <strong>€'+fmt(nieuw)+'</strong></span>',
+        'Snellere methode: €'+fmt(oud)+' × '+af(1+pct/100,2)+' = €'+fmt(nieuw)
+      ],
+      antwoord:'€'+fmt(nieuw),
+      coachTip:coach()+': "Stijging van '+pct+'% → factor '+af(1+pct/100,2)+'. Vermenigvuldig direct voor het snelste antwoord."'};},
+
+  function(){
+    var n=naam(), oud=ri(5,30)*100, pct=kies([5,10,15,20,25,30]);
+    var nieuw=Math.round(oud*(1-pct/100));
+    return{niveau:2,categorie:'Procenten',
+      context:n+' volgt de aandelenkoersen.',
+      vraag:'De koers was €'+fmt(oud)+'. De koers daalt met '+pct+'%. Wat is de nieuwe koers?',
+      eenheid:'€',
+      stappen:[
+        'Stap 1 — Bereken de daling:',
+        '<span class="rt-formule">'+pct+'% van €'+fmt(oud)+' = €'+Math.round(oud*pct/100)+'</span>',
+        'Stap 2 — Trek de daling af:',
+        '<span class="rt-formule">€'+fmt(oud)+' − €'+Math.round(oud*pct/100)+' = <strong>€'+fmt(nieuw)+'</strong></span>',
+        'Snellere methode: €'+fmt(oud)+' × '+af(1-pct/100,2)+' = €'+fmt(nieuw)
+      ],
+      antwoord:'€'+fmt(nieuw),
+      coachTip:coach()+': "Daling van '+pct+'% → factor '+af(1-pct/100,2)+'. Denk eraan: je rekent met het percentage dat OVERBLIJFT."'};},
+
+  function(){
+    var n=naam(), doel=ri(4,20)*100, pm=kies([25,50,75,100,150,200]);
+    var mnd=Math.ceil(doel/pm);
+    return{niveau:2,categorie:'Getallen',
+      context:n+' spaart €'+pm+' per maand voor een nieuwe laptop.',
+      vraag:n+' wil in totaal €'+fmt(doel)+' sparen. Na hoeveel maanden heeft '+n+' genoeg?',
+      eenheid:'maanden',
+      stappen:[
+        'Formule: doel ÷ maandelijks spaarbedrag',
+        '<span class="rt-formule">€'+fmt(doel)+' ÷ €'+pm+' = '+af(doel/pm,2)+'</span>',
+        doel%pm===0?'Precies '+mnd+' maanden.':'Afronden naar boven (want een halve maand telt ook):',
+        '<strong>'+mnd+' maanden</strong>'
+      ],
+      antwoord:''+mnd+' maanden',
+      coachTip:coach()+': "Doel ÷ bedrag per periode geeft het aantal periodes. Afronden naar boven als er een rest is."'};},
+
+  function(){
+    var n=naam(), lp100=kies([5,6,7,8,9,10]), km=ri(1,20)*50, prijs_liter=af(1.5+ri(0,8)*0.1,2);
+    var liter=af(lp100*km/100,1), kost=af(liter*prijs_liter,2);
+    return{niveau:2,categorie:'Meten',
+      context:n+' rijdt een auto die '+lp100+' liter per 100 km verbruikt. Brandstof kost €'+fmt(prijs_liter,2)+' per liter.',
+      vraag:n+' rijdt '+km+' km. Bereken de brandstofkosten.',
+      eenheid:'€',
+      stappen:[
+        'Stap 1 — Bereken het verbruik in liters:',
+        '<span class="rt-formule">'+lp100+' liter/100 km × '+km+' km ÷ 100 = '+fmt(liter,1)+' liter</span>',
+        'Stap 2 — Bereken de kosten:',
+        '<span class="rt-formule">'+fmt(liter,1)+' liter × €'+fmt(prijs_liter,2)+' = <strong>€'+fmt(kost,2)+'</strong></span>'
+      ],
+      antwoord:'€'+fmt(kost,2),
+      coachTip:coach()+': "Verbruik = (liter/100 km × km) ÷ 100. Dan verbruik × prijs per liter."'};},
+
+  function(){
+    var n=naam(), km=ri(3,15)*10, v=kies([60,80,90,100,120]);
+    var tijdMin=Math.round(km/v*60);
+    return{niveau:2,categorie:'Meten',
+      context:n+' rijdt met de auto naar een stad '+km+' km verderop. '+n+' rijdt '+v+' km per uur.',
+      vraag:'Hoelang duurt de rit? Geef je antwoord in minuten.',
+      eenheid:'minuten',
+      stappen:[
+        'Formule: tijd = afstand ÷ snelheid',
+        '<span class="rt-formule">'+km+' km ÷ '+v+' km/u = '+af(km/v,3)+' uur</span>',
+        'Zet uren om naar minuten (× 60):',
+        '<span class="rt-formule">'+af(km/v,3)+' × 60 = <strong>'+tijdMin+' minuten</strong></span>'
+      ],
+      antwoord:''+tijdMin+' minuten',
+      coachTip:coach()+': "Tijd = afstand ÷ snelheid. Let op: het antwoord is in uren — zet om naar minuten door × 60."'};},
+
+  function(){
+    var n1=naam(), n2=naam(); while(n2===n1)n2=naam();
+    var a=ri(1,5), b=ri(1,5); while(a===b)b=ri(1,5);
+    var deel=ri(3,10)*100, totaal=(a+b)*deel, pA=a*deel;
+    return{niveau:2,categorie:'Verhoudingen',
+      context:n1+' en '+n2+' starten samen een bedrijf en verdelen de winst in de verhouding '+a+' : '+b+'. De totale winst is €'+fmt(totaal)+'.',
+      vraag:'Hoeveel winst krijgt '+n1+'?',
+      eenheid:'€',
+      stappen:[
+        'Stap 1 — Tel de verhoudingsgetallen op: '+a+' + '+b+' = '+(a+b)+' delen totaal',
+        'Stap 2 — Bereken de waarde van één deel:',
+        '<span class="rt-formule">€'+fmt(totaal)+' ÷ '+(a+b)+' = €'+deel+' per deel</span>',
+        'Stap 3 — '+n1+' heeft '+a+' deel'+(a>1?'en':'')+':',
+        '<span class="rt-formule">'+a+' × €'+deel+' = <strong>€'+fmt(pA)+'</strong></span>'
+      ],
+      antwoord:'€'+fmt(pA),
+      coachTip:coach()+': "Verdelen in verhouding: (1) deel optellen, (2) totaal ÷ som = één deel, (3) × jouw aandeel."'};},
+
+  function(){
+    var n=naam(), a=ri(1,4), b=ri(1,4); while(a===b)b=ri(1,4);
+    var deel=ri(2,6), totaal=(a+b)*deel, dA=a*deel;
+    return{niveau:2,categorie:'Verhoudingen',
+      context:n+' maakt limonade door twee ingrediënten te mengen in de verhouding '+a+' : '+b+'.',
+      vraag:n+' maakt '+totaal+' liter limonade. Hoeveel liter van het eerste ingrediënt heeft '+n+' nodig?',
+      eenheid:'liter',
+      stappen:[
+        'Stap 1 — Totaal aantal delen: '+a+' + '+b+' = '+(a+b),
+        'Stap 2 — Waarde per deel:',
+        '<span class="rt-formule">'+totaal+' liter ÷ '+(a+b)+' = '+deel+' liter per deel</span>',
+        'Stap 3 — Eerste ingrediënt heeft '+a+' deel'+(a>1?'en':'')+':',
+        '<span class="rt-formule">'+a+' × '+deel+' = <strong>'+dA+' liter</strong></span>'
+      ],
+      antwoord:''+dA+' liter',
+      coachTip:coach()+': "Zelfde methode als bij alle verhouding-sommen: (1) optellen, (2) één deel berekenen, (3) vermenigvuldigen."'};},
+
+  function(){
+    var n=naam(), k=ri(3,6), cijfers=[];
+    for(var i=0;i<k;i++) cijfers.push(ri(4,10));
+    var som=cijfers.reduce(function(a,b){return a+b;},0);
+    var gem=af(som/k,1);
+    return{niveau:2,categorie:'Getallen',
+      context:n+' heeft dit kwartaal de volgende toetscijfers gehaald: '+cijfers.join(', ')+'.',
+      vraag:'Bereken het gemiddelde cijfer van '+n+'.',
+      eenheid:'',
+      stappen:[
+        'Stap 1 — Tel alle cijfers op:',
+        '<span class="rt-formule">'+cijfers.join(' + ')+' = '+som+'</span>',
+        'Stap 2 — Deel door het aantal cijfers:',
+        '<span class="rt-formule">'+som+' ÷ '+k+' = <strong>'+fmt(gem,1)+'</strong></span>'
+      ],
+      antwoord:''+fmt(gem,1),
+      coachTip:coach()+': "Gemiddelde = som van alle waarden ÷ aantal waarden."'};},
+
+  function(){
+    var n=naam(), prijs=ri(5,50), stuks=ri(10,200), omzet=prijs*stuks;
+    return{niveau:2,categorie:'Getallen',
+      context:n+' heeft een marktkraam en verkoopt één soort product voor €'+prijs+' per stuk.',
+      vraag:n+' verkoopt op één dag '+stuks+' stuks. Wat is de totale omzet?',
+      eenheid:'€',
+      stappen:[
+        'Formule: omzet = prijs × afzet',
+        '<span class="rt-formule">€'+prijs+' × '+stuks+' = <strong>€'+fmt(omzet)+'</strong></span>'
+      ],
+      antwoord:'€'+fmt(omzet),
+      coachTip:coach()+': "Omzet = verkoopprijs × hoeveelheid verkocht. Dit is nog geen winst — daarvoor moet je ook de kosten weten."'};},
+
+  function(){
+    var n=naam(), uurloon=ri(10,20)+kies([0,.5]), urenPW=ri(8,20), weken=ri(2,8);
+    var tot=af(uurloon*urenPW*weken,2);
+    return{niveau:2,categorie:'Getallen',
+      context:n+' werkt '+urenPW+' uur per week voor €'+fmt(uurloon,2)+' per uur.',
+      vraag:'Hoeveel verdient '+n+' in '+weken+' weken?',
+      eenheid:'€',
+      stappen:[
+        'Stap 1 — Loon per week:',
+        '<span class="rt-formule">€'+fmt(uurloon,2)+' × '+urenPW+' uur = €'+fmt(af(uurloon*urenPW,2),2)+' per week</span>',
+        'Stap 2 — Over '+weken+' weken:',
+        '<span class="rt-formule">€'+fmt(af(uurloon*urenPW,2),2)+' × '+weken+' = <strong>€'+fmt(tot,2)+'</strong></span>'
+      ],
+      antwoord:'€'+fmt(tot,2),
+      coachTip:coach()+': "Werk in twee stappen: eerst per week, dan × het aantal weken."'};},
+
+  function(){
+    var n=naam(), r2=ri(2,12), omtrek=af(2*Math.PI*r2,1);
+    return{niveau:2,categorie:'Meten',
+      context:n+' wil een rond grasveld omheinen.',
+      vraag:'Het grasveld heeft een straal van '+r2+' m. Bereken de omtrek. Gebruik π ≈ 3,14.',
+      eenheid:'m',
+      stappen:[
+        'Formule omtrek cirkel: O = 2 × π × r',
+        '<span class="rt-formule">O = 2 × 3,14 × '+r2+' m</span>',
+        '<span class="rt-formule">= '+af(2*3.14*r2,2)+' ≈ <strong>'+fmt(omtrek,1)+' m</strong></span>'
+      ],
+      antwoord:fmt(omtrek,1)+' m',
+      coachTip:coach()+': "Omtrek cirkel = 2πr. De straal (r) is de afstand van het middelpunt naar de rand."'};},
+
+  function(){
+    var n=naam(), basis=ri(4,20), hoogte=ri(3,15), opp=af(basis*hoogte/2,1);
+    return{niveau:2,categorie:'Meten',
+      context:n+' berekent de oppervlakte van een driehoekig perceel grond.',
+      vraag:'De basis van de driehoek is '+basis+' m en de hoogte is '+hoogte+' m. Bereken de oppervlakte.',
+      eenheid:'m²',
+      stappen:[
+        'Formule oppervlakte driehoek: O = ½ × basis × hoogte',
+        '<span class="rt-formule">O = ½ × '+basis+' m × '+hoogte+' m</span>',
+        '<span class="rt-formule">= '+af(basis*hoogte/2,2)+' ≈ <strong>'+fmt(opp,1)+' m²</strong></span>'
+      ],
+      antwoord:fmt(opp,1)+' m²',
+      coachTip:coach()+': "Driehoek = helft van een rechthoek. Dus ½ × b × h. Vergeet de ½ niet!"'};},
+
+  function(){
+    var n=naam(), l=ri(2,10), b=ri(2,6), h=ri(2,6), v=l*b*h;
+    return{niveau:2,categorie:'Meten',
+      context:n+' berekent hoeveel een opslagcontainer kan bevatten.',
+      vraag:'De container is '+l+' m lang, '+b+' m breed en '+h+' m hoog. Bereken het volume.',
+      eenheid:'m³',
+      stappen:[
+        'Formule volume balk: V = lengte × breedte × hoogte',
+        '<span class="rt-formule">V = '+l+' × '+b+' × '+h+'</span>',
+        '<span class="rt-formule">= '+l*b+' × '+h+' = <strong>'+v+' m³</strong></span>'
+      ],
+      antwoord:''+v+' m³',
+      coachTip:coach()+': "Volume balk = l × b × h. Werk stap voor stap: eerst twee zijden, dan × de derde."'};},
+
+  function(){
+    var n=naam(), C=ri(-10,40), F=Math.round(C*9/5+32);
+    return{niveau:2,categorie:'Meten',
+      context:n+' werkt voor een internationaal bedrijf en moet temperaturen omzetten.',
+      vraag:'De temperatuur is '+C+' °C. Hoeveel is dat in graden Fahrenheit? Formule: F = C × 9/5 + 32',
+      eenheid:'°F',
+      stappen:[
+        'Stap 1 — Vermenigvuldig de Celsius-waarde met 9/5:',
+        '<span class="rt-formule">'+C+' × 9/5 = '+C+' × 1,8 = '+af(C*1.8,1)+'</span>',
+        'Stap 2 — Tel 32 op:',
+        '<span class="rt-formule">'+af(C*1.8,1)+' + 32 = <strong>'+F+' °F</strong></span>'
+      ],
+      antwoord:''+F+' °F',
+      coachTip:coach()+': "Formule: F = C × 1,8 + 32. Altijd twee stappen: eerst × 1,8, dan + 32."'};},
+
+  function(){
+    var n=naam(), koers=af(kies([1.05,1.10,1.15,1.20,1.25,0.85,0.90]),2);
+    var euro=ri(2,20)*50, res=af(euro*koers,2);
+    var munt=koers>1?'dollar':'pond';
+    return{niveau:2,categorie:'Verhoudingen',
+      context:n+' gaat op reis. De wisselkoers is: €1 = '+fmt(koers,2)+' '+munt+'.',
+      vraag:n+' wisselt €'+euro+' om. Hoeveel '+munt+' krijgt '+n+' terug?',
+      eenheid:munt,
+      stappen:[
+        'Berekening: euro × wisselkoers',
+        '<span class="rt-formule">€'+euro+' × '+fmt(koers,2)+' = <strong>'+fmt(res,2)+' '+munt+'</strong></span>'
+      ],
+      antwoord:fmt(res,2)+' '+munt,
+      coachTip:coach()+': "Euro omwisselen: vermenigvuldig met de wisselkoers. Terugwisselen: deel door de wisselkoers."'};},
+
+  /* ══ NIVEAU 3 — UITDAGEND ══ */
+
+  function(){
+    var n=naam(), excl=ri(5,40)*10, btw=kies([9,21]);
+    var incl=af(excl*(1+btw/100),2), terug=af(incl/(1+btw/100),2);
+    return{niveau:3,categorie:'Procenten',
+      context:n+' koopt een product voor €'+fmt(incl,2)+' inclusief '+btw+'% btw.',
+      vraag:'Bereken de prijs exclusief btw.',
+      eenheid:'€',
+      stappen:[
+        'Redenering: incl. btw = excl. × (1 + '+btw+'/100) = excl. × '+af(1+btw/100,2),
+        'Dus: excl. = incl. ÷ '+af(1+btw/100,2),
+        '<span class="rt-formule">€'+fmt(incl,2)+' ÷ '+af(1+btw/100,2)+' = <strong>€'+fmt(terug,2)+'</strong></span>',
+        '⚠️ Veelgemaakte fout: NIET gewoon '+btw+'% aftrekken van €'+fmt(incl,2)+'!'
+      ],
+      antwoord:'€'+fmt(terug,2),
+      coachTip:coach()+': "Terugrekenen van incl. naar excl.: deel door de factor (1+btw/100), nooit het percentage direct aftrekken."'};},
+
+  function(){
+    var n=naam(), mpct=kies([10,20,25,30,40,50]), inkoop=ri(5,20)*10;
+    var vk=af(inkoop*(1+mpct/100),2), terugInk=af(vk/(1+mpct/100),2);
+    return{niveau:3,categorie:'Procenten',
+      context:n+' werkt in een kledingzaak. De winkelier werkt met een vaste marge van '+mpct+'% op de inkoopprijs. De verkoopprijs is €'+fmt(vk,2)+'.',
+      vraag:'Bereken de inkoopprijs van het kledingstuk.',
+      eenheid:'€',
+      stappen:[
+        'Redenering: verkoopprijs = inkoopprijs × '+af(1+mpct/100,2),
+        'Dus: inkoopprijs = verkoopprijs ÷ '+af(1+mpct/100,2),
+        '<span class="rt-formule">€'+fmt(vk,2)+' ÷ '+af(1+mpct/100,2)+' = <strong>€'+fmt(terugInk,2)+'</strong></span>',
+        'Controleer: €'+fmt(terugInk,2)+' × '+af(1+mpct/100,2)+' = €'+fmt(vk,2)+' ✔'
+      ],
+      antwoord:'€'+fmt(terugInk,2),
+      coachTip:coach()+': "Terugrekenen met marge: vk = inkoop × factor. Omdraaien: inkoop = vk ÷ factor. Altijd controleren!"'};},
+
+  function(){
+    var n=naam(), a=ri(1,5), b=ri(1,5), c=ri(1,5);
+    while(a===b||b===c||a===c){a=ri(1,4);b=ri(1,4);c=ri(1,4);}
+    var deel=ri(3,8)*10, totaal=(a+b+c)*deel, pB=b*deel;
+    return{niveau:3,categorie:'Verhoudingen',
+      context:'Drie afdelingen verdelen het jaarbudget van €'+fmt(totaal)+' in de verhouding '+a+' : '+b+' : '+c+'.',
+      vraag:'Hoeveel budget krijgt de tweede afdeling?',
+      eenheid:'€',
+      stappen:[
+        'Stap 1 — Tel alle verhoudingsgetallen op:',
+        '<span class="rt-formule">'+a+' + '+b+' + '+c+' = '+(a+b+c)+' delen totaal</span>',
+        'Stap 2 — Bereken de waarde van één deel:',
+        '<span class="rt-formule">€'+fmt(totaal)+' ÷ '+(a+b+c)+' = €'+deel+' per deel</span>',
+        'Stap 3 — De tweede afdeling heeft '+b+' deel'+(b>1?'en':'')+':',
+        '<span class="rt-formule">'+b+' × €'+deel+' = <strong>€'+fmt(pB)+'</strong></span>'
+      ],
+      antwoord:'€'+fmt(pB),
+      coachTip:coach()+': "Drie termen, zelfde methode: (1) tel alles op, (2) bereken één deel, (3) vermenigvuldig met het aandeel."'};},
+
+  function(){
+    var n=naam(), km1=ri(3,12)*10, v1=kies([60,80,90,100,120]);
+    var km2=ri(3,12)*10, v2=kies([40,60,80,90]);
+    var t1=km1/v1, t2=km2/v2, vGem=af((km1+km2)/(t1+t2),1);
+    return{niveau:3,categorie:'Meten',
+      context:n+' rijdt een lange rit in twee etappes: '+km1+' km á '+v1+' km/u, daarna '+km2+' km á '+v2+' km/u.',
+      vraag:'Bereken de gemiddelde snelheid van de hele rit.',
+      eenheid:'km/u',
+      stappen:[
+        'Stap 1 — Bereken de tijd per etappe:',
+        '<span class="rt-formule">Etappe 1: '+km1+' km ÷ '+v1+' km/u = '+af(t1,3)+' uur</span>',
+        '<span class="rt-formule">Etappe 2: '+km2+' km ÷ '+v2+' km/u = '+af(t2,3)+' uur</span>',
+        'Stap 2 — Totale afstand en totale tijd:',
+        '<span class="rt-formule">Totaal: '+(km1+km2)+' km in '+af(t1,3)+' + '+af(t2,3)+' = '+af(t1+t2,3)+' uur</span>',
+        'Stap 3 — Gemiddelde snelheid = totale afstand ÷ totale tijd:',
+        '<span class="rt-formule">'+(km1+km2)+' ÷ '+af(t1+t2,3)+' = <strong>'+fmt(vGem,1)+' km/u</strong></span>',
+        '⚠️ Fout: het gemiddelde van '+v1+' en '+v2+' is NIET de gemiddelde snelheid!'
+      ],
+      antwoord:fmt(vGem,1)+' km/u',
+      coachTip:coach()+': "Gemiddelde snelheid = totale afstand ÷ totale tijd. Nooit gewoon de twee snelheden middelen!"'};},
+
+  function(){
+    var n=naam(), kap=ri(5,20)*100, rente=kies([2,3,4,5,6,8,10]), jaren=ri(2,5);
+    var nieuw=af(kap*Math.pow(1+rente/100,jaren),2);
+    var enkelvoud=af(kap+kap*rente/100*jaren,2);
+    return{niveau:3,categorie:'Procenten',
+      context:n+' zet €'+fmt(kap)+' op een spaarrekening met '+rente+'% samengestelde rente per jaar.',
+      vraag:'Hoeveel heeft '+n+' na '+jaren+' jaar op de rekening staan?',
+      eenheid:'€',
+      stappen:[
+        'Formule samengestelde rente: K × (1 + r)ⁿ',
+        '<span class="rt-formule">K = €'+fmt(kap)+', r = '+rente+'% = '+rente/100+', n = '+jaren+' jaar</span>',
+        '<span class="rt-formule">€'+fmt(kap)+' × '+af(1+rente/100,2)+'^'+jaren+' = <strong>€'+fmt(nieuw,2)+'</strong></span>',
+        'Vergelijk met enkelvoudige rente: €'+fmt(enkelvoud,2)+' — het verschil is €'+fmt(af(nieuw-enkelvoud,2),2)+' (rente op rente)'
+      ],
+      antwoord:'€'+fmt(nieuw,2),
+      coachTip:coach()+': "Samengestelde rente: elk jaar groeit het totaalbedrag, ook de rente brengt rente op. Formule: K × (1+r)ⁿ."'};},
+
+  function(){
+    var n=naam(), vaste=ri(5,20)*100, varK=kies([0.5,1,1.5,2,2.5]);
+    var prijs=af(varK+kies([1,1.5,2,2.5,3]),2), marge=af(prijs-varK,2);
+    var omslagQ=Math.ceil(vaste/marge);
+    return{niveau:3,categorie:'Getallen',
+      context:n+' start een klein bedrijfje. Vaste kosten: €'+fmt(vaste)+' per maand. Variabele kosten: €'+fmt(varK,2)+' per stuk. Verkoopprijs: €'+fmt(prijs,2)+' per stuk.',
+      vraag:'Hoeveel stuks moet '+n+' minimaal verkopen om quitte te draaien (het omslagpunt)?',
+      eenheid:'stuks',
+      stappen:[
+        'Stap 1 — Bereken de bijdrage per stuk (= prijs − variabele kosten):',
+        '<span class="rt-formule">€'+fmt(prijs,2)+' − €'+fmt(varK,2)+' = €'+fmt(marge,2)+' per stuk</span>',
+        'Stap 2 — Omslagpunt = vaste kosten ÷ bijdrage per stuk:',
+        '<span class="rt-formule">€'+fmt(vaste)+' ÷ €'+fmt(marge,2)+' = '+af(vaste/marge,2)+'</span>',
+        vaste%marge===0?'Precies <strong>'+omslagQ+' stuks</strong>.':'Afronden naar boven: <strong>'+omslagQ+' stuks</strong>'
+      ],
+      antwoord:''+omslagQ+' stuks',
+      coachTip:coach()+': "Omslagpunt = vaste kosten ÷ (prijs − var. kosten). Zorg dat je altijd naar boven afrondt."'};},
+
+  function(){
+    var n=naam(), km1=ri(3,12)*10, v1=kies([80,100,120,140]);
+    var wacht=kies([10,15,20,30]);
+    var km2=ri(3,12)*10, v2=kies([60,80,100]);
+    var t1=Math.round(km1/v1*60), t2=Math.round(km2/v2*60), tot=t1+wacht+t2;
+    return{niveau:3,categorie:'Meten',
+      context:n+' reist van A naar C via B. Trein 1 (A→B): '+km1+' km á '+v1+' km/u. Wachttijd op station B: '+wacht+' minuten. Trein 2 (B→C): '+km2+' km á '+v2+' km/u.',
+      vraag:'Hoe lang duurt de hele reis van A naar C? Geef je antwoord in minuten.',
+      eenheid:'minuten',
+      stappen:[
+        'Stap 1 — Reistijd trein 1:',
+        '<span class="rt-formule">'+km1+' km ÷ '+v1+' km/u × 60 = '+t1+' minuten</span>',
+        'Stap 2 — Reistijd trein 2:',
+        '<span class="rt-formule">'+km2+' km ÷ '+v2+' km/u × 60 = '+t2+' minuten</span>',
+        'Stap 3 — Tel alles op:',
+        '<span class="rt-formule">'+t1+' + '+wacht+' (wacht) + '+t2+' = <strong>'+tot+' minuten</strong></span>'
+      ],
+      antwoord:''+tot+' minuten',
+      coachTip:coach()+': "Elke etappe apart berekenen, daarna optellen. Vergeet de wachttijd niet!"'};},
+
+  function(){
+    var n=naam(), pct=kies([5,10,20,25,50]), nieuw=ri(3,15)*100;
+    var oud=Math.round(nieuw/(1+pct/100));
+    return{niveau:3,categorie:'Procenten',
+      context:n+' ziet dat een prijs met '+pct+'% is gestegen. De huidige prijs is €'+fmt(nieuw)+'.',
+      vraag:'Wat was de prijs vóór de stijging?',
+      eenheid:'€',
+      stappen:[
+        'Redenering: nieuwe prijs = oude prijs × '+af(1+pct/100,2),
+        'Dus: oude prijs = nieuwe prijs ÷ '+af(1+pct/100,2),
+        '<span class="rt-formule">€'+fmt(nieuw)+' ÷ '+af(1+pct/100,2)+' = <strong>€'+fmt(oud)+'</strong></span>',
+        '⚠️ Veelgemaakte fout: NIET €'+fmt(nieuw)+' − '+pct+'% = €'+Math.round(nieuw*(1-pct/100))+' — dat is verkeerd!'
+      ],
+      antwoord:'€'+fmt(oud),
+      coachTip:coach()+': "Terugrekenen: deel door de factor. Nooit het percentage van de huidige prijs aftrekken!"'};},
+
+  function(){
+    var n=naam(), oud=ri(2,10)*100, pct=kies([5,10,15,20,25]);
+    var abs=Math.round(oud*pct/100), nieuw=oud+abs;
+    return{niveau:3,categorie:'Procenten',
+      context:n+' vergelijkt twee jaarcijfers. Vorig jaar: €'+fmt(oud)+'. Dit jaar: €'+fmt(nieuw)+'.',
+      vraag:'Met hoeveel procent is de waarde gestegen? (Bereken en rond af op hele procenten.)',
+      eenheid:'%',
+      stappen:[
+        'Stap 1 — Bereken de absolute verandering:',
+        '<span class="rt-formule">€'+fmt(nieuw)+' − €'+fmt(oud)+' = €'+abs+'</span>',
+        'Stap 2 — Druk uit als % van de beginwaarde:',
+        '<span class="rt-formule">(€'+abs+' ÷ €'+fmt(oud)+') × 100 = <strong>'+pct+'%</strong></span>'
+      ],
+      antwoord:''+pct+'%',
+      coachTip:coach()+': "Procentuele verandering = (verschil ÷ beginwaarde) × 100. Altijd delen door de OUDE waarde."'};},
+
+  function(){
+    var n=naam(), basis=ri(5,20)*10, nw=basis+ri(-3,6)*kies([1,2,5]);
+    if(nw<=0)return null;
+    var index=Math.round(nw/basis*100);
+    return{niveau:3,categorie:'Verhoudingen',
+      context:n+' berekent de prijsindex voor een product. Basisjaar: €'+fmt(basis)+'. Dit jaar: €'+fmt(nw)+'.',
+      vraag:'Bereken de prijsindex. (Basisjaar = 100)',
+      eenheid:'',
+      stappen:[
+        'Formule prijsindex: (huidige waarde ÷ basiswaarde) × 100',
+        '<span class="rt-formule">(€'+fmt(nw)+' ÷ €'+fmt(basis)+') × 100</span>',
+        '<span class="rt-formule">= '+af(nw/basis,4)+' × 100 = <strong>'+index+'</strong></span>',
+        index>100?'Index > 100 betekent: de prijs is gestegen ten opzichte van het basisjaar.':'Index < 100 betekent: de prijs is gedaald ten opzichte van het basisjaar.'
+      ],
+      antwoord:''+index,
+      coachTip:coach()+': "Indexcijfer = (nieuw ÷ basis) × 100. Index 100 = basisjaar. Index 120 = 20% duurder dan het basisjaar."'};},
+
+  function(){
+    var n=naam(), korting=kies([10,20,25,30,50]), betaald=ri(3,20)*kies([5,10]);
+    var origineel=Math.round(betaald/(1-korting/100));
+    return{niveau:3,categorie:'Procenten',
+      context:n+' heeft een jas gekocht met '+korting+'% korting. '+n+' betaalde uiteindelijk €'+betaald+'.',
+      vraag:'Bereken de originele prijs van de jas vóór de korting.',
+      eenheid:'€',
+      stappen:[
+        'Redenering: met '+korting+'% korting betaal je '+(100-korting)+'% van de originele prijs',
+        'Dus: €'+betaald+' is '+(100-korting)+'% van de originele prijs',
+        'Formule: originele prijs = betaald bedrag ÷ '+af(1-korting/100,2),
+        '<span class="rt-formule">€'+betaald+' ÷ '+af(1-korting/100,2)+' = <strong>€'+fmt(origineel)+'</strong></span>',
+        'Controleer: €'+fmt(origineel)+' − '+korting+'% = €'+Math.round(origineel*(1-korting/100))+' ≈ €'+betaald+' ✔'
+      ],
+      antwoord:'€'+fmt(origineel),
+      coachTip:coach()+': "Na korting: betaald = origineel × '+af(1-korting/100,2)+'. Omdraaien: origineel = betaald ÷ '+af(1-korting/100,2)+'."'};},
+
+];
+
+/* ─── STATE ──────────────────────────────────────────────────────────────── */
+var LS='vlacoRT4';
+var _st=null, _huidig=null;
+
+function laad(){
+  try{var r=localStorage.getItem(LS);if(r){_st=JSON.parse(r);return;}}catch(e){}
+  _st={skill:0,streak:0,goed:0,deels:0,fout:0,totaal:0};
+}
+function sla(){try{localStorage.setItem(LS,JSON.stringify(_st));}catch(e){}}
+function niv(s){return s<=3.5?1:s<=7?2:3;}
+function meterTxt(s){
+  if(s<1)return'Starter';if(s<2)return'Groeiend';if(s<4)return'Basis';
+  if(s<6)return'Op niveau';if(s<8)return'Vaardig';if(s<9.5)return'Expert';
+  return'🏆 Meester';}
+
+/* ─── GENEREER ───────────────────────────────────────────────────────────── */
+function genereer(gewenstNiv){
+  var pool=shu(S);
+  for(var i=0;i<60;i++){
+    var fn=kies(pool);
+    try{var v=fn();if(v&&v.niveau===gewenstNiv)return v;}catch(e){}
+  }
+  for(var j=0;j<40;j++){try{var vv=kies(S)();if(vv)return vv;}catch(e){}}
+  return null;
+}
+
+/* ─── UI UPDATES ─────────────────────────────────────────────────────────── */
+function updateUI(){
+  var pct=Math.round(_st.skill/10*100);
+  var bar=document.getElementById('rt-bar');if(bar)bar.style.width=pct+'%';
+  var mv=document.getElementById('rt-mval');if(mv)mv.textContent=meterTxt(_st.skill);
+  var st=document.getElementById('rt-streak');if(st)st.textContent='🔥 '+_st.streak+' op rij';
+  var g=document.getElementById('rt-goed');if(g)g.textContent=_st.goed;
+  var d=document.getElementById('rt-deels');if(d)d.textContent=_st.deels;
+  var f=document.getElementById('rt-fout');if(f)f.textContent=_st.fout;
+  var t=document.getElementById('rt-tot');if(t)t.textContent=_st.totaal;
+}
+
+function lvlBadge(n){
+  if(n===1)return'<span class="rt-lvl-badge easy">⭐ Makkelijk</span>';
+  if(n===2)return'<span class="rt-lvl-badge med">⭐⭐ Gemiddeld</span>';
+  return'<span class="rt-lvl-badge hard">⭐⭐⭐ Uitdagend</span>';}
+
+/* ─── TOON VRAAG ─────────────────────────────────────────────────────────── */
+function toon(v){
+  _huidig=v;
+  var k=document.getElementById('rt-kaart');
+  if(!k||!v)return;
+
+  // Bouw stappen HTML
+  var stappenHtml=v.stappen.map(function(s,i){
+    return '<div class="rt-stap">'
+      +'<div class="rt-stap-nr">'+(i+1)+'</div>'
+      +'<div class="rt-stap-tekst">'+s+'</div>'
+      +'</div>';
+  }).join('');
+
+  var html='<div class="rt-badge-row">'
+    +'<span class="rt-cat-badge">📐 '+v.categorie+'</span>'
+    +lvlBadge(v.niveau)
+    +'</div>';
+
+  if(v.context) html+='<div class="rt-context">'+v.context+'</div>';
+  html+='<div class="rt-vraag">'+v.vraag+'</div>';
+
+  html+='<div class="rt-inp-wrap">'
+    +'<div class="rt-inp-label">Jouw antwoord'+( v.eenheid?' (in '+v.eenheid+')':'')+':</div>'
+    +'<input class="rt-inp" id="rt-inp" type="text" placeholder="Schrijf hier jouw antwoord…" '
+    +'onkeydown="if(event.key===\'Enter\')rtControleer()">'
+    +(v.eenheid?'<div class="rt-eenheid-hint">Tip: je hoeft de eenheid niet te typen, alleen het getal.</div>':'')
+    +'</div>';
+
+  html+='<div class="rt-feedback" id="rt-fb"></div>';
+
+  // Modelantwoord-blok (verborgen tot geopend)
+  html+='<div class="rt-model" id="rt-model">'
+    +'<div class="rt-model-header" onclick="rtToggleModel()">'
+    +'<span class="rt-model-header-icon" id="rt-model-icon">▶</span>'
+    +'<span class="rt-model-header-tekst">💡 Bekijk het modelantwoord (stap voor stap)</span>'
+    +'</div>'
+    +'<div class="rt-model-body" id="rt-model-body">'
+    +stappenHtml
+    +'<div class="rt-antwoord-box">✅ Antwoord: '+v.antwoord+'</div>'
+    +'<div class="rt-coach">💬 <strong>Tip:</strong> '+v.coachTip+'</div>'
+    +'</div>'
+    +'</div>';
+
+  // Zelfbeoordeling (verschijnt na modelantwoord)
+  html+='<div class="rt-zelfoordeel" id="rt-zb">'
+    +'<div class="rt-zelfoordeel-vraag">Hoe ging het bij jou?</div>'
+    +'<div class="rt-zelfoordeel-knoppen">'
+    +'<button class="rt-zk rt-zk-goed" onclick="rtZelfOordeel(\'goed\')">✅ Helemaal goed</button>'
+    +'<button class="rt-zk rt-zk-deels" onclick="rtZelfOordeel(\'deels\')">🔶 Deels goed</button>'
+    +'<button class="rt-zk rt-zk-fout" onclick="rtZelfOordeel(\'fout\')">❌ Fout / snap het nog niet</button>'
+    +'</div>'
+    +'</div>';
+
+  html+='<div class="rt-btn-row">'
+    +'<button class="rt-btn rt-btn-check" id="rt-cbtn" onclick="rtControleer()">✔ Controleer mijn antwoord</button>'
+    +'<button class="rt-btn rt-btn-volgende" id="rt-nbtn" onclick="rtVolgende()">Volgende vraag →</button>'
+    +'</div>';
+
+  k.innerHTML=html;
+  var inp=document.getElementById('rt-inp');
+  if(inp)inp.focus();
+}
+
+/* ─── CONTROLEER ANTWOORD ────────────────────────────────────────────────── */
+window.rtControleer=function(){
+  var inp=document.getElementById('rt-inp');
+  if(!inp||inp.disabled)return;
+  inp.disabled=true;
+
+  // Haal numerieke waarde op (strips eenheid-tekens)
+  var raw=inp.value.trim().replace(/[€\s\.]/g,'').replace(',','.');
+  var gegeven=parseFloat(raw);
+  // Haal correcte waarde op uit antwoord-string
+  var antwoordRaw=(_huidig.antwoord||'').replace(/[€\s\.a-zA-ZëÉ%°\/²³]/g,'').replace(',','.');
+  var correct=parseFloat(antwoordRaw);
+
+  var fb=document.getElementById('rt-fb');
+  var model=document.getElementById('rt-model');
+
+  if(!isNaN(gegeven)&&!isNaN(correct)&&Math.abs(gegeven-correct)<=Math.max(0.02,Math.abs(correct)*0.015)){
+    // Goed!
+    inp.classList.add('ok');
+    if(fb){
+      fb.className='rt-feedback ok';
+      fb.innerHTML='✅ <strong>Goed antwoord!</strong> Jouw antwoord klopt.'
+        +'<div class="rt-feedback-sub">Bekijk het modelantwoord om te zien of je dezelfde aanpak had.</div>';
+    }
+  }else{
+    // Niet correct — toon modelantwoord direct
+    inp.classList.add('fout');
+    if(fb){
+      fb.className='rt-feedback fout';
+      fb.innerHTML='❌ <strong>Dat klopt niet helemaal.</strong> Bekijk het modelantwoord hieronder en probeer te begrijpen waar het misging.';
+    }
+  }
+
+  // Toon altijd het modelantwoord
+  if(model) model.style.display='block';
+
+  // Toon zelfbeoordeling
+  var cbtn=document.getElementById('rt-cbtn');
+  if(cbtn) cbtn.style.display='none';
+};
+
+/* ─── TOGGLE MODELANTWOORD ───────────────────────────────────────────────── */
+window.rtToggleModel=function(){
+  var body=document.getElementById('rt-model-body');
+  var icon=document.getElementById('rt-model-icon');
+  if(!body)return;
+  var open=body.classList.toggle('open');
+  if(icon) icon.classList.toggle('open',open);
+  // Na openen: toon zelfbeoordeling
+  if(open){
+    var zb=document.getElementById('rt-zb');
+    if(zb) zb.style.display='block';
+  }
+};
+
+/* ─── ZELFBEOORDELING ────────────────────────────────────────────────────── */
+window.rtZelfOordeel=function(oordeel){
+  _st.totaal++;
+  if(oordeel==='goed'){
+    _st.goed++;_st.streak++;_st.skill=Math.min(10,_st.skill+1);
+  }else if(oordeel==='deels'){
+    _st.deels++;_st.streak=0;_st.skill=Math.max(0,_st.skill-0.25);
+  }else{
+    _st.fout++;_st.streak=0;_st.skill=Math.max(0,_st.skill-0.5);
+  }
+  sla();updateUI();
+
+  // Verberg zelfbeoordeling-knoppen, toon volgende-knop
+  var zb=document.getElementById('rt-zb');
+  if(zb) zb.style.display='none';
+  var nb=document.getElementById('rt-nbtn');
+  if(nb) nb.style.display='inline-block';
+};
+
+/* ─── VOLGENDE VRAAG ─────────────────────────────────────────────────────── */
+window.rtVolgende=function(){
+  var v=genereer(niv(_st.skill));
+  if(!v){console.warn('vlacoRT: geen vraag gegenereerd');return;}
+  toon(v);
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ─── RESET ─────────────────────────────────────────────────────────────── */
+window.rtReset=function(){
+  if(!confirm('Wil je je volledige voortgang wissen?'))return;
+  localStorage.removeItem(LS);laad();updateUI();_huidig=null;rtVolgende();
+};
+
+/* ─── INIT ───────────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded',function(){
+  laad();updateUI();rtVolgende();
+});
+
+})();
+</script>
+</body>
+</html>
