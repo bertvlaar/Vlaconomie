@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vlaconomie — H8 Conjunctuur &amp; Internationale Economie</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --groen:#0f4d2e;--gd:#1a7a4a;--gl:#2ecc71;--glicht:#e8faf0;--gzl:#f0fdf4;
+  --goud:#f0c040;--goudd:#d4a012;
+  --rood:#b30000;--roodl:#e53e3e;
+  --blauw:#1a2e4a;--blauwl:#2d4a6e;
+  --paars:#4a1a7a;--paarsL:#7c3aed;--paarsLicht:#f3eeff;
+  --donker:#1a1a2e;--donkerp:#2d1b4e;
+  --grijs:#6b7280;--lichtgrijs:#f7f9fc;--rand:#e0e8f4;
+  --sh:0 2px 10px rgba(0,0,0,.1);--sh2:0 4px 20px rgba(0,0,0,.12);
+  --bg:#f4f7f4
+}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--bg);color:#1a1a2e;font-size:15px}
+header{background:linear-gradient(135deg,var(--groen),var(--gd));position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(15,77,46,.4)}
+.hdr-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.logo{font-family:'Lexend',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.5px;color:#fff}
+.logo em{color:var(--goud);font-style:normal}
+.logo-sub{font-size:.7rem;color:rgba(255,255,255,.7);font-family:'DM Sans',sans-serif}
+nav{display:flex;overflow-x:auto;background:rgba(0,0,0,.2);padding:0 14px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{padding:9px 12px;border:none;background:none;color:rgba(255,255,255,.75);font-family:'Lexend',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+nav button:hover,nav button.act{color:#fff;border-bottom-color:var(--goud);background:rgba(255,255,255,.1)}
+main{max-width:900px;margin:0 auto;padding:20px 14px 60px}
+.sec{display:none;animation:fu .3s ease}.sec.act{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.phdr{background:linear-gradient(135deg,var(--groen),var(--gd));color:#fff;padding:22px 26px;border-radius:12px 12px 0 0}
+.phdr .pn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--goud);color:var(--groen);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;font-weight:700}
+.phdr h2{font-family:'Lexend',sans-serif;font-size:1.4rem;margin-bottom:4px;font-weight:800}
+.phdr p{color:rgba(255,255,255,.8);font-size:.87rem}
+/* Paarse header voor §8.4 */
+.phdr-paars{background:linear-gradient(135deg,var(--paars),var(--paarsL));color:#fff;padding:22px 26px;border-radius:12px 12px 0 0}
+.phdr-paars .pn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--goud);color:var(--paars);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;font-weight:700}
+.phdr-paars h2{font-family:'Lexend',sans-serif;font-size:1.4rem;margin-bottom:4px;font-weight:800}
+.phdr-paars p{color:rgba(255,255,255,.8);font-size:.87rem}
+.nk{padding:18px 22px;margin-bottom:2px;border-left:6px solid var(--gd)}
+.nk-groen{background:linear-gradient(135deg,#e8faf0,#c8efd8);border-color:var(--gd)}
+.nk-rood{background:linear-gradient(135deg,#fdecea,#f9d0cd);border-color:var(--roodl)}
+.nk-goud{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-color:var(--goudd)}
+.nk-blauw{background:linear-gradient(135deg,#e8f0fb,#d0e2f7);border-color:var(--blauwl)}
+.nk-paars{background:linear-gradient(135deg,#f3eeff,#e9d5ff);border-color:var(--paarsL)}
+.nk-tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grijs);margin-bottom:5px}
+.nk-kop{font-family:'Lexend',sans-serif;font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:3px;line-height:1.35}
+.nk-meta{font-size:.73rem;color:var(--grijs);margin-bottom:10px}
+.nk-body{font-size:.87rem;line-height:1.55;color:#333;margin-bottom:12px}
+.nk-stats{display:flex;margin-bottom:12px;background:rgba(255,255,255,.55);border-radius:8px;overflow:hidden}
+.nk-stat{flex:1;padding:9px 12px;text-align:center;border-right:1px solid rgba(255,255,255,.6)}
+.nk-stat:last-child{border-right:none}
+.nk-sv{font-family:'Lexend',sans-serif;font-size:1.1rem;font-weight:700;color:#1a1a2e;margin-bottom:2px}
+.nk-sl{font-size:.68rem;color:var(--grijs);line-height:1.3}
+.blok{background:#fff;padding:22px;box-shadow:var(--sh);margin-bottom:2px}
+.blok:last-child{border-radius:0 0 12px 12px;margin-bottom:18px}
+.bttl{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gd);margin-bottom:14px;display:flex;align-items:center;gap:8px;font-family:'Lexend',sans-serif}
+.bttl::before{content:'';display:inline-block;width:3px;height:15px;background:var(--gd);border-radius:2px}
+.bttl-paars{color:var(--paarsL)}.bttl-paars::before{background:var(--paarsL)}
+.dhdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--glicht)}
+.dav{font-size:1.5rem;background:var(--glicht);width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.dav-paars{background:var(--paarsLicht)}
+.dbody{font-size:.91rem;line-height:1.85;color:#222}
+.dbody p{margin-bottom:14px}.dbody p:last-child{margin-bottom:0}
+.dbody strong{color:var(--groen);font-weight:700}
+.dbody-paars strong{color:var(--paarsL)}
+.dsep{border:none;border-top:2px dashed rgba(26,122,74,.2);margin:18px 0}
+.dsep-paars{border:none;border-top:2px dashed rgba(124,58,237,.2);margin:18px 0}
+.dex{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:11px 15px;margin:12px 0 4px;font-size:.86rem;color:#333;line-height:1.55}
+.dex::before{content:'Voorbeeld: ';font-weight:700;color:var(--gd)}
+.fml{background:var(--gzl);border-left:4px solid var(--gd);border-radius:0 8px 8px 0;padding:10px 15px;margin:10px 0;font-size:.88rem;font-family:'Courier New',monospace;color:var(--groen);font-weight:700;white-space:pre-line}
+.fml-paars{background:var(--paarsLicht);border-left:4px solid var(--paarsL);border-radius:0 8px 8px 0;padding:10px 15px;margin:10px 0;font-size:.88rem;font-family:'Courier New',monospace;color:var(--paars);font-weight:700;white-space:pre-line}
+.dialoog{background:linear-gradient(135deg,#f0fdf4,#e8faf0);border:2px solid rgba(26,122,74,.2);border-radius:10px;padding:16px;margin-bottom:14px}
+.dialoog-paars{background:linear-gradient(135deg,#f3eeff,#ede9fe);border:2px solid rgba(124,58,237,.2);border-radius:10px;padding:16px;margin-bottom:14px}
+.dialoog-rij{margin-bottom:8px;font-size:.87rem;line-height:1.55}
+.dialoog-rij:last-child{margin-bottom:0}
+.dialoog-naam{font-weight:700;color:var(--gd)}
+.dialoog-naam2{font-weight:700;color:var(--groen)}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.tbl th{background:var(--gd);color:#fff;padding:9px 12px;text-align:left;font-family:'Lexend',sans-serif;font-weight:600;font-size:.78rem}
+.tbl-paars th{background:var(--paarsL)}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--rand)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even){background:#f9fdf9}
+.tbl-paars tr:nth-child(even){background:#f5f0ff}
+.wjd{background:linear-gradient(135deg,#fffbe6,#fef3c7);border-left:4px solid var(--goud);border-radius:0 8px 8px 0;padding:12px 15px;margin:14px 0;font-size:.85rem;line-height:1.55;color:#4a3b00}
+.wjd::before{content:'🌍 Wist je dat? ';font-weight:700;color:var(--goudd)}
+.bleg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;font-size:.72rem}
+.bleg span{padding:3px 9px;border-radius:10px;color:#fff;font-weight:700;font-family:'Lexend',sans-serif}
+.b1{background:#0f4d2e}.b2{background:#1a7a4a}.b3{background:#d4a012}
+.b4{background:#b85c00}.b5{background:#b30000}.b6{background:#2d1b4e}
+.bi{border-left:3px solid var(--rand);padding:13px 0 13px 15px;margin-bottom:10px}
+.brow{display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
+.bbadge{font-family:'Lexend',sans-serif;font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:9px;color:#fff;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:3px}
+.bq{font-size:.89rem;line-height:1.65;color:#222;margin-bottom:6px}
+.bq em{font-style:italic;font-weight:700;color:var(--groen)}
+.bq-paars em{font-style:italic;font-weight:700;color:var(--paarsL)}
+/* Sub-answer boxes for a/b/c questions */
+.sub-antw{margin-top:8px}
+.sub-antw-label{font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif}
+.antw-input{width:100%;margin-top:8px;padding:10px 13px;border:2px solid var(--rand);border-radius:8px;font-size:.88rem;font-family:'DM Sans',inherit;resize:vertical;min-height:65px;outline:none;transition:border-color .2s;line-height:1.55}
+.antw-input:focus{border-color:var(--gd)}
+.antw-input-paars:focus{border-color:var(--paarsL)}
+.antw-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.ai-btn{background:linear-gradient(135deg,var(--groen),var(--gd));color:#fff;border:none;padding:7px 16px;border-radius:7px;font-family:'Lexend',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s}
+.ai-btn:hover:not(:disabled){filter:brightness(1.15)}
+.ai-btn:disabled{background:rgba(26,122,74,.4);cursor:not-allowed}
+.abtn{background:none;border:2px solid var(--gd);color:var(--gd);padding:7px 13px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Lexend',sans-serif}
+.abtn:hover{background:var(--gd);color:#fff}
+.pres-btn{background:linear-gradient(135deg,var(--paars),var(--paarsL));color:#fff;border:none;padding:7px 14px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Lexend',sans-serif;display:inline-flex;align-items:center;gap:5px}
+.pres-btn:hover{filter:brightness(1.15)}
+.abox{display:none;background:var(--glicht);border-left:4px solid var(--gd);padding:11px 14px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.86rem;line-height:1.65}
+.abox.show{display:block}
+.ai-fb{display:none;margin-top:10px;padding:12px 15px;border-radius:8px;font-size:.88rem;line-height:1.6;border-left:4px solid #ccc}
+.ai-fb.show{display:block}
+.ai-fb.good{background:var(--glicht);border-color:var(--gd);color:#1a5c2e}
+.ai-fb.partial{background:#fff8e1;border-color:#e6a817;color:#6b4200}
+.ai-fb.bad{background:#fdecea;border-color:var(--roodl);color:#6b1010}
+.ai-fb .ail{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;opacity:.7;font-family:'Lexend',sans-serif}
+.ai-load{display:none;margin-top:10px;font-size:.84rem;color:var(--grijs);font-style:italic}
+.ai-load.show{display:block}
+.sblok{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.sblok.p2{border-left-color:var(--roodl)}.sblok.p3{border-left-color:var(--goudd)}.sblok.p4{border-left-color:var(--paarsL)}
+.sblok h3{font-family:'Lexend',sans-serif;font-size:.97rem;margin-bottom:8px}
+.sblok p{font-size:.89rem;line-height:1.65;color:#333}
+.sblok ul{padding-left:18px;font-size:.89rem;line-height:1.8;color:#333}
+.rsom{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--gd)}
+.rsom .rn{font-family:'Lexend',sans-serif;font-size:.7rem;background:var(--gd);color:#fff;padding:2px 9px;border-radius:12px;display:inline-block;margin-bottom:7px;font-weight:700}
+.rsom p{font-size:.89rem;line-height:1.65;margin-bottom:4px}
+.rsom .fml{margin:8px 0}
+.bcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:14px}
+.bcard{background:#fff;border-radius:8px;padding:12px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-top:3px solid var(--gd)}
+.bcard-paars{border-top-color:var(--paarsL)}
+.bcard .bt{font-family:'Lexend',sans-serif;font-weight:700;color:var(--gd);font-size:.88rem}
+.bcard-paars .bt{color:var(--paarsL)}
+.bcard .bd{font-size:.8rem;color:#555;margin-top:4px;line-height:1.35}
+.ai-warn{background:#fff8e1;border:1px solid var(--goud);border-radius:8px;padding:10px 14px;font-size:.82rem;color:#664d03;margin-bottom:18px;line-height:1.5}
+/* Lorenz curve SVG styling */
+.lorenz-wrap{background:#fff;border-radius:10px;padding:16px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.08)}
+.lorenz-wrap svg{display:block;margin:0 auto}
+.lorenz-caption{text-align:center;font-size:.78rem;color:var(--grijs);margin-top:8px;font-style:italic}
+/* Inkomen schema */
+.schema-wrap{display:flex;gap:10px;align-items:center;margin:16px 0;flex-wrap:wrap}
+.schema-box{flex:1;min-width:120px;background:#f0fdf4;border:2px solid var(--gd);border-radius:10px;padding:12px;text-align:center}
+.schema-box.paars-box{background:var(--paarsLicht);border-color:var(--paarsL)}
+.schema-box.goud-box{background:#fffbe6;border-color:var(--goudd)}
+.schema-box .sb-title{font-family:'Lexend',sans-serif;font-weight:700;font-size:.82rem;color:var(--groen);margin-bottom:4px}
+.schema-box.paars-box .sb-title{color:var(--paarsL)}
+.schema-box.goud-box .sb-title{color:var(--goudd)}
+.schema-box .sb-sub{font-size:.75rem;color:#555;line-height:1.35}
+.schema-arrow{font-size:1.4rem;color:var(--grijs);flex-shrink:0}
+@media(max-width:600px){.phdr h2{font-size:1.15rem}nav button{font-size:.68rem;padding:8px 9px}.tbl{font-size:.78rem}.bcard-grid{grid-template-columns:1fr}.schema-wrap{flex-direction:column}.schema-arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-top">
+    <div>
+      <div class="logo">vla<em>conomie</em>.nl</div>
+      <div class="logo-sub">Economie · 3 VWO · Hoofdstuk 8 — Conjunctuur &amp; Internationale Economie</div>
+    </div>
+  </div>
+  <nav>
+    <button class="act" onclick="S('intro',this)">🏠 Intro</button>
+    <button onclick="S('s81',this)">§8.1 Werkloosheid</button>
+    <button onclick="S('s82',this)">§8.2 Wisselkoers</button>
+    <button onclick="S('s83',this)">§8.3 Int. handel</button>
+    <button onclick="S('s84',this)">§8.4 Inkomensverdeling</button>
+    <button onclick="S('sam',this)">📋 Samenvatting</button>
+    <button onclick="S('bl',this)">📖 Begrippen</button>
+    <button onclick="S('rek',this)">🔢 Rekensommen</button>
+  </nav>
+</header>
+<main>
+
+<!-- ===== INTRO ===== -->
+<div id="intro" class="sec act">
+  <div class="phdr">
+    <div class="pn">Hoofdstuk 8</div>
+    <h2>Conjunctuur &amp; Internationale Economie</h2>
+    <p>Werkloosheid · Wisselkoers · Conjunctuur · Export &amp; Import · Inkomensverdeling</p>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Welkom</div>
+    <div class="dbody">
+      <p>Welkom bij het leer- en werkboek van Vlaconomie voor economie: <strong>hoofdstuk 8: Conjunctuur &amp; Internationale Economie.</strong></p>
+      <p>Per paragraaf vind je theorie, een intro-dialoog, begrippen en vragen op verschillende niveaus (Bloom). Zorg dat je de kernbegrippen goed kent!</p>
+    </div>
+    <div class="ai-warn">⚠️ Dit materiaal is door kunstmatige intelligentie (AI) gegenereerd. Twijfel je aan een antwoord, een berekening of een uitleg? Vraag het dan altijd aan je docent of begeleider.</div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog</div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Mijn bijbaantje bij het cateringbedrijf is stopgezet. Ze zeiden dat het door de crisis komt en dat er minder opdrachten zijn."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Jammer. Mijn ouders wilden naar Amerika, maar mijn moeder zegt dat de dollar nu te duur is."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Hoe kan een munt duur zijn? Een euro is toch gewoon een euro?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"De wisselkoers verandert elke dag. Voor €1 krijg je nu minder dollars dan vorig jaar. Dus alles in Amerika is duurder geworden voor ons."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Dus de economie in Nederland raakt ook andere landen? En andersom ook?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Precies! Dat is wat we in dit hoofdstuk leren."</em></div>
+    </div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Leerdoelen</div>
+    <div class="dbody">
+      <p><strong>🎯 § 8.1 Werkloosheid</strong></p>
+      <ul style="padding-left:18px;line-height:1.9;margin-bottom:12px">
+        <li>Uitleggen wat conjunctuur is en de vier fasen benoemen.</li>
+        <li>Het verschil uitleggen tussen conjuncturele en structurele werkloosheid.</li>
+        <li>Voor een concreet voorbeeld aangeven om welk type werkloosheid het gaat.</li>
+      </ul>
+      <p><strong>🎯 § 8.2 Wisselkoers</strong></p>
+      <ul style="padding-left:18px;line-height:1.9;margin-bottom:12px">
+        <li>Uitleggen wat een wisselkoers is.</li>
+        <li>Berekenen hoeveel vreemde valuta je krijgt voor een bedrag in euro's (en andersom).</li>
+        <li>Uitleggen wat er met de wisselkoers gebeurt als de vraag naar een munt verandert.</li>
+      </ul>
+      <p><strong>🎯 § 8.3 Internationale handel</strong></p>
+      <ul style="padding-left:18px;line-height:1.9;margin-bottom:12px">
+        <li>Uitleggen wat export en import zijn.</li>
+        <li>Het verschil berekenen tussen export en import (handelsbalans).</li>
+        <li>Beschrijven hoe meer export de conjunctuur kan verbeteren.</li>
+      </ul>
+      <p><strong>🎯 § 8.4 Inkomensverdeling</strong></p>
+      <ul style="padding-left:18px;line-height:1.9">
+        <li>Het verschil uitleggen tussen primair en secundair inkomen.</li>
+        <li>Uitleggen hoe de overheid het inkomen herverdeelt via belastingen en uitkeringen.</li>
+        <li>De Lorenz-curve lezen en uitleggen wat de ligging ervan betekent voor de inkomensverdeling.</li>
+        <li>Uitleggen wat de Gini-coëfficiënt is en hoe die de mate van ongelijkheid weergeeft.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== §8.1 ===== -->
+<div id="s81" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 8.1</div>
+    <h2>Werkloosheid</h2>
+    <p>Conjunctuur · Conjuncturele werkloosheid · Structurele werkloosheid · Hoogconjunctuur · Laagconjunctuur · Recessie</p>
+  </div>
+
+  <div class="nk nk-groen">
+    <div class="nk-tag">📉 Conjunctuur &amp; werkloosheid</div>
+    <div class="nk-kop">Tijdelijk of blijvend? Twee soorten werkloosheid, twee heel andere oplossingen</div>
+    <div class="nk-meta">3 VWO · Vlaconomie.nl</div>
+    <div class="nk-body">De economie schommelt: perioden van groei worden afgewisseld door krimp. Die golfbeweging heet de <strong>conjunctuurcyclus</strong>. Tijdens een neergang neemt de werkloosheid toe. Maar niet alle werkloosheid is hetzelfde: <strong>conjuncturele werkloosheid</strong> is tijdelijk en keert terug zodra de economie aantrekt. <strong>Structurele werkloosheid</strong> is blijvend, veroorzaakt door technologie of concurrentie uit het buitenland.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">4 fasen</div><div class="nk-sl">in de conjunctuurcyclus</div></div>
+      <div class="nk-stat"><div class="nk-sv">Tijdelijk</div><div class="nk-sl">conjuncturele werkloosheid</div></div>
+      <div class="nk-stat"><div class="nk-sv">Blijvend</div><div class="nk-sl">structurele werkloosheid</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog &amp; Presentatie
+      <button class="pres-btn" style="margin-left:auto" onclick="window.open('pres84.html','_blank')">🎞️ Open presentatie §8.1</button>
+    </div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Mijn buurman is ontslagen. Het bedrijf krijgt minder orders."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dat klinkt als conjuncturele werkloosheid. Als de economie weer aantrekt, heeft hij waarschijnlijk snel weer een baan."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Mijn tante is ook werkloos. Maar zij werkte als typiste — die baan bestaat bijna niet meer door computers."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dat is anders. Dat is structurele werkloosheid. Een betere economie lost dat niet zomaar op."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--groen);font-family:'Lexend',sans-serif">§8.1 — Conjunctuur en werkloosheid</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Conjunctuur</strong> is de schommeling in de economische activiteit. Soms groeit de economie snel, soms langzaam of zelfs helemaal niet. Die op-en-neergaande beweging heet de <strong>conjunctuurcyclus.</strong></p>
+      <p>De conjunctuurcyclus bestaat uit vier fasen:</p>
+      <table class="tbl">
+        <tr><th>Fase</th><th>Wat gebeurt er?</th><th>Werkloosheid</th></tr>
+        <tr><td><strong>Hoogconjunctuur</strong></td><td>Economie groeit, veel productie, veel bestedingen</td><td>Laag</td></tr>
+        <tr><td><strong>Recessie (neergang)</strong></td><td>Economie krimpt, minder orders, bedrijven bezuinigen</td><td>Stijgt</td></tr>
+        <tr><td><strong>Laagconjunctuur (dal)</strong></td><td>Economie op zijn laagst, weinig activiteit</td><td>Hoog</td></tr>
+        <tr><td><strong>Expansie (herstel)</strong></td><td>Economie trekt aan, meer productie</td><td>Daalt</td></tr>
+      </table>
+      <hr class="dsep">
+      <p><strong>Conjuncturele werkloosheid</strong> ontstaat doordat de economie tijdelijk minder goed draait. Bedrijven krijgen minder orders en ontslaan personeel. Zodra de economie aantrekt, neemt de werkgelegenheid weer toe. Dit type werkloosheid is dus <strong>tijdelijk.</strong></p>
+      <p>Voorbeelden: een horecabedrijf ontslaat medewerkers omdat mensen door de crisis minder uiteten gaan · een cateringbedrijf heeft minder opdrachten · een bouwbedrijf neemt minder personeel aan.</p>
+      <hr class="dsep">
+      <p><strong>Structurele werkloosheid</strong> ontstaat door <strong>blijvende veranderingen</strong> in de economie, zoals nieuwe technologie of verplaatsing van productie naar het buitenland. Dit type werkloosheid verdwijnt <strong>niet</strong> vanzelf als de conjunctuur verbetert.</p>
+      <p>Voorbeelden: een typiste verliest haar baan doordat computers haar werk overnemen · een fabrieksarbeider verliest zijn baan doordat robots het werk doen · een reisagent verliest zijn baan doordat mensen zelf online boeken.</p>
+      <div class="wjd">Tijdens de kredietcrisis van 2008–2009 steeg de werkloosheid in Nederland van ongeveer 4% naar ruim 7%. Het merendeel was conjunctureel: toen de economie aantrok, daalde de werkloosheid weer. In sommige sectoren, zoals de financiële sector, verdwenen banen door automatisering voor altijd — dat was structureel.</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Begrippen § 8.1</div>
+    <div class="bcard-grid">
+      <div class="bcard"><div class="bt">Conjunctuur</div><div class="bd">De schommeling in economische activiteit: perioden van groei en krimp.</div></div>
+      <div class="bcard"><div class="bt">Conjunctuurcyclus</div><div class="bd">De opeenvolging van hoogconjunctuur, recessie, laagconjunctuur en herstel.</div></div>
+      <div class="bcard"><div class="bt">Hoogconjunctuur</div><div class="bd">Periode van sterke groei, hoge productie en lage werkloosheid.</div></div>
+      <div class="bcard"><div class="bt">Laagconjunctuur</div><div class="bd">Periode van weinig economische activiteit en hoge werkloosheid.</div></div>
+      <div class="bcard"><div class="bt">Recessie</div><div class="bd">Periode waarin de economie krimpt (twee kwartalen achter elkaar).</div></div>
+      <div class="bcard"><div class="bt">Conjuncturele werkloosheid</div><div class="bd">Tijdelijke werkloosheid door een slechte conjunctuur; verdwijnt als de economie aantrekt.</div></div>
+      <div class="bcard"><div class="bt">Structurele werkloosheid</div><div class="bd">Blijvende werkloosheid door technologie of concurrentie; verdwijnt niet vanzelf.</div></div>
+    </div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten § 8.1 — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is conjunctuur?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Conjunctuur is de schommeling in economische activiteit. De economie groeit en krimpt in golven — dit noemen we de conjunctuurcyclus.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem de vier fasen van de conjunctuurcyclus.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">1. Hoogconjunctuur: sterke groei, lage werkloosheid.<br>2. Recessie (neergang): economie krimpt, meer werkloosheid.<br>3. Laagconjunctuur (dal): economie op zijn laagst, hoge werkloosheid.<br>4. Expansie (herstel): economie trekt aan, werkloosheid daalt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is het verschil tussen conjuncturele en structurele werkloosheid?</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Conjuncturele werkloosheid: tijdelijk, veroorzaakt door een slechte conjunctuur. Verdwijnt als de economie aantrekt.<br>Structurele werkloosheid: blijvend, veroorzaakt door technologische verandering of concurrentie. Verdwijnt niet vanzelf bij economisch herstel.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg in eigen woorden uit waarom conjuncturele werkloosheid tijdelijk is.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Conjuncturele werkloosheid hangt samen met de fase van de conjunctuurcyclus. Als de economie weer groeit, krijgen bedrijven meer orders en hebben ze meer personeel nodig. De banen komen terug zodra de conjunctuur verbetert.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Waarom verdwijnt structurele werkloosheid niet als de economie beter wordt?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Structurele werkloosheid ontstaat door blijvende veranderingen, zoals technologie (robots, computers) of productie die naar het buitenland verplaatst. De banen bestaan gewoon niet meer — ook niet bij hoogconjunctuur. Omscholing is dan nodig.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Daan verliest zijn bijbaantje bij een cateringbedrijf omdat er minder opdrachten zijn door de crisis. Om welk type werkloosheid gaat het? Leg uit waarom.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Conjuncturele werkloosheid. Het bedrijf heeft minder opdrachten door de economische crisis. Zodra de conjunctuur aantrekt, komen de opdrachten terug en is er weer werk.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Een kassamedewerker bij een supermarkt verliest zijn baan doordat de supermarkt zelfscankassa's plaatst. Om welk type werkloosheid gaat het? Leg uit waarom.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Structurele werkloosheid. De oorzaak is een blijvende technologische verandering: de zelfscankassa vervangt de kassamedewerker permanent. Ook bij hoogconjunctuur komt deze baan niet terug.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div>
+      <div class="bq">Geef voor elk type werkloosheid een eigen voorbeeld dat niet in het boek staat.</div>
+      <div class="sub-antw"><div class="sub-antw-label">a) Conjuncturele werkloosheid:</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor a)…"></textarea></div>
+      <div class="sub-antw"><div class="sub-antw-label">b) Structurele werkloosheid:</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor b)…"></textarea></div>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) Conjunctureel: een bouwvakker wordt ontslagen omdat mensen door de crisis geen nieuwe huizen kopen. (Accepteer elk realistisch conjunctureel voorbeeld.)<br>b) Structureel: een drukker verliest zijn baan doordat kranten digitaal worden. (Accepteer elk realistisch structureel voorbeeld.)</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Als de conjunctuur verslechtert, stijgt de werkloosheid. Beschrijf stap voor stap wat er daarna met de bestedingen van gezinnen gebeurt.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Conjunctuur verslechtert → bedrijven ontslaan personeel → werkloosheid stijgt → gezinnen hebben minder inkomen → gezinnen gaan minder uitgeven (bestedingen dalen) → bedrijven hebben nog minder omzet. Dit kan een negatieve spiraal worden.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">In welke fase van de conjunctuurcyclus is het voor een bedrijf het beste moment om extra personeel aan te nemen? Leg uit waarom.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">In de expansiefase (herstel). De economie trekt aan, er zijn meer orders maar de werkloosheid is nog relatief hoog. Personeel is makkelijker te vinden en de loonkosten zijn nog niet op het hoogste punt (zoals in hoogconjunctuur).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Kijk naar de tabel met de vier fasen. In welke fase staat de werkloosheid het hoogst? Wat is de oorzaak hiervan?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">In de laagconjunctuur (het dal). De oorzaak is dat bedrijven al langere tijd minder orders hebben gehad en zoveel mogelijk hebben bezuinigd op personeel. De werkgelegenheid heeft zijn laagste punt bereikt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Stel: een autofabrikant ontslaat 500 mensen omdat consumenten minder auto's kopen door de crisis. Een robotbedrijf vervangt daarna de resterende 200 werknemers door robots. Hoeveel van de 700 ontslagen werknemers hebben conjuncturele werkloosheid? Hoeveel structurele? Leg uit.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">500 werknemers: conjuncturele werkloosheid — zij zijn ontslagen door de crisis (minder verkopen). Als de conjunctuur verbetert, kunnen zij terugkomen.<br>200 werknemers: structurele werkloosheid — hun baan is permanent overgenomen door robots. Dit komt niet terug bij economisch herstel.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">"Als de economie weer aantrekt, zijn alle werklozen snel weer aan het werk." Klopt deze uitspraak? Leg uit waarom wel of niet.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Nee, dit klopt niet volledig. Conjunctureel werklozen vinden inderdaad sneller werk als de economie verbetert. Maar structureel werklozen — wiens baan door technologie of concurrentie verdwenen is — vinden niet automatisch werk. Zij hebben omscholing of bijscholing nodig.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Welk type werkloosheid vind jij moeilijker op te lossen: conjunctureel of structureel? Geef twee redenen voor je antwoord.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Modelantwoord (beoordeel de redenering, niet het gekozen type):<br>Structurele werkloosheid is moeilijker op te lossen, omdat:<br>1) De banen niet terugkomen — er is een fundamentele verandering in de economie.<br>2) Omscholing kost tijd, geld en is niet voor iedereen even haalbaar.<br>Accepteer ook een goed onderbouwd antwoord voor conjuncturele werkloosheid.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Bedenk zelf een realistisch bericht van tien regels voor een schoolkrant over conjuncturele werkloosheid in jouw regio. Gebruik minimaal drie begrippen uit § 8.1.</div><textarea class="antw-input" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Beoordeel op: een realistisch scenario, ±10 regels, en minimaal drie begrippen uit §8.1 (bijv. conjunctuur, recessie, conjuncturele werkloosheid, laagconjunctuur, conjunctuurcyclus).</div></div>
+  </div>
+</div>
+
+<!-- ===== §8.2 ===== -->
+<div id="s82" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 8.2</div>
+    <h2>Wisselkoers</h2>
+    <p>Wisselkoers · Valuta · Valutamarkt · Appreciatie · Depreciatie</p>
+  </div>
+
+  <div class="nk nk-goud">
+    <div class="nk-tag">💱 Valuta &amp; wisselkoers</div>
+    <div class="nk-kop">Wat kost die dollar? Hoe de wisselkoers elke dag je koopkracht beïnvloedt</div>
+    <div class="nk-meta">3 VWO · Vlaconomie.nl</div>
+    <div class="nk-body">De <strong>wisselkoers</strong> is de prijs van één valuta uitgedrukt in een andere valuta. Hij bepaalt hoeveel buitenlandse valuta je krijgt voor je euro. De koers komt tot stand op de <strong>valutamarkt</strong> via vraag en aanbod. Als de euro meer waard wordt, spreken we van <strong>appreciatie</strong>; wordt hij minder waard, dan is er <strong>depreciatie</strong>.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">× koers</div><div class="nk-sl">euro's → vreemde valuta</div></div>
+      <div class="nk-stat"><div class="nk-sv">÷ koers</div><div class="nk-sl">vreemde valuta → euro's</div></div>
+      <div class="nk-stat"><div class="nk-sv">Vraag &amp; aanbod</div><div class="nk-sl">bepalen de koers</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog &amp; Presentatie
+      <button class="pres-btn" style="margin-left:auto" onclick="window.open('pres82.html','_blank')">🎞️ Open presentatie §8.2</button>
+    </div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"We willen naar Amerika, maar mijn moeder zegt dat de dollar duur is."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Hoe kan een munt duur zijn?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"De wisselkoers is veranderd. Voor €1 krijg je nu $1,05 in plaats van $1,20 vorig jaar."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Dus met dezelfde euro koop je nu minder dollars? Dan is Amerika duurder geworden voor ons!"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Precies. En als de euro meer waard wordt, is het juist goedkoper."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--goudd);font-family:'Lexend',sans-serif">§8.2 — Wisselkoers</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Valuta</strong> is de naam voor het betaalmiddel van een land of regio. De euro is de valuta van de eurozone, de dollar van de VS, het pond van het VK.</p>
+      <p><strong>Wisselkoers</strong>: de prijs van één valuta uitgedrukt in een andere valuta. De wisselkoers laat zien hoeveel van de ene valuta je krijgt voor één eenheid van een andere valuta.</p>
+      <p>Voorbeelden: EUR/USD = 1,10 → voor €1 ontvang je $1,10 · EUR/GBP = 0,86 → voor €1 ontvang je £0,86</p>
+      <div class="fml">Formule: Bedrag in vreemde valuta = Bedrag in euro's × wisselkoers
+Omgekeerd: Bedrag in euro's = Bedrag in vreemde valuta ÷ wisselkoers
+
+Voorbeeld 1: EUR/USD = 1,10 → €200 × 1,10 = $220
+Voorbeeld 2: EUR/USD = 1,10 → $330 ÷ 1,10 = €300</div>
+      <hr class="dsep">
+      <p><strong>Vraag en aanbod bepalen de wisselkoers.</strong> De wisselkoers komt tot stand op de <strong>valutamarkt</strong>, waar valuta worden gekocht en verkocht.</p>
+      <table class="tbl">
+        <tr><th>Situatie</th><th>Effect op de euro</th></tr>
+        <tr><td>Nederland exporteert veel → buitenlanders kopen euro's</td><td>Euro wordt meer waard (<strong>appreciatie</strong>)</td></tr>
+        <tr><td>Nederlanders importeren veel → ze verkopen euro's</td><td>Euro wordt minder waard (<strong>depreciatie</strong>)</td></tr>
+      </table>
+      <p><strong>Appreciatie</strong>: een valuta wordt <strong>meer</strong> waard. Je krijgt meer vreemde valuta voor je euro.</p>
+      <p><strong>Depreciatie</strong>: een valuta wordt <strong>minder</strong> waard. Je krijgt minder vreemde valuta voor je euro.</p>
+      <div class="wjd">De wisselkoers euro/dollar schommelde in 2022 sterk. In januari was €1 nog $1,13 waard, maar in september was dat nog maar $0,97. Dat betekent dat een vakantie naar de VS in september 2022 veel duurder was dan in januari!</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Begrippen § 8.2</div>
+    <div class="bcard-grid">
+      <div class="bcard"><div class="bt">Valuta</div><div class="bd">Het wettige betaalmiddel van een land of regio (bijv. euro, dollar, pond).</div></div>
+      <div class="bcard"><div class="bt">Wisselkoers</div><div class="bd">De prijs van één valuta uitgedrukt in een andere valuta.</div></div>
+      <div class="bcard"><div class="bt">Valutamarkt</div><div class="bd">De markt waar valuta worden gekocht en verkocht.</div></div>
+      <div class="bcard"><div class="bt">Appreciatie</div><div class="bd">Een valuta wordt meer waard; je krijgt meer vreemde valuta voor je euro.</div></div>
+      <div class="bcard"><div class="bt">Depreciatie</div><div class="bd">Een valuta wordt minder waard; je krijgt minder vreemde valuta voor je euro.</div></div>
+    </div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten § 8.2 — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is een wisselkoers?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De wisselkoers is de prijs van één valuta uitgedrukt in een andere valuta. Het laat zien hoeveel je van de ene valuta krijgt voor één eenheid van een andere valuta.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is het verschil tussen appreciatie en depreciatie?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Appreciatie: een valuta wordt meer waard; je krijgt meer vreemde valuta voor je euro.<br>Depreciatie: een valuta wordt minder waard; je krijgt minder vreemde valuta voor je euro.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem twee voorbeelden van valuta (niet de euro).</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Voorbeelden: de Amerikaanse dollar ($), het Britse pond (£), de Japanse yen (¥), de Zwitserse frank, de Canadese dollar. (Elk tweetal is goed.)</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">De wisselkoers EUR/USD is 1,15. Leg in eigen woorden uit wat dit betekent.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Dit betekent dat je voor 1 euro 1,15 dollar ontvangt. De euro is op dat moment 1,15 dollar waard op de valutamarkt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Stel dat Nederland heel veel exporteert naar de VS. Wat gebeurt er dan met de vraag naar euro's? En wat gebeurt er met de wisselkoers?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Als Nederland veel exporteert naar de VS, moeten Amerikanen euro's kopen om Nederlandse producten te betalen. De vraag naar euro's stijgt. Hierdoor wordt de euro meer waard: appreciatie. De wisselkoers EUR/USD stijgt (voor €1 krijg je meer dollars).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">De wisselkoers EUR/USD is 1,10. Bereken hoeveel dollar je krijgt voor €350.</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">€350 × 1,10 = $385. Je ontvangt $385.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">De wisselkoers EUR/USD is 1,10. Bereken hoeveel euro's $275 waard zijn.</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">$275 ÷ 1,10 = €250. Je ontvangt €250.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div>
+      <div class="bq">De wisselkoers EUR/GBP is 0,85. Je wisselt €600 om naar Britse ponden.</div>
+      <div class="sub-antw"><div class="sub-antw-label">a) Hoeveel pond ontvang je?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor a)…"></textarea></div>
+      <div class="sub-antw"><div class="sub-antw-label">b) Je wisselt later £255 terug naar euro's (zelfde koers). Hoeveel euro's ontvang je?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor b)…"></textarea></div>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) €600 × 0,85 = £510. Je ontvangt £510.<br>b) £255 ÷ 0,85 = €300. Je ontvangt €300.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div>
+      <div class="bq">De wisselkoers EUR/JPY (Japanse yen) is 145. Je gaat op vakantie naar Japan en wisselt €400 om.</div>
+      <div class="sub-antw"><div class="sub-antw-label">a) Hoeveel yen ontvang je?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor a)…"></textarea></div>
+      <div class="sub-antw"><div class="sub-antw-label">b) Na de vakantie wissel je ¥5.800 terug (zelfde koers). Hoeveel euro ontvang je?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor b)…"></textarea></div>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) €400 × 145 = ¥58.000. Je ontvangt ¥58.000.<br>b) ¥5.800 ÷ 145 = €40. Je ontvangt €40.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Vorig jaar was de wisselkoers EUR/USD = 1,20. Nu is de koers 1,05. Is de euro geapprecieerd of gedeprecieerd? Wat betekent dit voor een Nederlander die op vakantie gaat naar de VS?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De euro is gedeprecieerd: voor €1 krijg je nu minder dollars (1,05 i.p.v. 1,20). Voor een Nederlander die naar de VS gaat, betekent dit dat alles duurder is geworden. Voor hetzelfde aantal euro's krijg je minder dollars, dus minder koopkracht in Amerika.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Een Nederlands bedrijf verkoopt producten aan een Amerikaans bedrijf. De prijs is $500 per product. De wisselkoers is eerst EUR/USD = 1,25, daarna 1,00. Hoeveel euro ontvangt het Nederlandse bedrijf in beide gevallen? Wat is het verschil?</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Koers 1,25: $500 ÷ 1,25 = €400.<br>Koers 1,00: $500 ÷ 1,00 = €500.<br>Verschil: €100 meer bij de lagere koers. De depreciatie van de euro is gunstig voor dit bedrijf: het ontvangt meer euro's voor dezelfde dollaropbrengst.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Als de euro deprecieert, worden Nederlandse exportproducten goedkoper voor buitenlanders. Leg stap voor stap uit waarom dat zo is.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Stap 1: De euro deprecieert → voor €1 krijg je minder vreemde valuta.<br>Stap 2: Omgekeerd: buitenlanders hoeven minder van hun eigen valuta neer te leggen voor één euro.<br>Stap 3: Nederlandse producten zijn in euro's geprijsd → ze worden voor buitenlanders goedkoper in hun eigen valuta.<br>Stap 4: Buitenlanders kopen meer Nederlandse producten → export stijgt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Is een sterke euro (hoge wisselkoers) altijd goed voor Nederland? Noem één voordeel en één nadeel.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Voordeel: importproducten en vakanties buiten de eurozone worden goedkoper voor Nederlanders. Je krijgt meer vreemde valuta voor je euro.<br>Nadeel: Nederlandse exportproducten worden duurder voor buitenlanders. De concurrentiepositie van Nederlandse exporteurs verslechtert, waardoor de export kan dalen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">"Als de euro deprecieert, is dat slecht voor iedereen in Nederland." Ben je het hiermee eens? Leg uit waarom wel of niet.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Oneens. Depreciatie is nadelig voor consumenten (import duurder, vakanties buiten eurozone duurder), maar gunstig voor exporteurs: Nederlandse producten worden goedkoper voor buitenlanders, waardoor de export kan stijgen. Wie profiteert en wie verliest, hangt af van de positie in de economie.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Stel dat jij op vakantie wilt naar drie landen buiten de eurozone. Bedenk drie wisselkoersen (zelf verzinnen) en bereken voor elk land hoeveel lokale valuta je krijgt voor €250. Zet je berekeningen netjes in een tabelletje.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Beoordeel op: drie landen buiten de eurozone, drie zelf bedachte wisselkoersen, correcte berekening (€250 × koers) per land, netjes weergegeven in een tabel. Voorbeeld: VK (GBP 0,85): £212,50 · Japan (JPY 145): ¥36.250 · Noorwegen (NOK 11,5): 2.875 NOK.</div></div>
+  </div>
+</div>
+
+<!-- ===== §8.3 ===== -->
+<div id="s83" class="sec">
+  <div class="phdr">
+    <div class="pn">§ 8.3</div>
+    <h2>Internationale handel</h2>
+    <p>Export · Import · Handelsbalans · Exportoverschot · Importoverschot</p>
+  </div>
+
+  <div class="nk nk-blauw">
+    <div class="nk-tag">🌐 Export &amp; Import</div>
+    <div class="nk-kop">Handelsbalans: hoeveel geld komt er binnen en hoeveel gaat er weg?</div>
+    <div class="nk-meta">3 VWO · Vlaconomie.nl</div>
+    <div class="nk-body"><strong>Export</strong> brengt geld binnen in de Nederlandse economie en stimuleert werkgelegenheid. <strong>Import</strong> is ook nuttig — we kunnen producten kopen die we zelf niet (goed) kunnen maken. Het verschil heet de <strong>handelsbalans</strong>. Bij een <strong>exportoverschot</strong> komt er per saldo meer geld binnen dan er weggaat: goed voor de conjunctuur.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">Export − Import</div><div class="nk-sl">= handelsbalans</div></div>
+      <div class="nk-stat"><div class="nk-sv">+saldo</div><div class="nk-sl">exportoverschot</div></div>
+      <div class="nk-stat"><div class="nk-sv">−saldo</div><div class="nk-sl">importoverschot</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Intro-dialoog &amp; Presentatie
+      <button class="pres-btn" style="margin-left:auto" onclick="window.open('pres83.html','_blank')">🎞️ Open presentatie §8.3</button>
+    </div>
+    <div class="dialoog">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Als Nederland veel verkoopt aan het buitenland, verdienen we toch meer? Is dat goed voor de economie?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Ja, export zorgt voor meer werk en inkomen in Nederland."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"En als we veel kopen uit het buitenland?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dan gaat er geld weg uit de Nederlandse economie. Maar soms is dat handig, want niet alles kunnen we zelf maken."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Dus het verschil tussen wat we verkopen en wat we kopen is belangrijk?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Precies, dat heet de handelsbalans."</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Docentuitleg</div>
+    <div class="dhdr"><div class="dav">👨‍🏫</div><div><strong style="color:var(--blauwl);font-family:'Lexend',sans-serif">§8.3 — Internationale handel</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody">
+      <p><strong>Export</strong>: goederen en diensten die Nederland <strong>verkoopt</strong> aan het buitenland. Export brengt geld <strong>binnen</strong> in de Nederlandse economie. Meer export betekent meer productie en meer werk.</p>
+      <p><strong>Import</strong>: goederen en diensten die Nederland <strong>koopt</strong> uit het buitenland. Import zorgt ervoor dat geld de Nederlandse economie <strong>verlaat.</strong> Maar import is ook nuttig: we kunnen dingen kopen die we zelf niet (goed) kunnen maken, zoals koffie of bananen.</p>
+      <div class="fml">Handelsbalans = Export − Import
+
+Positief saldo (exportoverschot): export > import → meer geld komt binnen dan weggaat
+Negatief saldo (importoverschot): import > export → meer geld gaat weg dan binnenkomt
+
+Voorbeeld: Export = €300 mrd | Import = €250 mrd
+Handelsbalans = €300 − €250 = +€50 mrd → exportoverschot</div>
+      <hr class="dsep">
+      <p><strong>Verband met de conjunctuur:</strong> Als de export toeneemt, gaan bedrijven meer produceren. Ze hebben dan meer personeel nodig. Die werknemers verdienen meer en geven dat geld uit. Zo stimuleert export de hele economie.</p>
+      <table class="tbl">
+        <tr><th>Situatie</th><th>Effect op de economie</th></tr>
+        <tr><td>Export stijgt</td><td>Meer productie → meer werk → meer inkomen → conjunctuur verbetert</td></tr>
+        <tr><td>Import stijgt</td><td>Geld stroomt weg → minder besteed in Nederland → conjunctuur verzwakt iets</td></tr>
+        <tr><td>Exportoverschot</td><td>Per saldo meer geld in Nederland → goed voor de conjunctuur</td></tr>
+        <tr><td>Importoverschot</td><td>Per saldo minder geld in Nederland → minder gunstig voor de conjunctuur</td></tr>
+      </table>
+      <div class="wjd">Nederland heeft traditioneel een groot exportoverschot. Bekende Nederlandse exportproducten zijn: machines (ASML), bloemen, kaas, aardgas en chemische producten. De haven van Rotterdam is de grootste haven van Europa en heel belangrijk voor de Nederlandse export en import. In 2022 exporteerde Nederland voor meer dan €700 miljard aan goederen en diensten!</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl">Begrippen § 8.3</div>
+    <div class="bcard-grid">
+      <div class="bcard"><div class="bt">Export</div><div class="bd">Goederen en diensten die Nederland verkoopt aan het buitenland.</div></div>
+      <div class="bcard"><div class="bt">Import</div><div class="bd">Goederen en diensten die Nederland koopt uit het buitenland.</div></div>
+      <div class="bcard"><div class="bt">Handelsbalans</div><div class="bd">Export minus import; geeft aan of er meer geld binnenkomt dan weggaat.</div></div>
+      <div class="bcard"><div class="bt">Exportoverschot</div><div class="bd">Export is groter dan import; er komt meer geld binnen dan er weggaat.</div></div>
+      <div class="bcard"><div class="bt">Importoverschot</div><div class="bd">Import is groter dan export; er gaat meer geld weg dan er binnenkomt.</div></div>
+    </div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl">Opdrachten § 8.3 — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is export?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Export zijn goederen en diensten die Nederland verkoopt aan het buitenland. Export brengt geld binnen in de Nederlandse economie.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is de handelsbalans?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De handelsbalans is het verschil tussen export en import (export − import). Het geeft aan of er per saldo meer geld binnenkomt of weggaat.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wanneer is er sprake van een exportoverschot?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Er is sprake van een exportoverschot als de export groter is dan de import. De handelsbalans is dan positief: er komt meer geld binnen dan er weggaat.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit waarom export goed is voor de werkgelegenheid in Nederland.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Als Nederland meer exporteert, moeten bedrijven meer produceren. Daarvoor hebben ze meer personeel nodig. Meer werkgelegenheid betekent meer mensen met inkomen, die op hun beurt meer besteden. Zo heeft export een positief effect op de hele economie.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg uit waarom import ook nuttig kan zijn, ook al gaat er geld weg uit de economie.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Niet alles kan Nederland zelf (goedkoop) produceren. Import maakt het mogelijk om producten te kopen die elders beter of goedkoper worden gemaakt, zoals koffie, bananen of ruwe olie. Consumenten hebben zo meer keuze tegen lagere prijzen. Bovendien zijn geïmporteerde grondstoffen soms nodig voor de Nederlandse industrie.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div>
+      <div class="bq">De export van Nederland is €420 miljard. De import is €380 miljard.</div>
+      <div class="sub-antw"><div class="sub-antw-label">a) Bereken de handelsbalans.</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor a)…"></textarea></div>
+      <div class="sub-antw"><div class="sub-antw-label">b) Is er een export- of importoverschot?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor b)…"></textarea></div>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) Handelsbalans = €420 − €380 = +€40 miljard<br>b) Exportoverschot van €40 miljard: er komt meer geld binnen dan er weggaat.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div>
+      <div class="bq">Land X exporteert voor €180 miljard en importeert voor €210 miljard.</div>
+      <div class="sub-antw"><div class="sub-antw-label">a) Bereken de handelsbalans.</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor a)…"></textarea></div>
+      <div class="sub-antw"><div class="sub-antw-label">b) Is er een export- of importoverschot?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor b)…"></textarea></div>
+      <div class="sub-antw"><div class="sub-antw-label">c) Wat betekent dit voor de geldstroom in dit land?</div><textarea class="antw-input" rows="2" placeholder="Typ hier je antwoord voor c)…"></textarea></div>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) Handelsbalans = €180 − €210 = −€30 miljard (negatief)<br>b) Importoverschot van €30 miljard.<br>c) Er gaat per saldo €30 miljard meer weg dan er binnenkomt. Dit is minder gunstig voor de conjunctuur van land X.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div><div class="bq">Noem drie voorbeelden van Nederlandse exportproducten en drie voorbeelden van producten die Nederland importeert.</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Export (voorbeelden): machines/ASML-apparatuur, bloemen, kaas, aardgas, chemische producten, sierteelt.<br>Import (voorbeelden): olie, koffie, bananen, elektronica, kleding, auto's.<br>Accepteer elk realistisch voorbeeld.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Als de economie in Duitsland (onze grootste handelspartner) in een recessie raakt, wat gebeurt er dan met de Nederlandse export? Beschrijf stap voor stap het gevolg voor de Nederlandse conjunctuur.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Stap 1: Duitsland heeft een recessie → Duitsers besteden minder.<br>Stap 2: Duitsers kopen minder Nederlandse producten → Nederlandse export naar Duitsland daalt.<br>Stap 3: Nederlandse bedrijven hebben minder orders → minder productie → minder werkgelegenheid.<br>Stap 4: Meer Nederlanders werkloos → minder inkomen → bestedingen dalen.<br>Conclusie: de Nederlandse conjunctuur verzwakt mee met de Duitse.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">De euro deprecieert. Leg uit wat dit betekent voor de prijs van Nederlandse exportproducten in het buitenland. Is dit goed of slecht voor de Nederlandse export?</div><textarea class="antw-input" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De euro is minder waard → buitenlanders hoeven minder van hun eigen valuta neer te leggen voor een Nederlands product → Nederlandse producten worden goedkoper in het buitenland.<br>Dit is goed voor de Nederlandse export: buitenlanders kopen meer Nederlandse producten.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Bekijk de tabel met de vier situaties. Beschrijf met eigen woorden hoe een stijging van de export leidt tot meer werkgelegenheid. Gebruik minstens drie stappen.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Stap 1: De export stijgt → Nederlandse bedrijven ontvangen meer orders uit het buitenland.<br>Stap 2: Bedrijven moeten meer produceren → ze nemen meer personeel aan.<br>Stap 3: Meer werknemers ontvangen loon → zij besteden meer in Nederland → ook andere bedrijven profiteren.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Nederland heeft een exportoverschot van €60 miljard. Dan besluit de overheid veel meer goederen te importeren uit Azië. Wat gebeurt er met de handelsbalans? En wat kan het gevolg zijn voor de Nederlandse economie?</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De handelsbalans verslechtert: het overschot van €60 mrd wordt kleiner (of kan omslaan in een tekort).<br>Gevolg voor de economie: meer geld stroomt weg naar het buitenland. Als binnenlandse producenten verdrongen worden door goedkopere importproducten, kan de werkgelegenheid in bepaalde sectoren dalen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">"Een importoverschot is altijd slecht voor een land." Ben je het hiermee eens? Geef twee argumenten voor je standpunt.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Oneens — twee argumenten:<br>1. Import kan nuttig zijn: een land koopt wat elders goedkoper of beter wordt gemaakt. Dit is efficiënt en vergroot de welvaart van consumenten.<br>2. Een importoverschot kan ook wijzen op hoge binnenlandse bestedingen en welvaart: mensen kunnen zich veel veroorloven, ook uit het buitenland.<br>Accepteer ook een goed onderbouwde tegengestelde mening.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Is het beter voor Nederland om zo veel mogelijk zelf te produceren, of om te blijven handelen met andere landen? Geef twee redenen voor je antwoord.</div><textarea class="antw-input" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Handelen met andere landen is beter, omdat:<br>1) Landen zich kunnen specialiseren in wat ze goed kunnen — dit heet comparatief voordeel.<br>2) Consumenten profiteren van lagere prijzen en meer keuze.<br>3) Internationale handel bevordert economische groei.<br>Accepteer ook een nuancerend antwoord (bijv. strategische sectoren zelf houden).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Stel je bent minister van Economische Zaken. De Nederlandse export daalt doordat buitenlanders minder kopen. Bedenk twee maatregelen die je kunt nemen om de export te stimuleren en leg per maatregel kort uit hoe die werkt.</div><textarea class="antw-input" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Beoordeel op: twee concrete maatregelen met een heldere uitleg per maatregel.<br>Voorbeeldmaatregelen:<br>1) Subsidies voor exporterende bedrijven — zodat ze goedkoper kunnen aanbieden in het buitenland.<br>2) Handelsakkoorden sluiten met andere landen — zodat exporttarieven wegvallen.<br>3) Investeren in innovatie — zodat Nederlandse producten aantrekkelijker worden.</div></div>
+  </div>
+</div>
+
+<!-- ===== §8.4 INKOMENSVERDELING ===== -->
+<div id="s84" class="sec">
+  <div class="phdr-paars">
+    <div class="pn">§ 8.4</div>
+    <h2>Inkomensverdeling</h2>
+    <p>Primair inkomen · Secundair inkomen · Overdrachten · Lorenz-curve · Gini-coëfficiënt</p>
+  </div>
+
+  <div class="nk nk-paars">
+    <div class="nk-tag">💰 Inkomen &amp; verdeling</div>
+    <div class="nk-kop">Wie verdient wat? Van bruto naar netto en de rol van de overheid</div>
+    <div class="nk-meta">3 VWO · Vlaconomie.nl</div>
+    <div class="nk-body">Je <strong>primaire inkomen</strong> is wat je verdient vóór belastingen — je bruto-inkomen uit werk, kapitaal of onderneming. De overheid herverdeelt inkomen via belastingen en <strong>overdrachten</strong> (uitkeringen). Wat je uiteindelijk overhoudt, heet je <strong>secundaire inkomen</strong>. Hoe gelijk dit verdeeld is over de bevolking, zien we in de <strong>Lorenz-curve</strong> en meten we met de <strong>Gini-coëfficiënt</strong>.</div>
+    <div class="nk-stats">
+      <div class="nk-stat"><div class="nk-sv">Primair</div><div class="nk-sl">inkomen vóór belastingen</div></div>
+      <div class="nk-stat"><div class="nk-sv">Secundair</div><div class="nk-sl">inkomen ná herverdeling</div></div>
+      <div class="nk-stat"><div class="nk-sv">0 → 1</div><div class="nk-sl">Gini-coëfficiënt</div></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl bttl-paars">Intro-dialoog &amp; Presentatie
+      <button class="pres-btn" style="margin-left:auto" onclick="openPres84()">🎞️ Open presentatie §8.4</button>
+    </div>
+    <div class="dialoog-paars">
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Mijn vader verdient €3.500 per maand, maar hij zegt dat hij maar €2.400 overhoudt. Hoe kan dat?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Dat komt door belastingen en premies. Zijn bruto-inkomen heet het primaire inkomen."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"En wat doet de overheid met dat geld dan?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Een deel gaat naar mensen met een uitkering. Zo herverdeelt de overheid het inkomen. Wat je uiteindelijk overhoudt, heet het secundaire inkomen."</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam">Daan:</span> <em>"Is iedereen in Nederland dan even rijk?"</em></div>
+      <div class="dialoog-rij"><span class="dialoog-naam2">Layla:</span> <em>"Nee, er zijn grote verschillen. Economen gebruiken de Lorenz-curve om dat zichtbaar te maken. Die leer je nu kennen!"</em></div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl bttl-paars">Docentuitleg</div>
+    <div class="dhdr"><div class="dav dav-paars">👨‍🏫</div><div><strong style="color:var(--paarsL);font-family:'Lexend',sans-serif">§8.4 — Inkomensverdeling</strong><div style="font-size:.74rem;color:var(--grijs)">Begrippen staan <strong>vetgedrukt</strong></div></div></div>
+    <div class="dbody dbody-paars">
+      <p><strong>Primair inkomen</strong> is het inkomen dat iemand verdient door deel te nemen aan het productieproces, vóór belastingen en herverdeling. Het primaire inkomen bestaat uit vergoedingen voor de productiefactoren:</p>
+      <ul style="padding-left:18px;margin-bottom:12px;line-height:1.9">
+        <li>Arbeid → <strong>loon</strong> of <strong>salaris</strong></li>
+        <li>Kapitaal → <strong>rente</strong> of <strong>dividend</strong></li>
+        <li>Grond → <strong>pacht</strong> of <strong>huur</strong></li>
+        <li>Ondernemerschap → <strong>winst</strong></li>
+      </ul>
+      <p>Het primaire inkomen is het bruto-inkomen. Mensen zonder werk (bijv. door ziekte of werkloosheid) ontvangen geen primair inkomen uit arbeid.</p>
+      <hr class="dsep-paars">
+      <p><strong>Van primair naar secundair inkomen</strong></p>
+      <p>De overheid grijpt in op de inkomensverdeling via <strong>overdrachten</strong>: betalingen aan huishoudens zonder directe tegenprestatie, zoals WW-uitkeringen, bijstand en kinderbijslag. Door belastingen te heffen bij hogere inkomens en uitkeringen te geven aan lagere inkomens, worden inkomensverschillen kleiner. Dit proces heet <strong>herverdeling</strong>.</p>
+
+      <div class="fml-paars">Secundair inkomen = Primair inkomen − Belastingen en premies + Overdrachten
+
+Voorbeeld: Primair inkomen = €3.500 | Belastingen = €1.250 | Uitkering = €0
+Secundair inkomen = €3.500 − €1.250 + €0 = €2.250 netto per maand</div>
+
+      <!-- Schema primair → secundair -->
+      <div class="schema-wrap" style="margin:16px 0">
+        <div class="schema-box">
+          <div class="sb-title">Primair inkomen</div>
+          <div class="sb-sub">Bruto-inkomen vóór belastingen<br><em>bijv. €3.500 salaris</em></div>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-box goud-box">
+          <div class="sb-title">− Belastingen &amp; premies</div>
+          <div class="sb-sub">Overheid heft belasting<br>progressief stelsel</div>
+        </div>
+        <div class="schema-arrow">+</div>
+        <div class="schema-box goud-box">
+          <div class="sb-title">+ Overdrachten</div>
+          <div class="sb-sub">WW, bijstand, toeslagen<br>kinderbijslag</div>
+        </div>
+        <div class="schema-arrow">→</div>
+        <div class="schema-box paars-box">
+          <div class="sb-title">Secundair inkomen</div>
+          <div class="sb-sub">Netto besteedbaar<br><em>bijv. €2.400</em></div>
+        </div>
+      </div>
+
+      <hr class="dsep-paars">
+      <p><strong>De Lorenz-curve</strong></p>
+      <p>De <strong>Lorenz-curve</strong> is een grafiek die laat zien hoe het inkomen verdeeld is over de bevolking. Op de horizontale as staat het cumulatieve percentage van de bevolking (van arm naar rijk). Op de verticale as staat het cumulatieve percentage van het totale inkomen dat zij ontvangen.</p>
+      <p>De diagonale 45°-lijn stelt <strong>volkomen gelijkheid</strong> voor: iedereen heeft exact hetzelfde inkomen. De werkelijke Lorenz-curve ligt altijd <em>onder</em> deze lijn. Hoe verder de curve van de diagonaal, hoe <strong>ongelijker</strong> de inkomensverdeling.</p>
+
+      <!-- Lorenz-curve SVG -->
+      <div class="lorenz-wrap">
+        <svg width="380" height="300" viewBox="0 0 380 300" style="max-width:100%">
+          <!-- Assen -->
+          <line x1="50" y1="260" x2="350" y2="260" stroke="#555" stroke-width="1.5"/>
+          <line x1="50" y1="260" x2="50" y2="20" stroke="#555" stroke-width="1.5"/>
+          <!-- Grid -->
+          <line x1="50" y1="196" x2="350" y2="196" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="50" y1="132" x2="350" y2="132" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="50" y1="68" x2="350" y2="68" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="110" y1="260" x2="110" y2="20" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="170" y1="260" x2="170" y2="20" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="230" y1="260" x2="230" y2="20" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="290" y1="260" x2="290" y2="20" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+          <!-- 45° gelijkheidslijn -->
+          <line x1="50" y1="260" x2="350" y2="20" stroke="#333" stroke-width="2" stroke-dasharray="8,4"/>
+          <!-- Lorenz-curve oppervlak A (rood gearceerd) -->
+          <path d="M50,260 L110,248 L170,228 L230,196 L290,152 L350,20 L50,260" fill="#e53e3e" fill-opacity="0.12"/>
+          <!-- Lorenz-curve lijn -->
+          <polyline points="50,260 110,248 170,228 230,196 290,152 350,20" fill="none" stroke="#4a1a7a" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- Punten op de curve -->
+          <circle cx="50" cy="260" r="4" fill="#4a1a7a"/>
+          <circle cx="110" cy="248" r="4" fill="#4a1a7a"/>
+          <circle cx="170" cy="228" r="4" fill="#4a1a7a"/>
+          <circle cx="230" cy="196" r="4" fill="#4a1a7a"/>
+          <circle cx="290" cy="152" r="4" fill="#4a1a7a"/>
+          <circle cx="350" cy="20" r="4" fill="#4a1a7a"/>
+          <!-- As labels X -->
+          <text x="50" y="275" text-anchor="middle" font-size="10" fill="#666">0%</text>
+          <text x="110" y="275" text-anchor="middle" font-size="10" fill="#666">20%</text>
+          <text x="170" y="275" text-anchor="middle" font-size="10" fill="#666">40%</text>
+          <text x="230" y="275" text-anchor="middle" font-size="10" fill="#666">60%</text>
+          <text x="290" y="275" text-anchor="middle" font-size="10" fill="#666">80%</text>
+          <text x="350" y="275" text-anchor="middle" font-size="10" fill="#666">100%</text>
+          <!-- As labels Y -->
+          <text x="44" y="264" text-anchor="end" font-size="10" fill="#666">0%</text>
+          <text x="44" y="200" text-anchor="end" font-size="10" fill="#666">20%</text>
+          <text x="44" y="136" text-anchor="end" font-size="10" fill="#666">60%</text>
+          <text x="44" y="72" text-anchor="end" font-size="10" fill="#666">80%</text>
+          <text x="44" y="24" text-anchor="end" font-size="10" fill="#666">100%</text>
+          <!-- Labels -->
+          <text x="200" y="294" text-anchor="middle" font-size="11" fill="#333" font-family="DM Sans,Arial,sans-serif">Cumulatief % bevolking (arm → rijk)</text>
+          <text x="12" y="150" text-anchor="middle" font-size="11" fill="#333" font-family="DM Sans,Arial,sans-serif" transform="rotate(-90,12,150)">Cumulatief % inkomen</text>
+          <!-- A label -->
+          <text x="245" y="220" font-size="13" font-weight="bold" fill="#e53e3e" fill-opacity="0.7">A</text>
+          <!-- B label -->
+          <text x="180" y="130" font-size="13" font-weight="bold" fill="#4a1a7a" fill-opacity="0.6">B</text>
+          <!-- Legenda -->
+          <line x1="55" y1="35" x2="80" y2="35" stroke="#333" stroke-width="2" stroke-dasharray="6,3"/>
+          <text x="84" y="39" font-size="10" fill="#333">Volkomen gelijkheid (45°-lijn)</text>
+          <line x1="55" y1="52" x2="80" y2="52" stroke="#4a1a7a" stroke-width="2.5"/>
+          <text x="84" y="56" font-size="10" fill="#4a1a7a">Lorenz-curve</text>
+          <rect x="55" y="63" width="14" height="10" fill="#e53e3e" fill-opacity="0.3"/>
+          <text x="73" y="73" font-size="10" fill="#e53e3e">Oppervlak A (ongelijkheid)</text>
+        </svg>
+        <div class="lorenz-caption">Figuur 8.4.2 — De Lorenz-curve. Hoe verder van de 45°-lijn, hoe groter de inkomensongelijkheid.<br>Gini = A ÷ (A + B)</div>
+      </div>
+
+      <hr class="dsep-paars">
+      <p><strong>De Gini-coëfficiënt</strong></p>
+      <p>De <strong>Gini-coëfficiënt</strong> is een getal tussen 0 en 1 dat de mate van inkomensongelijkheid uitdrukt, gebaseerd op de Lorenz-curve. Gini = Oppervlak A ÷ (Oppervlak A + Oppervlak B).</p>
+      <table class="tbl tbl-paars">
+        <tr><th>Gini-waarde</th><th>Betekenis</th><th>Voorbeeld</th></tr>
+        <tr><td><strong>0</strong></td><td>Volkomen gelijkheid — iedereen verdient hetzelfde</td><td>Theoretisch ideaal</td></tr>
+        <tr><td><strong>0,27–0,30</strong></td><td>Relatief gelijke verdeling</td><td>Nederland, Zweden</td></tr>
+        <tr><td><strong>0,35–0,45</strong></td><td>Grotere ongelijkheid</td><td>VS, China</td></tr>
+        <tr><td><strong>1</strong></td><td>Volkomen ongelijkheid — één persoon heeft alles</td><td>Theoretisch maximum</td></tr>
+      </table>
+      <div class="wjd">In Nederland betaal je meer belasting naarmate je meer verdient (progressief belastingstelsel). In 2023 had de rijkste 10% van de Nederlanders meer dan 23% van het totale inkomen. De armste 10% had slechts circa 2,7%. Dankzij belastingen en uitkeringen is het secundaire inkomen in Nederland veel gelijker verdeeld dan het primaire inkomen!</div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <div class="bttl bttl-paars">Begrippen § 8.4</div>
+    <div class="bcard-grid">
+      <div class="bcard bcard-paars"><div class="bt">Primair inkomen</div><div class="bd">Inkomen vóór belastingen, verdiend via productie: loon, winst, rente, pacht.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Overdrachten</div><div class="bd">Betalingen van de overheid zonder tegenprestatie, voor herverdeling: WW, bijstand, kinderbijslag.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Secundair inkomen</div><div class="bd">Inkomen ná belastingen en herverdeling; het netto besteedbare inkomen (koopkracht).</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Herverdeling</div><div class="bd">Het proces waarbij de overheid inkomen verschuift via belastingen en uitkeringen.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Lorenz-curve</div><div class="bd">Grafiek die toont hoe inkomen verdeeld is. Hoe verder van de 45°-lijn, hoe groter de ongelijkheid.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Gini-coëfficiënt</div><div class="bd">Getal (0–1) dat inkomensongelijkheid meet. 0 = volkomen gelijk; 1 = volkomen ongelijk.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Inkomensverdeling</div><div class="bd">De manier waarop het totale inkomen in een samenleving verdeeld is over de bevolking.</div></div>
+    </div>
+  </div>
+
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bttl bttl-paars">Opdrachten § 8.4 — Bloom</div>
+    <div class="bleg"><span class="b1">1 — Onthouden</span><span class="b2">2 — Begrijpen</span><span class="b3">3 — Toepassen</span><span class="b4">4 — Analyseren</span><span class="b5">5 — Evalueren</span><span class="b6">6 — Creëren</span></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is primair inkomen?</div><textarea class="antw-input antw-input-paars" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Primair inkomen is het inkomen dat iemand verdient door deel te nemen aan het productieproces, vóór belastingen en herverdeling. Voorbeelden: loon (arbeid), rente (kapitaal), pacht (grond) en winst (ondernemerschap).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Wat is het verschil tussen primair en secundair inkomen?</div><textarea class="antw-input antw-input-paars" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Primair inkomen is het bruto-inkomen vóór belastingen en herverdeling. Secundair inkomen is het netto-inkomen ná aftrek van belastingen en premies, plus eventuele overdrachten van de overheid. Het secundaire inkomen is het bedrag dat iemand daadwerkelijk te besteden heeft.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b1">1 — Onthouden</span></div><div class="bq">Noem drie vormen van overdrachten die de overheid verstrekt.</div><textarea class="antw-input antw-input-paars" rows="2" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Voorbeelden (elk drietal is goed): WW-uitkering, bijstandsuitkering, kinderbijslag, zorgtoeslag, huurtoeslag, studiefinanciering, AOW-uitkering.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Leg in eigen woorden uit wat de overheid doet om de inkomensverdeling eerlijker te maken.</div><textarea class="antw-input antw-input-paars" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De overheid heft belastingen — hogere inkomens betalen een groter percentage (progressief stelsel). Het geïnde geld wordt gebruikt voor overdrachten aan lagere inkomens (uitkeringen, toeslagen). Zo wordt inkomen van rijk naar arm herverdeeld, waardoor het secundaire inkomen gelijker verdeeld is dan het primaire inkomen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b2">2 — Begrijpen</span></div><div class="bq">Wat stelt de 45°-lijn in de Lorenz-curve voor? En wanneer ligt de Lorenz-curve dichter bij deze lijn?</div><textarea class="antw-input antw-input-paars" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De 45°-lijn stelt volkomen gelijkheid voor: iedereen heeft precies hetzelfde inkomen. De Lorenz-curve ligt dichter bij deze lijn wanneer de inkomensverdeling gelijker is — bij een lagere Gini-coëfficiënt. Na herverdeling (secundair inkomen) ligt de curve dichter bij de 45°-lijn dan bij het primaire inkomen.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div>
+      <div class="bq">Daan verdient €2.800 bruto per maand. Hij betaalt €700 belasting en premies en ontvangt €150 zorgtoeslag. Bereken zijn secundaire inkomen.</div>
+      <textarea class="antw-input antw-input-paars" rows="3" placeholder="Laat je berekening zien…"></textarea>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Secundair inkomen = Primair inkomen − Belastingen + Overdrachten<br>= €2.800 − €700 + €150 = <strong>€2.250</strong> per maand.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div>
+      <div class="bq">Layla is werkloos. Ze heeft geen primair inkomen, maar ontvangt €1.200 WW-uitkering.</div>
+      <div class="sub-antw"><div class="sub-antw-label">a) Wat is haar secundaire inkomen?</div><textarea class="antw-input antw-input-paars" rows="2" placeholder="Typ hier je antwoord voor a)…"></textarea></div>
+      <div class="sub-antw"><div class="sub-antw-label">b) Leg uit of de WW een overdracht is.</div><textarea class="antw-input antw-input-paars" rows="2" placeholder="Typ hier je antwoord voor b)…"></textarea></div>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) Secundair inkomen = €0 − €0 + €1.200 = <strong>€1.200</strong> per maand.<br>b) Ja, de WW is een overdracht: de overheid betaalt haar dit zonder dat zij er direct een tegenprestatie voor levert (zij werkt immers niet).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b3">3 — Toepassen</span></div>
+      <div class="bq">Land A heeft een Gini-coëfficiënt van 0,22. Land B heeft een Gini-coëfficiënt van 0,51.</div>
+      <div class="sub-antw"><div class="sub-antw-label">a) In welk land is de inkomensverdeling gelijker?</div><textarea class="antw-input antw-input-paars" rows="2" placeholder="Typ hier je antwoord voor a)…"></textarea></div>
+      <div class="sub-antw"><div class="sub-antw-label">b) Leg je antwoord uit.</div><textarea class="antw-input antw-input-paars" rows="2" placeholder="Typ hier je antwoord voor b)…"></textarea></div>
+      <div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">a) Land A heeft de gelijkere inkomensverdeling.<br>b) De Gini-coëfficiënt loopt van 0 (volkomen gelijkheid) tot 1 (volkomen ongelijkheid). Hoe lager de Gini, hoe gelijker de verdeling. Land A (0,22) heeft een lagere Gini dan land B (0,51).</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Waarom ligt de Lorenz-curve van het secundaire inkomen dichter bij de 45°-lijn dan die van het primaire inkomen? Beschrijf stap voor stap.</div><textarea class="antw-input antw-input-paars" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Stap 1: Bij primair inkomen zijn de verschillen groot — werkenden verdienen veel, niet-werkenden verdienen niets.<br>Stap 2: De overheid heft belastingen bij hogere inkomens (progressief stelsel) — rijkere mensen dragen relatief meer af.<br>Stap 3: De overheid geeft overdrachten aan lagere inkomens — mensen zonder werk ontvangen toch inkomen.<br>Stap 4: Door deze herverdeling worden de inkomensverschillen kleiner. Het secundaire inkomen is daardoor gelijker verdeeld — de Lorenz-curve ligt dichter bij de 45°-lijn.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Stel dat de overheid de belastingen voor hoge inkomens verhoogt en de uitkeringen voor lage inkomens verhoogt. Wat gebeurt er met de Gini-coëfficiënt? Leg uit waarom.</div><textarea class="antw-input antw-input-paars" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">De Gini-coëfficiënt daalt (wordt lager). Hogere belastingen voor rijken verminderen hun netto-inkomen. Hogere uitkeringen voor armen verhogen hun netto-inkomen. De inkomensverschillen worden kleiner — de Lorenz-curve schuift richting de 45°-lijn. Dit leidt tot een lagere Gini-coëfficiënt.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">In laagconjunctuur stijgt de werkloosheid. Wat gebeurt er dan met het primaire inkomen van veel mensen? En wat doet de overheid om de gevolgen te verzachten?</div><textarea class="antw-input antw-input-paars" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Het primaire inkomen van mensen die hun baan verliezen daalt naar €0 uit arbeid. De overheid verzacht de gevolgen via overdrachten: werklozen ontvangen een WW-uitkering, zodat zij toch een secundair inkomen hebben. Ook bijstandsuitkeringen worden verstrekt aan mensen zonder recht op WW.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b4">4 — Analyseren</span></div><div class="bq">Kijk naar de Lorenz-curve in de figuur. Wat betekent het als de curve dichter bij de hoek rechtsonder ligt in plaats van bij de 45°-lijn? Wie heeft dan bijna al het inkomen?</div><textarea class="antw-input antw-input-paars" rows="3" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Als de curve dicht bij de hoek rechtsonder zit, betekent dit dat bijna al het inkomen in handen is van een kleine rijke elite (volkomen ongelijkheid, Gini dicht bij 1). Een klein percentage van de rijkste bevolking heeft dan vrijwel het hele nationale inkomen, terwijl het overgrote deel van de bevolking nauwelijks inkomen heeft.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">"Een Gini-coëfficiënt van 0 is het ideaal voor elke samenleving." Ben je het hiermee eens? Geef twee argumenten voor je standpunt.</div><textarea class="antw-input antw-input-paars" rows="5" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Modelantwoord (beoordeel de redenering, niet het gekozen standpunt):<br><br>Oneens: 1) Gini = 0 betekent dat iedereen exact hetzelfde verdient, ongeacht inspanning of talent — dit verwijdert prikkels om hard te werken of te innoveren. 2) Enige ongelijkheid kan mensen motiveren om te studeren en productiever te worden.<br><br>Eens: 1) Grote ongelijkheid leidt tot sociale problemen en minder kansen voor armen. 2) Een gelijke samenleving is rechtvaardiger en sociaal stabieler.<br>Accepteer beide standpunten mits goed onderbouwd.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b5">5 — Evalueren</span></div><div class="bq">Nederland heeft een lagere Gini dan de VS. Wat zou een mogelijke reden zijn voor dit verschil? Denk aan de rol van de overheid.</div><textarea class="antw-input antw-input-paars" rows="4" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Nederland heeft een sterk sociaal stelsel: hogere uitkeringen (WW, bijstand, AOW), een progressieve inkomstenbelasting en uitgebreide toeslagen. De overheid herverdeelt veel inkomen via overdrachten. In de VS zijn uitkeringen lager en minder universeel, en de belastingprogressiviteit is minder sterk. Daardoor blijven inkomensverschillen in de VS groter — hogere Gini.</div></div>
+
+    <div class="bi"><div class="brow"><span class="bbadge b6">6 — Creëren</span></div><div class="bq">Stel je voor dat jij de minister van Sociale Zaken bent. De Gini-coëfficiënt in Nederland is gestegen van 0,28 naar 0,35. Bedenk twee concrete maatregelen om de ongelijkheid te verminderen en leg per maatregel uit hoe die werkt. Gebruik begrippen uit § 8.4.</div><textarea class="antw-input antw-input-paars" rows="6" placeholder="Typ hier je antwoord…"></textarea><div class="antw-actions"><button class="ai-btn" onclick="aiCheck(this)">🤖 Laat nakijken</button><button class="abtn" onclick="tog(this)">💡 Modelantwoord</button></div><div class="ai-load">Claude bekijkt je antwoord…</div><div class="ai-fb"></div><div class="abox">Beoordeel op: twee concrete maatregelen + uitleg + gebruik van begrippen uit §8.4.<br>Voorbeeldmaatregelen:<br>1) Verhoging uitkeringen (overdrachten): het secundaire inkomen van mensen met laag primair inkomen stijgt — inkomensverschillen worden kleiner, Gini daalt.<br>2) Progressiever belastingstelsel: hogere inkomens betalen een groter deel — verschil tussen hoog en laag secundair inkomen verkleint, Lorenz-curve schuift richting 45°-lijn.<br>Accepteer ook: zorgtoeslag verhogen, minimumloon verhogen, kinderbijslag uitbreiden.</div></div>
+  </div>
+</div>
+
+<!-- ===== SAMENVATTING ===== -->
+<div id="sam" class="sec">
+  <div class="phdr">
+    <div class="pn">Samenvatting</div>
+    <h2>Hoofdstuk 8 — Overzicht</h2>
+    <p>Alle kernpunten per paragraaf op een rij</p>
+  </div>
+
+  <div class="sblok">
+    <h3>📋 § 8.1 — Werkloosheid</h3>
+    <ul>
+      <li>De conjunctuur beschrijft de schommeling in economische activiteit.</li>
+      <li>De conjunctuurcyclus bestaat uit vier fasen: hoogconjunctuur, recessie, laagconjunctuur en herstel.</li>
+      <li>Conjuncturele werkloosheid is tijdelijk en verdwijnt als de economie aantrekt.</li>
+      <li>Structurele werkloosheid is blijvend en ontstaat door technologie of concurrentie.</li>
+    </ul>
+  </div>
+
+  <div class="sblok p2">
+    <h3>📋 § 8.2 — Wisselkoers</h3>
+    <ul>
+      <li>De wisselkoers is de prijs van één valuta uitgedrukt in een andere valuta.</li>
+      <li>Formule: bedrag in vreemde valuta = bedrag in euro's × wisselkoers.</li>
+      <li>Appreciatie = euro wordt meer waard. Depreciatie = euro wordt minder waard.</li>
+      <li>Meer export → meer vraag naar euro's → euro apprecieert.</li>
+    </ul>
+  </div>
+
+  <div class="sblok p3">
+    <h3>📋 § 8.3 — Internationale handel</h3>
+    <ul>
+      <li>Export = verkopen aan het buitenland; brengt geld binnen.</li>
+      <li>Import = kopen uit het buitenland; geld verlaat de economie.</li>
+      <li>Handelsbalans = export − import.</li>
+      <li>Een exportoverschot is gunstig voor de conjunctuur: meer productie, meer werk.</li>
+    </ul>
+  </div>
+
+  <div class="sblok p4" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <h3>📋 § 8.4 — Inkomensverdeling</h3>
+    <ul>
+      <li>Primair inkomen = inkomen vóór belastingen, verdiend via productie (loon, winst, rente, pacht).</li>
+      <li>Secundair inkomen = primair inkomen − belastingen &amp; premies + overdrachten (netto besteedbaar).</li>
+      <li>De Lorenz-curve laat zien hoe inkomen verdeeld is. Hoe verder van de 45°-lijn, hoe groter de ongelijkheid.</li>
+      <li>De Gini-coëfficiënt loopt van 0 (volkomen gelijkheid) tot 1 (volkomen ongelijkheid).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== BEGRIPPEN ===== -->
+<div id="bl" class="sec">
+  <div class="phdr">
+    <div class="pn">Begrippen</div>
+    <h2>Begrippenlijst — Alfabetisch</h2>
+    <p>Alle kernbegrippen van hoofdstuk 8</p>
+  </div>
+  <div class="blok" style="border-radius:0 0 12px 12px;margin-bottom:18px">
+    <div class="bcard-grid">
+      <div class="bcard"><div class="bt">Appreciatie</div><div class="bd">Een valuta wordt meer waard; je krijgt meer vreemde valuta voor je euro.</div></div>
+      <div class="bcard"><div class="bt">Conjunctuur</div><div class="bd">De schommeling in economische activiteit: perioden van groei en krimp.</div></div>
+      <div class="bcard"><div class="bt">Conjunctuurcyclus</div><div class="bd">De opeenvolging van hoogconjunctuur, recessie, laagconjunctuur en herstel.</div></div>
+      <div class="bcard"><div class="bt">Conjuncturele werkloosheid</div><div class="bd">Tijdelijke werkloosheid door een slechte conjunctuur; verdwijnt als de economie verbetert.</div></div>
+      <div class="bcard"><div class="bt">Depreciatie</div><div class="bd">Een valuta wordt minder waard; je krijgt minder vreemde valuta voor je euro.</div></div>
+      <div class="bcard"><div class="bt">Export</div><div class="bd">Goederen en diensten die Nederland verkoopt aan het buitenland.</div></div>
+      <div class="bcard"><div class="bt">Exportoverschot</div><div class="bd">Export is groter dan import; meer geld komt binnen dan weggaat.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Gini-coëfficiënt</div><div class="bd">Getal (0–1) dat inkomensongelijkheid meet. 0 = volkomen gelijk; 1 = volkomen ongelijk.</div></div>
+      <div class="bcard"><div class="bt">Handelsbalans</div><div class="bd">Export minus import.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Herverdeling</div><div class="bd">Het proces waarbij de overheid inkomen verschuift via belastingen en uitkeringen (overdrachten).</div></div>
+      <div class="bcard"><div class="bt">Hoogconjunctuur</div><div class="bd">Periode van sterke groei, hoge productie en lage werkloosheid.</div></div>
+      <div class="bcard"><div class="bt">Import</div><div class="bd">Goederen en diensten die Nederland koopt uit het buitenland.</div></div>
+      <div class="bcard"><div class="bt">Importoverschot</div><div class="bd">Import is groter dan export; meer geld gaat weg dan binnenkomt.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Inkomensverdeling</div><div class="bd">De manier waarop het totale inkomen in een samenleving verdeeld is over de bevolking.</div></div>
+      <div class="bcard"><div class="bt">Laagconjunctuur</div><div class="bd">Periode van weinig economische activiteit en hoge werkloosheid.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Lorenz-curve</div><div class="bd">Grafiek die toont hoe inkomen verdeeld is. Hoe verder van de 45°-lijn, hoe groter de ongelijkheid.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Overdrachten</div><div class="bd">Betalingen van de overheid zonder tegenprestatie, voor herverdeling: WW, bijstand, kinderbijslag.</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Primair inkomen</div><div class="bd">Inkomen vóór belastingen en herverdeling, verdiend via productie: loon, winst, rente, pacht.</div></div>
+      <div class="bcard"><div class="bt">Recessie</div><div class="bd">Periode waarin de economie krimpt (twee kwartalen achter elkaar).</div></div>
+      <div class="bcard bcard-paars"><div class="bt">Secundair inkomen</div><div class="bd">Inkomen ná belastingen en herverdeling; het netto besteedbare inkomen dat de koopkracht bepaalt.</div></div>
+      <div class="bcard"><div class="bt">Structurele werkloosheid</div><div class="bd">Blijvende werkloosheid door technologie of concurrentie; verdwijnt niet vanzelf.</div></div>
+      <div class="bcard"><div class="bt">Valuta</div><div class="bd">Het wettige betaalmiddel van een land of regio.</div></div>
+      <div class="bcard"><div class="bt">Valutamarkt</div><div class="bd">De markt waar valuta worden gekocht en verkocht.</div></div>
+      <div class="bcard"><div class="bt">Wisselkoers</div><div class="bd">De prijs van één valuta uitgedrukt in een andere valuta.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REKENSOMMEN ===== -->
+<div id="rek" class="sec">
+  <div class="phdr">
+    <div class="pn">Rekensommen</div>
+    <h2>Rekensommen Hoofdstuk 8</h2>
+    <p>Laat altijd je berekening zien!</p>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">🔢 Som 1 — Wisselkoers EUR/USD = 1,12</div>
+    <p>De wisselkoers EUR/USD is 1,12 (1 euro = 1,12 dollar).</p>
+    <div style="margin-top:8px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">a) Familie De Vries wisselt €500 om naar dollars. Hoeveel dollar ontvangen zij?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">b) Na de vakantie wisselen zij $168 terug naar euro's (zelfde koers). Hoeveel euro ontvangen zij?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">c) Is de euro geapprecieerd of gedeprecieerd als de koers daarna verandert naar EUR/USD = 1,20? Leg uit.</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Uitwerking</button></div>
+    <div class="abox"><strong>a)</strong> €500 × 1,12 = <strong>$560</strong><br><strong>b)</strong> $168 ÷ 1,12 = <strong>€150</strong><br><strong>c)</strong> De euro is geapprecieerd: voor één euro krijg je nu meer dollars (1,20 i.p.v. 1,12). De euro is dus meer waard geworden.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">🔢 Som 2 — Wisselkoers EUR/GBP = 0,88</div>
+    <p>De wisselkoers EUR/GBP is 0,88 (1 euro = 0,88 pond).</p>
+    <div style="margin-top:8px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">a) Layla wisselt €750 om naar Britse ponden. Hoeveel pond ontvangt zij?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">b) Haar vriend wisselt £396 om naar euro's (zelfde koers). Hoeveel euro ontvangt hij?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">c) Stel de koers verandert naar EUR/GBP = 0,80. Hoeveel pond krijgt Layla dan voor €750? Is dat meer of minder?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Uitwerking</button></div>
+    <div class="abox"><strong>a)</strong> €750 × 0,88 = <strong>£660</strong><br><strong>b)</strong> £396 ÷ 0,88 = <strong>€450</strong><br><strong>c)</strong> €750 × 0,80 = £600 → dat is minder dan bij koers 0,88 (£660). Layla krijgt £60 minder. De euro is gedeprecieerd (van 0,88 naar 0,80).</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">🔢 Som 3 — Handelsbalans berekenen</div>
+    <p>Nederland heeft in een kwartaal: export €180 mrd · import €155 mrd.</p>
+    <div style="margin-top:8px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">a) Bereken de handelsbalans.</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">b) Is er een export- of importoverschot? Hoe groot is dat?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">c) In het volgende kwartaal stijgt de export naar €195 mrd en daalt de import naar €148 mrd. Bereken de nieuwe handelsbalans.</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">d) Wat is het effect van deze verandering op de Nederlandse conjunctuur?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Uitwerking</button></div>
+    <div class="abox"><strong>a)</strong> €180 − €155 = <strong>+€25 miljard</strong><br><strong>b)</strong> Exportoverschot van €25 miljard: export is groter dan import.<br><strong>c)</strong> €195 − €148 = <strong>+€47 miljard</strong>. Het exportoverschot is gestegen van €25 naar €47 miljard.<br><strong>d)</strong> Een groter exportoverschot: meer geld Nederland binnenkomt → meer productie → meer werkgelegenheid → bestedingen stijgen → conjunctuur verbetert.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">🔢 Som 4 — Exportopbrengst bij verschillende wisselkoersen</div>
+    <p>Een Nederlands bedrijf verkoopt machines aan een Amerikaans bedrijf voor $240.000. Wisselkoers op moment van verkoop: EUR/USD = 1,20.</p>
+    <div style="margin-top:8px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">a) Hoeveel euro ontvangt het Nederlandse bedrijf?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">b) Drie maanden later daalt de koers naar EUR/USD = 1,00. Als het bedrijf nu opnieuw dezelfde order verkoopt voor $240.000, hoeveel euro ontvangt het dan?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">c) Met hoeveel euro is het verschil? Is de depreciatie gunstig of ongunstig voor dit bedrijf?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Uitwerking</button></div>
+    <div class="abox"><strong>a)</strong> $240.000 ÷ 1,20 = <strong>€200.000</strong><br><strong>b)</strong> $240.000 ÷ 1,00 = <strong>€240.000</strong><br><strong>c)</strong> Verschil: €40.000 meer bij de lagere koers. De depreciatie is <strong>gunstig</strong> voor dit bedrijf: het ontvangt meer euro's voor dezelfde dollaropbrengst.</div>
+  </div>
+
+  <div class="rsom">
+    <div class="rn">🔢 Som 5 — Importoverschot halveren via meer export</div>
+    <p>Land Y heeft: export €95 mrd · import €112 mrd.</p>
+    <div style="margin-top:8px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">a) Bereken de handelsbalans van land Y.</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">b) Is er een export- of importoverschot? Hoe groot?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">c) De overheid wil het importoverschot halveren door de export te verhogen. Hoeveel moet de export stijgen om dat te bereiken (import blijft gelijk)?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Uitwerking</button></div>
+    <div class="abox"><strong>a)</strong> €95 − €112 = <strong>−€17 miljard</strong><br><strong>b)</strong> Importoverschot van €17 miljard (import is groter dan export).<br><strong>c)</strong> Importoverschot halveren = van −17 naar −8,5 miljard.<br>Nieuwe handelsbalans moet −8,5 zijn.<br>Nieuwe export − €112 = −8,5 → nieuwe export = €112 − €8,5 = €103,5 mrd<br>Stijging export: €103,5 − €95 = <strong>+€8,5 miljard</strong></div>
+  </div>
+
+  <div class="rsom" style="border-radius:0 0 12px 12px;margin-bottom:18px;border-left-color:var(--paarsL)">
+    <div class="rn" style="background:var(--paarsL)">🔢 Som 6 — Secundair inkomen berekenen (§8.4)</div>
+    <p>Drie personen met verschillende inkomenssituaties:</p>
+    <p style="margin-top:6px"><em>Persoon 1: primair inkomen €4.200, belastingen €1.470, geen uitkering.</em><br>
+    <em>Persoon 2: primair inkomen €0 (werkloos), geen belasting, WW-uitkering €1.400.</em><br>
+    <em>Persoon 3: primair inkomen €2.600, belastingen €650, zorgtoeslag €120.</em></p>
+    <div style="margin-top:8px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">a) Bereken het secundaire inkomen van elk van de drie personen.</div><textarea class="antw-input" rows="3" placeholder="Laat je berekeningen zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">b) Wie heeft het hoogste secundaire inkomen? En wie het laagste?</div><textarea class="antw-input" rows="2" placeholder="Laat je berekening zien…"></textarea></div>
+    <div style="margin-top:6px"><div class="sub-antw-label" style="font-size:.78rem;font-weight:700;color:var(--grijs);margin-bottom:3px;font-family:'Lexend',sans-serif">c) Vergelijk het primaire inkomen van persoon 1 met dat van persoon 2. Wat is het verschil? En bij het secundaire inkomen? Wat zegt dit over de rol van de overheid?</div><textarea class="antw-input" rows="3" placeholder="Laat je berekening zien…"></textarea></div>
+    <div class="antw-actions"><button class="abtn" onclick="tog(this)">💡 Uitwerking</button></div>
+    <div class="abox">
+      <strong>a)</strong><br>
+      Persoon 1: €4.200 − €1.470 + €0 = <strong>€2.730</strong><br>
+      Persoon 2: €0 − €0 + €1.400 = <strong>€1.400</strong><br>
+      Persoon 3: €2.600 − €650 + €120 = <strong>€2.070</strong><br><br>
+      <strong>b)</strong> Hoogste: persoon 1 (€2.730) · Laagste: persoon 2 (€1.400)<br><br>
+      <strong>c)</strong> Primair inkomen: persoon 1 = €4.200, persoon 2 = €0 → verschil = €4.200<br>
+      Secundair inkomen: persoon 1 = €2.730, persoon 2 = €1.400 → verschil = €1.330<br>
+      De overheid verkleint via de WW-uitkering (overdracht) het inkomensverschil van €4.200 naar €1.330. Dit illustreert hoe herverdeling werkt.
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function S(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('act'));
+  document.getElementById(id).classList.add('act');
+  btn.classList.add('act');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function tog(btn){
+  const box=btn.closest('.bi,.rsom').querySelector('.abox');
+  box.classList.toggle('show');
+  btn.textContent=box.classList.contains('show')?'🙈 Verberg':'💡 Modelantwoord';
+}
+
+function openPres84(){
+  // Open the §8.4 presentation in a new tab
+  // The presentation HTML is embedded as a data URI to keep it self-contained
+  const pres = document.getElementById('pres84-content').innerHTML;
+  const blob = new Blob([pres], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+}
+
+async function aiCheck(btn){
+  const bi=btn.closest('.bi,.rsom');
+  const textareas=bi.querySelectorAll('.antw-input');
+  const fb=bi.querySelector('.ai-fb');
+  const ld=bi.querySelector('.ai-load');
+  const ab=bi.querySelector('.abox');
+  const vraag=bi.querySelector('.bq')?.textContent?.trim()||bi.querySelector('.rn')?.textContent?.trim()||'';
+  // Combine all textarea values
+  let antwoord='';
+  textareas.forEach((ta,i)=>{
+    const v=ta.value.trim();
+    if(v) antwoord+=(textareas.length>1?`(${String.fromCharCode(97+i)}) `:'')+ v+'\n';
+  });
+  antwoord=antwoord.trim();
+  if(!antwoord){
+    textareas[0].focus();
+    textareas.forEach(ta=>{ta.style.borderColor='var(--roodl)';setTimeout(()=>ta.style.borderColor='',2000);});
+    return;
+  }
+  const modelantwoord=ab?.textContent?.trim()||'';
+
+  btn.disabled=true;
+  ld.classList.add('show');
+  fb.classList.remove('show','good','partial','bad');
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:`Je bent een economieleraar voor 3 VWO die leerlingantwoorden nakijkt. Geef kort en constructief feedback in het Nederlands. 
+Beoordeel:
+- GOED: als het antwoord de kern goed raakt (ook als niet perfect geformuleerd)
+- DEELS: als er iets klopt maar iets belangrijks mist
+- ONVOLDOENDE: als het antwoord grotendeels fout of leeg is
+Sluit altijd af met een tip of aanmoediging. Gebruik de toonzetting van een vriendelijke docent. Max 3 zinnen.
+Geef je beoordeling in dit formaat:
+OORDEEL: [GOED/DEELS/ONVOLDOENDE]
+FEEDBACK: [jouw feedback]`,
+        messages:[{role:'user',content:`Vraag: ${vraag}\n\nLeerlingantwoord: ${antwoord}\n\nModelantwoord (ter referentie): ${modelantwoord}`}]
+      })
+    });
+    const data=await res.json();
+    const tekst=data.content?.map(i=>i.text||'').join('\n')||'Geen respons.';
+    const isGoed=tekst.includes('OORDEEL: GOED');
+    const isDeels=tekst.includes('OORDEEL: DEELS');
+    const feedbackTekst=tekst.replace(/OORDEEL:.*\n?/,'').replace('FEEDBACK:','').trim();
+    fb.innerHTML=`<div class="ail">${isGoed?'✅ Goed!':isDeels?'⚠️ Deels correct':'❌ Nog niet voldoende'}</div>${feedbackTekst}`;
+    fb.className='ai-fb show '+(isGoed?'good':isDeels?'partial':'bad');
+  }catch(e){
+    fb.innerHTML='<div class="ail">⚠️ Fout</div>Kon Claude niet bereiken. Probeer het later opnieuw.';
+    fb.className='ai-fb show partial';
+  }
+  ld.classList.remove('show');
+  btn.disabled=false;
+}
+</script>
+
+<!-- ===== §8.4 PRESENTATIE (embedded, opent in nieuw tabblad) ===== -->
+<template id="pres84-content"><!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>§8.4 Inkomensverdeling — Presentatie Vlaconomie</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paars:#4a1a7a;--paarsL:#7c3aed;--paarsLicht:#f3eeff;
+  --goud:#f0c040;--goudd:#d4a012;
+  --groen:#0f4d2e;--gd:#1a7a4a;
+  --grijs:#6b7280;--wit:#fff;--bg:#1a0a2e
+}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--wit);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+.pres-nav{background:rgba(0,0,0,.4);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.1)}
+.pres-nav .logo{font-size:.85rem;font-weight:700;color:var(--goud);letter-spacing:.5px}
+.pres-nav .slide-info{font-size:.8rem;color:rgba(255,255,255,.6)}
+.pres-nav .nav-btns{display:flex;gap:8px}
+.pres-nav button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;transition:all .2s}
+.pres-nav button:hover:not(:disabled){background:rgba(255,255,255,.25)}
+.pres-nav button:disabled{opacity:.35;cursor:not-allowed}
+.slide-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}
+.slide{display:none;width:100%;max-width:860px;animation:si .35s ease}
+.slide.act{display:flex;flex-direction:column}
+@keyframes si{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+/* Dia 1 — Titeldia */
+.s-title-wrap{background:linear-gradient(135deg,var(--paars),var(--paarsL),#a855f7);border-radius:18px;padding:50px 50px;text-align:center;min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 8px 40px rgba(124,58,237,.4)}
+.s-par-badge{background:var(--goud);color:var(--paars);font-weight:800;padding:6px 18px;border-radius:20px;font-size:.85rem;margin-bottom:20px;display:inline-block;letter-spacing:.5px}
+.s-title{font-size:2.6rem;font-weight:800;line-height:1.15;margin-bottom:14px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+.s-sub{font-size:1rem;color:rgba(255,255,255,.75);margin-bottom:28px;line-height:1.5}
+.s-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.s-tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);padding:5px 14px;border-radius:20px;font-size:.8rem}
+/* Dia 2 — Leerdoelen */
+.s-leerdoel{background:linear-gradient(135deg,#1a0a2e,#2d1b4e);border-radius:18px;padding:40px 46px;min-height:420px;box-shadow:0 8px 40px rgba(0,0,0,.4)}
+.s-leerdoel h2{font-size:1.6rem;font-weight:800;margin-bottom:6px;color:var(--goud)}
+.s-leerdoel .ld-sub{font-size:.85rem;color:rgba(255,255,255,.55);margin-bottom:28px}
+.ld-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;background:rgba(255,255,255,.06);border-radius:10px;padding:14px 16px;border-left:4px solid var(--paarsL)}
+.ld-num{background:var(--paarsL);color:#fff;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;margin-top:1px}
+.ld-txt{font-size:.92rem;line-height:1.5;color:rgba(255,255,255,.9)}
+/* Dia overige — Inhoud */
+.s-content{background:linear-gradient(135deg,#1a0a2e,#2d1b4e);border-radius:18px;padding:36px 44px;min-height:420px;box-shadow:0 8px 40px rgba(0,0,0,.4)}
+.s-content h2{font-size:1.5rem;font-weight:800;color:var(--goud);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.s-content h2 .s-icon{font-size:1.3rem}
+.s-2col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:18px}
+.s-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 18px}
+.s-card h3{font-size:.92rem;font-weight:700;color:var(--paarsL);margin-bottom:8px}
+.s-card p,.s-card li{font-size:.85rem;color:rgba(255,255,255,.82);line-height:1.55}
+.s-card ul{padding-left:16px}
+.s-card li{margin-bottom:4px}
+.s-highlight{background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(168,85,247,.15));border:1px solid rgba(124,58,237,.4);border-radius:10px;padding:14px 18px;margin-bottom:16px}
+.s-highlight p{font-size:.9rem;line-height:1.6;color:rgba(255,255,255,.9)}
+.s-highlight strong{color:var(--goud)}
+.s-fml{background:rgba(0,0,0,.3);border-left:4px solid var(--paarsL);border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;font-family:'Courier New',monospace;font-size:.9rem;color:#c4b5fd;white-space:pre-line}
+.s-tbl{width:100%;border-collapse:collapse;font-size:.82rem;margin:12px 0}
+.s-tbl th{background:var(--paarsL);padding:8px 12px;text-align:left;font-weight:600;font-size:.78rem}
+.s-tbl td{padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.85)}
+.s-tbl tr:nth-child(even){background:rgba(255,255,255,.05)}
+/* SVG lorenz voor presentatie */
+.lorenz-mini{display:block;margin:0 auto}
+/* Dia schema */
+.schema-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0}
+.schema-item{flex:1;min-width:100px;background:rgba(255,255,255,.08);border:1px solid rgba(124,58,237,.35);border-radius:10px;padding:12px;text-align:center}
+.schema-item .si-title{font-size:.78rem;font-weight:700;color:var(--goud);margin-bottom:4px}
+.schema-item .si-sub{font-size:.72rem;color:rgba(255,255,255,.65);line-height:1.3}
+.schema-arr{color:rgba(255,255,255,.4);font-size:1.2rem;flex-shrink:0}
+.wjd-slide{background:rgba(240,192,64,.1);border-left:4px solid var(--goud);border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;font-size:.85rem;color:rgba(255,255,255,.85);line-height:1.6}
+.wjd-slide::before{content:'🌍 Wist je dat? ';font-weight:700;color:var(--goud)}
+/* Progress bar */
+.progress-bar{height:3px;background:var(--paarsL);transition:width .3s ease;border-radius:2px}
+.progress-track{height:3px;background:rgba(255,255,255,.1);flex-shrink:0}
+@media(max-width:600px){.s-title{font-size:1.7rem}.s-2col{grid-template-columns:1fr}.schema-row{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="progress-track"><div class="progress-bar" id="pbar"></div></div>
+<div class="pres-nav">
+  <div class="logo">vlaconomie.nl · §8.4 Inkomensverdeling</div>
+  <div class="slide-info" id="slide-counter">Dia 1 van 8</div>
+  <div class="nav-btns">
+    <button id="btn-prev" onclick="nav(-1)" disabled>← Vorige</button>
+    <button id="btn-next" onclick="nav(1)">Volgende →</button>
+  </div>
+</div>
+<div class="slide-wrap">
+
+<!-- DIA 1: Titel -->
+<div class="slide act" id="d1">
+  <div class="s-title-wrap">
+    <div class="s-par-badge">§ 8.4 · 3 VWO · Vlaconomie.nl</div>
+    <div class="s-title">Inkomensverdeling</div>
+    <div class="s-sub">Primair inkomen · Secundair inkomen · Lorenz-curve · Gini-coëfficiënt<br>Wie verdient wat, en wat doet de overheid eraan?</div>
+    <div class="s-tags">
+      <span class="s-tag">💰 Primair inkomen</span>
+      <span class="s-tag">🔄 Herverdeling</span>
+      <span class="s-tag">📊 Lorenz-curve</span>
+      <span class="s-tag">📐 Gini-coëfficiënt</span>
+      <span class="s-tag">⚖️ Secundair inkomen</span>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 2: Leerdoelen -->
+<div class="slide" id="d2">
+  <div class="s-leerdoel">
+    <h2>🎯 Leerdoelen §8.4</h2>
+    <div class="ld-sub">Na deze les kun jij…</div>
+    <div class="ld-item"><div class="ld-num">1</div><div class="ld-txt">Het verschil uitleggen tussen <strong>primair inkomen</strong> en <strong>secundair inkomen</strong>.</div></div>
+    <div class="ld-item"><div class="ld-num">2</div><div class="ld-txt">Uitleggen hoe de overheid het inkomen herverdeelt via <strong>belastingen</strong> en <strong>overdrachten</strong> (uitkeringen).</div></div>
+    <div class="ld-item"><div class="ld-num">3</div><div class="ld-txt">De <strong>Lorenz-curve</strong> lezen en uitleggen wat de ligging ervan betekent voor de inkomensverdeling.</div></div>
+    <div class="ld-item"><div class="ld-num">4</div><div class="ld-txt">Uitleggen wat de <strong>Gini-coëfficiënt</strong> is en hoe die de mate van ongelijkheid weergeeft.</div></div>
+    <div class="ld-item"><div class="ld-num">5</div><div class="ld-txt">Het <strong>secundaire inkomen</strong> berekenen met de formule.</div></div>
+  </div>
+</div>
+
+<!-- DIA 3: Primair inkomen -->
+<div class="slide" id="d3">
+  <div class="s-content">
+    <h2><span class="s-icon">💰</span> Primair inkomen</h2>
+    <div class="s-highlight">
+      <p><strong>Primair inkomen</strong> is het inkomen dat je verdient door deel te nemen aan het productieproces — <strong>vóór</strong> belastingen en herverdeling.</p>
+    </div>
+    <div class="s-2col">
+      <div class="s-card">
+        <h3>Vormen van primair inkomen</h3>
+        <ul>
+          <li>Arbeid → <strong>loon / salaris</strong></li>
+          <li>Kapitaal → <strong>rente / dividend</strong></li>
+          <li>Grond → <strong>pacht / huur</strong></li>
+          <li>Ondernemerschap → <strong>winst</strong></li>
+        </ul>
+      </div>
+      <div class="s-card">
+        <h3>Let op</h3>
+        <p>Primair inkomen = <strong>bruto-inkomen</strong>.<br><br>Mensen zonder werk ontvangen <em>geen</em> primair inkomen uit arbeid. Toch hebben zij wel recht op inkomen via de overheid — dat is het <strong>secundaire inkomen</strong>.</p>
+      </div>
+    </div>
+    <div class="wjd-slide">Iemand die €3.500 bruto verdient heeft een primair inkomen van €3.500 — maar dit bedrag houdt hij <em>niet</em> over. Belastingen en premies gaan er nog vanaf!</div>
+  </div>
+</div>
+
+<!-- DIA 4: Van primair naar secundair -->
+<div class="slide" id="d4">
+  <div class="s-content">
+    <h2><span class="s-icon">🔄</span> Van primair naar secundair inkomen</h2>
+    <div class="schema-row">
+      <div class="schema-item"><div class="si-title">Primair inkomen</div><div class="si-sub">Bruto-inkomen vóór belasting<br><em>bijv. €3.500</em></div></div>
+      <div class="schema-arr">−</div>
+      <div class="schema-item"><div class="si-title">Belastingen &amp; premies</div><div class="si-sub">Progressief stelsel:<br>hogere inkomens meer</div></div>
+      <div class="schema-arr">+</div>
+      <div class="schema-item"><div class="si-title">Overdrachten</div><div class="si-sub">WW, bijstand, toeslagen,<br>kinderbijslag</div></div>
+      <div class="schema-arr">=</div>
+      <div class="schema-item" style="border-color:var(--goud)"><div class="si-title" style="color:var(--goud)">Secundair inkomen</div><div class="si-sub">Netto besteedbaar<br><em>bijv. €2.400</em></div></div>
+    </div>
+    <div class="s-fml">Secundair inkomen = Primair inkomen − Belastingen en premies + Overdrachten
+
+Voorbeeld: €3.500 − €1.250 + €0 = €2.250 netto per maand</div>
+    <div class="s-highlight">
+      <p><strong>Overdrachten</strong> zijn betalingen van de overheid zonder directe tegenprestatie. Via belastingen en overdrachten herverdeelt de overheid het inkomen — dit heet <strong>herverdeling</strong>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 5: Lorenz-curve -->
+<div class="slide" id="d5">
+  <div class="s-content">
+    <h2><span class="s-icon">📊</span> De Lorenz-curve</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center">
+      <div>
+        <svg class="lorenz-mini" width="280" height="230" viewBox="0 0 280 230">
+          <line x1="40" y1="200" x2="260" y2="200" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+          <line x1="40" y1="200" x2="40" y2="20" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+          <line x1="40" y1="200" x2="260" y2="20" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-dasharray="7,4"/>
+          <path d="M40,200 L84,193 L128,178 L172,155 L216,122 L260,20 L40,200" fill="#e53e3e" fill-opacity="0.2"/>
+          <polyline points="40,200 84,193 128,178 172,155 216,122 260,20" fill="none" stroke="#c4b5fd" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="40" cy="200" r="4" fill="#c4b5fd"/><circle cx="84" cy="193" r="4" fill="#c4b5fd"/>
+          <circle cx="128" cy="178" r="4" fill="#c4b5fd"/><circle cx="172" cy="155" r="4" fill="#c4b5fd"/>
+          <circle cx="216" cy="122" r="4" fill="#c4b5fd"/><circle cx="260" cy="20" r="4" fill="#c4b5fd"/>
+          <text x="40" y="215" font-size="9" fill="rgba(255,255,255,.5)" text-anchor="middle">0%</text>
+          <text x="260" y="215" font-size="9" fill="rgba(255,255,255,.5)" text-anchor="middle">100%</text>
+          <text x="30" y="204" font-size="9" fill="rgba(255,255,255,.5)" text-anchor="end">0%</text>
+          <text x="30" y="24" font-size="9" fill="rgba(255,255,255,.5)" text-anchor="end">100%</text>
+          <text x="155" y="185" font-size="11" font-weight="bold" fill="#e53e3e" fill-opacity="0.8">A</text>
+          <text x="125" y="120" font-size="11" font-weight="bold" fill="#c4b5fd" fill-opacity="0.7">B</text>
+          <text x="150" y="228" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.5)">% bevolking (arm → rijk)</text>
+        </svg>
+      </div>
+      <div>
+        <div class="s-card" style="margin-bottom:12px">
+          <h3>Wat zie je in de grafiek?</h3>
+          <ul>
+            <li><strong style="color:rgba(255,255,255,.7)">Diagonaal (45°-lijn)</strong> = volkomen gelijkheid</li>
+            <li><strong style="color:#c4b5fd">Lorenz-curve</strong> = werkelijke verdeling</li>
+            <li><strong style="color:#e53e3e">Vlak A</strong> = ongelijkheidsgebied</li>
+          </ul>
+        </div>
+        <div class="s-card">
+          <h3>Hoe lees je de curve?</h3>
+          <p>Hoe verder de curve van de diagonaal, hoe <strong>ongelijker</strong> de inkomensverdeling. De armste 40% van de bevolking heeft bijv. slechts 20% van het inkomen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 6: Gini-coëfficiënt -->
+<div class="slide" id="d6">
+  <div class="s-content">
+    <h2><span class="s-icon">📐</span> De Gini-coëfficiënt</h2>
+    <div class="s-highlight">
+      <p><strong>Gini-coëfficiënt</strong> = Oppervlak A ÷ (A + B) · Getal tussen 0 en 1 dat de mate van ongelijkheid meet.</p>
+    </div>
+    <div class="s-2col">
+      <div class="s-card">
+        <h3>Wat betekent de waarde?</h3>
+        <ul>
+          <li><strong>Gini = 0</strong> → volkomen gelijkheid</li>
+          <li><strong>Gini = 1</strong> → volkomen ongelijkheid</li>
+          <li>Hoe hoger, hoe ongelijker</li>
+        </ul>
+      </div>
+      <div class="s-card">
+        <h3>Vergelijking landen</h3>
+        <ul>
+          <li>🇳🇱 Nederland ≈ <strong>0,28</strong></li>
+          <li>🇸🇪 Zweden ≈ <strong>0,27</strong></li>
+          <li>🇺🇸 VS ≈ <strong>0,39</strong></li>
+          <li>🇿🇦 Zuid-Afrika ≈ <strong>0,63</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wjd-slide">De Lorenz-curve van het <em>secundaire</em> inkomen ligt dichter bij de 45°-lijn dan die van het <em>primaire</em> inkomen. De overheid maakt de verdeling gelijker via belastingen en overdrachten!</div>
+  </div>
+</div>
+
+<!-- DIA 7: Rekensom -->
+<div class="slide" id="d7">
+  <div class="s-content">
+    <h2><span class="s-icon">🔢</span> Berekeningen — Oefenen</h2>
+    <div class="s-highlight">
+      <p><strong>Formule:</strong> Secundair inkomen = Primair inkomen − Belastingen &amp; premies + Overdrachten</p>
+    </div>
+    <table class="s-tbl">
+      <tr><th>Persoon</th><th>Primair inkomen</th><th>Belastingen</th><th>Overdrachten</th><th>Secundair inkomen</th></tr>
+      <tr><td>Daan (werknemer)</td><td>€2.800</td><td>€700</td><td>€150 zorgtoeslag</td><td style="color:#c4b5fd;font-weight:700">€2.250</td></tr>
+      <tr><td>Layla (werkloos)</td><td>€0</td><td>€0</td><td>€1.200 WW</td><td style="color:#c4b5fd;font-weight:700">€1.200</td></tr>
+      <tr><td>Ahmed (ondernemer)</td><td>€5.000</td><td>€2.100</td><td>€0</td><td style="color:#c4b5fd;font-weight:700">€2.900</td></tr>
+    </table>
+    <div class="s-card" style="margin-top:14px">
+      <h3>📝 Denkvraag voor de klas</h3>
+      <p>Het primaire inkomen van Layla is €0. Daan verdient €2.800. Toch is het verschil in <em>secundair</em> inkomen maar €1.050. Wat zegt dit over de rol van de overheid?</p>
+    </div>
+  </div>
+</div>
+
+<!-- DIA 8: Samenvatting -->
+<div class="slide" id="d8">
+  <div class="s-content">
+    <h2><span class="s-icon">✅</span> Samenvatting §8.4</h2>
+    <div class="s-2col">
+      <div class="s-card">
+        <h3>💰 Primair inkomen</h3>
+        <p>Bruto-inkomen vóór belastingen: loon, winst, rente, pacht. Verdient via deelname aan productie.</p>
+      </div>
+      <div class="s-card">
+        <h3>⚖️ Secundair inkomen</h3>
+        <p>Netto-inkomen ná herverdeling. = Primair − belastingen + overdrachten. Bepaalt koopkracht.</p>
+      </div>
+      <div class="s-card">
+        <h3>📊 Lorenz-curve</h3>
+        <p>Grafiek van inkomensverdeling. Hoe verder van 45°-lijn = hoe groter de ongelijkheid.</p>
+      </div>
+      <div class="s-card">
+        <h3>📐 Gini-coëfficiënt</h3>
+        <p>Getal 0–1. 0 = volkomen gelijk. 1 = volkomen ongelijk. Nederland ≈ 0,28 (relatief gelijk).</p>
+      </div>
+    </div>
+    <div class="s-highlight" style="margin-top:14px">
+      <p>🏛️ De overheid herverdeelt inkomen via <strong>progressieve belastingen</strong> (rijken betalen meer %) en <strong>overdrachten</strong> (uitkeringen, toeslagen). Hierdoor is het <strong>secundaire inkomen</strong> gelijker verdeeld dan het primaire inkomen.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- end slide-wrap -->
+
+<script>
+const TOTAL=8;
+let cur=1;
+function nav(d){
+  document.getElementById('d'+cur).classList.remove('act');
+  cur=Math.max(1,Math.min(TOTAL,cur+d));
+  document.getElementById('d'+cur).classList.add('act');
+  document.getElementById('slide-counter').textContent='Dia '+cur+' van '+TOTAL;
+  document.getElementById('btn-prev').disabled=cur===1;
+  document.getElementById('btn-next').disabled=cur===TOTAL;
+  document.getElementById('pbar').style.width=((cur/TOTAL)*100)+'%';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') nav(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') nav(-1);
+});
+// Init progress
+document.getElementById('pbar').style.width=((1/TOTAL)*100)+'%';
+</script>
+</body>
+</html></template>
+
+</body>
+</html>
