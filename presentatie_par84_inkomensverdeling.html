@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§ 8.4 Inkomensverdeling · Vlaconomie</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2e;
+    --navy-mid: #152340;
+    --navy-light: #1e3356;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-pale: #f5e9c8;
+    --white: #f9f7f2;
+    --muted: #8899aa;
+    --accent-green: #3db88a;
+    --accent-red: #e05c5c;
+    --slide-count: 9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: #070e1a;
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+    color: var(--white);
+  }
+
+  /* ── SLIDESHOW WRAPPER ── */
+  #deck {
+    width: 100vw; height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5vw 7vw;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .55s cubic-bezier(.4,0,.2,1), transform .55s cubic-bezier(.4,0,.2,1);
+    pointer-events: none;
+    text-align: center;
+    background: var(--navy);
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  /* ── BACKGROUND TEXTURES ── */
+  .slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 80%, rgba(201,168,76,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 20%, rgba(61,184,138,.05) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  /* Decorative grid */
+  .slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: var(--gold);
+    transition: width .4s ease;
+    z-index: 100;
+    box-shadow: 0 0 12px var(--gold);
+  }
+
+  /* ── SLIDE NUMBER ── */
+  #slide-counter {
+    position: fixed;
+    bottom: 24px; right: 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: .75rem;
+    color: var(--muted);
+    z-index: 100;
+    letter-spacing: .1em;
+  }
+
+  /* ── NAV BUTTONS ── */
+  .nav-btn {
+    position: fixed;
+    top: 50%; transform: translateY(-50%);
+    width: 48px; height: 48px;
+    border: 1.5px solid rgba(201,168,76,.3);
+    border-radius: 50%;
+    background: rgba(13,27,46,.7);
+    backdrop-filter: blur(8px);
+    color: var(--gold);
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .25s;
+  }
+  .nav-btn:hover {
+    background: rgba(201,168,76,.15);
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(201,168,76,.2);
+  }
+  #btn-prev { left: 20px; }
+  #btn-next { right: 20px; }
+
+  /* ── LOGO BADGE ── */
+  .logo-badge {
+    position: fixed;
+    top: 22px; left: 28px;
+    font-family: 'Playfair Display', serif;
+    font-size: .85rem;
+    color: var(--gold);
+    opacity: .7;
+    letter-spacing: .05em;
+    z-index: 100;
+  }
+
+  /* ── KEYBOARD HINT ── */
+  .key-hint {
+    position: fixed;
+    bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    font-size: .7rem;
+    color: var(--muted);
+    opacity: .6;
+    z-index: 100;
+    letter-spacing: .08em;
+  }
+
+  /* ══════════════════════════════════════════
+     SLIDE 1 — TITELDIA
+  ══════════════════════════════════════════ */
+  #slide-1 { background: var(--navy); }
+
+  .title-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: .8rem;
+    color: var(--gold);
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: .9;
+  }
+
+  .title-main {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 1.4rem;
+    position: relative;
+  }
+
+  .title-main .gold-word {
+    color: var(--gold);
+    display: inline;
+  }
+
+  .title-sub {
+    font-size: clamp(.95rem, 1.8vw, 1.2rem);
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+
+  .title-tags {
+    display: flex;
+    gap: .7rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tag {
+    border: 1px solid rgba(201,168,76,.35);
+    border-radius: 4px;
+    padding: .3rem .8rem;
+    font-size: .75rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--gold-light);
+    letter-spacing: .06em;
+    background: rgba(201,168,76,.06);
+  }
+
+  /* Gold line divider */
+  .gold-line {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto;
+  }
+
+  /* ══════════════════════════════════════════
+     SLIDE 2 — LEERDOELEN
+  ══════════════════════════════════════════ */
+  .slide-header {
+    margin-bottom: 2.5rem;
+    z-index: 1;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .slide-label {
+    font-family: 'DM Mono', monospace;
+    font-size: .72rem;
+    color: var(--gold);
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    margin-bottom: .6rem;
+    opacity: .8;
+  }
+
+  .slide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .goals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+    max-width: 920px;
+    z-index: 1;
+  }
+
+  .goal-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(201,168,76,.18);
+    border-radius: 8px;
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+    text-align: left;
+    transition: background .2s;
+  }
+
+  .goal-card:hover {
+    background: rgba(201,168,76,.07);
+  }
+
+  .goal-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: .1rem;
+  }
+
+  .goal-text {
+    font-size: .88rem;
+    line-height: 1.5;
+    color: #cdd8e8;
+    font-weight: 400;
+  }
+
+  /* ══════════════════════════════════════════
+     SLIDE 3 — DIALOOG / INTRO
+  ══════════════════════════════════════════ */
+  .dialogue-box {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(201,168,76,.2);
+    border-radius: 12px;
+    padding: 1.8rem 2.2rem;
+    max-width: 820px;
+    width: 100%;
+    z-index: 1;
+    text-align: left;
+  }
+
+  .dialogue-line {
+    display: flex;
+    align-items: flex-start;
+    gap: .8rem;
+    margin-bottom: 1rem;
+  }
+
+  .dialogue-line:last-child { margin-bottom: 0; }
+
+  .speaker {
+    font-family: 'DM Mono', monospace;
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    color: var(--gold);
+    flex-shrink: 0;
+    padding-top: .05rem;
+    min-width: 55px;
+  }
+
+  .speaker.layla { color: var(--accent-green); }
+
+  .speech {
+    font-size: .9rem;
+    line-height: 1.55;
+    color: #cdd8e8;
+    font-style: italic;
+  }
+
+  .speech em { font-style: normal; color: var(--white); font-weight: 500; }
+
+  /* ══════════════════════════════════════════
+     SLIDE 4 — PRIMAIR INKOMEN
+  ══════════════════════════════════════════ */
+  .concept-layout {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    max-width: 960px;
+    z-index: 1;
+    align-items: flex-start;
+  }
+
+  .concept-main {
+    flex: 1.3;
+    text-align: left;
+  }
+
+  .concept-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+  }
+
+  .big-def {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    line-height: 1.55;
+    color: #cdd8e8;
+    margin-bottom: 1.2rem;
+  }
+
+  .big-def strong { color: var(--gold-light); font-family: 'Playfair Display', serif; }
+
+  .factor-row {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(201,168,76,.15);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    padding: .7rem 1rem;
+    text-align: left;
+  }
+
+  .factor-icon { font-size: 1.2rem; }
+
+  .factor-info { flex: 1; }
+
+  .factor-label {
+    font-family: 'DM Mono', monospace;
+    font-size: .7rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+
+  .factor-value {
+    font-size: .85rem;
+    color: #cdd8e8;
+    margin-top: .1rem;
+  }
+
+  /* ══════════════════════════════════════════
+     SLIDE 5 — SECUNDAIR INKOMEN + FORMULE
+  ══════════════════════════════════════════ */
+  .formula-box {
+    background: rgba(201,168,76,.08);
+    border: 1.5px solid rgba(201,168,76,.4);
+    border-radius: 10px;
+    padding: 1.4rem 2rem;
+    max-width: 800px;
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .formula-label {
+    font-family: 'DM Mono', monospace;
+    font-size: .7rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    margin-bottom: .6rem;
+  }
+
+  .formula-text {
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    font-weight: 500;
+    color: var(--white);
+    line-height: 1.5;
+  }
+
+  .formula-text .op { color: var(--gold); font-weight: 700; }
+  .formula-text .val { color: var(--gold-light); }
+
+  .example-box {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 8px;
+    padding: 1rem 1.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: .82rem;
+    line-height: 1.8;
+    color: #aabbd0;
+    max-width: 800px;
+    width: 100%;
+    z-index: 1;
+    text-align: left;
+  }
+
+  .example-box .highlight { color: var(--accent-green); font-weight: 500; }
+
+  /* Flow arrows for primair → secundair */
+  .income-flow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 860px;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .flow-box {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(201,168,76,.2);
+    border-radius: 8px;
+    padding: .8rem 1.2rem;
+    text-align: center;
+    min-width: 150px;
+  }
+
+  .flow-box.highlight-box {
+    border-color: var(--gold);
+    background: rgba(201,168,76,.1);
+  }
+
+  .flow-box-label {
+    font-family: 'DM Mono', monospace;
+    font-size: .65rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+
+  .flow-box-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-top: .2rem;
+  }
+
+  .flow-arrow {
+    font-size: 1.4rem;
+    color: var(--muted);
+  }
+
+  .flow-op {
+    font-size: .8rem;
+    color: var(--accent-red);
+    font-family: 'DM Mono', monospace;
+    font-weight: 600;
+  }
+
+  .flow-op.plus { color: var(--accent-green); }
+
+  /* ══════════════════════════════════════════
+     SLIDE 6 — LORENZ-CURVE (interactief)
+  ══════════════════════════════════════════ */
+  .chart-container {
+    width: 100%;
+    max-width: 860px;
+    z-index: 1;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .chart-wrap {
+    flex: 1;
+    position: relative;
+  }
+
+  canvas#lorenzCanvas {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(201,168,76,.15);
+  }
+
+  .chart-legend {
+    flex: 0 0 220px;
+    display: flex;
+    flex-direction: column;
+    gap: .9rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    font-size: .82rem;
+    color: #cdd8e8;
+    text-align: left;
+  }
+
+  .legend-dot {
+    width: 28px; height: 3px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .gini-badges {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-top: .5rem;
+  }
+
+  .gini-badge {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(201,168,76,.18);
+    border-radius: 6px;
+    padding: .5rem .8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .gini-country {
+    font-size: .75rem;
+    color: #8899aa;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .gini-value {
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: .85rem;
+    color: var(--white);
+  }
+
+  .gini-bar-bg {
+    height: 4px;
+    background: rgba(255,255,255,.08);
+    border-radius: 2px;
+    margin-top: .3rem;
+    overflow: hidden;
+  }
+
+  .gini-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--gold);
+  }
+
+  /* ══════════════════════════════════════════
+     SLIDE 7 — GINI UITLEG
+  ══════════════════════════════════════════ */
+  .gini-scale {
+    width: 100%;
+    max-width: 820px;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .gini-track {
+    height: 12px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--accent-green) 0%, var(--gold) 50%, var(--accent-red) 100%);
+    position: relative;
+    margin: 1rem 0 .5rem;
+    box-shadow: 0 0 20px rgba(201,168,76,.2);
+  }
+
+  .gini-marker {
+    position: absolute;
+    top: -8px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .gini-marker-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--navy);
+    box-shadow: 0 0 8px rgba(255,255,255,.5);
+  }
+
+  .gini-marker-label {
+    font-family: 'DM Mono', monospace;
+    font-size: .62rem;
+    color: var(--white);
+    white-space: nowrap;
+    background: rgba(13,27,46,.9);
+    padding: .2rem .4rem;
+    border-radius: 3px;
+    border: 1px solid rgba(201,168,76,.3);
+    margin-top: 18px;
+  }
+
+  .gini-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: .65rem;
+    color: var(--muted);
+    padding: 0 2px;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .8rem;
+    width: 100%;
+    max-width: 820px;
+    z-index: 1;
+  }
+
+  .country-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(201,168,76,.15);
+    border-radius: 8px;
+    padding: .9rem;
+    text-align: center;
+  }
+
+  .country-card.nl { border-color: var(--gold); background: rgba(201,168,76,.08); }
+
+  .country-flag { font-size: 1.8rem; margin-bottom: .4rem; }
+
+  .country-name {
+    font-size: .75rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: .3rem;
+  }
+
+  .country-gini {
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+  }
+
+  .country-bar {
+    height: 4px;
+    border-radius: 2px;
+    margin-top: .5rem;
+    background: linear-gradient(90deg, var(--accent-green), var(--accent-red));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .country-fill {
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    background: var(--white);
+    opacity: .2;
+  }
+
+  /* ══════════════════════════════════════════
+     SLIDE 8 — HERVERDELING / OVERHEID
+  ══════════════════════════════════════════ */
+  .redistrib-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .6rem;
+    width: 100%;
+    max-width: 760px;
+    z-index: 1;
+  }
+
+  .redistrib-row {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .redistrib-box {
+    flex: 1;
+    max-width: 200px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(201,168,76,.2);
+    border-radius: 8px;
+    padding: .8rem 1rem;
+    text-align: center;
+  }
+
+  .redistrib-box.gov-box {
+    background: rgba(201,168,76,.08);
+    border-color: var(--gold);
+    max-width: 180px;
+  }
+
+  .redistrib-box-icon { font-size: 1.5rem; margin-bottom: .3rem; }
+
+  .redistrib-box-title {
+    font-family: 'DM Mono', monospace;
+    font-size: .65rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+
+  .redistrib-box-desc {
+    font-size: .78rem;
+    color: #cdd8e8;
+    margin-top: .3rem;
+    line-height: 1.4;
+  }
+
+  .arrow-down {
+    font-size: 1.5rem;
+    color: var(--gold);
+    opacity: .7;
+  }
+
+  .overdrachten-row {
+    display: flex;
+    gap: .7rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 760px;
+    z-index: 1;
+    margin-top: .5rem;
+  }
+
+  .transfer-pill {
+    background: rgba(61,184,138,.1);
+    border: 1px solid rgba(61,184,138,.3);
+    border-radius: 20px;
+    padding: .35rem .9rem;
+    font-size: .78rem;
+    color: var(--accent-green);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ══════════════════════════════════════════
+     SLIDE 9 — AFSLUITING / QUIZ VRAAG
+  ══════════════════════════════════════════ */
+  .quiz-card {
+    background: rgba(255,255,255,.04);
+    border: 1.5px solid rgba(201,168,76,.3);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    max-width: 800px;
+    width: 100%;
+    z-index: 1;
+    text-align: left;
+  }
+
+  .quiz-q {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--white);
+    margin-bottom: 1.2rem;
+    line-height: 1.45;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+  }
+
+  .quiz-opt {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 7px;
+    padding: .75rem 1rem;
+    cursor: pointer;
+    transition: all .2s;
+    font-size: .88rem;
+    color: #cdd8e8;
+  }
+
+  .quiz-opt:hover {
+    background: rgba(201,168,76,.1);
+    border-color: rgba(201,168,76,.4);
+  }
+
+  .quiz-opt.correct {
+    background: rgba(61,184,138,.12);
+    border-color: var(--accent-green);
+    color: var(--white);
+  }
+
+  .quiz-opt.wrong {
+    background: rgba(224,92,92,.1);
+    border-color: rgba(224,92,92,.4);
+    color: var(--muted);
+  }
+
+  .opt-letter {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .quiz-result {
+    margin-top: 1rem;
+    padding: .7rem 1rem;
+    border-radius: 7px;
+    font-size: .85rem;
+    display: none;
+  }
+
+  .quiz-result.show { display: block; }
+  .quiz-result.ok { background: rgba(61,184,138,.1); color: var(--accent-green); border: 1px solid rgba(61,184,138,.3); }
+  .quiz-result.nok { background: rgba(224,92,92,.1); color: var(--accent-red); border: 1px solid rgba(224,92,92,.3); }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE / UTIL
+  ══════════════════════════════════════════ */
+  @media (max-width: 700px) {
+    .goals-grid { grid-template-columns: 1fr; }
+    .concept-layout { flex-direction: column; }
+    .chart-container { flex-direction: column; }
+    .chart-legend { flex: unset; width: 100%; }
+    .comparison-grid { grid-template-columns: repeat(2, 1fr); }
+    .income-flow { flex-direction: column; align-items: center; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo-badge">Vlaconomie.nl · 3 VWO</div>
+
+<div id="deck">
+
+  <!-- ═══════════ DIA 1: TITEL ═══════════ -->
+  <div class="slide active" id="slide-1">
+    <div class="title-eyebrow">Hoofdstuk 8 · Paragraaf 8.4</div>
+    <h1 class="title-main">Inkomen&shy;<span class="gold-word">verdeling</span></h1>
+    <div class="gold-line"></div>
+    <p class="title-sub">Hoe verdeelt Nederland zijn welvaart?<br>Van bruto naar netto — en wat de overheid daartussenin doet.</p>
+    <div class="title-tags">
+      <span class="tag">Primair inkomen</span>
+      <span class="tag">Secundair inkomen</span>
+      <span class="tag">Overdrachten</span>
+      <span class="tag">Lorenz-curve</span>
+      <span class="tag">Gini-coëfficiënt</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ DIA 2: LEERDOELEN ═══════════ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <div class="slide-label">Leerdoelen § 8.4</div>
+      <h2 class="slide-title">Na deze les kun jij…</h2>
+    </div>
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-icon">💡</div>
+        <div class="goal-text">Het verschil uitleggen tussen <strong>primair</strong> en <strong>secundair inkomen</strong>.</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🏛️</div>
+        <div class="goal-text">Uitleggen hoe de overheid het inkomen <strong>herverdeelt</strong> via belastingen en uitkeringen.</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">📈</div>
+        <div class="goal-text">De <strong>Lorenz-curve</strong> lezen en uitleggen wat de ligging betekent voor de inkomensverdeling.</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🔢</div>
+        <div class="goal-text">Uitleggen wat de <strong>Gini-coëfficiënt</strong> is en hoe die de mate van ongelijkheid weergeeft.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ DIA 3: INTRO-DIALOOG ═══════════ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <div class="slide-label">Introductie</div>
+      <h2 class="slide-title">Daan en Layla over inkomen</h2>
+    </div>
+    <div class="dialogue-box">
+      <div class="dialogue-line">
+        <span class="speaker">DAAN</span>
+        <span class="speech">„Mijn vader verdient €3.500 per maand, maar hij zegt dat hij maar €2.400 overhoudt. Hoe kan dat?"</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker layla">LAYLA</span>
+        <span class="speech">„Dat komt door belastingen en premies. Zijn bruto-inkomen heet het <em>primaire inkomen</em>."</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker">DAAN</span>
+        <span class="speech">„En wat doet de overheid met dat geld?"</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker layla">LAYLA</span>
+        <span class="speech">„Een deel gaat naar mensen met een uitkering. Zo herverdeelt de overheid het inkomen. Wat je uiteindelijk overhoudt, heet het <em>secundaire inkomen</em>."</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker">DAAN</span>
+        <span class="speech">„Is iedereen in Nederland dan even rijk?"</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker layla">LAYLA</span>
+        <span class="speech">„Nee, er zijn grote verschillen. Economen gebruiken de <em>Lorenz-curve</em> om dat zichtbaar te maken!"</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ DIA 4: PRIMAIR INKOMEN ═══════════ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <div class="slide-label">Kernbegrip 1</div>
+      <h2 class="slide-title">Primair inkomen</h2>
+    </div>
+    <div class="concept-layout">
+      <div class="concept-main">
+        <p class="big-def"><strong>Primair inkomen</strong> is het inkomen dat je verdient door deel te nemen aan het productieproces — vóór belastingen of uitkeringen.</p>
+        <p class="big-def" style="font-size:.9rem; margin-top:.5rem;">Het is een vergoeding voor de <strong>productiefactoren</strong> die jij inzet:</p>
+      </div>
+      <div class="concept-side">
+        <div class="factor-row">
+          <div class="factor-icon">👷</div>
+          <div class="factor-info">
+            <div class="factor-label">Arbeid</div>
+            <div class="factor-value">→ Loon of salaris</div>
+          </div>
+        </div>
+        <div class="factor-row">
+          <div class="factor-icon">🏦</div>
+          <div class="factor-info">
+            <div class="factor-label">Kapitaal</div>
+            <div class="factor-value">→ Rente of dividend</div>
+          </div>
+        </div>
+        <div class="factor-row">
+          <div class="factor-icon">🌾</div>
+          <div class="factor-info">
+            <div class="factor-label">Grond</div>
+            <div class="factor-value">→ Pacht of huur</div>
+          </div>
+        </div>
+        <div class="factor-row">
+          <div class="factor-icon">💼</div>
+          <div class="factor-info">
+            <div class="factor-label">Ondernemerschap</div>
+            <div class="factor-value">→ Winst</div>
+          </div>
+        </div>
+        <p style="font-size:.75rem; color:var(--muted); text-align:left; margin-top:.3rem;">⚠️ Mensen zonder werk ontvangen <em>geen</em> primair inkomen uit arbeid.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ DIA 5: SECUNDAIR INKOMEN + FORMULE ═══════════ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <div class="slide-label">Kernbegrip 2</div>
+      <h2 class="slide-title">Secundair inkomen & herverdeling</h2>
+    </div>
+
+    <div class="income-flow">
+      <div class="flow-box">
+        <div class="flow-box-label">Primair inkomen</div>
+        <div class="flow-box-value">€ 3.500</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.1rem;">
+        <span class="flow-op">− belastingen</span>
+        <span class="flow-arrow">→</span>
+      </div>
+      <div class="flow-box">
+        <div class="flow-box-label">Overheid</div>
+        <div class="flow-box-value">🏛️</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.1rem;">
+        <span class="flow-op plus">+ overdrachten</span>
+        <span class="flow-arrow">→</span>
+      </div>
+      <div class="flow-box highlight-box">
+        <div class="flow-box-label">Secundair inkomen</div>
+        <div class="flow-box-value">€ 2.250</div>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">🔢 Formule</div>
+      <div class="formula-text">
+        Secundair inkomen = Primair inkomen <span class="op">−</span> Belastingen & premies <span class="op">+</span> Overdrachten
+      </div>
+    </div>
+
+    <div class="example-box">
+      Voorbeeld: Primair inkomen = €3.500 &nbsp;|&nbsp; Belastingen = €1.250 &nbsp;|&nbsp; Uitkering = €0<br>
+      Secundair inkomen = €3.500 − €1.250 + €0 = <span class="highlight">€2.250 netto per maand</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ DIA 6: LORENZ-CURVE ═══════════ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <div class="slide-label">Kernbegrip 3</div>
+      <h2 class="slide-title">De Lorenz-curve</h2>
+    </div>
+    <div class="chart-container">
+      <div class="chart-wrap">
+        <canvas id="lorenzCanvas" width="420" height="360"></canvas>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background: rgba(201,168,76,.7); border-top: 2px dashed var(--gold);"></div>
+          <span>45°-lijn: <strong>volkomen gelijkheid</strong> — iedereen heeft exact hetzelfde inkomen</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background: #3db88a;"></div>
+          <span>Lorenz-curve na herverdeling (secundair inkomen) — <strong>dichter bij de lijn</strong></span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background: #e05c5c;"></div>
+          <span>Lorenz-curve voor herverdeling (primair inkomen) — <strong>verder van de lijn</strong></span>
+        </div>
+        <p style="font-size:.75rem; color:var(--muted); margin-top:.5rem; line-height:1.5;">
+          Hoe <strong>verder</strong> de curve van de diagonaal, hoe <strong>groter</strong> de inkomensongelijkheid.
+        </p>
+        <div class="gini-badges">
+          <div class="gini-badge">
+            <span class="gini-country">🇳🇱 Nederland</span>
+            <span class="gini-value">0,28</span>
+          </div>
+          <div class="gini-badge">
+            <span class="gini-country">🇸🇪 Zweden</span>
+            <span class="gini-value">0,27</span>
+          </div>
+          <div class="gini-badge">
+            <span class="gini-country">🇺🇸 Verenigde Staten</span>
+            <span class="gini-value">0,39</span>
+          </div>
+          <div class="gini-badge">
+            <span class="gini-country">🇿🇦 Zuid-Afrika</span>
+            <span class="gini-value">0,63</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ DIA 7: GINI-COËFFICIËNT ═══════════ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <div class="slide-label">Kernbegrip 4</div>
+      <h2 class="slide-title">De Gini-coëfficiënt</h2>
+    </div>
+
+    <div class="gini-scale">
+      <div style="display:flex; justify-content:space-between; font-size:.78rem; color:var(--muted); font-family:'DM Mono',monospace; margin-bottom:.3rem;">
+        <span>= volkomen gelijkheid</span>
+        <span>= volkomen ongelijkheid</span>
+      </div>
+      <div class="gini-track" id="giniTrack">
+        <!-- markers injected by JS -->
+      </div>
+      <div class="gini-labels">
+        <span>Gini = 0</span>
+        <span>0,25</span>
+        <span>0,50</span>
+        <span>0,75</span>
+        <span>Gini = 1</span>
+      </div>
+    </div>
+
+    <div class="comparison-grid">
+      <div class="country-card nl">
+        <div class="country-flag">🇳🇱</div>
+        <div class="country-name">Nederland</div>
+        <div class="country-gini">0,28</div>
+        <div class="country-bar"><div class="country-fill" style="right:72%"></div></div>
+      </div>
+      <div class="country-card">
+        <div class="country-flag">🇸🇪</div>
+        <div class="country-name">Zweden</div>
+        <div class="country-gini">0,27</div>
+        <div class="country-bar"><div class="country-fill" style="right:73%"></div></div>
+      </div>
+      <div class="country-card">
+        <div class="country-flag">🇺🇸</div>
+        <div class="country-name">VS</div>
+        <div class="country-gini">0,39</div>
+        <div class="country-bar"><div class="country-fill" style="right:61%"></div></div>
+      </div>
+      <div class="country-card">
+        <div class="country-flag">🇿🇦</div>
+        <div class="country-name">Zuid-Afrika</div>
+        <div class="country-gini">0,63</div>
+        <div class="country-bar"><div class="country-fill" style="right:37%"></div></div>
+      </div>
+    </div>
+
+    <p style="font-size:.78rem; color:var(--muted); margin-top:1rem; z-index:1;">
+      Nederland: progressief belastingstelsel = hogere inkomens betalen <em>meer</em> belasting (%) → Gini daalt na herverdeling
+    </p>
+  </div>
+
+  <!-- ═══════════ DIA 8: HERVERDELING ═══════════ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <div class="slide-label">Rol van de overheid</div>
+      <h2 class="slide-title">Herverdeling van inkomen</h2>
+    </div>
+
+    <div class="redistrib-flow">
+      <div class="redistrib-row">
+        <div class="redistrib-box">
+          <div class="redistrib-box-icon">👨‍💼</div>
+          <div class="redistrib-box-title">Hoge inkomens</div>
+          <div class="redistrib-box-desc">Betalen <strong>meer</strong> belasting &amp; premies</div>
+        </div>
+        <div style="font-size:1.5rem; color:var(--gold);">→</div>
+        <div class="redistrib-box gov-box">
+          <div class="redistrib-box-icon">🏛️</div>
+          <div class="redistrib-box-title">Overheid</div>
+          <div class="redistrib-box-desc">Herverdeelt via overdrachten</div>
+        </div>
+        <div style="font-size:1.5rem; color:var(--gold);">→</div>
+        <div class="redistrib-box">
+          <div class="redistrib-box-icon">👷</div>
+          <div class="redistrib-box-title">Lage inkomens</div>
+          <div class="redistrib-box-desc">Ontvangen <strong>uitkeringen</strong> &amp; toeslagen</div>
+        </div>
+      </div>
+      <div class="arrow-down">↓</div>
+      <p style="font-size:.85rem; color:#cdd8e8; z-index:1; max-width:600px; line-height:1.6;">
+        Resultaat: het <strong>secundaire inkomen</strong> is gelijker verdeeld dan het primaire inkomen.<br>
+        De Lorenz-curve schuift dichter naar de 45°-lijn.
+      </p>
+    </div>
+
+    <p style="font-size:.78rem; color:var(--gold); font-family:'DM Mono',monospace; margin: .8rem 0 .4rem; z-index:1; text-transform:uppercase; letter-spacing:.1em;">Voorbeelden van overdrachten:</p>
+    <div class="overdrachten-row">
+      <span class="transfer-pill">WW-uitkering</span>
+      <span class="transfer-pill">Bijstandsuitkering</span>
+      <span class="transfer-pill">Kinderbijslag</span>
+      <span class="transfer-pill">Zorgtoeslag</span>
+      <span class="transfer-pill">Huurtoeslag</span>
+      <span class="transfer-pill">AOW</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ DIA 9: CHECK-IN VRAAG ═══════════ -->
+  <div class="slide" id="slide-9">
+    <div class="slide-header">
+      <div class="slide-label">Check-in · Toetsvraag</div>
+      <h2 class="slide-title">Wat weet jij nu?</h2>
+    </div>
+    <div class="quiz-card">
+      <p class="quiz-q">
+        Daan verdient €2.800 bruto per maand. Hij betaalt €700 belasting en premies, en ontvangt €150 zorgtoeslag.
+        <br><br>
+        <strong>Wat is zijn secundaire inkomen?</strong>
+      </p>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="checkAnswer(this, false)">
+          <div class="opt-letter">A</div>
+          €2.800 — dat is zijn bruto loon
+        </div>
+        <div class="quiz-opt" onclick="checkAnswer(this, false)">
+          <div class="opt-letter">B</div>
+          €2.100 — primair inkomen minus belastingen
+        </div>
+        <div class="quiz-opt" onclick="checkAnswer(this, true)">
+          <div class="opt-letter">C</div>
+          €2.250 — primair inkomen minus belastingen plus overdrachten
+        </div>
+        <div class="quiz-opt" onclick="checkAnswer(this, false)">
+          <div class="opt-letter">D</div>
+          €2.950 — primair inkomen plus de zorgtoeslag
+        </div>
+      </div>
+      <div id="quiz-result" class="quiz-result"></div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- Navigation -->
+<button class="nav-btn" id="btn-prev" onclick="changeSlide(-1)">&#8592;</button>
+<button class="nav-btn" id="btn-next" onclick="changeSlide(1)">&#8594;</button>
+
+<div id="progress-bar"></div>
+<div id="slide-counter">1 / 9</div>
+<div class="key-hint">← → of pijltoetsen om te navigeren</div>
+
+<script>
+  let current = 1;
+  const total = 9;
+
+  function showSlide(n) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.getElementById('slide-' + n).classList.add('active');
+    document.getElementById('slide-counter').textContent = n + ' / ' + total;
+    document.getElementById('progress-bar').style.width = (n / total * 100) + '%';
+
+    if (n === 6) drawLorenz();
+    if (n === 7) drawGiniMarkers();
+  }
+
+  function changeSlide(dir) {
+    const next = current + dir;
+    if (next < 1 || next > total) return;
+    current = next;
+    showSlide(current);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+  });
+
+  // ── LORENZ CANVAS ──
+  function drawLorenz() {
+    const canvas = document.getElementById('lorenzCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const pad = 48;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Background
+    ctx.fillStyle = 'rgba(255,255,255,0.02)';
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid lines
+    ctx.strokeStyle = 'rgba(201,168,76,0.08)';
+    ctx.lineWidth = 1;
+    for (let i = 1; i <= 4; i++) {
+      const x = pad + (W - 2*pad) * i/4;
+      const y = pad + (H - 2*pad) * i/4;
+      ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, H-pad); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W-pad, y); ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = 'rgba(201,168,76,0.5)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(pad, pad); ctx.lineTo(pad, H-pad); ctx.lineTo(W-pad, H-pad);
+    ctx.stroke();
+
+    // Axis labels
+    ctx.fillStyle = 'rgba(136,153,170,0.9)';
+    ctx.font = '11px DM Mono, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('% bevolking', W/2, H - 8);
+    ctx.save();
+    ctx.translate(12, H/2);
+    ctx.rotate(-Math.PI/2);
+    ctx.fillText('% inkomen', 0, 0);
+    ctx.restore();
+
+    // Tick labels
+    ctx.font = '10px DM Mono, monospace';
+    ctx.fillStyle = 'rgba(136,153,170,0.7)';
+    ['0%','25%','50%','75%','100%'].forEach((t, i) => {
+      const x = pad + (W - 2*pad) * i/4;
+      ctx.textAlign = 'center';
+      ctx.fillText(t, x, H - pad + 14);
+      if (i > 0) {
+        const y = H - pad - (H - 2*pad) * i/4;
+        ctx.textAlign = 'right';
+        ctx.fillText(t, pad - 6, y + 4);
+      }
+    });
+
+    // 45-degree line (perfect equality)
+    ctx.strokeStyle = 'rgba(201,168,76,0.55)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([8, 5]);
+    ctx.beginPath();
+    ctx.moveTo(pad, H - pad);
+    ctx.lineTo(W - pad, pad);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    const plotX = t => pad + t * (W - 2*pad);
+    const plotY = t => (H - pad) - t * (H - 2*pad);
+
+    // Lorenz curve primair (more unequal)
+    const primair = [
+      [0,0],[0.1,0.012],[0.2,0.04],[0.3,0.08],[0.4,0.135],
+      [0.5,0.205],[0.6,0.295],[0.7,0.41],[0.8,0.56],[0.9,0.74],[1,1]
+    ];
+
+    ctx.strokeStyle = '#e05c5c';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    primair.forEach(([x,y], i) => {
+      i === 0 ? ctx.moveTo(plotX(x), plotY(y)) : ctx.lineTo(plotX(x), plotY(y));
+    });
+    ctx.stroke();
+
+    // Lorenz curve secundair (less unequal)
+    const secundair = [
+      [0,0],[0.1,0.03],[0.2,0.08],[0.3,0.145],[0.4,0.225],
+      [0.5,0.325],[0.6,0.44],[0.7,0.565],[0.8,0.70],[0.9,0.845],[1,1]
+    ];
+
+    ctx.strokeStyle = '#3db88a';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    secundair.forEach(([x,y], i) => {
+      i === 0 ? ctx.moveTo(plotX(x), plotY(y)) : ctx.lineTo(plotX(x), plotY(y));
+    });
+    ctx.stroke();
+
+    // Labels on curves
+    ctx.font = 'bold 10px DM Sans, sans-serif';
+    ctx.fillStyle = '#e05c5c';
+    ctx.textAlign = 'left';
+    ctx.fillText('Primair', plotX(0.72) + 5, plotY(0.45));
+
+    ctx.fillStyle = '#3db88a';
+    ctx.fillText('Secundair', plotX(0.65) + 5, plotY(0.57));
+  }
+
+  function drawGiniMarkers() {
+    const track = document.getElementById('giniTrack');
+    if (!track || track.children.length > 0) return;
+
+    const countries = [
+      { name: '🇸🇪 Zweden', gini: 0.27 },
+      { name: '🇳🇱 NL', gini: 0.28 },
+      { name: '🇺🇸 VS', gini: 0.39 },
+      { name: '🇿🇦 ZA', gini: 0.63 },
+    ];
+
+    countries.forEach(c => {
+      const m = document.createElement('div');
+      m.className = 'gini-marker';
+      m.style.left = (c.gini * 100) + '%';
+      m.innerHTML = `<div class="gini-marker-dot"></div><div class="gini-marker-label">${c.name}<br>${c.gini}</div>`;
+      track.appendChild(m);
+    });
+  }
+
+  // ── QUIZ ──
+  function checkAnswer(el, correct) {
+    const opts = document.querySelectorAll('.quiz-opt');
+    opts.forEach(o => { o.classList.remove('correct','wrong'); o.onclick = null; });
+    el.classList.add(correct ? 'correct' : 'wrong');
+    if (!correct) {
+      opts.forEach(o => {
+        if (o.onclick === null && !o.classList.contains('wrong')) {
+          // find correct one
+        }
+      });
+      // highlight correct
+      opts[2].classList.add('correct');
+    }
+    const res = document.getElementById('quiz-result');
+    res.className = 'quiz-result show ' + (correct ? 'ok' : 'nok');
+    res.textContent = correct
+      ? '✓ Goed! €2.800 − €700 + €150 = €2.250. Dat is zijn secundaire inkomen.'
+      : '✗ Niet helemaal. Het antwoord is C: €2.800 − €700 + €150 = €2.250.';
+  }
+
+  // Init
+  showSlide(1);
+</script>
+</body>
+</html>
