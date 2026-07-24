@@ -1,0 +1,7 @@
+Plaats hier de echte PDF-bestanden met exact deze namen:
+- werkboek-thema1.pdf
+- werkblad-les-1-1.pdf
+- werkblad-les-1-2.pdf
+- werkblad-les-1-3.pdf
+- werkblad-les-1-4.pdf
+- werkblad-rekenopdrachten-2f.pdf
